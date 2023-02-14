@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import React from 'react';
 import Login from './components/Login/Login';
 import OrderSummary from './components/OrderSummary/OrderSummary';
+import EditProfile from './components/EditProfile/EditProfile';
 
 function App() {
   return (
@@ -28,6 +29,13 @@ function App() {
             <OrderSummary/>
           </React.Fragment>
       }></Route>
+      <Route path ="/editprofile" element={
+         <React.Fragment>
+         <EditProfile/>
+       </React.Fragment>
+
+      }></Route>
+
 
     </Routes>
 
