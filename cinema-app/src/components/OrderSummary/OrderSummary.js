@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function OrderSummary() {
     return (
-      <div className="App">
+      <div>
         <br></br>
         <h1>Order Summary</h1>
        <Link to  = "/"><button type="button">Homepage</button></Link>
