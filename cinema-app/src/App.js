@@ -4,11 +4,12 @@ import Navbar from './components/Navbar/Navbar';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import React from 'react';
 import Login from './components/Login/Login';
+import OrderSummary from './components/OrderSummary/OrderSummary';
 
 function App() {
   return (
     <Router>
-    <Navbar />
+       <Navbar />
     <Routes>
 
     <Route path = "/" element={
@@ -21,7 +22,16 @@ function App() {
             <Login/>
           </React.Fragment>
       }></Route>
+
+      <Route path = "/ordersummary" element={
+          <React.Fragment>
+            <OrderSummary/>
+          </React.Fragment>
+      }></Route>
+
     </Routes>
+
+    
 
     </Router>
   );
