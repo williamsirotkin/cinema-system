@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import OrderSummary from './components/OrderSummary/OrderSummary';
 import AdminHomePage from './components/AdminHomePage/AdminHomePage';
 import EditProfile from './components/EditProfile/EditProfile';
+import AddPromotions from './components/AddPromotions/AddPromotions';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <OrderSummary/>
           </React.Fragment>
       }></Route>
+
       <Route path ="/editprofile" element={
          <React.Fragment>
          <EditProfile/>
@@ -38,9 +40,15 @@ function App() {
       }></Route>
 
 
-<Route path = "/admin" element={
+      <Route path = "/admin" element={
           <React.Fragment>
             <AdminHomePage/>
+          </React.Fragment>
+      }></Route>
+      
+      <Route path = "/addPromotions" element={
+          <React.Fragment>
+            <AddPromotions/>
           </React.Fragment>
       }></Route>
 
