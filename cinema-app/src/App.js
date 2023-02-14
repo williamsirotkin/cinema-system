@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import React from 'react';
 import Login from './components/Login/Login';
 import OrderSummary from './components/OrderSummary/OrderSummary';
+import AdminHomePage from './components/AdminHomePage/AdminHomePage';
 import EditProfile from './components/EditProfile/EditProfile';
 
 function App() {
@@ -36,6 +37,12 @@ function App() {
 
       }></Route>
 
+
+<Route path = "/admin" element={
+          <React.Fragment>
+            <AdminHomePage/>
+          </React.Fragment>
+      }></Route>
 
     </Routes>
 
