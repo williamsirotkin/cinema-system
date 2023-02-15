@@ -1,0 +1,13 @@
+.carousel {
+    display: flex;
+    justify-content: center;
+}
+
+.homepage {
+    text-align: center;
+}
+
+.showtimes {
+    display: flex;
+    justify-content: space-between;
+}
