@@ -17,6 +17,7 @@ import SelectAge from './components/SelectAge/SelectAge';
 import SelectMovie from './components/SelectMovie/SelectMovie';
 import SelectSeats from './components/SelectSeats/SelectSeats';
 import SelectShowtime from './components/SelectShowtime/SelectShowtime';
+import Homepage from './components/Homepage/Homepage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
     <Route path = "/" element={
       <React.Fragment> 
+        <Homepage/>
       </React.Fragment>
     }></Route>
 
