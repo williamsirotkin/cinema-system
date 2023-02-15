@@ -8,6 +8,15 @@ import OrderSummary from './components/OrderSummary/OrderSummary';
 import AdminHomePage from './components/AdminHomePage/AdminHomePage';
 import EditProfile from './components/EditProfile/EditProfile';
 import AddPromotions from './components/AddPromotions/AddPromotions';
+import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
+import ManageMovies from './components/ManageMovies/ManageMovies';
+import CheckoutPage from './components/CheckoutPage/CheckoutPage';
+import RegistrationPage from './components/RegistrationPage/RegistrationPage';
+import RegistrationConfirmationPage from './components/RegistrationConfirmationPage/RegistrationConfirmationPage';
+import SelectAge from './components/SelectAge/SelectAge';
+import SelectMovie from './components/SelectMovie/SelectMovie';
+import SelectSeats from './components/SelectSeats/SelectSeats';
+import SelectShowtime from './components/SelectShowtime/SelectShowtime';
 
 function App() {
   return (
@@ -49,6 +58,60 @@ function App() {
       <Route path = "/addPromotions" element={
           <React.Fragment>
             <AddPromotions/>
+          </React.Fragment>
+      }></Route>
+
+    <Route path = "/orderConfirmation" element={
+          <React.Fragment>
+            <OrderConfirmation/>
+          </React.Fragment>
+      }></Route>
+
+      <Route path = "/manageMovies" element={
+          <React.Fragment>
+            <ManageMovies/>
+          </React.Fragment>
+      }></Route>
+
+      <Route path = "/checkoutPage" element={
+          <React.Fragment>
+            <CheckoutPage/>
+          </React.Fragment>
+      }></Route>
+
+        <Route path = "/registrationPage" element={
+          <React.Fragment>
+            <RegistrationPage/>
+          </React.Fragment>
+      }></Route>
+
+        <Route path = "/registrationConfirmationPage" element={
+          <React.Fragment>
+            <RegistrationConfirmationPage/>
+          </React.Fragment>
+      }></Route>
+
+    <Route path = "/selectMovie" element={
+          <React.Fragment>
+            <SelectMovie/>
+          </React.Fragment>
+      }></Route>
+
+      <Route path = "/selectShowtime" element={
+          <React.Fragment>
+            <SelectShowtime/>
+          </React.Fragment>
+      }></Route>
+
+        <Route path = "/selectSeats" element={
+          <React.Fragment>
+            <SelectSeats/>
+          </React.Fragment>
+      }></Route>
+
+        <Route path = "/selectAges" element={
+          <React.Fragment>
+            <SelectAge/>
           </React.Fragment>
       }></Route>
 
