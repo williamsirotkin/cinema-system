@@ -26,13 +26,13 @@ function App() {
           </React.Fragment>
       }></Route>
 
-      <Route path = "/ordersummary" element={
+      <Route path = "/orderSummary" element={
           <React.Fragment>
             <OrderSummary/>
           </React.Fragment>
       }></Route>
 
-      <Route path ="/editprofile" element={
+      <Route path ="/editProfile" element={
          <React.Fragment>
          <EditProfile/>
        </React.Fragment>
