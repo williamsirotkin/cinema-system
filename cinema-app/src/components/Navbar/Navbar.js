@@ -9,7 +9,7 @@ function Navbar() {
     <div>
      <nav class="navbar navbar-expand-lg bg-body-tertiary">
    <div class="container-fluid">
-     <a class="navbar-brand" href="#">Navbar</a>
+     <a class="navbar-brand" href="#">E-Booking</a>
      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
      </button>
@@ -30,6 +30,7 @@ function Navbar() {
         <a class="nav-link" href="/selectShowtime">Select Showtime</a>
         <a class="nav-link" href="/selectSeats">Select Seats</a>
         <a class="nav-link" href="/selectAges">Select Ages</a>
+        <a class="nav-link" href="/signup">Sign up</a>
        </div>
      </div>
    </div>

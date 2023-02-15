@@ -18,6 +18,7 @@ import SelectMovie from './components/SelectMovie/SelectMovie';
 import SelectSeats from './components/SelectSeats/SelectSeats';
 import SelectShowtime from './components/SelectShowtime/SelectShowtime';
 import Homepage from './components/Homepage/Homepage';
+import Signup from './components/Signup/Signup';
 
 function App() {
   return (
@@ -114,6 +115,11 @@ function App() {
         <Route path = "/selectAges" element={
           <React.Fragment>
             <SelectAge/>
+          </React.Fragment>
+      }></Route>
+      <Route path = "/signup" element={
+          <React.Fragment>
+            <Signup/>
           </React.Fragment>
       }></Route>
 
