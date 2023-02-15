@@ -15,10 +15,10 @@ function Navbar() {
      </button>
      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
        <div class="navbar-nav">
-        <Link to = '/'><a class="nav-link active" aria-current="page" href="#">Home</a></Link>
-         <Link to = '/login'><a class="nav-link" href="#">Login</a></Link>
-         <Link to = '/orderSummary'><a class="nav-link" href="#">Order Summary</a></Link>
-         <Link to = '/editProfile'><a class="nav-link disabled">Edit Profile</a></Link>
+       <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/orderSummary">Order Summary</a>
+        <a class="nav-link" href="/editProfile">Edit Profile</a>
        </div>
      </div>
    </div>
