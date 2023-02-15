@@ -13,7 +13,7 @@ export default function Homepage() {
      <Carousel>
         <Carousel.Item  width = {500} height = {5}>
             <Card style={{ width: '25rem' }}>
-            <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQje3-NJXiD31oJbo0LWUXA7qRM2LXRlJP50t5W_WuslLALamvbjh6CIhvxuZMC_rgVbP8&usqp=CAU" />
+            <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg" />
             <Card.Body>
                 <Card.Title>The Batman</Card.Title>
                 <div class = "showtimes">
@@ -26,7 +26,7 @@ export default function Homepage() {
         </Carousel.Item>
         <Carousel.Item  width = {250}>
             <Card style={{ width: '25rem' }}>
-            <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQje3-NJXiD31oJbo0LWUXA7qRM2LXRlJP50t5W_WuslLALamvbjh6CIhvxuZMC_rgVbP8&usqp=CAU" />
+            <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" />
             <Card.Body>
                 <Card.Title>The Batman</Card.Title>
                 <div class = "showtimes">
@@ -44,7 +44,7 @@ export default function Homepage() {
      <Carousel>
         <Carousel.Item  width = {500} height = {5}>
             <Card style={{ width: '25rem' }}>
-            <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQje3-NJXiD31oJbo0LWUXA7qRM2LXRlJP50t5W_WuslLALamvbjh6CIhvxuZMC_rgVbP8&usqp=CAU" />
+            <Card.Img variant="top" src="https://broadbandforum.co/attachments/oppenheimer-webp.6209/" />
             <Card.Body>
                 <Card.Title>The Batman</Card.Title>
                 <div class = "showtimes">
@@ -57,7 +57,7 @@ export default function Homepage() {
         </Carousel.Item>
         <Carousel.Item  width = {250}>
             <Card style={{ width: '25rem' }}>
-            <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQje3-NJXiD31oJbo0LWUXA7qRM2LXRlJP50t5W_WuslLALamvbjh6CIhvxuZMC_rgVbP8&usqp=CAU" />
+            <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDgxOTdjMzYtZGQxMS00ZTAzLWI4Y2UtMTQzN2VlYjYyZWRiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" />
             <Card.Body>
                 <Card.Title>The Batman</Card.Title>
                 <div class = "showtimes">
