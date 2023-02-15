@@ -1,16 +1,27 @@
-import React from 'react'
+import React from 'react'; 
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import {Navbar as BootNav} from 'react-bootstrap/Navbar' ;
+
 
 function Navbar() {
-  return (
-    <div>
-     <Link to  = "/login"><Button type="button" class = "btn">Login</Button></Link>
-     <Link to  = "/ordersummary"><button type="button">OrderSummary</button></Link>
-     <Link to  = "/admin"><button type="button">Admin Homepage</button></Link>
-     <Link to  = "/editprofile"><button type="button">Edit Profile</button></Link>
-     <Link to  = "/addPromotions"><button type="button">Add Promotions</button></Link>
+  return ( <div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link disabled">Disabled</a>
+      </div>
     </div>
+  </div>
+</nav> </div>
   );
 }
 
