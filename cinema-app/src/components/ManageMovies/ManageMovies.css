@@ -13,7 +13,9 @@
 }
 .movie-row {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    padding: 20px;
+
 }
 
 .add-movie-row {
