@@ -9,7 +9,7 @@
 
 .showtimes {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 .homepageTitles{
         border-radius: 5px;
