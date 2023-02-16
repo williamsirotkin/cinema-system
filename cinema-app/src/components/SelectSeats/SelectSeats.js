@@ -46,6 +46,7 @@ const SelectSeats = () => {
   return (
     <Container className="d-flex flex-column align-items-center">
       <Image src="https://www.freeiconspng.com/uploads/now-showing-cinema-movie-theatre-png-24.png" fluid style={{ maxWidth: '500px', padding: '20px' }} />
+      <h1 style> Please select a seat</h1>
       <Row>
         <Col>
           <div style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'black' }}>
