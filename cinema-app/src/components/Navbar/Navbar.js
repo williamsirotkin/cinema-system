@@ -16,7 +16,6 @@ function Navbar() {
      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
        <div class="navbar-nav">
        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/login">Login</a>
         <a class="nav-link" href="/orderSummary">Order Summary</a>
         <a class="nav-link" href="/editProfile">Edit Profile</a>
         <a class="nav-link" href="/orderConfirmation">Order Confirmation</a>
@@ -24,12 +23,12 @@ function Navbar() {
         <a class="nav-link" href="/admin">Admin Page</a>
         <a class="nav-link" href="/manageMovies">Manage Movies</a>
         <a class="nav-link" href="/checkoutPage">Checkout Page</a>
-        <a class="nav-link" href="/registrationPage">Registration Page</a>
         <a class="nav-link" href="/registrationConfirmationPage">Registration Confirmation Page</a>
         <a class="nav-link" href="/selectMovie">Select Movie</a>
         <a class="nav-link" href="/selectShowtime">Select Showtime</a>
         <a class="nav-link" href="/selectSeats">Select Seats</a>
         <a class="nav-link" href="/selectAges">Select Ages</a>
+        <a class="nav-link" href="/login">Login</a>
         <a class="nav-link" href="/signup">Sign up</a>
        </div>
      </div>

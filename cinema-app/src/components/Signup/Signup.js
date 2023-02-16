@@ -56,7 +56,7 @@ const RegistrationPage = () => {
           />
         </Form.Group>
         <br></br>
-        <Button variant="primary" type="submit">
+        <Button variant="btn btn-danger" type="submit" href="/registrationConfirmationPage">
           Submit
         </Button>
       </Form>
