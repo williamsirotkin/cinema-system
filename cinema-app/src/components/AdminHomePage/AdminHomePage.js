@@ -4,14 +4,12 @@ import { Card, Button } from "react-bootstrap";
 
 export default function AdminHomePage() {
   return (
-    <div>
+    <div className = "admin-page">
         <h1> Welcome William! </h1>
-        <div>
         <Link to  = "/manageMovies"><Button variant="primary"> Manage Movies </Button></Link>
         <br></br>
         <br></br>
         <Link to  = "/addPromotions"><Button variant="success"> Manage Promotions </Button></Link>
-        </div>
     </div>
   )
 }
