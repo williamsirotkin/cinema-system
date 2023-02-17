@@ -1,9 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import {Navbar as BootNav} from 'react-bootstrap/Navbar';
+import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
+
+function MainNavbar() {
+  return (
+    <Navbar bg="light" expand="lg">
+      <Container className = "navbar">
+        <img src = {require("../../assets/cinema-logo.png")} alt = "image" height = "60"></img>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <Navbar.Brand href="/"> E-Booking Cinema System </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <NavDropdown title="Profile" id="basic-nav-dropdown">
+              <NavDropdown.Item href="/editProfile">
+                Edit Profile
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/signup"> Sign Up </NavDropdown.Item>
+              <NavDropdown.Item href="/login">
+                Login
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  )
+}
+/*
 function Navbar() {
   return (
     <div>
@@ -37,5 +69,5 @@ function Navbar() {
  </div>
   );
 }
-
-export default Navbar;
+*/
+export default MainNavbar;

@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import MainNavbar from './components/Navbar/Navbar';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import React from 'react';
 import Login from './components/Login/Login';
@@ -23,7 +23,7 @@ import Signup from './components/Signup/Signup';
 function App() {
   return (
     <Router>
-       <Navbar />
+       <MainNavbar />
     <Routes>
 
     <Route path = "/" element={
