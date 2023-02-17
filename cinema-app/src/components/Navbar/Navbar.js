@@ -19,6 +19,23 @@ function MainNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <NavDropdown title="Every Page" id="basic-nav-dropdown">
+            <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
+              <NavDropdown.Item href="/admin"> Admin Page </NavDropdown.Item>
+              <NavDropdown.Item href="/checkoutPage"> Checkout Page </NavDropdown.Item>
+              <NavDropdown.Item href="/editProfile"> Edit Profile </NavDropdown.Item>
+              <NavDropdown.Item href="/"> Homepage </NavDropdown.Item>
+              <NavDropdown.Item href="/login"> Login </NavDropdown.Item>
+              <NavDropdown.Item href="/manageMovies"> Manage Movies </NavDropdown.Item>
+              <NavDropdown.Item href="/orderConfirmation"> Order Confirmation </NavDropdown.Item>
+              <NavDropdown.Item href="/orderSummary"> Order Summary </NavDropdown.Item>
+              <NavDropdown.Item href="/registrationConfirmationPage"> Registration Confirmation </NavDropdown.Item>
+              <NavDropdown.Item href="/registrationPage"> Registration Page </NavDropdown.Item>
+              <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
+              <NavDropdown.Item href="/selectMovie"> Select Movie </NavDropdown.Item>
+              <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
+              <NavDropdown.Item href="/signup"> Signup </NavDropdown.Item>
+            </NavDropdown>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/editProfile">
                 Edit Profile
