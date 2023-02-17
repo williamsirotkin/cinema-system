@@ -20,6 +20,7 @@ function MainNavbar() {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/selectMovie"> Booking </Nav.Link>
+            <Nav.Link href="/orderSummary"> My Cart </Nav.Link>
             <NavDropdown title="Every Page" id="basic-nav-dropdown">
             <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
               <NavDropdown.Item href="/admin"> Admin Page </NavDropdown.Item>

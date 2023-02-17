@@ -40,3 +40,7 @@ h4, h1, p, h2, h5{
 .confirmOrder{
     margin-left: 20px;
 }
+
+.ticket-row {
+    display: flex;
+}
