@@ -6,7 +6,7 @@ import './OrderSummary.css'
 
 function OrderSummary() {
     return (
-      <div>
+      <div className = "movieCard">
         <br></br>
         <Card  style={{ width: '68rem' }}>
       <Card.Header as="h5">Order Summary</Card.Header>
