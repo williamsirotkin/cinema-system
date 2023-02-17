@@ -66,7 +66,7 @@ const SelectShowtimes = () => {
         {showtimes[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button href = "/selectSeats" variant="success" key  = {time}> {time} </Button>
+            <Button href = "/selectAges" variant="success" key  = {time}> {time} </Button>
           </div>
         ))}
       </div>

@@ -11,41 +11,47 @@ export default function SelectAge() {
   return (
     <div className = "select-ages-page">
       <h1 className = "select-ages">
-        Select Ages For Each Ticket
+        Select Ages 
       </h1>
       <br></br>
       <br></br>
       <div className = "select-ages">
-      <h2 > <strong>Seat A1:</strong> &nbsp;  </h2>
-      <DropdownButton id="dropdown-basic-button" title="Select Age for Seat">
-      <Dropdown.Item> Child</Dropdown.Item>
-      <Dropdown.Item> Adult </Dropdown.Item>
-      <Dropdown.Item> Senior </Dropdown.Item>
+      <h2 > <strong>Adult:</strong> &nbsp;  </h2>
+      <DropdownButton id="dropdown-basic-button" title="Select">
+      <Dropdown.Item> 1</Dropdown.Item>
+      <Dropdown.Item> 2</Dropdown.Item>
+      <Dropdown.Item> 3 </Dropdown.Item>
+      <Dropdown.Item> 4</Dropdown.Item>
+      <Dropdown.Item> 5 </Dropdown.Item>
     </DropdownButton>   
     </div>
     <br></br>
       <br></br>
       <div className = "select-ages">
-      <h2> <strong>Seat A2:</strong> &nbsp;  </h2>
-      <DropdownButton id="dropdown-basic-button" title="Select Age for Seat">
-      <Dropdown.Item> Child</Dropdown.Item>
-      <Dropdown.Item> Adult </Dropdown.Item>
-      <Dropdown.Item> Senior </Dropdown.Item>
+      <h2> <strong>Child:</strong> &nbsp;  </h2>
+      <DropdownButton id="dropdown-basic-button" title="Select">
+      <Dropdown.Item> 1</Dropdown.Item>
+      <Dropdown.Item> 2</Dropdown.Item>
+      <Dropdown.Item> 3 </Dropdown.Item>
+      <Dropdown.Item> 4 </Dropdown.Item>
+      <Dropdown.Item> 5 </Dropdown.Item>
     </DropdownButton>   
     </div> 
     <br></br>
       <br></br>
       <div className = "select-ages">
-      <h2 > <strong>Seat A3:</strong> &nbsp;  </h2>
-      <DropdownButton id="dropdown-basic-button" title="Select Age for Seat">
-      <Dropdown.Item> Child</Dropdown.Item>
-      <Dropdown.Item> Adult </Dropdown.Item>
-      <Dropdown.Item> Senior </Dropdown.Item>
+      <h2 > <strong>Senior:</strong> &nbsp;  </h2>
+      <DropdownButton id="dropdown-basic-button" title="Select">
+      <Dropdown.Item> 1</Dropdown.Item>
+      <Dropdown.Item> 2</Dropdown.Item>
+      <Dropdown.Item> 3</Dropdown.Item>
+      <Dropdown.Item> 4 </Dropdown.Item>
+      <Dropdown.Item> 5</Dropdown.Item>
     </DropdownButton>   
     </div> 
     <br></br>
     <br></br>
-    <Link className = "select-ages" to  = "/orderSummary"><Button variant="dark"> View Order and Checkout </Button></Link>
+    <Link className = "select-ages" to  = "/selectSeats"><Button variant="dark"> Choose seats </Button></Link>
       </div>
   )
 }
