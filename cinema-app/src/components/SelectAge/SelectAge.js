@@ -31,7 +31,7 @@ const handleSelect3 = (eventKey) => {
     <br></br>
     <br></br>
     <div className = "center">
-    <h3 className = "center"> Ticket A1: </h3>
+    <h3 className = "center"> Ticket 1: </h3>
     &nbsp; &nbsp; &nbsp; &nbsp;
     <Dropdown className = "center" onSelect={handleSelect1}>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -48,7 +48,7 @@ const handleSelect3 = (eventKey) => {
     <br></br>
     <br></br>
     <div className = "center">
-    <h3 className = "center"> Ticket A2: </h3>
+    <h3 className = "center"> Ticket 2: </h3>
     &nbsp; &nbsp; &nbsp; &nbsp;
     <Dropdown className = "center" onSelect={handleSelect2}>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -65,7 +65,7 @@ const handleSelect3 = (eventKey) => {
     <br></br>
     <br></br>
     <div className = "center">
-    <h3 className = "center"> Ticket A3: </h3>
+    <h3 className = "center"> Ticket 3: </h3>
     &nbsp; &nbsp; &nbsp; &nbsp;
     <Dropdown className = "center" onSelect={handleSelect3}>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
