@@ -22,3 +22,8 @@
     float: left;
     width: 85%
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+}

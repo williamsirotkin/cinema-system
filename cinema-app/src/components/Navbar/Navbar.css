@@ -4,6 +4,9 @@
     justify-content: center;
     width: 100%;
     height: 65px;
-    
-    
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
 }

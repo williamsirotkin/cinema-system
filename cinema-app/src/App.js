@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import MainNavbar from './components/Navbar/Navbar';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import React from 'react';
 import Login from './components/Login/Login';
@@ -11,7 +11,6 @@ import AddPromotions from './components/AddPromotions/AddPromotions';
 import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
 import ManageMovies from './components/ManageMovies/ManageMovies';
 import CheckoutPage from './components/CheckoutPage/CheckoutPage';
-import RegistrationPage from './components/RegistrationPage/RegistrationPage';
 import RegistrationConfirmationPage from './components/RegistrationConfirmationPage/RegistrationConfirmationPage';
 import SelectAge from './components/SelectAge/SelectAge';
 import SelectMovie from './components/SelectMovie/SelectMovie';
@@ -23,7 +22,7 @@ import Signup from './components/Signup/Signup';
 function App() {
   return (
     <Router>
-       <Navbar />
+       <MainNavbar />
     <Routes>
 
     <Route path = "/" element={
@@ -79,12 +78,6 @@ function App() {
       <Route path = "/checkoutPage" element={
           <React.Fragment>
             <CheckoutPage/>
-          </React.Fragment>
-      }></Route>
-
-        <Route path = "/registrationPage" element={
-          <React.Fragment>
-            <RegistrationPage/>
           </React.Fragment>
       }></Route>
 

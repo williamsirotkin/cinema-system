@@ -14,7 +14,6 @@ const RegistrationConfirmationPage = () => {
           <h4>Your registration details:</h4>
           <p><strong>Name:</strong> Marc Silverman</p>
           <p><strong>Email:</strong> marc123@aol.net</p>
-          <p><strong>Password:</strong> ILoveToCode13</p>
           <Button variant="btn btn-danger" href="/">Continue</Button>
         </Col>
       </Row>
