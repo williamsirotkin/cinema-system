@@ -34,6 +34,9 @@
     font-weight: bold;
 
 }
-h4, h1, p{
+h4, h1, p, h5, h2{
     font-family: 'Courier New', monospace;
+}
+.confirmOrder{
+    margin-left: 20px;
 }
