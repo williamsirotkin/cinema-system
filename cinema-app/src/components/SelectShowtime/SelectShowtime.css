@@ -1,0 +1,24 @@
+.showtimes-title {
+    display: flex;
+    justify-content: center;
+}
+
+.dayHeader{
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    color:white;
+    margin-left: auto;
+    margin-right: auto;
+    height:50px;
+    width: 95%;
+    background-color: #BA0C2F;
+    text-align: center;
+}
+
+.showtimes-row {
+    display: flex;
+    justify-content: space-evenly;
+    float: left;
+    width: 85%
+}
