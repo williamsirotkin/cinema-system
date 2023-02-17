@@ -61,9 +61,9 @@ export default function CheckoutPage() {
         </div>
       </Card.Body>
       <br></br>
-      <Button variant="dark" size="lg">
+      <Link to  = "/OrderConfirmation"><Button  className="confirmOrder" variant="dark" size="lg">
           Complete Order
-        </Button>{' '}
+        </Button>{' '}</Link>
     </Card>
     </div>
     </div>
