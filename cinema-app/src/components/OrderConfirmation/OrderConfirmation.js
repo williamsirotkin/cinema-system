@@ -1,7 +1,15 @@
+<<<<<<< HEAD
+import React from 'react';
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+
+const OrderConfirmation = ({ movie, date, time, seats, totalCost }) => {
+=======
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 export default function OrderConfirmation() {
+>>>>>>> 3fa8c1a34db5c625aa9801aaaea3c5eaae193ecf
   return (
     <Container className = 'container1'>
       <br></br>
@@ -23,9 +31,19 @@ export default function OrderConfirmation() {
           <p><strong>Refundable up until 60 minutes before the screening</strong></p>
           <hr />
 
+<<<<<<< HEAD
+
+      </ul>
+
+      <Link to  = "/"><Button variant="danger"> Back to Home </Button></Link>
+
+    </div>
+  );
+=======
           <Button variant="btn btn-danger" href="/">Return to homepage</Button>
         </Col>
       </Row>
     </Container>
   )
+>>>>>>> 3fa8c1a34db5c625aa9801aaaea3c5eaae193ecf
 }
