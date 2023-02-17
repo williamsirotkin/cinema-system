@@ -19,6 +19,7 @@ function MainNavbar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/selectMovie"> Booking </Nav.Link>
             <NavDropdown title="Every Page" id="basic-nav-dropdown">
             <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
               <NavDropdown.Item href="/admin"> Admin Page </NavDropdown.Item>
@@ -35,7 +36,6 @@ function MainNavbar() {
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/signup"> Signup </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/selectMovie"> Booking </Nav.Link>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/editProfile">
                 Edit Profile
