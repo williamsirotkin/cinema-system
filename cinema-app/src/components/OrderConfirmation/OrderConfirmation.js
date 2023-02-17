@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
 
 const OrderConfirmation = ({ movie, date, time, seats, totalCost }) => {
   return (
@@ -15,6 +17,9 @@ const OrderConfirmation = ({ movie, date, time, seats, totalCost }) => {
 
 
       </ul>
+
+      <Link to  = "/"><Button variant="danger"> Back to Home </Button></Link>
+
     </div>
   );
 }
