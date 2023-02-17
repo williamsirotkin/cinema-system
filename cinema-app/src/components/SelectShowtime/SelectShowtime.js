@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function SelectShowtime() {
   return (
     <div className = "select-showtime-page">
-      <div className = "showtimes-title"><h1>Select Your Showtime </h1></div>
+      <div className = "showtimes-title"><h1>Select Your Showtime For The Batman </h1></div>
       <div className = "dayHeader">
         <h1> March 2nd </h1>
       </div>
