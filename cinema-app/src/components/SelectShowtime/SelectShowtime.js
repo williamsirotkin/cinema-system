@@ -50,8 +50,8 @@ const SelectShowtimes = () => {
   };
 
   return (
-    <div>
-      <h2 className = "center">Showtimes for The Batman </h2>
+    <div className='box'>
+      <h2 className = "center"><strong>Showtimes for The Batman </strong></h2>
       <br></br>
       <div  className = "center" >
       <Button variant="primary" onClick={decrementSelectedDay}> Previous Day </Button>
@@ -66,7 +66,7 @@ const SelectShowtimes = () => {
         {showtimes[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button href = "/selectAges" variant="success" key  = {time}> {time} </Button>
+            <Button href = "/selectAges" variant="danger" key  = {time}> {time} </Button>
           </div>
         ))}
       </div>

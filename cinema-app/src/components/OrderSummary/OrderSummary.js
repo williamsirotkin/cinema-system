@@ -47,7 +47,7 @@ function OrderSummary() {
         </div>
       ))}
         <br></br>
-        <Link to  = "/selectMovie"><Button  className="confirmOrder" variant="success" size="lg">Add to Order</Button> </Link>
+        <Link to  = "/selectMovie"><Button  className="confirmOrder" variant="dark" size="lg">Add to Order</Button> </Link>
         <hr />
         <div class="d-flex justify-content-between">
         <p class="fs-5">Subtotal</p>
