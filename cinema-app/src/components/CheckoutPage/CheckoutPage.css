@@ -1,0 +1,39 @@
+.checkoutHeader{
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    color:white;
+    margin-left: auto;
+    margin-right: auto;
+    height:50px;
+    width: 95%;
+    background-color: #BA0C2F;
+    text-align: center;
+}
+.header{
+    background-color: rgb(40, 40, 40);
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color:white;
+}
+.filmImg{
+    float:left;
+    margin-left: 300px;
+}
+
+.movieInfo{
+    margin-bottom: 215px;
+}
+.movieCard{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+.fs-5:nth-child(1),.fs-6,.fs-4{
+    font-weight: bold;
+
+}
+h4, h1, p{
+    font-family: 'Courier New', monospace;
+}
