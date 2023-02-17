@@ -16,7 +16,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>The Batman</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now </Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now </Button></Link>
                 </div>
 
             </Card.Body>
@@ -27,7 +27,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Everything Everywhere All At Once</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -37,7 +37,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Intersteller</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -53,7 +53,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Parasite</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -62,7 +62,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Superbad</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -71,7 +71,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Pulp Fiction</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -92,7 +92,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Oppenheimer</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -101,7 +101,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>The Flash</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -110,7 +110,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Guardians of the Galaxy Vol.3</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -126,7 +126,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Guardians of the Galaxy Vol.3</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -136,7 +136,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Barbie</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>
@@ -146,7 +146,7 @@ export default function Homepage() {
             <Card.Body>
                 <Card.Title>Joker 2</Card.Title>
                 <div class = "showtimes">
-                <Link to  = "/selectSeats"><Button variant="btn btn-dark"> Book now</Button></Link>
+                <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
             </Card.Body>
             </Card>

@@ -51,7 +51,7 @@ const SelectShowtimes = () => {
 
   return (
     <div>
-      <h2 className = "center">Movie Showtimes</h2>
+      <h2 className = "center">Showtimes for The Batman </h2>
       <br></br>
       <div  className = "center" >
       <Button variant="primary" onClick={decrementSelectedDay}> Previous Day </Button>

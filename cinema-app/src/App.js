@@ -11,7 +11,6 @@ import AddPromotions from './components/AddPromotions/AddPromotions';
 import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
 import ManageMovies from './components/ManageMovies/ManageMovies';
 import CheckoutPage from './components/CheckoutPage/CheckoutPage';
-import RegistrationPage from './components/RegistrationPage/RegistrationPage';
 import RegistrationConfirmationPage from './components/RegistrationConfirmationPage/RegistrationConfirmationPage';
 import SelectAge from './components/SelectAge/SelectAge';
 import SelectMovie from './components/SelectMovie/SelectMovie';
@@ -79,12 +78,6 @@ function App() {
       <Route path = "/checkoutPage" element={
           <React.Fragment>
             <CheckoutPage/>
-          </React.Fragment>
-      }></Route>
-
-        <Route path = "/registrationPage" element={
-          <React.Fragment>
-            <RegistrationPage/>
           </React.Fragment>
       }></Route>
 

@@ -5,7 +5,7 @@ function OrderSummary() {
       <div>
         <br></br>
         <h1>Order Summary</h1>
-       <Link to  = "/"><button type="button">Homepage</button></Link>
+       <Link to  = "/checkoutPage"><button type="button">Checkout</button></Link>
       </div>
     );
   }

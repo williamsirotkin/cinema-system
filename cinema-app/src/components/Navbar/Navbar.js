@@ -30,12 +30,12 @@ function MainNavbar() {
               <NavDropdown.Item href="/orderConfirmation"> Order Confirmation </NavDropdown.Item>
               <NavDropdown.Item href="/orderSummary"> Order Summary </NavDropdown.Item>
               <NavDropdown.Item href="/registrationConfirmationPage"> Registration Confirmation </NavDropdown.Item>
-              <NavDropdown.Item href="/registrationPage"> Registration Page </NavDropdown.Item>
               <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
               <NavDropdown.Item href="/selectMovie"> Select Movie </NavDropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/signup"> Signup </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="/selectMovie"> Booking </Nav.Link>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/editProfile">
                 Edit Profile
