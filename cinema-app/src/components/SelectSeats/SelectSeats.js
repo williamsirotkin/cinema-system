@@ -66,9 +66,11 @@ const SelectedSeats = () => {
                 {selectedSeats.map(seat => <li key={seat}>Seat {seat}</li>)}
               </ul>
             )}
+            <Button href = "/selectAges" variant="primary"> Select Seats </Button>
           </div>
         </Col>
       </Row>
+
     </Container>
   );
 };
