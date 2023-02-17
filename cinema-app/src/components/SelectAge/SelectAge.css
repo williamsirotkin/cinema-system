@@ -9,6 +9,8 @@
     margin-right: auto;
     width:70%;
     height: 500px;
-    background-color: #f33258;
+    background-color: rgb(235, 238, 240);
+    border-color: #f33258;
+    border-style: solid;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
