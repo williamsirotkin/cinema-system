@@ -28,7 +28,7 @@ export default function SelectAge() {
     <br></br>
       <br></br>
       <div className = "select-ages">
-      <h2> <strong>Child:</strong> &nbsp;  </h2>
+      <h2> <strong>Child:</strong> &nbsp; </h2>
       <DropdownButton id="dropdown-basic-button" title="Select">
       <Dropdown.Item> 1</Dropdown.Item>
       <Dropdown.Item> 2</Dropdown.Item>
@@ -40,7 +40,7 @@ export default function SelectAge() {
     <br></br>
       <br></br>
       <div className = "select-ages">
-      <h2 > <strong>Senior:</strong> &nbsp;  </h2>
+      <h2 > <strong>Senior:</strong> &nbsp; </h2>
       <DropdownButton id="dropdown-basic-button" title="Select">
       <Dropdown.Item> 1</Dropdown.Item>
       <Dropdown.Item> 2</Dropdown.Item>
