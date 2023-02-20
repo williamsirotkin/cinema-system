@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import {BsSearch} from "react-icons/bs";
 
 
 function MainNavbar() {
@@ -18,6 +19,16 @@ function MainNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+
+          <div class="search-bar" >
+            <div class="input-group" >
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-primary">
+            <BsSearch/>
+            </button>
+            </div>
+          </div>
+
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/selectMovie"> Booking </Nav.Link>
             <Nav.Link href="/orderSummary"> My Cart </Nav.Link>
