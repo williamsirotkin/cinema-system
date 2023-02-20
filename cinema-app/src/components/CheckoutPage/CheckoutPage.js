@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link} from 'react-router-dom'
 import {Image, Form } from 'react-bootstrap';
 import './CheckoutPage.css'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Collapse from 'react-bootstrap/Collapse';
+import CardForm from "./CardForm";
 
 export default function CheckoutPage() {
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <h1 className='checkoutHeader'>Checkout Page</h1>
@@ -46,12 +48,25 @@ export default function CheckoutPage() {
         <p class="fs-3">Payment Method</p>
         </Card.Text>
         <div className="d-grid gap-2">
+
         <Button variant="dark" size="lg">
           Use existing credit card
         </Button>{' '}
-        <Button variant="dark" size="lg">
+
+
+        <Button variant="dark" size="lg"
+        onClick={() => setOpen(!open)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open}>
+
           Add new credit card
         </Button>
+        <Collapse in={open}>
+        <div id="example-collapse-text">
+          <CardForm></CardForm>
+        </div>
+        </Collapse>
+        
         <hr />
         <Form.Label>Email address</Form.Label>
           <Form.Control 
