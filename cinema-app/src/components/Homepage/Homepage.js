@@ -18,6 +18,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now </Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=mqqft2x_Aa4" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
 
             </Card.Body>
             </Card>
@@ -29,6 +30,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=wxN1T1uxQ2g" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
 
@@ -39,6 +41,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
 
@@ -55,6 +58,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=5xH0HfJHsaY" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
             <Card style={{ width: '25rem' }}>
@@ -64,6 +68,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=4eaZ_48ZYog" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
             <Card style={{ width: '25rem' }}>
@@ -73,6 +78,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=s7EdQ4FqbhY" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
 
@@ -94,6 +100,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=bK6ldnjE3Y0" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
             <Card style={{ width: '25rem' }}>
@@ -103,6 +110,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=hebWYacbdvc" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
             <Card style={{ width: '25rem' }}>
@@ -112,6 +120,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=JqcncLPi9zw" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
             </Stack>
@@ -122,12 +131,13 @@ export default function Homepage() {
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
 
             <Card style={{ width: '25rem' }}>
-            <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDgxOTdjMzYtZGQxMS00ZTAzLWI4Y2UtMTQzN2VlYjYyZWRiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" />
+            <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BYjEzN2FlYmYtNDkwMC00NGFkLWE5ODctYmE5NmYxNzE2MmRiXkEyXkFqcGdeQXVyMjMwODc5Mw@@._V1_.jpg" />
             <Card.Body>
-                <Card.Title>Guardians of the Galaxy Vol.3</Card.Title>
+                <Card.Title>The Room</Card.Title>
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=9-dIdFXeFhs" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
             
@@ -138,6 +148,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=8zIf0XvoL9Y" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
 
@@ -148,6 +159,7 @@ export default function Homepage() {
                 <div class = "showtimes">
                 <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now</Button></Link>
                 </div>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><Button variant="secondary" size="sm">Watch trailer</Button></a>
             </Card.Body>
             </Card>
 
