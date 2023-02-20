@@ -45,3 +45,13 @@ h4, h1, p, h2, h5{
 .ticket-row {
     display: flex;
 }
+
+.promo-bar {
+    width: 275px;
+    display:inline-block;
+}
+
+.inline-right {
+    display:inline;
+    float: right;
+}
