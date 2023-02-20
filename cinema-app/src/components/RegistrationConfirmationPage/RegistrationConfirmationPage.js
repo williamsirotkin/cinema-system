@@ -5,6 +5,7 @@ import './RegistrationConfirmationPage.css'
 const RegistrationConfirmationPage = () => {
   return (
     <Container className = 'container1'>
+      <br></br>
       <Row className="justify-content-center">
         <Col md={6}>
           <h1>Thank you for registering with us!</h1>
@@ -13,8 +14,7 @@ const RegistrationConfirmationPage = () => {
           <h4>Your registration details:</h4>
           <p><strong>Name:</strong> Marc Silverman</p>
           <p><strong>Email:</strong> marc123@aol.net</p>
-          <p><strong>Password:</strong> ILoveToCode13</p>
-          <Button variant="primary" href="/">Continue</Button>
+          <Button variant="btn btn-danger" href="/">Continue</Button>
         </Col>
       </Row>
     </Container>

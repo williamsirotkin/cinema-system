@@ -32,8 +32,8 @@ const Login = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
           </Form.Group>
-
-          <Button variant="primary" type="submit">
+          <br></br>
+          <Button variant="btn btn-danger" type="submit">
             Submit
           </Button>
         </Form>
