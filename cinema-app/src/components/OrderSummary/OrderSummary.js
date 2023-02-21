@@ -61,9 +61,16 @@ function OrderSummary() {
         <div class="d-flex justify-content-between">
         <p class="fs-4">TOTAL</p>
         <p class="fs-4">${round(total + total * BOOKING_FEE_PERCENTAGE, 2)}</p>
+        
         </div>
-        <p class="text-end">Includes applicable state and local sales taxes.</p>
-        <hr />
+        <div class="promo-bar">
+            <div class="input-group" >
+            <input type="promo" class="form-control rounded" placeholder="Enter Promo Code" aria-label="Promo" aria-describedby="promo-addon" />
+            <button type="button" class="btn btn-primary">Enter</button>
+            </div>
+        </div>
+        <p class="inline-right">Includes applicable state and local sales taxes.</p>
+        <hr/>
         </Card.Text>
       </Card.Body>
       <br></br>
