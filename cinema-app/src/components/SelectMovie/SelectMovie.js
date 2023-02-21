@@ -1,9 +1,5 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom'
 import './SelectMovie.css'
 import React, { useState } from 'react';
-import Accordion from 'react-bootstrap/Accordion';
 import MovieCard from './MovieCard';
 
 export default function SelectMovie() {
