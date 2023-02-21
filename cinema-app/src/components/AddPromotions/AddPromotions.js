@@ -73,7 +73,7 @@ export default function AddPromotions() {
                           <Form.Check type="checkbox" label="Email" />
                           <Form.Check type="checkbox" label="Subscriber" />
                       </Form.Group>
-                      <Button variant="primary" type="submit">
+                      <Button variant="primary" type="submit" className='submitBtn'>
                           Submit
                       </Button>
                   </Form>
