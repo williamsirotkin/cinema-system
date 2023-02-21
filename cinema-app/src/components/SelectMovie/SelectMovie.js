@@ -2,263 +2,109 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom'
 import './SelectMovie.css'
-import Collapse from 'react-bootstrap/Collapse';
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-
+import MovieCard from './MovieCard';
 
 export default function SelectMovie() {
+const movieArr =[{
+  title: "Intersteller",
+  image: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
+  description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+  director: "Christopher Nolan",
+  writers: "Jonathan Nolan, Christopher Nolan",
+  stars: "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
+  trailer: "https://www.youtube.com/watch?v=zSWdZVtXT7E"
 
-  const [open, setOpen] = useState(false);
+},
+{
+  title: "Oppenheimer",
+  image: "https://broadbandforum.co/attachments/oppenheimer-webp.6209/",
+  description: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.",
+  director: "Christopher Nolan",
+  writers: "Jonathan Nolan, Kai Bird, Martin Sherwin",
+  stars: "Cillian Murphy, Emily Blunt, Matt Damon",
+  trailer: "https://www.youtube.com/watch?v=bK6ldnjE3Y0"
+
+},
+{
+  title: "Guardians of The Galaxy vol.3 ",
+  image: "https://m.media-amazon.com/images/M/MV5BMDgxOTdjMzYtZGQxMS00ZTAzLWI4Y2UtMTQzN2VlYjYyZWRiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
+  description: "Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own - a mission that could mean the end of the Guardians if not successful.",
+  director: "James Gunn",
+  writers: "James Gunn, Dan Abnett, Andy Lanning",
+  stars: "Chris Pratt, Zoe Saldana, Dave Bautista",
+  trailer: "https://www.youtube.com/watch?v=zSWdZVtXT7E"
+
+},
+{
+  title: "The Batman",
+  image: "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
+  description: "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
+  director: "Matt Reeves",
+  writers: "Matt Reeves, Peter Craig, Bob Kane",
+  stars: "Robert Pattinson, Zoë Kravitz, Jeffrey Wright",
+  trailer: "https://www.youtube.com/watch?v=mqqft2x_Aa4"
+
+},
+{
+  title: "The Batman",
+  image: "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
+  description: "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
+  director: "Matt Reeves",
+  writers: "Matt Reeves, Peter Craig, Bob Kane",
+  stars: "Robert Pattinson, Zoë Kravitz, Jeffrey Wright",
+  trailer: "https://www.youtube.com/watch?v=mqqft2x_Aa4"
+
+},]
+  
   return (
   <div>
   <div class = "movie-row">
 
-  <Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg"/>
-  <Card.Body>
-    <Card.Title> The Batman </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        When a sadistic serial killer begins murdering key political figures in Gotham, 
-        Batman is forced to investigate the city's hidden corruption and question his family's involvement.
-        <hr />
-        Director: Matt Reeves
-        <hr />
-        Writers: Matt Reeves, Peter Craig, Bob Kane
-        <hr />
-        Stars: Robert Pattinson, Zoë Kravitz, Jeffrey Wright
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
-  
-<Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" 
-  />
-  <Card.Body>
-    <Card.Title> Intersteller </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.
-        <hr />
-        Director: Christopher Nolan
-        <hr />
-        Writers: Jonathan Nolan, Christopher Nolan
-        <hr />
-        Stars: Matthew McConaughey, Anne Hathaway, Jessica Chastain
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
+  <MovieCard title={movieArr[4].title} image={movieArr[4].image} 
+  description={movieArr[4].description} director={movieArr[4].director}  
+  writers={movieArr[4].writers} stars={movieArr[4].stars} trailer = {movieArr[4].trailer}/>
 
+  <MovieCard title={movieArr[0].title} image={movieArr[0].image} 
+  description={movieArr[0].description} director={movieArr[0].director}  
+  writers={movieArr[0].writers} stars={movieArr[0].stars} trailer = {movieArr[0].trailer}/>
 
-<Card style={{ width: '20rem' }}>
-<Card.Img variant="top" src="https://broadbandforum.co/attachments/oppenheimer-webp.6209/" />
-  <Card.Body>
-    <Card.Title> Oppenheimer </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.
-        <hr />
-        Director: Christopher Nolan
-        <hr />
-        Writers: Jonathan Nolan, Kai Bird, Martin Sherwin
-        <hr />
-        Stars: Cillian Murphy, Emily Blunt, Matt Damon
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
+  <MovieCard title={movieArr[1].title} image={movieArr[1].image} 
+  description={movieArr[1].description} director={movieArr[1].director}  
+  writers={movieArr[1].writers} stars={movieArr[1].stars} trailer = {movieArr[1].trailer}/>
 
-  </Card.Body>
-</Card>
-<Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDgxOTdjMzYtZGQxMS00ZTAzLWI4Y2UtMTQzN2VlYjYyZWRiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" />
-  <Card.Body>
-    <Card.Title> Guardians of The Galaxy vol.3 </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
+<MovieCard title={movieArr[2].title} image={movieArr[2].image} 
+  description={movieArr[2].description} director={movieArr[2].director}  
+  writers={movieArr[2].writers} stars={movieArr[2].stars} trailer = {movieArr[2].trailer}/>
 
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own 
-        - a mission that could mean the end of the Guardians if not successful.
-        <hr />
-        Director: James Gunn
-        <hr />
-        Writers: James Gunn, Dan Abnett, Andy Lanning
-        <hr />
-        Stars: Chris Pratt, Zoe Saldana, Dave Bautista
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
-<Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg" />
-  <Card.Body>
-    <Card.Title> The Batman </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.
-        <hr />
-        Director: Christopher Nolan
-        <hr />
-        Writers: Jonathan Nolan, Kai Bird, Martin Sherwin
-        <hr />
-        Stars: Cillian Murphy, Emily Blunt, Matt Damon
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
+  <MovieCard title={movieArr[3].title} image={movieArr[3].image} 
+  description={movieArr[3].description} director={movieArr[3].director}  
+  writers={movieArr[3].writers} stars={movieArr[3].stars} trailer = {movieArr[3].trailer}/>
+
 </div>
 
 <div class = "movie-row">
-    <Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg" />
-  <Card.Body>
-    <Card.Title> The Batman </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        When a sadistic serial killer begins murdering key political figures in Gotham, 
-        Batman is forced to investigate the city's hidden corruption and question his family's involvement.
-        <hr />
-        Director: Matt Reeves
-        <hr />
-        Writers: Matt Reeves, Peter Craig, Bob Kane
-        <hr />
-        Stars: Robert Pattinson, Zoë Kravitz, Jeffrey Wright
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
-<Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg" />
-  <Card.Body>
-  <Card.Title> Intersteller </Card.Title>
-  <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-  <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.
-        <hr />
-        Director: Christopher Nolan
-        <hr />
-        Writers: Jonathan Nolan, Christopher Nolan
-        <hr />
-        Stars: Matthew McConaughey, Anne Hathaway, Jessica Chastain
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
+<MovieCard title={movieArr[4].title} image={movieArr[4].image} 
+  description={movieArr[4].description} director={movieArr[4].director}  
+  writers={movieArr[4].writers} stars={movieArr[4].stars} trailer = {movieArr[4].trailer}/>
 
-<Card style={{ width: '20rem' }}>
-<Card.Img variant="top" src="https://broadbandforum.co/attachments/oppenheimer-webp.6209/" />
-  <Card.Body>
-  <Card.Title> Oppenheimer </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.
-        <hr />
-        Director: Christopher Nolan
-        <hr />
-        Writers: Jonathan Nolan, Kai Bird, Martin Sherwin
-        <hr />
-        Stars: Cillian Murphy, Emily Blunt, Matt Damon
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
-<Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDgxOTdjMzYtZGQxMS00ZTAzLWI4Y2UtMTQzN2VlYjYyZWRiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" />
-  <Card.Body>
-  <Card.Title> Guardians of The Galaxy vol.3 </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
+<MovieCard title={movieArr[0].title} image={movieArr[0].image} 
+  description={movieArr[0].description} director={movieArr[0].director}  
+  writers={movieArr[0].writers} stars={movieArr[0].stars} trailer = {movieArr[0].trailer}/>
 
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        Still reeling from the loss of Gamora, Peter Quill rallies his team to defend the universe and one of their own 
-        - a mission that could mean the end of the Guardians if not successful.
-        <hr />
-        Director: James Gunn
-        <hr />
-        Writers: James Gunn, Dan Abnett, Andy Lanning
-        <hr />
-        Stars: Chris Pratt, Zoe Saldana, Dave Bautista
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
-<Card style={{ width: '20rem' }}>
-  <Card.Img variant="top" src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg" />
-  <Card.Body>
-  <Card.Title> The Batman </Card.Title>
-    <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
-    <Accordion className='accordion'>
-    <Accordion.Item eventKey="0">
-        <Accordion.Header>Description</Accordion.Header>
-        <Accordion.Body>
-        The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.
-        <hr />
-        Director: Christopher Nolan
-        <hr />
-        Writers: Jonathan Nolan, Kai Bird, Martin Sherwin
-        <hr />
-        Stars: Cillian Murphy, Emily Blunt, Matt Damon
-        <br></br>
-        <a href="https://www.youtube.com/watch?v=zSWdZVtXT7E" target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
-        </Accordion.Body>
-        </Accordion.Item>
-    </Accordion>
-  </Card.Body>
-</Card>
+<MovieCard title={movieArr[1].title} image={movieArr[1].image} 
+  description={movieArr[1].description} director={movieArr[1].director}  
+  writers={movieArr[1].writers} stars={movieArr[1].stars} trailer = {movieArr[1].trailer}/>
+
+<MovieCard title={movieArr[2].title} image={movieArr[2].image} 
+  description={movieArr[2].description} director={movieArr[2].director}  
+  writers={movieArr[2].writers} stars={movieArr[2].stars} trailer = {movieArr[2].trailer}/>
+
+  <MovieCard title={movieArr[3].title} image={movieArr[3].image} 
+  description={movieArr[3].description} director={movieArr[3].director}  
+  writers={movieArr[3].writers} stars={movieArr[3].stars} trailer = {movieArr[3].trailer}/>
+ 
 
 
 </div>
