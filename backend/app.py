@@ -8,6 +8,7 @@ def hello_world():
 
 @app.route('/names', methods=['POST'])
 def names():
+    return "Hello"
     data = request.json
     name = data['name']
     age = data['age']
@@ -17,4 +18,4 @@ def names():
         return "Kostoryano"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, port=5000)
