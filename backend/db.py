@@ -1,6 +1,18 @@
 import certifi
 import os
 from pymongo import MongoClient
+from dotenv import load_dotenv
 
-client = MongoClient("mongodb+srv://tlk8:Largepenis#69@cluster0.rayvvnm.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=certifi.where())
-db = client.flock
+load_dotenv()
+
+client = MongoClient("mongodb+srv://abc123:" + os.environ['DB_PASSWORD'] + "@cluster0.rayvvnm.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=certifi.where())
+#print(db['cinema'].find_one({"name": "Thomas"}))
+
+# Create a new collection
+my_collection = client.Cinema['cinema']
+
+# Insert a document
+result = my_collection.insert_one({'name': "William"})
+
+# Print the result
+print(result.inserted_id)
