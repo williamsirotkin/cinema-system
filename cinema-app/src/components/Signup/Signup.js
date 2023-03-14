@@ -58,7 +58,7 @@ const RegistrationPage = () => {
           />
         </Form.Group>
         <br></br>
-        <Button variant="btn btn-danger" onClick = {() => createProfile(firstName, lastName, email, password)} type="submit" /*href="/registrationConfirmationPage"*/>
+        <Button variant="btn btn-danger" onClick = {() => createProfile(firstName, lastName, email, password)} type="submit" href="/registrationConfirmationPage">
           Submit
         </Button>
       </Form>

@@ -1,18 +1,15 @@
 from flask import Flask, Blueprint, request, Response, jsonify
 import json
-#from db import db
-from flask_cors import cross_origin
+from db import db
+from flask_cors import CORS
 
 profile = Blueprint("profile", __name__, url_prefix="/profile")
-
-
 
 @profile.route("/")
 def profile_home():
     return "This is the profile routes"
-'''
+
 @profile.route('/create', methods = ['POST'])
-@cross_origin()
 def create_profile():
     data = request.json
 
@@ -27,4 +24,4 @@ def create_profile():
 
     db.profile.insert_one(user)
     return Response(status=201)
-    '''
+    
