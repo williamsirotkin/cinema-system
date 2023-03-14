@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 function createProfile(firstName, lastName, email, password) {
-    console.log("Hi")
     axios({
-        url: "http://127.0.0.1:5000/profile/create", 
+        url: process.env.REACT_APP_BACKEND_URL + "/profile/create", 
         data: {
             "first_name": firstName,
             "last_name": lastName,
