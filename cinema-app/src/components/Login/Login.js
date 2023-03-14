@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import {login} from '../../utility/loginUtility.js'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ const Login = () => {
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
           </Form.Group>
           <br></br>
-          <Button variant="btn btn-danger" type="submit">
+          <Button variant="btn btn-danger" type="submit" onClick = {() => login(email, password)}>
             Submit
           </Button>
         </Form>

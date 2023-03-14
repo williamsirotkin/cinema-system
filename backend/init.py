@@ -8,6 +8,7 @@ def create_app():
     #Put blueprints in here
     with app.app_context():
         from routes.profile_routes import profile
+        
         app.register_blueprint(profile)
     return app
 

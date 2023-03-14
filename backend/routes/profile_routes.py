@@ -24,4 +24,13 @@ def create_profile():
 
     db.profile.insert_one(user)
     return Response(status=201)
+
+@profile.route('/login', methods = ['POST'])
+def login():
+    data = request.json
+
+    result = db.profile.find_one({"email": data['email'], "password": data['password']})
+    if result:
+        return Response(status=200)
+    return Response(status=404)
     
