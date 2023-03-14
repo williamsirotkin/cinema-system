@@ -24,4 +24,8 @@ def create_profile():
 
     db.profile.insert_one(user)
     return Response(status=201)
+
+@profile.route('/editProfile', method = ['POST'])
+def edit_profile():
+    
     
