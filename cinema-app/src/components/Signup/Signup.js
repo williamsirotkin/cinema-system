@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
+import {createProfile} from '../../utility/signupUtility.js'
+
 const RegistrationPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -56,7 +58,7 @@ const RegistrationPage = () => {
           />
         </Form.Group>
         <br></br>
-        <Button variant="btn btn-danger" type="submit" href="/registrationConfirmationPage">
+        <Button variant="btn btn-danger" onClick = {() => createProfile(firstName, lastName, email, password)} type="submit" /*href="/registrationConfirmationPage"*/>
           Submit
         </Button>
       </Form>
