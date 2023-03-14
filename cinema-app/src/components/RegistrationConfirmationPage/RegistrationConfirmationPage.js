@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-// import RegistrationPage from '../Signup.js';
+import RegistrationPage from '../Signup/Signup.js';
 import './RegistrationConfirmationPage.css'
 
 const RegistrationConfirmationPage = () => {
@@ -13,7 +13,7 @@ const RegistrationConfirmationPage = () => {
           <p>You are now part of our movie community.</p>
           <hr />
           <h4>Your registration details:</h4>
-          <p><strong>Name:</strong> Marc Silverman</p>
+          <p><strong>Name:</strong> Mark silverman</p>
           <p><strong>Email:</strong> marc123@aol.net</p>
           <Button variant="btn btn-danger" href="/">Continue</Button>
         </Col>
