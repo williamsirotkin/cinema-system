@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+// import RegistrationPage from '../Signup.js';
 import './RegistrationConfirmationPage.css'
 
 const RegistrationConfirmationPage = () => {
