@@ -5,8 +5,6 @@ import {createProfile} from '../../utility/signupUtility.js'
 import {Link, useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 
-
-
 const RegistrationPage = (props) => {
   let nav = useNavigate()
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,17 +25,44 @@ const RegistrationPage = (props) => {
 
 
 async function checkEmail(firstName, lastName, email, password, billingAddress, cardInfo, birthday) {
-  const check = await checkEmailInUse(email)
-  if (check) {
-    createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
-    props.setUserData(firstName,lastName,email, billingAddress, cardInfo, birthday);
-    nav('/registrationConfirmationPage', {replace: true})
-  } else {
-    setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+
+  //puts in the data to database
+  let checkRequired = true;
+
+  if (firstName == "") {
+    setErrorMessage("Please enter a first name");
+    checkRequired = false;
+  }
+
+  if (lastName == "") {
+    setErrorMessage("Please enter a last name");
+    checkRequired = false;
+  }
+
+  if (email == "") {
+    setErrorMessage("Please enter an email");
+    checkRequired = false;
+  }
+
+  if (password == "") {
+    setErrorMessage("Please enter a password");
+    checkRequired = false;
+  }
+
+  if (checkRequired) {
+
+    const check = await checkEmailInUse(email)
+
+
+    if (check) {  
+      createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
+      props.setUserData(firstName,lastName,email, billingAddress, cardInfo, birthday);
+      nav('/registrationConfirmationPage', {replace: true})
+    } else {
+      setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+    }
   }
 }
-
-
 
   return (
     <div className="container">

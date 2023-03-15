@@ -27,6 +27,7 @@ const Login = () => {
     let result = await login(email, password)
     if (result) {
       nav("/", {replace:true})
+
     } else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
