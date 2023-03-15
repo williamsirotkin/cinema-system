@@ -18,6 +18,7 @@ def create_profile():
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : data['password'],
+        'active': True
     }
 
     print(user)
