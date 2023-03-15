@@ -1,9 +1,15 @@
 import React from 'react';
+import { useState } from "react";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import RegistrationPage from '../Signup/Signup.js';
 import './RegistrationConfirmationPage.css'
 
-const RegistrationConfirmationPage = () => {
+const RegistrationConfirmationPage = (props) => {
+  const [data, setData] = useState("");
+
+  const handleData = (data) => {
+    setData(data);
+  };
   return (
     <Container className = 'container1'>
       <br></br>
@@ -13,8 +19,8 @@ const RegistrationConfirmationPage = () => {
           <p>You are now part of our movie community.</p>
           <hr />
           <h4>Your registration details:</h4>
-          <p><strong>Name:</strong> Mark silverman</p>
-          <p><strong>Email:</strong> marc123@aol.net</p>
+          <p><strong>Name:</strong>{props.firstName} {props.lastName}</p>
+          <p><strong>Email:</strong>{props.email}</p>
           <Button variant="btn btn-danger" href="/">Continue</Button>
         </Col>
       </Row>
