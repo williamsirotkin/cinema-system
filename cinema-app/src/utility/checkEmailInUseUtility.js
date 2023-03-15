@@ -13,11 +13,9 @@ async function checkEmailInUse(email) {
         }
     })
     .then((response => {
-        alert("Email is valid")
         return true
     }))
     .catch((error) => {
-        alert("ERROR" + error);
         return false
     });
 }
