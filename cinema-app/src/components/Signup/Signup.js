@@ -62,9 +62,9 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
 
   //puts in the data to database
 
-    const check = await checkEmailInUse(email)
-
     if (Object.keys(formErrors).length === 0 && isSubmit) {
+      const check = await checkEmailInUse(email)
+
       if(check){
         createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
         props.setUserData(firstName,lastName,email, billingAddress, cardInfo, birthday);
@@ -73,7 +73,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
     }
 
-      }  
+    }  
       
   }
 
