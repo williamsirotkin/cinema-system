@@ -25,7 +25,7 @@ const RegistrationPage = (props) => {
     e.preventDefault();
     setFormErrors(validate(firstName,lastName,email,password));
     setIsSubmit(true);
-    checkEmail(firstName, lastName, email, password)
+    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
     console.log('Registration form submitted!');
   }
 
