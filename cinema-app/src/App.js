@@ -31,11 +31,6 @@ function App() {
   }
   
   return (
-<<<<<<< HEAD
-    <div className="App">
-      <h1>Hello world!</h1>
-    </div>
-=======
     <Router>
        <MainNavbar />
     <Routes>
@@ -136,7 +131,6 @@ function App() {
     
 
     </Router>
->>>>>>> origin/main
   );
 }
 
