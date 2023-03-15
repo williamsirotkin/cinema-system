@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
 import {createProfile} from '../../utility/signupUtility.js'
 import {Link} from 'react-router-dom'
+import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 
 
 const RegistrationPage = (props) => {
@@ -16,6 +17,17 @@ const RegistrationPage = (props) => {
     e.preventDefault();
     console.log('Registration form submitted!');
   }
+
+
+async function checkEmail(firstName, lastName, email, password) {
+  
+  const check = await checkEmailInUse(email)
+  alert(check)
+  if (check) {
+  createProfile(firstName, lastName, email, password); 
+  props.setUserData(firstName,lastName,email);
+}
+}
 
 
 
@@ -64,7 +76,7 @@ const RegistrationPage = (props) => {
         </Form.Group>
         <br></br>
         
-        <Link to='/registrationConfirmationPage'><Button variant="btn btn-danger" onClick = {() => {createProfile(firstName, lastName, email, password); props.setUserData(firstName,lastName,email);}} type="submit">
+        <Link to='/registrationConfirmationPage'><Button variant="btn btn-danger" onClick = {() => checkEmail(firstName, lastName, email, password)} type="submit">
           Submit
         </Button></Link>
       </Form>

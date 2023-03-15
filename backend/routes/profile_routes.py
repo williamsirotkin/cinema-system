@@ -34,3 +34,11 @@ def login():
         return Response(status=200)
     return Response(status=404)
     
+@profile.route('/checkEmailInUse', methods = ['POST']) 
+def check_email_in_use():
+    data = request.json
+    print(data)
+    result = db.profile.find_one({"email": data['email']})
+    if result:
+        return Response(status=400)
+    return Response(status=200)
