@@ -7,6 +7,9 @@ const EditProfile = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [billingAddress, setBillingAddress] = useState('');
+  const [cardInfo, setCardInfo] = useState('')
+  const [birthday, setBirthday] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,6 +57,36 @@ const EditProfile = () => {
             placeholder="*Password will NOT be displayed*"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicBillingAddress">
+          <Form.Label>Billing Address</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Billing Address"
+            value={billingAddress}
+            onChange={(e) => setBillingAddress(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formCardInfo">
+          <Form.Label>Card Info</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Card Info"
+            value={cardInfo}
+            onChange={(e) => setCardInfo(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBirthday">
+          <Form.Label>Birthday (dd/mm/yy)</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Birthday"
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
           />
         </Form.Group>
         
