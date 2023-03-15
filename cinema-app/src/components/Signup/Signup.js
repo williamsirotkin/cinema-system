@@ -44,6 +44,10 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
     checkRequired = false;
   }
 
+  if (!email.includes("@")) {
+    checkRequired = false;
+  }
+
   if (password == "") {
     setErrorMessage("Please enter a password");
     checkRequired = false;
