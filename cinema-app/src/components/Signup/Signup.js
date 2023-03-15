@@ -25,6 +25,7 @@ const RegistrationPage = (props) => {
     e.preventDefault();
     setFormErrors(validate(firstName,lastName,email,password));
     setIsSubmit(true);
+    checkEmail(firstName, lastName, email, password)
     console.log('Registration form submitted!');
   }
 
@@ -43,11 +44,9 @@ const RegistrationPage = (props) => {
     if (!lastName) {
       errors.lastName = "last name is required!";
     }
-    if (!email) {
-      errors.email = "Email is required!";
-    } else if (!regex.test(email)) {
-      errors.email = "This is not a valid email format!";
-    }
+    if (!email || !regex.test(email)) {
+      errors.email = "Valid email format is required";
+    } 
     if (!password) {
       errors.password = "Password is required";
     } else if (password.length < 4) {
@@ -62,18 +61,20 @@ const RegistrationPage = (props) => {
 async function checkEmail(firstName, lastName, email, password, billingAddress, cardInfo, birthday) {
 
   //puts in the data to database
-  
 
     const check = await checkEmailInUse(email)
 
-
-    if (check) {  
-      createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
-      props.setUserData(firstName,lastName,email, billingAddress, cardInfo, birthday);
-      // nav('/registrationConfirmationPage', {replace: true})
-    } else {
-      setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      if(check){
+        createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
+        props.setUserData(firstName,lastName,email, billingAddress, cardInfo, birthday);
+        nav('/registrationConfirmationPage', {replace: true})
+      } else {
+        setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
     }
+
+      }  
+      
   }
 
 
@@ -155,7 +156,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         
         <br></br>
         
-       <Button variant="btn btn-danger" onClick = {() => checkEmail(firstName, lastName, email, password)} type="submit">
+       <Button variant="btn btn-danger" type="submit">
           Submit
         </Button>
       </Form>
