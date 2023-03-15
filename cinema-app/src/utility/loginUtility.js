@@ -13,7 +13,7 @@ function login(email, password) {
         }
     })
     .then((response => {
-        if (response.status == 200) {
+        if (response.status === 200) {
             alert("You can login");
         } else {
             alert("Wrong password")

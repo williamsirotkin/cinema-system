@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import MainNavbar from './components/Navbar/Navbar';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import Login from './components/Login/Login';
 import OrderSummary from './components/OrderSummary/OrderSummary';
 import AdminHomePage from './components/AdminHomePage/AdminHomePage';
@@ -20,6 +20,16 @@ import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
 
 function App() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const setUserData = (firstName, lastName, email)=>{
+    setFirstName(firstName)
+    setLastName(lastName)
+    setEmail(email)
+  }
+  
   return (
     <Router>
        <MainNavbar />
@@ -83,7 +93,7 @@ function App() {
 
         <Route path = "/registrationConfirmationPage" element={
           <React.Fragment>
-            <RegistrationConfirmationPage/>
+            <RegistrationConfirmationPage firstName={firstName} lastName ={lastName} email={email}/>
           </React.Fragment>
       }></Route>
 
@@ -112,7 +122,7 @@ function App() {
       }></Route>
       <Route path = "/signup" element={
           <React.Fragment>
-            <Signup/>
+            <Signup setUserData={setUserData}/>
           </React.Fragment>
       }></Route>
 

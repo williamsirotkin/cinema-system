@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
 import {createProfile} from '../../utility/signupUtility.js'
+import {Link} from 'react-router-dom'
 
-const RegistrationPage = () => {
+
+const RegistrationPage = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Registration form submitted!');
   }
+
+
 
   return (
     <div className="container">
@@ -58,9 +63,10 @@ const RegistrationPage = () => {
           />
         </Form.Group>
         <br></br>
-        <Button variant="btn btn-danger" onClick = {() => createProfile(firstName, lastName, email, password)} type="submit"/* href="/registrationConfirmationPage"*/>
+        
+        <Link to='/registrationConfirmationPage'><Button variant="btn btn-danger" onClick = {() => {createProfile(firstName, lastName, email, password); props.setUserData(firstName,lastName,email);}} type="submit">
           Submit
-        </Button>
+        </Button></Link>
       </Form>
     </div>
   );
