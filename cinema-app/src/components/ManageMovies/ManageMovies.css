@@ -1,0 +1,8 @@
+.movie-row {
+    display: flex;
+    justify-content: space-between
+}
+
+.add-movie-row {
+    display: flex;
+}

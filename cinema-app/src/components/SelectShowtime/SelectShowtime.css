@@ -1,0 +1,36 @@
+.showtimes-title {
+    display: flex;
+    justify-content: center;
+}
+
+.dayHeader{
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    color:white;
+    margin-left: auto;
+    margin-right: auto;
+    height:50px;
+    width: 95%;
+    background-color: #BA0C2F;
+    text-align: center;
+}
+
+
+.center {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+.box{
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width:65%;
+    height: 450px;
+    background-color: rgb(235, 238, 240);
+    border-color: #f33258;
+    border-style: solid;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}

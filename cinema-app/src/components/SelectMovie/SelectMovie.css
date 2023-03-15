@@ -1,0 +1,14 @@
+.movie-row{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.information{
+    margin-bottom: 5px;
+}
+.accordion{
+    margin-top: 10px;
+}
+.trailerBtn{
+    margin-top: 15px;
+}

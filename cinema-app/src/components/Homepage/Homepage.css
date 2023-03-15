@@ -1,0 +1,27 @@
+.carousel {
+    display: flex;
+    justify-content: center;
+}
+
+.homepage {
+    text-align: center;
+}
+
+.showtimes {
+    gap: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+.homepageTitles{
+        border-radius: 5px;
+        margin-top: 15px;
+        font-family: 'Courier New', monospace;
+        color:white;
+        margin-left: auto;
+        margin-right: auto;
+        height:50px;
+        width: 95%;
+        background-color: #BA0C2F;
+        text-align: center;
+}
