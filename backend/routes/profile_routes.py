@@ -13,12 +13,27 @@ def profile_home():
 def create_profile():
     data = request.json
 
+    billingAddress = ""
+    if (data['billing_address']):
+        billingAddress = data['billing_address']
+
+    cardInfo = ""
+    if (data['card_info']):
+        cardInfo = data['card_info']
+
+    birthDay = ""
+    if (data['birthday']):
+        birthDay = data['birthday']
+
     user = {
         'first_name' : data['first_name'],
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : data['password'],
-        'active': True
+        'active': True,
+        'billing_address': billingAddress,
+        'card_info': cardInfo,
+        'birthday': birthDay
     }
 
     print(user)
