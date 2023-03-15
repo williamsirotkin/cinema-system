@@ -42,3 +42,15 @@ def check_email_in_use():
     if result:
         return Response(status=400)
     return Response(status=200)
+
+@profile.route('/editProfile', methods = ['PATCH'])
+def edit_profile():
+    data = request.json
+    print(data)
+
+    profile = {
+        'first_name' : data['first_name'],
+        'email' : data['email'],
+        'last_name' : data['last_name'],
+        'password' : data['password'],
+    }
