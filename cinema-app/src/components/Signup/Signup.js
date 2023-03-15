@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
 import {createProfile} from '../../utility/signupUtility.js'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 
 
+
 const RegistrationPage = (props) => {
+  let nav = useNavigate()
+  const [errorMessage, setErrorMessage] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,13 +23,14 @@ const RegistrationPage = (props) => {
 
 
 async function checkEmail(firstName, lastName, email, password) {
-  
   const check = await checkEmailInUse(email)
-  alert(check)
   if (check) {
-  createProfile(firstName, lastName, email, password); 
-  props.setUserData(firstName,lastName,email);
-}
+    createProfile(firstName, lastName, email, password); 
+    props.setUserData(firstName,lastName,email);
+    nav('/registrationConfirmationPage', {replace: true})
+  } else {
+    setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+  }
 }
 
 
@@ -34,6 +38,7 @@ async function checkEmail(firstName, lastName, email, password) {
   return (
     <div className="container">
       <h1 className='register'>Register</h1>
+      <p class = "error" >{errorMessage}</p>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>First Name</Form.Label>
@@ -76,9 +81,9 @@ async function checkEmail(firstName, lastName, email, password) {
         </Form.Group>
         <br></br>
         
-        <Link to='/registrationConfirmationPage'><Button variant="btn btn-danger" onClick = {() => checkEmail(firstName, lastName, email, password)} type="submit">
+       <Button variant="btn btn-danger" onClick = {() => checkEmail(firstName, lastName, email, password)} type="submit">
           Submit
-        </Button></Link>
+        </Button>
       </Form>
     </div>
   );

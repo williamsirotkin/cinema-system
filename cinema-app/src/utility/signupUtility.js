@@ -15,11 +15,9 @@ function createProfile(firstName, lastName, email, password) {
         }
     })
     .then((response => {
-        console.log("Hello")
         console.log(response);
     }))
     .catch((error) => {
-        console.log("ERROR" + error);
     });
 }
 

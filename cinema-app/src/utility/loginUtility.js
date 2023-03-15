@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function login(email, password) {
-    axios({
+async function login(email, password) {
+    return await axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/login", 
         data: {
             "email": email,
@@ -13,15 +13,12 @@ function login(email, password) {
         }
     })
     .then((response => {
-        if (response.status === 200) {
-            alert("You can login");
-        } else {
-            alert("Wrong password")
-        }
+        console.log("Correct login")
+        return true
     }))
     .catch((error) => {
-        alert("Wrong password")
         console.log("ERROR" + error);
+        return false
     });
 }
 
