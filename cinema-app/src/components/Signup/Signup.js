@@ -25,7 +25,6 @@ const RegistrationPage = (props) => {
     e.preventDefault();
     setFormErrors(validate(firstName,lastName,email,password));
     setIsSubmit(true);
-    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
     console.log('Registration form submitted!');
   }
 
@@ -52,7 +51,7 @@ const RegistrationPage = (props) => {
     } else if (password.length < 4) {
       errors.password = "Password must be more than 4 characters";
     } else if (password.length > 16) {
-      errors.password = "Password cannot exceed more than 10 characters";
+      errors.password = "Password cannot exceed more than 16 characters";
     }
     return errors;
   };
@@ -156,7 +155,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         
         <br></br>
         
-       <Button variant="btn btn-danger" type="submit">
+       <Button variant="btn btn-danger" onClick={checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
           Submit
         </Button>
       </Form>
