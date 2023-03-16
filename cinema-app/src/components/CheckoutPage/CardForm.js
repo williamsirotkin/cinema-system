@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Results from "./Results";
 import "./styles.css";
 
@@ -8,15 +8,20 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
-   
-  
-
+    const user = {
+      name: "Adhaujd",
+      expiration: "adhao",
+      lastname: "adoadk",
+      yo: "adsh"
+    }
     function handleSubmit(e) {
         e.preventDefault();
         setSubmittedData({ name, cardNumber, expiry, cvc });
-        props.sendData(submittedData)
       }
-  
+  useEffect(()=>{
+    props.sendData(submittedData)
+
+  })
   return (
     <form className="card-form">
       <h2 className="text-center">Credit Card Form</h2>

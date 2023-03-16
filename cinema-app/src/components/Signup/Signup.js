@@ -43,7 +43,14 @@ const RegistrationPage = (props) => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(firstName,lastName,email,password);
     }
+  
   }, [formErrors]);
+  
+  useEffect(()=> {
+    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
+   
+
+  })
   const validate = (firstName,lastName,email,password) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -177,7 +184,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         
         <br></br>
         <Results data={cardInfo} />
-       <Button variant="btn btn-danger mt-3" onClick={() =>checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
+       <Button variant="btn btn-danger mt-3" type="submit">
        
           Submit
         </Button>
