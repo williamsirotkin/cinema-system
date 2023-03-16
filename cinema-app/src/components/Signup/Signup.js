@@ -157,6 +157,12 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
             onChange={(e) => setBirthday(e.target.value)}
           />
         </Form.Group>
+        <br></br>
+        <Form.Check 
+          type="switch"
+          id="custom-switch"
+          label="Apply for promotions"/>
+
         <Button variant="dark mt-3 " size="lg"
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
