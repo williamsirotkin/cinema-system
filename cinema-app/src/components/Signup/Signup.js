@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
+import Results from "../CheckoutPage/Results.js";
 
 
 const RegistrationPage = (props) => {
@@ -19,10 +20,15 @@ const RegistrationPage = (props) => {
   const [cardInfo, setCardInfo] = useState('')
   const [birthday, setBirthday] = useState('')
 
+
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const sendData = (cardInfo) =>{
+    setCardInfo(cardInfo)
+    console.log(cardInfo)
+  }
  
 
   const handleSubmit = (e) => {
@@ -86,6 +92,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
     <div className="container">
       <h1 className='register'>Register</h1>
       <p class = "error" >{errorMessage}</p>
+      
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>First Name</Form.Label>
@@ -138,15 +145,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
             onChange={(e) => setBillingAddress(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="formCardInfo">
-          <Form.Label>Card Info</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Card Info"
-            value={cardInfo}
-            onChange={(e) => setCardInfo(e.target.value)}
-          />
-        </Form.Group>
+      
 
         <Form.Group controlId="formBirthday">
           <Form.Label>Birthday (dd/mm/yy)</Form.Label>
@@ -172,13 +171,14 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Button>
         <Collapse in={open}>
         <div id="example-collapse-text">
-          <CardForm></CardForm>
+          <CardForm sendData = {sendData}></CardForm>
         </div>
         </Collapse>
         
         <br></br>
+        <Results data={cardInfo} />
        <Button variant="btn btn-danger mt-3" onClick={() =>checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
-
+       
           Submit
         </Button>
       </Form>
