@@ -14,16 +14,16 @@ def create_profile():
     data = request.json
 
     billingAddress = ""
-    # if (data['billing_address']):
-    #     billingAddress = data['billing_address']
+    if (data['billing_address']):
+        billingAddress = data['billing_address']
 
     cardInfo = ""
-    # if (data['card_info']):
-    #     cardInfo = data['card_info']
+    if (data['card_info']):
+        cardInfo = data['card_info']
 
     birthDay = ""
-    # if (data['birthday']):
-    #     birthDay = data['birthday']
+    if (data['birthday']):
+        birthDay = data['birthday']
 
     user = {
         'first_name' : data['first_name'],
