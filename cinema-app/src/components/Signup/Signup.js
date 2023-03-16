@@ -45,7 +45,7 @@ const RegistrationPage = (props) => {
     }
   
   }, [formErrors]);
-  
+
   useEffect(()=> {
     checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
    
@@ -183,7 +183,6 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Collapse>
         
         <br></br>
-        <Results data={cardInfo} />
        <Button variant="btn btn-danger mt-3" type="submit">
        
           Submit
