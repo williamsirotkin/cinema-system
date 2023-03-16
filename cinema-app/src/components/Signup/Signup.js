@@ -141,7 +141,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         
         <br></br>
         
-       <Button variant="btn btn-danger" onClick = {() => checkEmail(firstName, lastName, email, password)} type="submit">
+       <Button variant="btn btn-danger" onClick = {() => checkEmail(firstName, lastName, email, password, billingAddress, cardInfo, birthday)} type="submit">
           Submit
         </Button>
       </Form>

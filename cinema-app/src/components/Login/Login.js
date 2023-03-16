@@ -1,8 +1,9 @@
-import React, { useState, Redirect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import {login} from '../../utility/loginUtility.js'
+import {loginUtility} from '../../utility/loginUtility.js'
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
+
 
 const Login = () => {
   let nav = useNavigate()
@@ -20,14 +21,16 @@ const Login = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission here
-  };
+  }
 
   const handleLogin = async (email, password) => {
-    let result = await login(email, password)
-    if (result) {
-      nav("/", {replace:true})
-
+    let result = await loginUtility(email, password)
+    if (result.status) {
+      if (result.admin) {
+        nav("/admin", {replace:true})
+      } else {
+        nav("/", {replace:true})
+      }
     } else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
