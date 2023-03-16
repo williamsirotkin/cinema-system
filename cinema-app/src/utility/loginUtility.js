@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function login(email, password) {
+async function loginUtility(email, password) {
     return await axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/login", 
         data: {
@@ -13,13 +13,14 @@ async function login(email, password) {
         }
     })
     .then((response => {
-        console.log("Correct login")
-        return true
+        return {
+            "status": true,
+            "admin": response.data.admin
+        }
     }))
     .catch((error) => {
-        console.log("ERROR" + error);
         return false
     });
 }
 
-export {login}
+export {loginUtility}

@@ -47,7 +47,10 @@ def login():
 
     result = db.profile.find_one({"email": data['email'], "password": data['password']})
     if result:
-        return Response(status=200)
+        isAdmin = db.admin.find_one({"email": data['email']})
+        if isAdmin:
+            return jsonify({"admin": True})
+        return jsonify({"admin": False})
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 
