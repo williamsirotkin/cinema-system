@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
-import Results from "../CheckoutPage/Results.js";
+
 
 
 const RegistrationPage = (props) => {
