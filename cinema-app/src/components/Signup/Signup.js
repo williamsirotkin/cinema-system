@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
 import {createProfile} from '../../utility/signupUtility.js'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
+import Collapse from 'react-bootstrap/Collapse';
+import CardForm from "../CheckoutPage/CardForm.js";
+
 
 const RegistrationPage = (props) => {
   let nav = useNavigate()
@@ -18,6 +21,7 @@ const RegistrationPage = (props) => {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [open, setOpen] = useState(false);
 
  
 
@@ -70,6 +74,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         nav('/registrationConfirmationPage', {replace: true})
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+
     }
 
     }  
@@ -152,10 +157,21 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
             onChange={(e) => setBirthday(e.target.value)}
           />
         </Form.Group>
+        <Button variant="dark mt-3 " size="lg"
+        onClick={() => setOpen(!open)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open}>
+
+          Add new credit card
+        </Button>
+        <Collapse in={open}>
+        <div id="example-collapse-text">
+          <CardForm></CardForm>
+        </div>
+        </Collapse>
         
         <br></br>
-        
-       <Button variant="btn btn-danger" onClick={checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
+       <Button variant="btn btn-danger mt-3" onClick={checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
           Submit
         </Button>
       </Form>
