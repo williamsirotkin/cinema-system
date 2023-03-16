@@ -27,7 +27,7 @@ const RegistrationPage = (props) => {
 
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
-    console.log(cardInfo)
+
   }
  
 
@@ -92,7 +92,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
     <div className="container">
       <h1 className='register'>Register</h1>
       <p class = "error" >{errorMessage}</p>
-      
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>First Name</Form.Label>

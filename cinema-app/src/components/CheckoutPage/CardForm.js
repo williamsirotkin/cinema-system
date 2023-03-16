@@ -8,7 +8,7 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
-    const [dataToSubmit, setDataToSubmit] = useState({})
+   
   
 
     function handleSubmit(e) {
