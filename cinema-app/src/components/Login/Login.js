@@ -25,9 +25,6 @@ const Login = () => {
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-  const handleResetEmail = (event) => {
-    setResetEmail(event.target.value)
-  }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
