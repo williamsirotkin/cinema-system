@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
-import Results from "../CheckoutPage/Results.js";
+
 
 
 const RegistrationPage = (props) => {
@@ -24,6 +24,11 @@ const RegistrationPage = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState(true); 
+
+  const checkBoxStatus = () => { 
+    setChecked(!checked);
+  }; 
 
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
@@ -152,13 +157,12 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
             onChange={(e) => setBillingAddress(e.target.value)}
           />
         </Form.Group>
-      
-
-        <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday (dd/mm/yy)</Form.Label>
+        
+        <Form.Group controlId="formBirthday" className='mt-3'>
+          <Form.Label>Birthday</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="Birthday"
+            placeholder="(dd/mm/yyyy)"
             value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
           />
@@ -167,7 +171,8 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         <Form.Check 
           type="switch"
           id="custom-switch"
-          label="Apply for promotions"/>
+          label="Apply for promotions"
+          onChange={(e) => checkBoxStatus(e.target.value)}/>
 
         <Button variant="dark mt-3 " size="lg"
         onClick={() => setOpen(!open)}
