@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday) {
+function createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday) {
     axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/create", 
         data: {
@@ -9,6 +9,7 @@ function createProfile(firstName, lastName, email, password, billingAddress, car
             "email": email,
             "password": password,
             "billing_address": billingAddress,
+            "promos": promos,
             "card_info": cardInfo,
             "birthday": birthday
         },
