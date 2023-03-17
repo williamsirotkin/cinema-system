@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
+import Collapse from 'react-bootstrap/Collapse';
 
 
 
@@ -12,6 +13,7 @@ const EditProfile = () => {
   const [billingAddress, setBillingAddress] = useState('');
   const [birthday, setBirthday] = useState('')
   const [cardInfo, setCardInfo] = useState('')
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,10 +71,10 @@ const EditProfile = () => {
        
 
         <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday (dd/mm/yy)</Form.Label>
+          <Form.Label>Birthday</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="Birthday"
+            placeholder="(dd/mm/yyyy)"
             value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
           />
@@ -80,8 +82,19 @@ const EditProfile = () => {
         
         
         <br></br>
-        <CardForm sendData = {sendData}></CardForm>
-        
+        <Button variant="dark mt-3 " size="lg"
+        onClick={() => setOpen(!open)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open}>
+
+          Edit Credit Card
+        </Button>
+        <Collapse in={open}>
+        <div id="example-collapse-text">
+          <CardForm sendData = {sendData}></CardForm>
+        </div>
+        </Collapse>
+        <br></br>
         <br></br>
         
         
