@@ -19,16 +19,22 @@ const RegistrationPage = (props) => {
   const [billingAddress, setBillingAddress] = useState('');
   const [cardInfo, setCardInfo] = useState('')
   const [birthday, setBirthday] = useState('')
+  const [promos, setPromos] = useState(false)
+  const [switchState, setSwitchState] = useState(false);
+
 
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState(true); 
+  const [checked, setChecked] = useState(false); 
 
-  const checkBoxStatus = () => { 
-    setChecked(!checked);
-  }; 
+  const handleChange=(e)=>{
+    console.log(!switchState)
+    setSwitchState(!switchState)
+    // console.log(switchState)
+    setPromos(e.target.checked)
+ } 
 
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
@@ -173,11 +179,12 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
           />
         </Form.Group>
         <br></br>
-        <Form.Check 
+        <Form.Check
           type="switch"
           id="custom-switch"
-          label="Apply for promotions"
-          onChange={(e) => checkBoxStatus(e.target.value)}/>
+          label="Register for Promotions"
+          defaultChecked={switchState}
+          onChange={handleChange}/>
 
         <Button variant="dark mt-3 " size="lg"
         onClick={() => setOpen(!open)}
@@ -191,7 +198,6 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
           <CardForm sendData = {sendData}></CardForm>
         </div>
         </Collapse>
-        
         <br></br>
        <Button variant="btn btn-danger mt-3" type="submit">
        

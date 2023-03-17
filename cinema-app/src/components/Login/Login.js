@@ -16,12 +16,21 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [open, setOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState('')
+  const [emptyResetEmail, setEmptyResetEmail] = useState('')
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    if (resetEmail === ''){
+      setEmptyResetEmail("Please enter an email")
 
+    }
+    else {
+      setShow(true);
+      setEmptyResetEmail("")
+    }
+  }
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -34,9 +43,10 @@ const Login = () => {
     event.preventDefault();
   }
 
+
   const handleLogin = async (email, password) => {
     let result = await loginUtility(email, password)
-    if (result.status) {
+    if (result.token) {
       if (result.admin) {
         nav("/admin", {replace:true})
       } else {
@@ -82,6 +92,7 @@ const Login = () => {
             <Form.Label>Enter email to send reset password</Form.Label>
             <Form.Control type="email" placeholder="email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)}/>
             <div className='text-center'>
+            <p className='emptyEmail'>{emptyResetEmail}</p>
             <Button variant="primary mt-2" onClick={handleShow} type="submit">Send Reset Email</Button>
             </div>
 
