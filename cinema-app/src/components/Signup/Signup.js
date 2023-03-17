@@ -40,6 +40,7 @@ const RegistrationPage = (props) => {
     e.preventDefault();
     setFormErrors(validate(firstName,lastName,email,password));
     setIsSubmit(true);
+    setErrorMessage("")
     console.log('Registration form submitted!');
   }
 
@@ -55,7 +56,8 @@ const RegistrationPage = (props) => {
     checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
    
 
-  })
+  },[formErrors])
+  
   const validate = (firstName,lastName,email,password) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -65,9 +67,11 @@ const RegistrationPage = (props) => {
     if (!lastName) {
       errors.lastName = "last name is required!";
     }
-    if (!email || !regex.test(email)) {
+    if (!email) {
+      errors.email = "email is required!";
+    }else if(!regex.test(email)){
       errors.email = "Valid email format is required";
-    } 
+    }
     if (!password) {
       errors.password = "Password is required";
     } else if (password.length < 4) {
@@ -92,6 +96,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         nav('/registrationConfirmationPage', {replace: true})
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+        
 
     }
 

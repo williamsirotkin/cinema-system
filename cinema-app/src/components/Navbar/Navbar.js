@@ -46,14 +46,14 @@ function MainNavbar() {
               <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
               <NavDropdown.Item href="/selectMovie"> Select Movie </NavDropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
-              <NavDropdown.Item href="/signup"> Signup </NavDropdown.Item>
+              <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/editProfile">
                 Edit Profile
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/signup"> Sign Up </NavDropdown.Item>
+              <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
               <NavDropdown.Item href="/login">
                 Login
               </NavDropdown.Item>

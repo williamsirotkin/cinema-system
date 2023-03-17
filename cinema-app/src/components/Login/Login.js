@@ -2,7 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
 import { useNavigate } from 'react-router-dom';
-import './Login.css'
+import './Login.css';
+import Collapse from 'react-bootstrap/Collapse';
+import Nav from 'react-bootstrap/Nav';
 
 
 const Login = () => {
@@ -52,9 +54,14 @@ const Login = () => {
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
           </Form.Group>
           <br></br>
+          <div className='links'>
           <Button variant="btn btn-danger" type="submit" onClick = {() => handleLogin(email, password)}>
             Submit
           </Button>
+
+          <Nav.Link eventKey="link" id="forgotPassword">Forgot Password?</Nav.Link>
+          </div>
+         
         </Form>
       </div>
     </Container>
