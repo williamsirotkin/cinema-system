@@ -32,7 +32,6 @@ const RegistrationPage = (props) => {
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
-    console.log(promos)
  } 
 
   const sendData = (cardInfo) =>{

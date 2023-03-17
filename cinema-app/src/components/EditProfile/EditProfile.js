@@ -14,6 +14,8 @@ const EditProfile = () => {
   const [birthday, setBirthday] = useState('')
   const [cardInfo, setCardInfo] = useState('')
   const [open, setOpen] = useState(false);
+  const [promos, setPromos] = useState(false)
+  const [switchState, setSwitchState] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +25,10 @@ const EditProfile = () => {
     setCardInfo(cardInfo)
 
   }
+  const handleChange=(e)=>{
+    setSwitchState(!switchState)
+    setPromos(e.target.checked)
+  } 
 
   return (
     <div className="container">
@@ -82,6 +88,12 @@ const EditProfile = () => {
         
         
         <br></br>
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          label="Register for Promotions"
+          defaultChecked={switchState}
+          onChange={handleChange}/>
         <Button variant="dark mt-3 " size="lg"
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
