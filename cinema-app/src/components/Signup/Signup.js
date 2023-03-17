@@ -30,10 +30,9 @@ const RegistrationPage = (props) => {
   const [checked, setChecked] = useState(false); 
 
   const handleChange=(e)=>{
-    console.log(!switchState)
     setSwitchState(!switchState)
-    // console.log(switchState)
     setPromos(e.target.checked)
+    console.log(promos)
  } 
 
   const sendData = (cardInfo) =>{
@@ -59,7 +58,7 @@ const RegistrationPage = (props) => {
   }, [formErrors]);
 
   useEffect(()=> {
-    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
+    checkEmail(firstName, lastName, email, password, billingAddress, promos, cardInfo,birthday)
    
 
   },[formErrors])
@@ -89,7 +88,7 @@ const RegistrationPage = (props) => {
   };
 
 
-async function checkEmail(firstName, lastName, email, password, billingAddress, cardInfo, birthday) {
+async function checkEmail(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday) {
 
   //puts in the data to database
 
@@ -97,8 +96,8 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
       const check = await checkEmailInUse(email)
 
       if(check){
-        createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
-        props.setUserData(firstName,lastName,email, billingAddress, cardInfo, birthday);
+        createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
+        props.setUserData(firstName,lastName,email, billingAddress, promos, cardInfo, birthday);
         nav('/registrationConfirmationPage', {replace: true})
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
