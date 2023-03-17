@@ -51,11 +51,12 @@ const RegistrationPage = (props) => {
   
   }, [formErrors]);
 
-  // useEffect(()=> {
-  //   checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
+  useEffect(()=> {
+    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
    
 
-  // })
+  },[formErrors])
+  
   const validate = (firstName,lastName,email,password) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -65,9 +66,11 @@ const RegistrationPage = (props) => {
     if (!lastName) {
       errors.lastName = "last name is required!";
     }
-    if (!email || !regex.test(email)) {
+    if (!email) {
+      errors.email = "email is required!";
+    }else if(!regex.test(email)){
       errors.email = "Valid email format is required";
-    } 
+    }
     if (!password) {
       errors.password = "Password is required";
     } else if (password.length < 4) {
@@ -189,7 +192,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Collapse>
         
         <br></br>
-       <Button variant="btn btn-danger mt-3" onClick={()=>checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
+       <Button variant="btn btn-danger mt-3" type="submit">
        
           Submit
         </Button>
