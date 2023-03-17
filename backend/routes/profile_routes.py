@@ -73,13 +73,16 @@ def login():
     
     # Login with email and password if there is no JWT from user, send JWT to user
     jwt_token = generate_jwt(data['email'])
-    result = db.profile.find_one({"email": data['email'], "password": data['password']})
+    print(bcrypt.generate_password_hash(data['password']))
+    result = db.profile.find_one({"email": data['email']})
     if result:
-        jwt_token = generate_jwt(data['email'])
-        isAdmin = db.admin.find_one({"email": data['email']})
-        if isAdmin:
-            return jsonify({'admin': True, 'token': jwt_token})
-        return jsonify({'admin': False, 'token': jwt_token})
+        if (bcrypt.check_password_hash(result['password'], data['password'])):
+            print(result['password'])
+            jwt_token = generate_jwt(data['email'])
+            isAdmin = db.admin.find_one({"email": data['email']})
+            if isAdmin:
+                return jsonify({'admin': True, 'token': jwt_token})
+            return jsonify({'admin': False, 'token': jwt_token})
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 
