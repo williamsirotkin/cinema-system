@@ -8,12 +8,7 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
-    const user = {
-      name: "Adhaujd",
-      expiration: "adhao",
-      lastname: "adoadk",
-      yo: "adsh"
-    }
+
     function handleSubmit(e) {
         e.preventDefault();
         setSubmittedData({ name, cardNumber, expiry, cvc });

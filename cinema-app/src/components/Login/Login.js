@@ -2,7 +2,11 @@ import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
 import { useNavigate } from 'react-router-dom';
-import './Login.css'
+import './Login.css';
+import Collapse from 'react-bootstrap/Collapse';
+import Nav from 'react-bootstrap/Nav';
+import Modal from 'react-bootstrap/Modal';
+
 
 
 const Login = () => {
@@ -10,10 +14,20 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('')
+  const [open, setOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState('')
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
+  const handleResetEmail = (event) => {
+    setResetEmail(event.target.value)
+  }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -52,9 +66,51 @@ const Login = () => {
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
           </Form.Group>
           <br></br>
+          <div className='links'>
           <Button variant="btn btn-danger" type="submit" onClick = {() => handleLogin(email, password)}>
             Submit
           </Button>
+
+          <Nav.Link eventKey="link" id="forgotPassword"
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+          >Forgot Password?
+          </Nav.Link>
+          </div>
+          <Collapse in={open}>
+          <div id="example-collapse-text">
+            <br></br>
+            <Form.Group controlId="formBasicPassword">
+            <Form.Label>Enter email to send reset password</Form.Label>
+            <Form.Control type="email" placeholder="email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)}/>
+            <div className='text-center'>
+            <Button variant="primary mt-2" onClick={handleShow} type="submit">Send Reset Email</Button>
+            </div>
+
+            </Form.Group>
+            <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+            <Modal.Header closeButton>
+            <Modal.Title>Hooray!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            We have sent an email to reset password to {resetEmail}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+          
+        </div>
+        </Collapse>
+         
         </Form>
       </div>
     </Container>

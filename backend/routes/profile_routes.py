@@ -4,6 +4,10 @@ from db import db
 from flask_cors import CORS
 import jwt
 from datetime import datetime, timedelta
+from flask_bcrypt import Bcrypt
+
+app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 profile = Blueprint("profile", __name__, url_prefix="/profile")
 
@@ -22,16 +26,23 @@ def create_profile():
     cardInfo = ""
     if (data['card_info']):
         cardInfo = data['card_info']
+        cardInfo['name'] = bcrypt.generate_password_hash(cardInfo['name'])
+        cardInfo['cardNumber'] = bcrypt.generate_password_hash(cardInfo['cardNumber'])
+        cardInfo['expiry'] = bcrypt.generate_password_hash(cardInfo['expiry'])
+        cardInfo['cvc'] = bcrypt.generate_password_hash(cardInfo['cvc'])
+
 
     birthDay = ""
     if (data['birthday']):
         birthDay = data['birthday']
 
+    encryptedPassword = bcrypt.generate_password_hash(data['password'])
+
     user = {
         'first_name' : data['first_name'],
         'email' : data['email'],
         'last_name' : data['last_name'],
-        'password' : data['password'],
+        'password' : encryptedPassword,
         'active': True,
         'billing_address': billingAddress,
         'card_info': cardInfo,

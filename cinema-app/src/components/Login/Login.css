@@ -1,3 +1,11 @@
 .error {
     color: red
 }
+.links{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+#forgotPassword{
+    color:rgb(55, 55, 231);
+}
