@@ -25,7 +25,7 @@ const Login = () => {
 
   const handleLogin = async (email, password) => {
     let result = await loginUtility(email, password)
-    if (result.status) {
+    if (result.token) {
       if (result.admin) {
         nav("/admin", {replace:true})
       } else {
