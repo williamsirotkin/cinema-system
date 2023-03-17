@@ -51,12 +51,11 @@ const RegistrationPage = (props) => {
   
   }, [formErrors]);
 
-  useEffect(()=> {
-    
-    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
+  // useEffect(()=> {
+  //   checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
    
 
-  })
+  // })
   const validate = (firstName,lastName,email,password) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -93,6 +92,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         nav('/registrationConfirmationPage', {replace: true})
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
+        
 
     }
 
@@ -189,7 +189,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Collapse>
         
         <br></br>
-       <Button variant="btn btn-danger mt-3" type="submit">
+       <Button variant="btn btn-danger mt-3" onClick={()=>checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)}type="submit">
        
           Submit
         </Button>
