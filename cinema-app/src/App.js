@@ -24,10 +24,11 @@ import axios from 'axios';
 function App() {
   const [user, setUser] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
+  function setUserData(firstName, lastName, email, role) {
     setUser({
-      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
+      firstName, lastName, email, role
     })
   }
 
@@ -55,6 +56,7 @@ function App() {
     setUser({
       firstName, lastName, email, role
     })
+    setLoggedIn(true)
     setIsLoading(false)
   }))
   .catch((error) => {
@@ -68,7 +70,7 @@ function App() {
   } else {
   return (
     <Router>
-       <MainNavbar user={user}/>
+       <MainNavbar user={user} loggedIn={loggedIn}/>
     <Routes>
 
     <Route path = "/" element={
@@ -158,7 +160,7 @@ function App() {
       }></Route>
       <Route path = "/signup" element={
           <React.Fragment>
-            <Signup setUser={setUser}/>
+            <Signup setUserData={setUserData}/>
           </React.Fragment>
       }></Route>
 
