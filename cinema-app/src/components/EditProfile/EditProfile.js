@@ -10,10 +10,12 @@ const EditProfile = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('')
   const [billingAddress, setBillingAddress] = useState('');
   const [birthday, setBirthday] = useState('')
   const [cardInfo, setCardInfo] = useState('')
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false)
   const [switchState, setSwitchState] = useState(false);
 
@@ -28,6 +30,7 @@ const EditProfile = () => {
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
+    
   } 
 
   return (
@@ -54,15 +57,40 @@ const EditProfile = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Edit Password</Form.Label>
+
+        <Button variant="btn btn-secondary mt-3 " size="md"
+        onClick={() => setOpen2(!open2)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open2}>
+
+          Edit password
+        </Button>
+        <Collapse in={open2}>
+        <div id="example-collapse-text">
+        <Form.Group controlId="formBasicFirstName">
+          <Form.Label>Current password</Form.Label>
           <Form.Control 
-            type="password" 
-            placeholder="*Password will NOT be displayed*"
+            type="text" 
+            placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </Form.Group>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicFirstName">
+          <Form.Label>Enter New Password</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter new password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          </Form.Group>
+        </div>
+        </Collapse>
+      <br></br>
+      <hr></hr>
+
 
         <Form.Group controlId="formBasicBillingAddress">
           <Form.Label>Billing Address</Form.Label>
@@ -94,6 +122,7 @@ const EditProfile = () => {
           label="Register for Promotions"
           defaultChecked={switchState}
           onChange={handleChange}/>
+
         <Button variant="dark mt-3 " size="lg"
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
@@ -106,13 +135,16 @@ const EditProfile = () => {
           <CardForm sendData = {sendData}></CardForm>
         </div>
         </Collapse>
+
         <br></br>
         <br></br>
         
-        
+        <div className='text-center'>
+          <hr></hr>
         <Button variant="btn btn-danger" type="submit" href="/login">
           Confirm changes
         </Button>
+        </div>
       </Form>
     </div>
   );
