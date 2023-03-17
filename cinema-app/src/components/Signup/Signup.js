@@ -40,6 +40,7 @@ const RegistrationPage = (props) => {
     e.preventDefault();
     setFormErrors(validate(firstName,lastName,email,password));
     setIsSubmit(true);
+    setErrorMessage("")
     console.log('Registration form submitted!');
   }
 
