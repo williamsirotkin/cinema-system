@@ -57,9 +57,7 @@ const RegistrationPage = (props) => {
   }, [formErrors]);
 
   useEffect(()=> {
-    checkEmail(firstName, lastName, email, password, billingAddress, promos, cardInfo,birthday)
-   
-
+    checkEmail(firstName, lastName, email, password, billingAddress,cardInfo,birthday)
   },[formErrors])
   
   const validate = (firstName,lastName,email,password) => {
@@ -95,8 +93,8 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
       const check = await checkEmailInUse(email)
 
       if(check){
-        createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
-        props.setUserData(firstName,lastName,email, billingAddress, promos, cardInfo, birthday);
+        createProfile(firstName, lastName, email, password, billingAddress, cardInfo, birthday); 
+        props.setUserData(firstName,lastName,email, "customer");
         nav('/registrationConfirmationPage', {replace: true})
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
@@ -198,7 +196,6 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Collapse>
         <br></br>
        <Button variant="btn btn-danger mt-3" type="submit">
-       
           Submit
         </Button>
       </Form>

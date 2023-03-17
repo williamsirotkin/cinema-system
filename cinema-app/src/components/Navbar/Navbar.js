@@ -10,8 +10,7 @@ import {BsSearch} from "react-icons/bs";
 
 
 function MainNavbar(props) {
-  console.log(props.user)
-  if (props.user) {
+  if (props.loggedIn) {
   return (
     <Navbar bg="light" expand="lg">
       <Container className = "navbar">
