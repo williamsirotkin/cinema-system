@@ -46,6 +46,7 @@ function MainNavbar() {
               <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
               <NavDropdown.Item href="/selectMovie"> Select Movie </NavDropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
+              <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
               <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Profile" id="basic-nav-dropdown">

@@ -18,6 +18,7 @@ import SelectSeats from './components/SelectSeats/SelectSeats';
 import SelectShowtime from './components/SelectShowtime/SelectShowtime';
 import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
+import ResetPassword from './components/ResetPassword/ResetPassword';
 
 function App() {
   const [firstName, setFirstName] = useState('');
@@ -125,6 +126,13 @@ function App() {
             <Signup setUserData={setUserData}/>
           </React.Fragment>
       }></Route>
+
+      <Route path = "/resetPassword" element={
+          <React.Fragment>
+            <ResetPassword/>
+          </React.Fragment>
+      }></Route>
+
 
     </Routes>
 
