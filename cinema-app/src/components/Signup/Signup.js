@@ -27,12 +27,11 @@ const RegistrationPage = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState(false); 
+
 
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
-    console.log(promos)
  } 
 
   const sendData = (cardInfo) =>{
