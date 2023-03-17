@@ -57,6 +57,7 @@ const EditProfile = () => {
           />
         </Form.Group>
 
+
         <Button variant="btn btn-secondary mt-3 " size="md"
         onClick={() => setOpen2(!open2)}
         aria-controls="example-collapse-text"
