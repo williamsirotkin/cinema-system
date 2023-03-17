@@ -52,6 +52,7 @@ const Login = () => {
       } else {
         nav("/", {replace:true})
       }
+      window.location.reload()
     } else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
@@ -74,7 +75,7 @@ const Login = () => {
           </Form.Group>
           <br></br>
           <div className='links'>
-          <Button variant="btn btn-danger" type="submit" onClick = {() => handleLogin(email, password)}>
+          <Button variant="btn btn-danger" type="submit" onClick = {() => {handleLogin(email, password)}}>
             Submit
           </Button>
 

@@ -62,19 +62,6 @@ def create_profile():
 @profile.route('/login', methods = ['POST'])
 def login():
     data = request.json
-
-    # Login with JWT if user sends valid JWT 
-    email = ""
-    if (data['jwt']):
-        jwtGeneratedEmail = decode_jwt(data['jwt'])['email']
-        jwt_token = data['jwt']
-        print(jwt_token)
-        print(jwtGeneratedEmail)
-        if (jwtGeneratedEmail == data['email']):
-            isAdmin = db.admin.find_one({"email": data['email']})
-            if isAdmin:
-                return jsonify({'admin': True, 'token': jwt_token})
-            return jsonify({'admin': False, 'token': jwt_token})
     
     # Login with email and password if there is no JWT from user, send JWT to user
     jwt_token = generate_jwt(data['email'])
@@ -82,12 +69,27 @@ def login():
     result = db.profile.find_one({"email": data['email']})
     if result:
         if (bcrypt.check_password_hash(result['password'], data['password'])):
-            print(result['password'])
             jwt_token = generate_jwt(data['email'])
             isAdmin = db.admin.find_one({"email": data['email']})
             if isAdmin:
-                return jsonify({'admin': True, 'token': jwt_token})
-            return jsonify({'admin': False, 'token': jwt_token})
+                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
+            return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
+    return Response(status=404)
+
+@profile.route('/jwt/login', methods = ['POST'])
+def jwt_login():
+    data = request.json
+
+    # Login with JWT if user sends valid JWT 
+    email = ""
+    if (data['jwt']):
+        jwtGeneratedEmail = decode_jwt(data['jwt'])['email']
+        jwt_token = data['jwt']
+        result = db.profile.find_one({"email": jwtGeneratedEmail})
+        isAdmin = db.admin.find_one({"email": jwtGeneratedEmail})
+        if isAdmin:
+                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
+        return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 
