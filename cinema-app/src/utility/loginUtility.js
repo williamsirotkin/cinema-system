@@ -1,16 +1,11 @@
 import axios from 'axios';
 
 async function loginUtility(email, password) {
-    let jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-        jwt = ""
-    }
     return await axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/login", 
         data: {
             "email": email,
             "password": password,
-            "jwt": jwt
         },
         method: "post",
         headers: {
@@ -26,10 +21,6 @@ async function loginUtility(email, password) {
         }
     }))
     .catch((error) => {
-        if (error.response.status != 404) {
-            console.log('JWT has expired');
-            localStorage.removeItem('jwt');
-          }
         return false
     });
 }

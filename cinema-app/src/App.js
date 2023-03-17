@@ -19,21 +19,56 @@ import SelectShowtime from './components/SelectShowtime/SelectShowtime';
 import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
 import ResetPassword from './components/ResetPassword/ResetPassword';
+import axios from 'axios';
 
 function App() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  const setUserData = (firstName, lastName, email)=>{
-    setFirstName(firstName)
-    setLastName(lastName)
-    setEmail(email)
+  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
+    setUser({
+      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
+    })
   }
+
+  useEffect(() => {
+    let jwt = localStorage.getItem('jwt');
+    console.log(localStorage.getItem('jwt'));
+    if (!jwt) {
+      jwt = ""
+    }
+    axios({
+      url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
+      data: {
+          "jwt": jwt
+      },
+      method: "post",
+      headers: {
+          "Content-Type": "application/json"
+      }
+  })
+  .then((response => {
+    const firstName = response.data.firstName
+    const lastName = response.data.lastName
+    const email = response.data.email
+    const role = response.data.role
+    setUser({
+      firstName, lastName, email, role
+    })
+    setIsLoading(false)
+  }))
+  .catch((error) => {
+      console.log('JWT has expired');
+      setIsLoading(false)
+  });
+  }, []);
   
+  if (isLoading) {
+    return <div><h1>Loading Page</h1> </div>
+  } else {
   return (
     <Router>
-       <MainNavbar />
+       <MainNavbar user={user}/>
     <Routes>
 
     <Route path = "/" element={
@@ -94,7 +129,7 @@ function App() {
 
         <Route path = "/registrationConfirmationPage" element={
           <React.Fragment>
-            <RegistrationConfirmationPage firstName={firstName} lastName ={lastName} email={email}/>
+            <RegistrationConfirmationPage firstName={user.firstName} lastName ={user.lastName} email={user.email}/>
           </React.Fragment>
       }></Route>
 
@@ -123,7 +158,7 @@ function App() {
       }></Route>
       <Route path = "/signup" element={
           <React.Fragment>
-            <Signup setUserData={setUserData}/>
+            <Signup setUser={setUser}/>
           </React.Fragment>
       }></Route>
 
@@ -140,6 +175,8 @@ function App() {
 
     </Router>
   );
+    }
 }
+
 
 export default App;
