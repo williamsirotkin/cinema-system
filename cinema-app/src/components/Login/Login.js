@@ -96,7 +96,7 @@ const Login = () => {
             <Modal.Title>Hooray!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            We have sent an email to reset password to {resetEmail}
+            We have sent an email to reset password to: {resetEmail}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={handleClose}>
