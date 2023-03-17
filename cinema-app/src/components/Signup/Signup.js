@@ -27,12 +27,10 @@ const RegistrationPage = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [open, setOpen] = useState(false);
-  const [checked, setChecked] = useState(false); 
+
 
   const handleChange=(e)=>{
-    console.log(!switchState)
     setSwitchState(!switchState)
-    // console.log(switchState)
     setPromos(e.target.checked)
  } 
 
@@ -87,7 +85,7 @@ const RegistrationPage = (props) => {
   };
 
 
-async function checkEmail(firstName, lastName, email, password, billingAddress, cardInfo, birthday) {
+async function checkEmail(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday) {
 
   //puts in the data to database
 

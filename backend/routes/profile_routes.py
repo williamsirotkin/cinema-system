@@ -36,6 +36,10 @@ def create_profile():
     if (data['birthday']):
         birthDay = data['birthday']
 
+    promos = False
+    if (data['birthday']):
+        birthDay = data['birthday']
+
     encryptedPassword = bcrypt.generate_password_hash(data['password'])
 
     user = {
@@ -45,6 +49,7 @@ def create_profile():
         'password' : encryptedPassword,
         'active': True,
         'billing_address': billingAddress,
+        'registered_for_promos': data['promos'],
         'card_info': cardInfo,
         'birthday': birthDay
     }

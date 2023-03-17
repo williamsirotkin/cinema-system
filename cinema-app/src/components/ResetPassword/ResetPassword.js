@@ -1,9 +1,10 @@
 import { Container, Form, Button } from 'react-bootstrap';
 import React, { useState, useContext } from 'react';
-
+import './resetPassword.css'
 export default function ResetPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -12,12 +13,15 @@ export default function ResetPassword() {
       }
 
     const passwordsMatch = (password, confirmPassword) => {
-        if(password === confirmPassword){
-            alert("thank you, your changes have been saved")
+        if(!password || !confirmPassword){
+            setMessage("Please make sure that you fill in all fields")
+        }
+        else if(password === confirmPassword){
+            setMessage("thank you, your changes have been saved")
             return true
-
-        }else{
-            alert("passwords dont match, make sure theyre the same")
+        }
+        else{
+            setMessage("passwords dont match, make sure theyre the same")
             return false
         }
     }
@@ -46,7 +50,7 @@ export default function ResetPassword() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           </Form.Group>
-
+        <p className='message mt-1'>{message}</p>
           <Button variant="btn btn-danger mt-3" type="submit">
             Confirm Changes
           </Button>
