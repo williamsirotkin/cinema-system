@@ -26,9 +26,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role) {
+  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
     setUser({
-      firstName, lastName, email, role
+      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
     })
   }
 
