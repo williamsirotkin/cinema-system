@@ -4,6 +4,7 @@ import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
 import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
+import {loginUtility} from '../../utility/loginUtility.js'
 
 
 
@@ -27,27 +28,28 @@ const EditProfile = ({ user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(firstName,lastName,email,password));
+    setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
-    setErrorMessage("")
     console.log('Registration form submitted!');
   }
 
   useEffect(() => {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(firstName,lastName,password);
+      
+      editUserProfile(firstName,lastName,email)
+      console.log(firstName,lastName,newPassword,email);
     }
 
   }, [formErrors]);
 
-  useEffect(()=> {
-    updateProfileNames();
-  },[formErrors])
 
-  function updateProfileNames(firstName, lastName, email) {
-    editUserProfile(firstName,lastName, email);
-  }
+
+
+  // useEffect(()=>{
+  //   loginUtility(email, password)
+  // },[newPassword])
+
 
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
@@ -60,26 +62,20 @@ const EditProfile = ({ user }) => {
     
   }
 
-  const validate = (firstName,lastName,password) => {
+  const validate = (firstName,lastName,newPassword) => {
     const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!firstName) {
       errors.firstName = "first name is required!";
     }
     if (!lastName) {
       errors.lastName = "last name is required!";
     }
-    if (!email) {
-      errors.email = "email is required!";
-    }else if(!regex.test(email)){
-      errors.email = "Valid email format is required";
-    }
-    if (!password) {
-      errors.password = "Password is required";
-    } else if (password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (password.length > 16) {
-      errors.password = "Password cannot exceed more than 16 characters";
+    if (!newPassword) {
+      errors.newPassword = "Password is required";
+    } else if (newPassword.length < 4) {
+      errors.newPassword = "Password must be more than 4 characters";
+    } else if (newPassword.length > 16) {
+      errors.newPassword = "Password cannot exceed more than 16 characters";
     }
     return errors;
   };
@@ -95,7 +91,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text"
             placeholder= {firstName}
-            /*value= {firstName}*/
+            value= {firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -106,7 +102,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder= {lastName}
-            /*value=''*/
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -126,7 +122,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder="Enter password"
-            /*value={password}*/
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -136,10 +132,11 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder="Enter new password"
-            /*value={newPassword}*/
+            value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
+          <p className='error'>{formErrors.newPassword}</p>
         </div>
         </Collapse>
           <Form.Group controlId="formBasicBillingAddress">
@@ -147,7 +144,7 @@ const EditProfile = ({ user }) => {
               <Form.Control
                   type="text"
                   placeholder= {billingAddress}
-                  /*value={billingAddress}*/
+                  value={billingAddress}
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -159,7 +156,7 @@ const EditProfile = ({ user }) => {
               <Form.Control
                   type="text"
                   placeholder= {birthday}
-                  /*value={birthday}*/
+                  value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -192,7 +189,7 @@ const EditProfile = ({ user }) => {
         
         <div className='text-center'>
           <hr></hr>
-        <Button variant="btn btn-danger" type="submit" href="/login">
+        <Button variant="btn btn-danger" type="submit">
           Confirm changes
         </Button>
         </div>

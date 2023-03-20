@@ -4,9 +4,9 @@ import axios from 'axios'
      axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/editProfile",
         data: {
-            "email": email,
             "first_name": firstName,
-            "last_name": lastName
+            "last_name": lastName,
+            "email": email
         },
         method: "POST",
         headers: {
