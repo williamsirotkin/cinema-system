@@ -96,7 +96,7 @@ const EditProfile = ({ user }) => {
             type="text"
             placeholder="Enter First Name"
             value= {firstName}
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
         <p className='error'>{formErrors.firstName}</p>
