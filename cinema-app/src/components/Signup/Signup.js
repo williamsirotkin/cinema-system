@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
 import {createProfile} from '../../utility/signupUtility.js'
@@ -6,6 +6,8 @@ import {useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
+import emailjs from '@emailjs/browser';
+
 
 
 
@@ -96,10 +98,16 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
         props.setUserData(firstName,lastName,email, "customer", billingAddress, promos, cardInfo, birthday);
         nav('/registrationConfirmationPage', {replace: true})
+
+        emailjs.send('service_ofjhgu6', 'template_05n96oa', {'first_name': firstName, 'email': email}, 'DtNOiKN5xVEZfQwFe')
+          .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
-        
-
     }
 
     }  
