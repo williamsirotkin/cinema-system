@@ -26,44 +26,54 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
-    setUser({
-      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
-    })
-  }
-
-  useEffect(() => {
-    let jwt = localStorage.getItem('jwt');
-    console.log(localStorage.getItem('jwt'));
-    if (!jwt) {
-      jwt = ""
-    }
-    axios({
-      url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
-      data: {
-          "jwt": jwt
-      },
-      method: "post",
-      headers: {
-          "Content-Type": "application/json"
-      }
-  })
-  .then((response => {
-    const firstName = response.data.firstName
-    const lastName = response.data.lastName
-    const email = response.data.email
-    const role = response.data.role
+  function setUserData(firstName, lastName, email, role) {
     setUser({
       firstName, lastName, email, role
     })
-    setLoggedIn(true)
-    setIsLoading(false)
-  }))
-  .catch((error) => {
-      console.log('JWT has expired');
-      setIsLoading(false)
-  });
-  }, []);
+  }
+
+  
+    useEffect(() => {
+      if (!window.location.pathname.substring(0,7)) {
+        console.log(window.location.pathname.substring(0,7))
+        let jwt = localStorage.getItem('jwt');
+        console.log(localStorage.getItem('jwt'));
+        if (!jwt) {
+          jwt = ""
+        }
+        
+        axios({
+          url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
+          data: {
+              "jwt": jwt
+          },
+          method: "post",
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+
+
+      .then((response => {
+        const firstName = response.data.firstName
+        const lastName = response.data.lastName
+        const email = response.data.email
+        const role = response.data.role
+        setUser({
+          firstName, lastName, email, role
+        })
+        setLoggedIn(true)
+        setIsLoading(false)
+      }))
+      .catch((error) => {
+          console.log('JWT has expired');
+          setIsLoading(false)
+      });
+      }
+    
+    }
+    , []);
+  
   
   if (isLoading) {
     return <div><h1>Loading Page</h1> </div>

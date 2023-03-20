@@ -5,6 +5,8 @@ from flask_cors import CORS
 import jwt
 from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt
+import random
+import string
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -14,6 +16,12 @@ profile = Blueprint("profile", __name__, url_prefix="/profile")
 @profile.route("/")
 def profile_home():
     return "This is the profile routes"
+
+@profile.route('/verifyEmail/<token>')
+def verify_email(token, methods = ['PATCH']):
+    data = request.json
+    if token == data['emailToken']:
+        profile.update_one({'emailToken': token}, {'$set': {'active': True}})
 
 @profile.route('/create', methods = ['POST'])
 def create_profile():
@@ -41,13 +49,16 @@ def create_profile():
         birthDay = data['birthday']
 
     encryptedPassword = bcrypt.generate_password_hash(data['password'])
+    token = ''.join(random.choices(string.ascii_uppercase + string.digits, k =10))
+
 
     user = {
         'first_name' : data['first_name'],
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : encryptedPassword,
-        'active': True,
+        'active': False,
+        'emailToken': token,
         'billing_address': billingAddress,
         'registered_for_promos': data['promos'],
         'card_info': cardInfo,
@@ -113,6 +124,12 @@ def edit_profile():
         'password' : data['password'],
     }
 
+# @profile.route('/verify_email/<token>')
+# def verify_email(token, methods = ['PATCH']):
+#      data = request.json
+#      if token == data['emailToken']:
+#         profile.update_one({'emailToken': token}, {'$set': {'active': True}})
+
 
 def generate_jwt(email):
     exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
@@ -128,3 +145,4 @@ def generate_jwt(email):
 def decode_jwt(jwt_token):
     payload = jwt.decode(jwt_token, os.environ['AUTHENTICATION_PRIVATE_KEY'], algorithms=['HS256'])
     return payload
+
