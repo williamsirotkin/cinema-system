@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
@@ -20,6 +20,10 @@ const EditProfile = ({ user }) => {
   const [promos, setPromos] = useState(false)
   const [switchState, setSwitchState] = useState(false);
 
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const email = user.email;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,41 +32,85 @@ const EditProfile = ({ user }) => {
     setErrorMessage("")
     console.log('Registration form submitted!');
   }
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(firstName,lastName,password);
+    }
+
+  }, [formErrors]);
+
+  useEffect(()=> {
+    updateProfileNames();
+  },[formErrors])
+
+  function updateProfileNames(firstName, lastName, email) {
+    editUserProfile(firstName,lastName, email);
+  }
+
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
   }
+
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
     
   }
 
+  const validate = (firstName,lastName,password) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!firstName) {
+      errors.firstName = "first name is required!";
+    }
+    if (!lastName) {
+      errors.lastName = "last name is required!";
+    }
+    if (!email) {
+      errors.email = "email is required!";
+    }else if(!regex.test(email)){
+      errors.email = "Valid email format is required";
+    }
+    if (!password) {
+      errors.password = "Password is required";
+    } else if (password.length < 4) {
+      errors.password = "Password must be more than 4 characters";
+    } else if (password.length > 16) {
+      errors.password = "Password cannot exceed more than 16 characters";
+    }
+    return errors;
+  };
 
   return (
     <div className="container">
       <h1 className='register'>Edit Profile</h1>
+      <p className="error">{errorMessage}</p>
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>Edit First Name</Form.Label>
           <Form.Control 
             type="text"
-            placeholder="*Enter First Name"
+            placeholder="Enter First Name"
             value= {firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
+        <p className='error'>{formErrors.firstName}</p>
 
         <Form.Group controlId="formBasicLastName">
           <Form.Label>Edit Last Name</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="*Enter Last Name"
+            placeholder="Enter Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
-
+        <p className='error'>{formErrors.lastName}</p>
 
         <Button variant="btn btn-secondary mt-3 " size="md"
         onClick={() => setOpen2(!open2)}

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-async function editUserProfile(firstName, lastName, email) {
-    return await axios({
+ function editUserProfile(firstName, lastName, email) {
+     axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/editProfile",
         data: {
             "email": email,
