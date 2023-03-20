@@ -93,7 +93,7 @@ function App() {
 
       <Route path ="/editProfile" element={
          <React.Fragment>
-         <EditProfile/>
+         <EditProfile data={user}/>
        </React.Fragment>
 
       }></Route>

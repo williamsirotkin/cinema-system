@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
 import Collapse from 'react-bootstrap/Collapse';
+import {loginUtility} from '../../utility/loginUtility.js'
 
 
 
-const EditProfile = () => {
+const EditProfile = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
@@ -32,6 +33,9 @@ const EditProfile = () => {
     setPromos(e.target.checked)
     
   } 
+useEffect(()=>{
+  loginUtility(props.data.email, password)
+},[newPassword])
 
   return (
     <div className="container">
