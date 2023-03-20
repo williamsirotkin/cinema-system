@@ -62,14 +62,13 @@ def create_profile():
 @profile.route('/login', methods = ['POST'])
 def login():
     data = request.json
-    
+    print(data['remember_me'])
     # Login with email and password if there is no JWT from user, send JWT to user
-    jwt_token = generate_jwt(data['email'])
+    jwt_token = generate_jwt(data['email'], data['remember_me'])
     print(bcrypt.generate_password_hash(data['password']))
     result = db.profile.find_one({"email": data['email']})
     if result:
         if (bcrypt.check_password_hash(result['password'], data['password'])):
-            jwt_token = generate_jwt(data['email'])
             isAdmin = db.admin.find_one({"email": data['email']})
             if isAdmin:
                 return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
@@ -114,8 +113,11 @@ def edit_profile():
     }
 
 
-def generate_jwt(email):
-    exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
+def generate_jwt(email, rememberMe):
+    if not rememberMe:
+        exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
+    else:
+        exp_time = datetime.utcnow() + timedelta(minutes=43200)
 
     payload = {
         'email': email,

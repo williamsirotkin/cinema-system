@@ -17,7 +17,7 @@ const Login = () => {
   const [open, setOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState('')
   const [emptyResetEmail, setEmptyResetEmail] = useState('')
-
+  const [switchState, setSwitchState] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -43,9 +43,13 @@ const Login = () => {
     event.preventDefault();
   }
 
+  const handleChange=(e)=>{
+    setSwitchState(!switchState)
+ } 
 
-  const handleLogin = async (email, password) => {
-    let result = await loginUtility(email, password)
+
+  const handleLogin = async (email, password, switchState) => {
+    let result = await loginUtility(email, password, switchState)
     if (result.token) {
       if (result.admin) {
         nav("/admin", {replace:true})
@@ -56,7 +60,7 @@ const Login = () => {
     } else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
-  }
+    }
 
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
@@ -74,8 +78,15 @@ const Login = () => {
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
           </Form.Group>
           <br></br>
+          <Form.Check
+          type="switch"
+          id="custom-switch"
+          label="Remember me for 30 days"
+          defaultChecked={switchState}
+          onChange={handleChange}/>
+          <br></br>
           <div className='links'>
-          <Button variant="btn btn-danger" type="submit" onClick = {() => {handleLogin(email, password)}}>
+          <Button variant="btn btn-danger" type="submit" onClick = {() => {handleLogin(email, password, switchState)}}>
             Submit
           </Button>
 
