@@ -88,8 +88,27 @@ def jwt_login():
         result = db.profile.find_one({"email": jwtGeneratedEmail})
         isAdmin = db.admin.find_one({"email": jwtGeneratedEmail})
         if isAdmin:
-                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
-        return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
+                return jsonify({'firstName': result['first_name'],
+                                'lastName': result['last_name'],
+                                'email': result['email'],
+                                'birthday': result['birthday'],
+                                'card_info': result['card_info'],
+                                'active': result['active'],
+                                'billing_address': result['billing_address'],
+                                'promos': result['registered_for_promos'],
+                                'admin': True,
+                                'token': jwt_token})
+        return jsonify({'firstName': result['first_name'],
+                        'lastName': result['last_name'],
+                        'email': result['email'],
+                        'birthday': result['birthday'],
+                        'card_info': result['card_info'],
+                        'active': result['active'],
+                        'billing_address': result['billing_address'],
+                        'promos': result['registered_for_promos'],
+                        'admin': False,
+                        'token': jwt_token
+                        })
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 
@@ -113,7 +132,7 @@ def edit_profile():
     #password is encrypted
     query = {"email": email}
     new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
-    #new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_Address": billing_Address, "password": password, "card_info": card_info}}
+    #new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_Address": billing_address, "card_info": card_info}}
     result = db.profile.update_one(query, new_values)
     if result:
         return Response(status=200)

@@ -53,8 +53,13 @@ function App() {
     const lastName = response.data.lastName
     const email = response.data.email
     const role = response.data.role
+    const birthday = response.data.birthday
+    const card_info = response.data.card_info
+    const active = response.data.active
+    const billing_address = response.data.billing_address
+    const promos = response.data.promos
     setUser({
-      firstName, lastName, email, role
+      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
     })
     setLoggedIn(true)
     setIsLoading(false)

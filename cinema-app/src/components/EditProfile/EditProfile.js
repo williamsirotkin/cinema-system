@@ -11,13 +11,13 @@ const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('');
   const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
-  const [birthday, setBirthday] = useState(user.birthday || '')
-  const [cardInfo, setCardInfo] = useState(  '')
+  const [birthday, setBirthday] = useState(user.birthday || '');
+  const [cardInfo, setCardInfo] = useState(  '');
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [promos, setPromos] = useState(false)
+  const [promos, setPromos] = useState(false);
   const [switchState, setSwitchState] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -96,7 +96,7 @@ const EditProfile = ({ user }) => {
             type="text"
             placeholder="Enter First Name"
             value= {firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => console.log(e.target.value)}
           />
         </Form.Group>
         <p className='error'>{formErrors.firstName}</p>
@@ -142,32 +142,29 @@ const EditProfile = ({ user }) => {
           </Form.Group>
         </div>
         </Collapse>
+          <Form.Group controlId="formBasicBillingAddress">
+              <Form.Label>Billing Address</Form.Label>
+              <Form.Control
+                  type="text"
+                  placeholder="Billing Address"
+                  value={billingAddress}
+                  onChange={(e) => setBillingAddress(e.target.value)}
+              />
+          </Form.Group>
+
+
+
+          <Form.Group controlId="formBirthday">
+              <Form.Label>Birthday</Form.Label>
+              <Form.Control
+                  type="text"
+                  placeholder="(dd/mm/yyyy)"
+                  value={birthday}
+                  onChange={(e) => setBirthday(e.target.value)}
+              />
+          </Form.Group>
       <br></br>
       <hr></hr>
-
-
-        <Form.Group controlId="formBasicBillingAddress">
-          <Form.Label>Billing Address</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Billing Address"
-            value={billingAddress}
-            onChange={(e) => setBillingAddress(e.target.value)}
-          />
-        </Form.Group>
-
-       
-
-        <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="(dd/mm/yyyy)"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-          />
-        </Form.Group>
-        
         
         <br></br>
         <Form.Check
