@@ -86,9 +86,19 @@ def jwt_login():
         jwt_token = data['jwt']
         result = db.profile.find_one({"email": jwtGeneratedEmail})
         isAdmin = db.admin.find_one({"email": jwtGeneratedEmail})
+        temp = False
         if isAdmin:
-                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
-        return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
+            temp = True
+        return jsonify({'firstName': result['first_name'],
+                        'lastName': result['last_name'],
+                        'email': result['email'],
+                        'birthday': result['birthday'],
+                        'active': result['active'],
+                        'billing_address': result['billing_address'],
+                        'promos': result['registered_for_promos'],
+                        'admin': temp,
+                        'token': jwt_token
+                        })
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 
@@ -100,17 +110,23 @@ def check_email_in_use():
         return Response(status=400)
     return Response(status=200)
 
-@profile.route('/editProfile', methods = ['PATCH'])
+@profile.route('/editProfile', methods = ['POST'])
 def edit_profile():
     data = request.json
     print(data)
-
-    profile = {
-        'first_name' : data['first_name'],
-        'email' : data['email'],
-        'last_name' : data['last_name'],
-        'password' : data['password'],
-    }
+    email = data['email']
+    first_name = data['firstName']
+    last_name = data['lastName']
+    billing_address = data['billing_address']
+    card_info = data['card_info']
+    #password is encrypted
+    query = {"email": email}
+    new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
+    #new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_Address": billing_address, "card_info": card_info}}
+    result = db.profile.update_one(query, new_values)
+    if result:
+        return Response(status=200)
+    return Response(status=400)
 
 
 def generate_jwt(email, rememberMe):
@@ -130,3 +146,7 @@ def generate_jwt(email, rememberMe):
 def decode_jwt(jwt_token):
     payload = jwt.decode(jwt_token, os.environ['AUTHENTICATION_PRIVATE_KEY'], algorithms=['HS256'])
     return payload
+
+@profile.route('/retrieveProfile', methods = ['PATCH'])
+def retrieve_profile():
+    data = request.json

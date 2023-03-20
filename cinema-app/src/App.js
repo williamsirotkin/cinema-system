@@ -34,7 +34,6 @@ function App() {
 
   useEffect(() => {
     let jwt = localStorage.getItem('jwt');
-    console.log(localStorage.getItem('jwt'));
     if (!jwt) {
       jwt = ""
     }
@@ -53,8 +52,12 @@ function App() {
     const lastName = response.data.lastName
     const email = response.data.email
     const role = response.data.role
+    const birthday = response.data.birthday
+    const active = response.data.active
+    const billing_address = response.data.billing_address
+    const promos = response.data.promos
     setUser({
-      firstName, lastName, email, role
+      firstName, lastName, email, role, birthday, active, billing_address, promos
     })
     setLoggedIn(true)
     setIsLoading(false)
@@ -93,7 +96,7 @@ function App() {
 
       <Route path ="/editProfile" element={
          <React.Fragment>
-         <EditProfile/>
+         <EditProfile user={user}/>
        </React.Fragment>
 
       }></Route>
