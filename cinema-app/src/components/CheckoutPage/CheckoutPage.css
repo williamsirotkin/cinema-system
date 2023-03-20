@@ -41,3 +41,7 @@ h4, h1, p, h2, h5, h3{
 .confirmOrder{
     margin-left: 20px;
 }
+
+.error {
+    color: red
+}
