@@ -94,8 +94,8 @@ const EditProfile = ({ user }) => {
           <Form.Label>Edit First Name</Form.Label>
           <Form.Control 
             type="text"
-            placeholder="Enter First Name"
-            value= {firstName}
+            placeholder= {firstName}
+            /*value= {firstName}*/
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -105,8 +105,8 @@ const EditProfile = ({ user }) => {
           <Form.Label>Edit Last Name</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="Enter Last Name"
-            value={lastName}
+            placeholder= {lastName}
+            /*value=''*/
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -126,7 +126,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder="Enter password"
-            value={password}
+            /*value={password}*/
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -136,7 +136,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder="Enter new password"
-            value={newPassword}
+            /*value={newPassword}*/
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
@@ -146,8 +146,8 @@ const EditProfile = ({ user }) => {
               <Form.Label>Billing Address</Form.Label>
               <Form.Control
                   type="text"
-                  placeholder="Billing Address"
-                  value={billingAddress}
+                  placeholder= {billingAddress}
+                  /*value={billingAddress}*/
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -158,8 +158,8 @@ const EditProfile = ({ user }) => {
               <Form.Label>Birthday</Form.Label>
               <Form.Control
                   type="text"
-                  placeholder="(dd/mm/yyyy)"
-                  value={birthday}
+                  placeholder= {birthday}
+                  /*value={birthday}*/
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
