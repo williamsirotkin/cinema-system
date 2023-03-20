@@ -87,26 +87,17 @@ def jwt_login():
         jwt_token = data['jwt']
         result = db.profile.find_one({"email": jwtGeneratedEmail})
         isAdmin = db.admin.find_one({"email": jwtGeneratedEmail})
+        temp = False
         if isAdmin:
-                return jsonify({'firstName': result['first_name'],
-                                'lastName': result['last_name'],
-                                'email': result['email'],
-                                'birthday': result['birthday'],
-                                'card_info': result['card_info'],
-                                'active': result['active'],
-                                'billing_address': result['billing_address'],
-                                'promos': result['registered_for_promos'],
-                                'admin': True,
-                                'token': jwt_token})
+            temp = True
         return jsonify({'firstName': result['first_name'],
                         'lastName': result['last_name'],
                         'email': result['email'],
                         'birthday': result['birthday'],
-                        'card_info': result['card_info'],
                         'active': result['active'],
                         'billing_address': result['billing_address'],
                         'promos': result['registered_for_promos'],
-                        'admin': False,
+                        'admin': temp,
                         'token': jwt_token
                         })
     return Response(status=404)
