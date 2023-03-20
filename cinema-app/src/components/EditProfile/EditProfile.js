@@ -5,10 +5,12 @@ import Results from "../CheckoutPage/Results.js"
 import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import {loginUtility} from '../../utility/loginUtility.js'
+import {useNavigate} from 'react-router-dom'
 
 
 
 const EditProfile = ({ user }) => {
+  let nav = useNavigate()
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
@@ -20,7 +22,7 @@ const EditProfile = ({ user }) => {
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);
   const [switchState, setSwitchState] = useState(false);
-
+  const [passwordErrorMsg, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -28,30 +30,54 @@ const EditProfile = ({ user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrorMessage("")
+    setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
     console.log('Registration form submitted!');
   }
 
-  useEffect(() => {
+
+   useEffect(() => {
+    editStuff()
+   }
+
+  ,[formErrors]);
+
+
+async function editStuff(){
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      
-      editUserProfile(firstName,lastName,email)
-      console.log(firstName,lastName,newPassword,email);
+      if(newPassword === ""){
+        editUserProfile(firstName,lastName,billingAddress, birthday, email)
+        setErrorMessage("Information was successfully changed")
+          setTimeout(()=>{
+            nav('/login', {replace: true})
+          },2000)
+          
+      }
+      else if(newPassword.length < 4 || newPassword.length > 16){
+        setPasswordError("Password must be more than 4 characters and less than 16 characters")
+      }
+      else{
+        const login = await loginUtility(email,password)
+        if(login){
+          editUserProfile(firstName,lastName,billingAddress,birthday,email)
+          setErrorMessage("Information was successfully changed")
+          setTimeout(()=>{
+            nav('/login', {replace: true})
+          },2000)
+          
+        }
+        else{
+          setErrorMessage("Please enter the correct current password to change to new password")
+        }
+      }
+    }
     }
 
-  }, [formErrors]);
 
-
-
-
-  // useEffect(()=>{
-  //   loginUtility(email, password)
-  // },[newPassword])
-
-
-  const sendData = (cardInfo) =>{
+const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
   }
@@ -62,20 +88,13 @@ const EditProfile = ({ user }) => {
     
   }
 
-  const validate = (firstName,lastName,newPassword) => {
+  const validate = (firstName,lastName,newPassword,password) => {
     const errors = {};
     if (!firstName) {
       errors.firstName = "first name is required!";
     }
     if (!lastName) {
       errors.lastName = "last name is required!";
-    }
-    if (!newPassword) {
-      errors.newPassword = "Password is required";
-    } else if (newPassword.length < 4) {
-      errors.newPassword = "Password must be more than 4 characters";
-    } else if (newPassword.length > 16) {
-      errors.newPassword = "Password cannot exceed more than 16 characters";
     }
     return errors;
   };
@@ -136,7 +155,7 @@ const EditProfile = ({ user }) => {
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
-          <p className='error'>{formErrors.newPassword}</p>
+          <p className='error'>{passwordErrorMsg}</p>
         </div>
         </Collapse>
           <Form.Group controlId="formBasicBillingAddress">

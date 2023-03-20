@@ -118,12 +118,12 @@ def edit_profile():
     email = data['email']
     first_name = data['first_name']
     last_name = data['last_name']
-    # billing_address = data['billing_address']
-    # card_info = data['card_info']
+    billing_address = data['billing_address']
+    birthday = data['birthday']
     #password is encrypted
     query = {"email": email}
-    new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
-    #new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_Address": billing_address, "card_info": card_info}}
+    # new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
+    new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_address": billing_address, "birthday": birthday}}
     result = db.profile.update_one(query, new_values)
     if result:
         return Response(status=200)
