@@ -111,6 +111,12 @@ def edit_profile():
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : data['password'],
+        'billing_address': data['billing_address'],
+        'card_info': data['card_info']
+        
+        # query = {"email": email}
+        # new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
+        #new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_Address": billing_address, "card_info": card_info}}
     }
 
 
