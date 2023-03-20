@@ -101,17 +101,19 @@ def check_email_in_use():
         return Response(status=400)
     return Response(status=200)
 
-@profile.route('/editProfile', methods = ['PATCH'])
+@profile.route('/editProfile', methods = ['POST'])
 def edit_profile():
     data = request.json
     print(data)
-
-    profile = {
-        'first_name' : data['first_name'],
-        'email' : data['email'],
-        'last_name' : data['last_name'],
-        'password' : data['password'],
-    }
+    email = data['email']
+    first_name = data['first_name']
+    last_name = data['last_name']
+    query = {"email": email}
+    new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
+    result = db.profile.update_one(query, new_values)
+    if result:
+        return Response(status=200)
+    return Response(status=400)
 
 
 def generate_jwt(email):
@@ -128,3 +130,7 @@ def generate_jwt(email):
 def decode_jwt(jwt_token):
     payload = jwt.decode(jwt_token, os.environ['AUTHENTICATION_PRIVATE_KEY'], algorithms=['HS256'])
     return payload
+
+@profile.route('/retrieveProfile', methods = ['PATCH'])
+def retrieve_profile():
+    data = request.json

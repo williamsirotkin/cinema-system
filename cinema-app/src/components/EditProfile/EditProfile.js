@@ -3,24 +3,29 @@ import { Form, Button } from 'react-bootstrap';
 import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
 import Collapse from 'react-bootstrap/Collapse';
+import { editUserProfile } from '../../utility/editUserProfileUtility';
 
 
 
-const EditProfile = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const EditProfile = ({ user }) => {
+  const [firstName, setFirstName] = useState(user.firstName || '');
+  const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('')
-  const [billingAddress, setBillingAddress] = useState('');
-  const [birthday, setBirthday] = useState('')
-  const [cardInfo, setCardInfo] = useState('')
+  const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
+  const [birthday, setBirthday] = useState(user.birthday || '')
+  const [cardInfo, setCardInfo] = useState(  '')
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false)
   const [switchState, setSwitchState] = useState(false);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormErrors(validate(firstName,lastName,email,password));
+    setIsSubmit(true);
+    setErrorMessage("")
     console.log('Registration form submitted!');
   }
   const sendData = (cardInfo) =>{
@@ -31,7 +36,8 @@ const EditProfile = () => {
     setSwitchState(!switchState)
     setPromos(e.target.checked)
     
-  } 
+  }
+
 
   return (
     <div className="container">
@@ -40,9 +46,9 @@ const EditProfile = () => {
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>Edit First Name</Form.Label>
           <Form.Control 
-            type="text" 
-            placeholder="*Current first name will be displayed*"
-            value={firstName}
+            type="text"
+            placeholder="*Enter First Name"
+            value= {firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -51,7 +57,7 @@ const EditProfile = () => {
           <Form.Label>Edit Last Name</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="*Current last name will be displayed*"
+            placeholder="*Enter Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
