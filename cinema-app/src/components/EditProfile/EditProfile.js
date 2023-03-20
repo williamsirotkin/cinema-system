@@ -4,10 +4,13 @@ import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
 import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
+import {loginUtility} from '../../utility/loginUtility.js'
+import {useNavigate} from 'react-router-dom'
 
 
 
 const EditProfile = ({ user }) => {
+  let nav = useNavigate()
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
@@ -19,7 +22,7 @@ const EditProfile = ({ user }) => {
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);
   const [switchState, setSwitchState] = useState(false);
-
+  const [passwordErrorMsg, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -27,29 +30,54 @@ const EditProfile = ({ user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(firstName,lastName,email,password));
-    setIsSubmit(true);
     setErrorMessage("")
+    setPasswordError("")
+    setFormErrors(validate(firstName,lastName,newPassword));
+    setIsSubmit(true);
     console.log('Registration form submitted!');
   }
 
-  useEffect(() => {
+
+   useEffect(() => {
+    editStuff()
+   }
+
+  ,[formErrors]);
+
+
+async function editStuff(){
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(firstName,lastName,password);
+      if(newPassword === ""){
+        editUserProfile(firstName,lastName,billingAddress, birthday, email)
+        setErrorMessage("Information was successfully changed")
+          setTimeout(()=>{
+            nav('/login', {replace: true})
+          },2000)
+          
+      }
+      else if(newPassword.length < 4 || newPassword.length > 16){
+        setPasswordError("Password must be more than 4 characters and less than 16 characters")
+      }
+      else{
+        const login = await loginUtility(email,password)
+        if(login){
+          editUserProfile(firstName,lastName,billingAddress,birthday,email)
+          setErrorMessage("Information was successfully changed")
+          setTimeout(()=>{
+            nav('/login', {replace: true})
+          },2000)
+          
+        }
+        else{
+          setErrorMessage("Please enter the correct current password to change to new password")
+        }
+      }
+    }
     }
 
-  }, [formErrors]);
 
-  useEffect(()=> {
-    updateProfileNames();
-  },[formErrors])
-
-  function updateProfileNames(firstName, lastName, email) {
-    editUserProfile(firstName,lastName, email);
-  }
-
-  const sendData = (cardInfo) =>{
+const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
   }
@@ -60,26 +88,13 @@ const EditProfile = ({ user }) => {
     
   }
 
-  const validate = (firstName,lastName,password) => {
+  const validate = (firstName,lastName,newPassword,password) => {
     const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!firstName) {
       errors.firstName = "first name is required!";
     }
     if (!lastName) {
       errors.lastName = "last name is required!";
-    }
-    if (!email) {
-      errors.email = "email is required!";
-    }else if(!regex.test(email)){
-      errors.email = "Valid email format is required";
-    }
-    if (!password) {
-      errors.password = "Password is required";
-    } else if (password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (password.length > 16) {
-      errors.password = "Password cannot exceed more than 16 characters";
     }
     return errors;
   };
@@ -95,7 +110,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text"
             placeholder= {firstName}
-            /*value= {firstName}*/
+            value= {firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -106,7 +121,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder= {lastName}
-            /*value=''*/
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -126,7 +141,7 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder="Enter password"
-            /*value={password}*/
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -136,10 +151,11 @@ const EditProfile = ({ user }) => {
           <Form.Control 
             type="text" 
             placeholder="Enter new password"
-            /*value={newPassword}*/
+            value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
+          <p className='error'>{passwordErrorMsg}</p>
         </div>
         </Collapse>
           <Form.Group controlId="formBasicBillingAddress">
@@ -147,7 +163,7 @@ const EditProfile = ({ user }) => {
               <Form.Control
                   type="text"
                   placeholder= {billingAddress}
-                  /*value={billingAddress}*/
+                  value={billingAddress}
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -159,7 +175,7 @@ const EditProfile = ({ user }) => {
               <Form.Control
                   type="text"
                   placeholder= {birthday}
-                  /*value={birthday}*/
+                  value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -192,7 +208,7 @@ const EditProfile = ({ user }) => {
         
         <div className='text-center'>
           <hr></hr>
-        <Button variant="btn btn-danger" type="submit" href="/login">
+        <Button variant="btn btn-danger" type="submit">
           Confirm changes
         </Button>
         </div>
