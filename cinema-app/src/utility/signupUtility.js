@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-function createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday) {
-    axios({
+async function createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday) {
+    return await axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/create", 
         data: {
             "first_name": firstName,
@@ -19,7 +19,9 @@ function createProfile(firstName, lastName, email, password, billingAddress, pro
         }
     })
     .then((response => {
-        console.log(response);
+        //console.log(response);
+        alert(response.data.email_token)
+        return (response.data.email_token)
     }))
     .catch((error) => {
     });

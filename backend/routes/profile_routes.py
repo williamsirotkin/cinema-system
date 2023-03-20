@@ -17,11 +17,12 @@ profile = Blueprint("profile", __name__, url_prefix="/profile")
 def profile_home():
     return "This is the profile routes"
 
-@profile.route('/verifyEmail/<token>')
-def verify_email(token, methods = ['PATCH']):
-    data = request.json
-    if token == data['emailToken']:
-        profile.update_one({'emailToken': token}, {'$set': {'active': True}})
+@profile.route('/verifyEmail/<token>', methods = ['PATCH'])
+def verify_email(token):
+    if db.profile.find_one({'emailToken': token}):
+        db.profile.update_one({'emailToken': token}, {'$set': {'active': True}})
+        return Response(status=200)
+    return Response(status=400)
 
 @profile.route('/create', methods = ['POST'])
 def create_profile():
@@ -68,7 +69,9 @@ def create_profile():
     print(user)
 
     db.profile.insert_one(user)
-    return Response(status=201)
+    return jsonify({
+        "email_token": token
+    })
 
 @profile.route('/login', methods = ['POST'])
 def login():

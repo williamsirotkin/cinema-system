@@ -95,16 +95,17 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
       const check = await checkEmailInUse(email)
 
       if(check){
-        createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
+       let emailToken = await createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
         props.setUserData(firstName,lastName,email, "customer", billingAddress, promos, cardInfo, birthday);
         nav('/registrationConfirmationPage', {replace: true})
 
-        emailjs.send('service_ofjhgu6', 'template_05n96oa', {'first_name': firstName, 'email': email}, 'DtNOiKN5xVEZfQwFe')
+        //console.log({'first_name': firstName, 'email': email, 'email_token': emailToken})
+        emailjs.send('service_ofjhgu6', 'template_05n96oa', {'first_name': firstName, 'email': email, 'email_token': emailToken}, 'DtNOiKN5xVEZfQwFe')
           .then(function(response) {
           console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
+        }, function(error) {
+          console.log('FAILED...', error);
+        });
 
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")

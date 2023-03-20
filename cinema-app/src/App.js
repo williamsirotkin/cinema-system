@@ -34,8 +34,7 @@ function App() {
 
   
     useEffect(() => {
-      if (!window.location.pathname.substring(0,7)) {
-        console.log(window.location.pathname.substring(0,7))
+      if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
         let jwt = localStorage.getItem('jwt');
         console.log(localStorage.getItem('jwt'));
         if (!jwt) {
@@ -69,6 +68,21 @@ function App() {
           console.log('JWT has expired');
           setIsLoading(false)
       });
+      } else {
+        let token = window.location.pathname.substring(13)
+        
+        axios({
+          url: process.env.REACT_APP_BACKEND_URL + "/profile/verifyEmail/" + token, 
+          method: "patch",
+          headers: {
+              "Content-Type": "application/json"
+          }
+        })
+        .then((response => {
+            console.log(response);
+        }))
+        .catch((error) => {
+        })
       }
     
     }
