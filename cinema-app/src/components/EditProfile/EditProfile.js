@@ -45,7 +45,7 @@ useEffect(()=>{
           <Form.Label>Edit First Name</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="*Current first name will be displayed*"
+            placeholder={props.data.firstName}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -55,7 +55,7 @@ useEffect(()=>{
           <Form.Label>Edit Last Name</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="*Current last name will be displayed*"
+            placeholder={props.data.lastName}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -100,7 +100,7 @@ useEffect(()=>{
           <Form.Label>Billing Address</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="Billing Address"
+            placeholder={props.data.billing_address}
             value={billingAddress}
             onChange={(e) => setBillingAddress(e.target.value)}
           />
@@ -112,7 +112,7 @@ useEffect(()=>{
           <Form.Label>Birthday</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="(dd/mm/yyyy)"
+            placeholder={props.data.birthday}
             value={birthday}
             onChange={(e) => setBirthday(e.target.value)}
           />

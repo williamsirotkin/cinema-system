@@ -72,8 +72,8 @@ def login():
             jwt_token = generate_jwt(data['email'])
             isAdmin = db.admin.find_one({"email": data['email']})
             if isAdmin:
-                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
-            return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
+                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'billing_address': result['billing_address'],'birthday': result['birthday'], 'token': jwt_token})
+            return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'billing_address': result['billing_address'],'birthday': result['birthday'], 'token': jwt_token})
     return Response(status=404)
 
 @profile.route('/jwt/login', methods = ['POST'])
@@ -88,8 +88,8 @@ def jwt_login():
         result = db.profile.find_one({"email": jwtGeneratedEmail})
         isAdmin = db.admin.find_one({"email": jwtGeneratedEmail})
         if isAdmin:
-                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
-        return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
+                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'billing_address': result['billing_address'],'birthday': result['birthday'],'token': jwt_token})
+        return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'billing_address': result['billing_address'],'birthday': result['birthday'],'token': jwt_token})
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 

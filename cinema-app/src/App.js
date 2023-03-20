@@ -53,8 +53,10 @@ function App() {
     const lastName = response.data.lastName
     const email = response.data.email
     const role = response.data.role
+    const billing_address = response.data.billing_address
+    const birthday = response.data.birthday
     setUser({
-      firstName, lastName, email, role
+      firstName, lastName, email, role, billing_address,birthday
     })
     setLoggedIn(true)
     setIsLoading(false)
