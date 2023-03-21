@@ -102,7 +102,6 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         //console.log({'first_name': firstName, 'email': email, 'email_token': emailToken})
         emailjs.send('service_ofjhgu6', 'template_05n96oa', {'first_name': firstName, 'email': email, 'email_token': emailToken}, 'DtNOiKN5xVEZfQwFe')
           .then(function(response) {
-            nav('/')
           console.log('SUCCESS!', response.status, response.text);
         }, function(error) {
           console.log('FAILED...', error);

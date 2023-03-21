@@ -19,8 +19,6 @@ async function createProfile(firstName, lastName, email, password, billingAddres
         }
     })
     .then((response => {
-        //console.log(response);
-        alert(response.data.email_token)
         return (response.data.email_token)
     }))
     .catch((error) => {

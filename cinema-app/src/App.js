@@ -80,7 +80,7 @@ function App() {
           }
         })
         .then((response => {
-          setIsLoading(false)
+            setIsLoading(false)
             console.log(response);
         }))
         .catch((error) => {
