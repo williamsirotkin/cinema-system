@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import MainNavbar from './components/Navbar/Navbar';
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import MainNavbar from './components/Navbar/Navbar'; 
+import BackToHomePage from './components/BackToHomePage';
+import {BrowserRouter as Router, Routes, Route, Link, useNavigate} from "react-router-dom";
 import React,{useState, useEffect} from 'react';
 import Login from './components/Login/Login';
 import OrderSummary from './components/OrderSummary/OrderSummary';
@@ -34,7 +35,7 @@ function App() {
 
   
     useEffect(() => {
-      if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
+      if (!(window.location.pathname.substring(0,11)=== '/verifyEmail')) {
         let jwt = localStorage.getItem('jwt');
         console.log(localStorage.getItem('jwt'));
         if (!jwt) {
@@ -194,6 +195,12 @@ function App() {
           </React.Fragment>
       }></Route>
 
+<Route path = "/verifyEmail/:token" element={
+    <React.Fragment>
+      <h1>HELLOOOO</h1>
+          <BackToHomePage/>
+</React.Fragment>
+      }></Route>
 
     </Routes>
 

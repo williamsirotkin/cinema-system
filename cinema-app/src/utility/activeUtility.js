@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { isRouteErrorResponse } from 'react-router-dom';
+import {useNavigate} from "react-router-dom"
 
 async function checkActive(email) {
+
     return await axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/checkActive", 
         data: {
@@ -13,6 +14,7 @@ async function checkActive(email) {
         }
     })
     .then((response => {
+
         return true
     }))
     .catch((error) => {

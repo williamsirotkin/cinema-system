@@ -115,12 +115,12 @@ def check_email_in_use():
         return Response(status=400)
     return Response(status=200)
 
-@profile.route('/checkActivite', methods = ['POST']) 
+@profile.route('/checkActive', methods = ['POST']) 
 def check_activity():
     data = request.json
     print(data)
     result = db.profile.find_one({"email": data['email']})
-    if active == "pending":
+    if result['active'] == "pending":
         return Response(status=400)
     return Response(status=200)
 
