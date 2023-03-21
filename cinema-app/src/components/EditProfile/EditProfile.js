@@ -52,7 +52,7 @@ async function editStuff(){
         editUserProfile(firstName,lastName,billingAddress, birthday, email)
         setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
-            nav('/login', {replace: true})
+            nav('/', {replace: true})
           },2000)
           
       }
@@ -65,7 +65,7 @@ async function editStuff(){
           editUserProfile(firstName,lastName,billingAddress,birthday,email)
           setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
-            nav('/login', {replace: true})
+            nav('/', {replace: true})
           },2000)
           
         }
