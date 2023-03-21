@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
+import {resetUtility} from '../../utility/resetUtility.js'
 import {checkActive} from '../../utility/activeUtility.js'
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import Collapse from 'react-bootstrap/Collapse';
 import Nav from 'react-bootstrap/Nav';
 import Modal from 'react-bootstrap/Modal';
+import emailjs from '@emailjs/browser';
 
 
 
@@ -22,15 +24,17 @@ const Login = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => {
+  const handleShow = (resetEmail) => {
     if (resetEmail === ''){
       setEmptyResetEmail("Please enter an email")
-
     }
     else {
       setShow(true);
       setEmptyResetEmail("")
+      console.log(resetEmail)
+      handleReset()
     }
+    
   }
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -48,6 +52,16 @@ const Login = () => {
     setSwitchState(!switchState)
  } 
 
+  const handleReset = (resetEmail) => {
+    console.log(resetEmail)
+    resetUtility(resetEmail)
+    emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail}, 'DtNOiKN5xVEZfQwFe')
+      .then(function(response) {
+      console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+      console.log('FAILED...', error);
+    });
+  }
 
   const handleLogin = async (email, password, switchState) => {
     let result = await loginUtility(email, password, switchState)
@@ -56,7 +70,7 @@ const Login = () => {
       let activeResult = await checkActive(email)
 
       if (!activeResult) {
-        setErrorMessage("Pleas click your email confirmation")
+        setErrorMessage("Please click your email confirmation")
       } else {
       if (result.admin) {
         nav("/admin", {replace:true})
