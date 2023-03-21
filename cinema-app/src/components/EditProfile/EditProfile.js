@@ -123,7 +123,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text"
             placeholder= {firstName}
-            value= {firstName}
+          // value= {firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -134,7 +134,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder= {lastName}
-            value={lastName}
+          //  value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -154,7 +154,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder="Enter password"
-            value={password}
+           // value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -164,7 +164,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder="Enter new password"
-            value={newPassword}
+          //  value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
@@ -176,7 +176,7 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {billingAddress}
-                  value={billingAddress}
+                //  value={billingAddress}
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -188,7 +188,7 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
-                  value={birthday}
+                 // value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
