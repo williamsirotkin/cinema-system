@@ -34,7 +34,7 @@ const Login = () => {
       setEmptyResetEmail("")
       console.log(resetEmail)
       resetUtility(resetEmail)
-      emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail, 'first_name':first_name}, 'DtNOiKN5xVEZfQwFe')
+      emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail}, 'DtNOiKN5xVEZfQwFe')
         .then(function(response) {
         console.log('SUCCESS!', response.status, response.text);
       }, function(error) {
