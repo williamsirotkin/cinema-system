@@ -19,7 +19,7 @@ const EditProfile = ({ user }) => {
   const [newPassword, setNewPassword] = useState('');
   const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
   const [birthday, setBirthday] = useState(user.birthday || '');
-  const [cardInfo, setCardInfo] = useState(  '');
+  const [cardInfo, setCardInfo] = useState({});
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);
@@ -28,9 +28,13 @@ const EditProfile = ({ user }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [useCreditCard, setUseCreditCard] = useState(false)
   const email = user.email;
+  
+
 
 function compileEditedUserJSON() {
+
      const userJSON = {
       email: email,
       first_name: firstName,
@@ -39,9 +43,13 @@ function compileEditedUserJSON() {
       newPassword: newPassword,
       billing_address: billingAddress,
       birthday: birthday,
-      card_info: cardInfo,
       registered_for_promos: promos
     }
+
+    if (useCreditCard) {
+      userJSON["card_info"] = cardInfo
+    }
+
     return userJSON
   }
   const handleSubmit = (e) => {
@@ -96,8 +104,8 @@ async function editStuff(){
 
 
 const sendData = (cardInfo) =>{
+    setUseCreditCard(true)
     setCardInfo(cardInfo)
-
   }
 
   const handleClose = () => {
@@ -135,10 +143,6 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text"
             placeholder= {firstName}
-<<<<<<< HEAD
-            //value= {}
-=======
->>>>>>> origin/edit-profile-2-moved-from-fixing-main
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -149,10 +153,6 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder= {lastName}
-<<<<<<< HEAD
-            //value={lastName}
-=======
->>>>>>> origin/edit-profile-2-moved-from-fixing-main
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -250,7 +250,7 @@ const sendData = (cardInfo) =>{
             </Button>
           </Modal.Footer>
         </Modal>
-        
+
         <div className='text-center'>
           <hr></hr>
         <Button variant="btn btn-danger" type="submit">

@@ -139,7 +139,7 @@ def check_activity():
 def edit_profile():
     data = request.json
     email = data['email']
-
+    print(data)
     update_dict = {}
     for key, value in data.items():
         if key != 'email' and key != 'oldPassword' and key != 'newPassword' and value is not None and value != "":
@@ -150,16 +150,16 @@ def edit_profile():
             update_dict['password'] = bcrypt.generate_password_hash(data['newPassword'])
         else:
             return Response(status=401)
-    cardInfo = ""
-    if (update_dict['card_info']):
+    print(update_dict['card_info'])
+    if (update_dict['card_info'] is not None):
         cardInfo = data['card_info']
         cardInfo['name'] = bcrypt.generate_password_hash(cardInfo['name'])
         cardInfo['cardNumber'] = bcrypt.generate_password_hash(cardInfo['cardNumber'])
         cardInfo['expiry'] = bcrypt.generate_password_hash(cardInfo['expiry'])
         cardInfo['cvc'] = bcrypt.generate_password_hash(cardInfo['cvc'])
-        data['card_info'] = cardInfo
+        update_dict['card_info'] = cardInfo
 
-    result = db.profile.update_one({'email': email}, {'$set': update_dict});
+    result = db.profile.update_one({'email': email}, {'$set': update_dict})
     if result:
         return Response(status=200)
     return Response(status=400)
