@@ -26,9 +26,13 @@ const EditProfile = ({ user }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [useCreditCard, setUseCreditCard] = useState(false)
   const email = user.email;
+  
+
 
 function compileEditedUserJSON() {
+
      const userJSON = {
       email: email,
       first_name: firstName,
@@ -37,9 +41,13 @@ function compileEditedUserJSON() {
       newPassword: newPassword,
       billing_address: billingAddress,
       birthday: birthday,
-      card_info: cardInfo,
       registered_for_promos: promos
     }
+
+    if (useCreditCard) {
+      userJSON["card_info"] = cardInfo
+    }
+
     return userJSON
   }
   const handleSubmit = (e) => {
@@ -92,8 +100,8 @@ async function editStuff(){
 
 
 const sendData = (cardInfo) =>{
+    setUseCreditCard(true)
     setCardInfo(cardInfo)
-
   }
 
   const handleChange=(e)=>{
@@ -212,7 +220,6 @@ const sendData = (cardInfo) =>{
 
         <br></br>
         <br></br>
-        
         <div className='text-center'>
           <hr></hr>
         <Button variant="btn btn-danger" type="submit">

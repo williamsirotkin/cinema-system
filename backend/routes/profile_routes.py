@@ -115,7 +115,7 @@ def check_email_in_use():
 def edit_profile():
     data = request.json
     email = data['email']
-
+    print(data)
     update_dict = {}
     for key, value in data.items():
         if key != 'email' and key != 'oldPassword' and key != 'newPassword' and value is not None and value != "":
@@ -126,8 +126,8 @@ def edit_profile():
             update_dict['password'] = bcrypt.generate_password_hash(data['newPassword'])
         else:
             return Response(status=401)
-    cardInfo = ""
-    if (update_dict['card_info']):
+    print(update_dict['card_info'])
+    if (update_dict['card_info'] is not None):
         cardInfo = data['card_info']
         cardInfo['name'] = bcrypt.generate_password_hash(cardInfo['name'])
         cardInfo['cardNumber'] = bcrypt.generate_password_hash(cardInfo['cardNumber'])
