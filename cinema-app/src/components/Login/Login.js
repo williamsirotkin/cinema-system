@@ -12,6 +12,7 @@ import emailjs from '@emailjs/browser';
 
 
 
+
 const Login = () => {
   let nav = useNavigate()
   const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ const Login = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = (resetEmail) => {
+  const handleShow = () => {
     if (resetEmail === ''){
       setEmptyResetEmail("Please enter an email")
     }
@@ -32,7 +33,13 @@ const Login = () => {
       setShow(true);
       setEmptyResetEmail("")
       console.log(resetEmail)
-      handleReset()
+      resetUtility(resetEmail)
+      emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail, 'first_name':first_name}, 'DtNOiKN5xVEZfQwFe')
+        .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function(error) {
+        console.log('FAILED...', error);
+      });
     }
     
   }
@@ -52,16 +59,6 @@ const Login = () => {
     setSwitchState(!switchState)
  } 
 
-  const handleReset = (resetEmail) => {
-    console.log(resetEmail)
-    resetUtility(resetEmail)
-    emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail}, 'DtNOiKN5xVEZfQwFe')
-      .then(function(response) {
-      console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-      console.log('FAILED...', error);
-    });
-  }
 
   const handleLogin = async (email, password, switchState) => {
     let result = await loginUtility(email, password, switchState)
