@@ -123,7 +123,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label>First Name*</Form.Label>
           <Form.Control 
             type="text" 
             placeholder="Enter first name"
@@ -134,7 +134,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         <p className='error'>{formErrors.firstName}</p>
 
         <Form.Group controlId="formBasicLastName">
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label>Last Name*</Form.Label>
           <Form.Control 
             type="text" 
             placeholder="Enter last name"
@@ -145,7 +145,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         <p className='error'>{formErrors.lastName}</p>
 
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Email address*</Form.Label>
           <Form.Control 
             type="email" 
             placeholder="Enter email"
@@ -155,7 +155,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Form.Group>
         <p className='error'>{formErrors.email}</p>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Password*</Form.Label>
           <Form.Control 
             type="password" 
             placeholder="Password"
