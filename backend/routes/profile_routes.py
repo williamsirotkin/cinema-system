@@ -111,7 +111,7 @@ def check_email_in_use():
         return Response(status=400)
     return Response(status=200)
 
-@profile.route('/editProfile', methods = ['POST'])
+@profile.route('/editProfile', methods = ['PATCH'])
 def edit_profile():
     data = request.json
     print(data)
@@ -120,10 +120,11 @@ def edit_profile():
     last_name = data['last_name']
     billing_address = data['billing_address']
     birthday = data['birthday']
+    encryptedPassword = bcrypt.generate_password_hash(data['password'])
+    
     #password is encrypted
     query = {"email": email}
-    # new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
-    new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_address": billing_address, "birthday": birthday}}
+    new_values = {"$set": {"first_name": first_name, "last_name": last_name,"password": encryptedPassword, "billing_address": billing_address, "birthday": birthday}}
     result = db.profile.update_one(query, new_values)
     if result:
         return Response(status=200)

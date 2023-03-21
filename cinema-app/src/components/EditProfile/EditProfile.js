@@ -62,7 +62,7 @@ async function editStuff(){
       else{
         const login = await loginUtility(email,password)
         if(login){
-          editUserProfile(firstName,lastName,billingAddress,birthday,email)
+          editUserProfile(firstName,lastName,newPassword,billingAddress,birthday,email)
           setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
@@ -88,7 +88,7 @@ const sendData = (cardInfo) =>{
     
   }
 
-  const validate = (firstName,lastName,newPassword,password) => {
+  const validate = (firstName,lastName) => {
     const errors = {};
     if (!firstName) {
       errors.firstName = "first name is required!";
