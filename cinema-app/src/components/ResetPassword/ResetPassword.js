@@ -2,9 +2,12 @@ import { Container, Form, Button } from 'react-bootstrap';
 import React, { useState, useContext } from 'react';
 import './resetPassword.css'
 import {resetUtility} from '../../utility/resetUtility.js'
+import {useNavigate} from 'react-router-dom'
+
 
 
 export default function ResetPassword() {
+    let nav = useNavigate()
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('')
