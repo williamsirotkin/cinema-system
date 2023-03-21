@@ -38,6 +38,7 @@ function compileEditedUserJSON() {
       billing_address: billingAddress,
       birthday: birthday,
       card_info: cardInfo,
+      registered_for_promos: promos
     }
     return userJSON
   }
@@ -98,7 +99,6 @@ const sendData = (cardInfo) =>{
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
-    
   }
 
   const validate = (firstName,lastName) => {
@@ -202,7 +202,6 @@ const sendData = (cardInfo) =>{
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open}>
-
           Edit Credit Card
         </Button>
         <Collapse in={open}>
