@@ -1,6 +1,9 @@
 import { Container, Form, Button } from 'react-bootstrap';
 import React, { useState, useContext } from 'react';
 import './resetPassword.css'
+import {resetUtility} from '../../utility/resetUtility.js'
+
+
 export default function ResetPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -8,13 +11,22 @@ export default function ResetPassword() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        passwordsMatch(password,confirmPassword)
+        if((passwordsMatch(password,confirmPassword))) {
+          resetUtility(password)
+          alert("Information successfully changed")
+          nav('/login')
+        }
 
       }
 
     const passwordsMatch = (password, confirmPassword) => {
         if(!password || !confirmPassword){
             setMessage("Please make sure that you fill in all fields")
+        }
+        else if (password.length < 4) {
+          setMessage("Password must be more than 4 characters")
+        } else if (password.length > 16) {
+          setMessage("Password cannot exceed more than 16 characters")
         }
         else if(password === confirmPassword){
             setMessage("thank you, your changes have been saved")

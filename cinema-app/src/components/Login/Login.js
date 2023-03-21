@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
-import {resetUtility} from '../../utility/resetUtility.js'
 import {checkActive} from '../../utility/activeUtility.js'
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
@@ -33,7 +32,6 @@ const Login = () => {
       setShow(true);
       setEmptyResetEmail("")
       console.log(resetEmail)
-      resetUtility(resetEmail)
       emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail}, 'DtNOiKN5xVEZfQwFe')
         .then(function(response) {
         console.log('SUCCESS!', response.status, response.text);

@@ -225,7 +225,7 @@ function App() {
           </React.Fragment>
       }></Route>
 
-      <Route path = "/resetPassword" element={
+      <Route path = "/resetPassword/:token" element={
           <React.Fragment>
             <ResetPassword/>
           </React.Fragment>

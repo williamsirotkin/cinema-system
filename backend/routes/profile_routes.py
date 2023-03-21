@@ -25,6 +25,15 @@ def verify_email(token):
         return Response(status=200)
     return Response(status=400)
 
+@profile.route('/resetPassword/<resetEmail>', methods = ['PATCH'])
+def reset_password(resetEmail):
+    data = request.json
+    encryptedPassword = bcrypt.generate_password_hash(data['newPassword'])
+    if db.profile.find_one({'email': resetEmail}):
+        db.profile.update_one({'email': resetEmail}, {'$set': {'password':encryptedPassword}})
+        return Response(status=200)
+    return Response(status=400)
+
 @profile.route('/create', methods = ['POST'])
 def create_profile():
     data = request.json
@@ -52,7 +61,6 @@ def create_profile():
 
     encryptedPassword = bcrypt.generate_password_hash(data['password'])
     token = ''.join(random.choices(string.ascii_uppercase + string.digits, k =10))
-
 
     user = {
         'first_name' : data['first_name'],
