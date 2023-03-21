@@ -48,6 +48,8 @@ function compileEditedUserJSON() {
     setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
+    alert("Information successfully changed")
+    nav('/')
     console.log('Registration form submitted!');
   }
 
@@ -63,8 +65,13 @@ async function editStuff(){
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
+<<<<<<< HEAD
         editUserProfile(compileEditedUserJSON())
         setErrorMessage("Information was successfully changed")
+=======
+        editUserProfile(firstName,lastName,billingAddress, birthday, email)
+        //setErrorMessage("Information was successfully changed")
+>>>>>>> resetPassword
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -76,8 +83,13 @@ async function editStuff(){
       else{
         const login = await loginUtility(email,password)
         if(login){
+<<<<<<< HEAD
           editUserProfile(compileEditedUserJSON())
           setErrorMessage("Information was successfully changed")
+=======
+          editUserProfile(firstName,lastName,billingAddress,birthday,email)
+          //setErrorMessage("Information was successfully changed")
+>>>>>>> resetPassword
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -123,6 +135,10 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text"
             placeholder= {firstName}
+<<<<<<< HEAD
+=======
+            //value= {}
+>>>>>>> resetPassword
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -133,6 +149,10 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder= {lastName}
+<<<<<<< HEAD
+=======
+            //value={lastName}
+>>>>>>> resetPassword
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -152,6 +172,10 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="password" 
             placeholder="Enter password"
+<<<<<<< HEAD
+=======
+            //value={password}
+>>>>>>> resetPassword
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -161,6 +185,10 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="password" 
             placeholder="Enter new password"
+<<<<<<< HEAD
+=======
+            //value={newPassword}
+>>>>>>> resetPassword
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
@@ -172,6 +200,10 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {billingAddress}
+<<<<<<< HEAD
+=======
+                  //value={billingAddress}
+>>>>>>> resetPassword
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -183,7 +215,11 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
+<<<<<<< HEAD
                  // value={birthday}
+=======
+                  //value={birthday}
+>>>>>>> resetPassword
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>

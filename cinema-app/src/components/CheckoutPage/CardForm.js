@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Results from "./Results";
 import "./styles.css";
+import "./CheckoutPage.css"
 
 export default function CardForm(props) {
     const [name, setName] = useState("");
@@ -8,18 +9,29 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
+    const [error, setError] = useState('')
 
     function handleSubmit(e) {
-        e.preventDefault();
+      e.preventDefault();
+      if (!name) {
+        setError("You must enter a cardholder name")
+      } if (!cardNumber) {
+        setError("You must enter a valid cardnumber")
+      } if (!expiry) {
+        setError("You must enter a valid expiration date in MM/YY format")
+      } if (!cvc) {
+        setError("You must enter a valid cvc")
+      } else {
         setSubmittedData({ name, cardNumber, expiry, cvc });
       }
+    }
   useEffect(()=>{
     props.sendData(submittedData)
-
   })
   return (
     <form className="card-form">
       <h2 className="text-center">Credit Card Form</h2>
+      <div class = "error">{error}</div>
       <div className="form-group mt-4">
         <input
           type="text"
@@ -56,7 +68,6 @@ export default function CardForm(props) {
         Submit
       </button>
       <hr />
-      <Results data={submittedData} />
     </form>
   )
 }

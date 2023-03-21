@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Signup.css'
 import {createProfile} from '../../utility/signupUtility.js'
@@ -6,6 +6,8 @@ import {useNavigate} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
+import emailjs from '@emailjs/browser';
+
 
 
 
@@ -93,13 +95,20 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
       const check = await checkEmailInUse(email)
 
       if(check){
-        createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
+       let emailToken = await createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
         props.setUserData(firstName,lastName,email, "customer", billingAddress, promos, cardInfo, birthday);
         nav('/registrationConfirmationPage', {replace: true})
+
+        //console.log({'first_name': firstName, 'email': email, 'email_token': emailToken})
+        emailjs.send('service_ofjhgu6', 'template_05n96oa', {'first_name': firstName, 'email': email, 'email_token': emailToken}, 'DtNOiKN5xVEZfQwFe')
+          .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+          console.log('FAILED...', error);
+        });
+
       } else {
         setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
-        
-
     }
 
     }  
@@ -114,7 +123,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label>First Name*</Form.Label>
           <Form.Control 
             type="text" 
             placeholder="Enter first name"
@@ -125,7 +134,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         <p className='error'>{formErrors.firstName}</p>
 
         <Form.Group controlId="formBasicLastName">
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label>Last Name*</Form.Label>
           <Form.Control 
             type="text" 
             placeholder="Enter last name"
@@ -136,7 +145,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         <p className='error'>{formErrors.lastName}</p>
 
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Email address*</Form.Label>
           <Form.Control 
             type="email" 
             placeholder="Enter email"
@@ -146,7 +155,7 @@ async function checkEmail(firstName, lastName, email, password, billingAddress, 
         </Form.Group>
         <p className='error'>{formErrors.email}</p>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Password*</Form.Label>
           <Form.Control 
             type="password" 
             placeholder="Password"

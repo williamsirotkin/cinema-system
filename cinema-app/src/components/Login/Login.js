@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
+import {checkActive} from '../../utility/activeUtility.js'
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import Collapse from 'react-bootstrap/Collapse';
 import Nav from 'react-bootstrap/Nav';
 import Modal from 'react-bootstrap/Modal';
+import emailjs from '@emailjs/browser';
+
 
 
 
@@ -17,19 +20,26 @@ const Login = () => {
   const [open, setOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState('')
   const [emptyResetEmail, setEmptyResetEmail] = useState('')
-
+  const [switchState, setSwitchState] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
     if (resetEmail === ''){
       setEmptyResetEmail("Please enter an email")
-
     }
     else {
       setShow(true);
       setEmptyResetEmail("")
+      console.log(resetEmail)
+      emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail}, 'DtNOiKN5xVEZfQwFe')
+        .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function(error) {
+        console.log('FAILED...', error);
+      });
     }
+    
   }
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -43,20 +53,30 @@ const Login = () => {
     event.preventDefault();
   }
 
+  const handleChange=(e)=>{
+    setSwitchState(!switchState)
+ } 
 
-  const handleLogin = async (email, password) => {
-    let result = await loginUtility(email, password)
+
+  const handleLogin = async (email, password, switchState) => {
+    let result = await loginUtility(email, password, switchState)
+
     if (result.token) {
+      let activeResult = await checkActive(email)
+
+      if (!activeResult) {
+        setErrorMessage("Please click your email confirmation")
+      } else {
       if (result.admin) {
         nav("/admin", {replace:true})
       } else {
         nav("/", {replace:true})
       }
       window.location.reload()
-    } else {
+    }} else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
-  }
+    }
 
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
@@ -74,8 +94,15 @@ const Login = () => {
             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
           </Form.Group>
           <br></br>
+          <Form.Check
+          type="switch"
+          id="custom-switch"
+          label="Remember me for 30 days"
+          defaultChecked={switchState}
+          onChange={handleChange}/>
+          <br></br>
           <div className='links'>
-          <Button variant="btn btn-danger" type="submit" onClick = {() => {handleLogin(email, password)}}>
+          <Button variant="btn btn-danger" type="submit" onClick = {() => {handleLogin(email, password, switchState)}}>
             Submit
           </Button>
 
