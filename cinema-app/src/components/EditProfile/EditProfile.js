@@ -17,7 +17,7 @@ const EditProfile = ({ user }) => {
   const [newPassword, setNewPassword] = useState('');
   const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
   const [birthday, setBirthday] = useState(user.birthday || '');
-  const [cardInfo, setCardInfo] = useState(  '');
+  const [cardInfo, setCardInfo] = useState({});
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);
@@ -37,7 +37,7 @@ function compileEditedUserJSON() {
       newPassword: newPassword,
       billing_address: billingAddress,
       birthday: birthday,
-      card_info: cardInfo,
+      card_info: cardInfo
     }
     return userJSON
   }
@@ -183,7 +183,6 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
-                 // value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -213,7 +212,6 @@ const sendData = (cardInfo) =>{
 
         <br></br>
         <br></br>
-        
         <div className='text-center'>
           <hr></hr>
         <Button variant="btn btn-danger" type="submit">

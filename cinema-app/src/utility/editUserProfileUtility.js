@@ -16,6 +16,7 @@ import axios from 'axios'
          if (userJSON.hasOwnProperty(key) && userJSON[key]) {
              dataJSON[key] = userJSON[key];
          }
+         
      }
 
      axios({
