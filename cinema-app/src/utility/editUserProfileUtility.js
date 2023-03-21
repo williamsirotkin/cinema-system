@@ -1,6 +1,6 @@
 import axios from 'axios'
 
- function editUserProfile(firstName, lastName,password,billing_address,birthday, email) {
+ function editUserProfile(firstName, lastName,billing_address,birthday, email) {
      axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/editProfile",
         data: {
