@@ -17,6 +17,8 @@ const RegistrationConfirmationPage = (props) => {
         <Col md={6}>
           <h1>Thank you for registering with us!</h1>
           <p>You are now part of our movie community.</p>
+          <br></br>
+          <h3> Please check your email to confirm your account! </h3>
           <hr />
           <h4>Your registration details:</h4>
           <p><strong>Name:</strong>{props.firstName} {props.lastName}</p>

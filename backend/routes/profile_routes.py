@@ -21,6 +21,7 @@ def profile_home():
 def verify_email(token):
     if db.profile.find_one({'emailToken': token}):
         db.profile.update_one({'emailToken': token}, {'$set': {'active': "active"}})
+        db.profile.update_one({'emailToken': token}, {'$unset': {'emailToken': ""}})
         return Response(status=200)
     return Response(status=400)
 
