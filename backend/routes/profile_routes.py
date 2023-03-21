@@ -5,6 +5,8 @@ from flask_cors import CORS
 import jwt
 from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt
+import random
+import string
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -14,6 +16,14 @@ profile = Blueprint("profile", __name__, url_prefix="/profile")
 @profile.route("/")
 def profile_home():
     return "This is the profile routes"
+
+@profile.route('/verifyEmail/<token>', methods = ['PATCH'])
+def verify_email(token):
+    if db.profile.find_one({'emailToken': token}):
+        db.profile.update_one({'emailToken': token}, {'$set': {'active': "active"}})
+        db.profile.update_one({'emailToken': token}, {'$unset': {'emailToken': ""}})
+        return Response(status=200)
+    return Response(status=400)
 
 @profile.route('/create', methods = ['POST'])
 def create_profile():
@@ -41,13 +51,16 @@ def create_profile():
         birthDay = data['birthday']
 
     encryptedPassword = bcrypt.generate_password_hash(data['password'])
+    token = ''.join(random.choices(string.ascii_uppercase + string.digits, k =10))
+
 
     user = {
         'first_name' : data['first_name'],
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : encryptedPassword,
-        'active': True,
+        'active': "pending",
+        'emailToken': token,
         'billing_address': billingAddress,
         'registered_for_promos': data['promos'],
         'card_info': cardInfo,
@@ -57,7 +70,9 @@ def create_profile():
     print(user)
 
     db.profile.insert_one(user)
-    return Response(status=201)
+    return jsonify({
+        "email_token": token
+    })
 
 @profile.route('/login', methods = ['POST'])
 def login():
@@ -110,7 +125,16 @@ def check_email_in_use():
         return Response(status=400)
     return Response(status=200)
 
-@profile.route('/editProfile', methods = ['POST'])
+@profile.route('/checkActive', methods = ['POST']) 
+def check_activity():
+    data = request.json
+    print(data)
+    result = db.profile.find_one({"email": data['email']})
+    if result['active'] == "pending":
+        return Response(status=400)
+    return Response(status=200)
+
+@profile.route('/editProfile', methods = ['PATCH'])
 def edit_profile():
     data = request.json
     print(data)
@@ -127,6 +151,12 @@ def edit_profile():
     if result:
         return Response(status=200)
     return Response(status=400)
+
+# @profile.route('/verify_email/<token>')
+# def verify_email(token, methods = ['PATCH']):
+#      data = request.json
+#      if token == data['emailToken']:
+#         profile.update_one({'emailToken': token}, {'$set': {'active': True}})
 
 
 def generate_jwt(email, rememberMe):
@@ -150,3 +180,4 @@ def decode_jwt(jwt_token):
 @profile.route('/retrieveProfile', methods = ['PATCH'])
 def retrieve_profile():
     data = request.json
+

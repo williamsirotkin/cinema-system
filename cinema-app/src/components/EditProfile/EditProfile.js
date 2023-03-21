@@ -6,11 +6,13 @@ import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import {loginUtility} from '../../utility/loginUtility.js'
 import {useNavigate} from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal';
 
 
 
 const EditProfile = ({ user }) => {
   let nav = useNavigate()
+  const [show, setShow] = useState(false)
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
@@ -34,6 +36,7 @@ const EditProfile = ({ user }) => {
     setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
+    handleShow()
     console.log('Registration form submitted!');
   }
 
@@ -50,7 +53,7 @@ async function editStuff(){
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
         editUserProfile(firstName,lastName,billingAddress, birthday, email)
-        setErrorMessage("Information was successfully changed")
+        //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -63,7 +66,7 @@ async function editStuff(){
         const login = await loginUtility(email,password)
         if(login){
           editUserProfile(firstName,lastName,billingAddress,birthday,email)
-          setErrorMessage("Information was successfully changed")
+          //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -80,6 +83,14 @@ async function editStuff(){
 const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
+  }
+
+  const handleClose = () => {
+    setShow(false);
+    nav('/')
+  }
+  const handleShow = () => {
+      setShow(true);
   }
 
   const handleChange=(e)=>{
@@ -110,7 +121,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text"
             placeholder= {firstName}
-            value= {firstName}
+            //value= {}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -121,7 +132,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder= {lastName}
-            value={lastName}
+            //value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -141,7 +152,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder="Enter password"
-            value={password}
+            //value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -151,7 +162,7 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder="Enter new password"
-            value={newPassword}
+            //value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
@@ -163,7 +174,7 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {billingAddress}
-                  value={billingAddress}
+                  //value={billingAddress}
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -175,7 +186,7 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
-                  value={birthday}
+                  //value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -205,6 +216,25 @@ const sendData = (cardInfo) =>{
 
         <br></br>
         <br></br>
+
+        <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+            <Modal.Header closeButton>
+            <Modal.Title>Hooray!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Your information has been successfully changed
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
         
         <div className='text-center'>
           <hr></hr>
