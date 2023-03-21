@@ -133,9 +133,9 @@ def edit_profile():
         cardInfo['cardNumber'] = bcrypt.generate_password_hash(cardInfo['cardNumber'])
         cardInfo['expiry'] = bcrypt.generate_password_hash(cardInfo['expiry'])
         cardInfo['cvc'] = bcrypt.generate_password_hash(cardInfo['cvc'])
-        data['card_info'] = cardInfo
+        update_dict['card_info'] = cardInfo
 
-    result = db.profile.update_one({'email': email}, {'$set': update_dict});
+    result = db.profile.update_one({'email': email}, {'$set': update_dict})
     if result:
         return Response(status=200)
     return Response(status=400)
