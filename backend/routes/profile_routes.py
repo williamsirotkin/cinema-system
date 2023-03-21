@@ -114,18 +114,28 @@ def check_email_in_use():
 @profile.route('/editProfile', methods = ['PATCH'])
 def edit_profile():
     data = request.json
-    print(data)
     email = data['email']
-    first_name = data['first_name']
-    last_name = data['last_name']
-    billing_address = data['billing_address']
-    birthday = data['birthday']
-    encryptedPassword = bcrypt.generate_password_hash(data['password'])
-    
-    #password is encrypted
-    query = {"email": email}
-    new_values = {"$set": {"first_name": first_name, "last_name": last_name,"password": encryptedPassword, "billing_address": billing_address, "birthday": birthday}}
-    result = db.profile.update_one(query, new_values)
+
+    update_dict = {}
+    for key, value in data.items():
+        if key != 'email' and key != 'oldPassword' and key != 'newPassword' and value is not None and value != "":
+            update_dict[key] = value
+    if 'oldPassword' in data:
+        result = db.profile.find_one({"email": data['email']})
+        if bcrypt.check_password_hash(result['password'], data['oldPassword']):
+            update_dict['password'] = bcrypt.generate_password_hash(data['newPassword'])
+        else:
+            return Response(status=401)
+    cardInfo = ""
+    if (update_dict['card_info']):
+        cardInfo = data['card_info']
+        cardInfo['name'] = bcrypt.generate_password_hash(cardInfo['name'])
+        cardInfo['cardNumber'] = bcrypt.generate_password_hash(cardInfo['cardNumber'])
+        cardInfo['expiry'] = bcrypt.generate_password_hash(cardInfo['expiry'])
+        cardInfo['cvc'] = bcrypt.generate_password_hash(cardInfo['cvc'])
+        data['card_info'] = cardInfo
+
+    result = db.profile.update_one({'email': email}, {'$set': update_dict});
     if result:
         return Response(status=200)
     return Response(status=400)

@@ -28,6 +28,19 @@ const EditProfile = ({ user }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const email = user.email;
 
+function compileEditedUserJSON() {
+     const userJSON = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      oldPassword: password,
+      newPassword: newPassword,
+      billing_address: billingAddress,
+      birthday: birthday,
+      card_info: cardInfo,
+    }
+    return userJSON
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("")
@@ -49,7 +62,7 @@ async function editStuff(){
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
-        editUserProfile(firstName,lastName,billingAddress, birthday, email)
+        editUserProfile(compileEditedUserJSON())
         setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
@@ -62,7 +75,7 @@ async function editStuff(){
       else{
         const login = await loginUtility(email,password)
         if(login){
-          editUserProfile(firstName,lastName,newPassword,billingAddress,birthday,email)
+          editUserProfile(compileEditedUserJSON())
           setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
