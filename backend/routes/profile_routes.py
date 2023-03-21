@@ -77,14 +77,13 @@ def create_profile():
 @profile.route('/login', methods = ['POST'])
 def login():
     data = request.json
-    
+    print(data['remember_me'])
     # Login with email and password if there is no JWT from user, send JWT to user
-    jwt_token = generate_jwt(data['email'])
+    jwt_token = generate_jwt(data['email'], data['remember_me'])
     print(bcrypt.generate_password_hash(data['password']))
     result = db.profile.find_one({"email": data['email']})
     if result:
         if (bcrypt.check_password_hash(result['password'], data['password'])):
-            jwt_token = generate_jwt(data['email'])
             isAdmin = db.admin.find_one({"email": data['email']})
             if isAdmin:
                 return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
@@ -102,9 +101,19 @@ def jwt_login():
         jwt_token = data['jwt']
         result = db.profile.find_one({"email": jwtGeneratedEmail})
         isAdmin = db.admin.find_one({"email": jwtGeneratedEmail})
+        temp = False
         if isAdmin:
-                return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
-        return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'],  'email': result['email'], 'admin': False, 'token': jwt_token})
+            temp = True
+        return jsonify({'firstName': result['first_name'],
+                        'lastName': result['last_name'],
+                        'email': result['email'],
+                        'birthday': result['birthday'],
+                        'active': result['active'],
+                        'billing_address': result['billing_address'],
+                        'promos': result['registered_for_promos'],
+                        'admin': temp,
+                        'token': jwt_token
+                        })
     return Response(status=404)
     
 @profile.route('/checkEmailInUse', methods = ['POST']) 
@@ -129,13 +138,19 @@ def check_activity():
 def edit_profile():
     data = request.json
     print(data)
-
-    profile = {
-        'first_name' : data['first_name'],
-        'email' : data['email'],
-        'last_name' : data['last_name'],
-        'password' : data['password'],
-    }
+    email = data['email']
+    first_name = data['first_name']
+    last_name = data['last_name']
+    billing_address = data['billing_address']
+    birthday = data['birthday']
+    #password is encrypted
+    query = {"email": email}
+    # new_values = {"$set": {"first_name": first_name, "last_name": last_name}} #changes multiple at once
+    new_values = {"$set": {"first_name": first_name, "last_name": last_name, "billing_address": billing_address, "birthday": birthday}}
+    result = db.profile.update_one(query, new_values)
+    if result:
+        return Response(status=200)
+    return Response(status=400)
 
 # @profile.route('/verify_email/<token>')
 # def verify_email(token, methods = ['PATCH']):
@@ -144,8 +159,11 @@ def edit_profile():
 #         profile.update_one({'emailToken': token}, {'$set': {'active': True}})
 
 
-def generate_jwt(email):
-    exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
+def generate_jwt(email, rememberMe):
+    if not rememberMe:
+        exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
+    else:
+        exp_time = datetime.utcnow() + timedelta(minutes=43200)
 
     payload = {
         'email': email,
@@ -158,4 +176,8 @@ def generate_jwt(email):
 def decode_jwt(jwt_token):
     payload = jwt.decode(jwt_token, os.environ['AUTHENTICATION_PRIVATE_KEY'], algorithms=['HS256'])
     return payload
+
+@profile.route('/retrieveProfile', methods = ['PATCH'])
+def retrieve_profile():
+    data = request.json
 

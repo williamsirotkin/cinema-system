@@ -90,6 +90,41 @@ function App() {
     }
     , []);
   
+  useEffect(() => {
+    let jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      jwt = ""
+    }
+    axios({
+      url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
+      data: {
+          "jwt": jwt
+      },
+      method: "post",
+      headers: {
+          "Content-Type": "application/json"
+      }
+  })
+  .then((response => {
+    const firstName = response.data.firstName
+    const lastName = response.data.lastName
+    const email = response.data.email
+    const role = response.data.role
+    const birthday = response.data.birthday
+    const active = response.data.active
+    const billing_address = response.data.billing_address
+    const promos = response.data.promos
+    setUser({
+      firstName, lastName, email, role, birthday, active, billing_address, promos
+    })
+    setLoggedIn(true)
+    setIsLoading(false)
+  }))
+  .catch((error) => {
+      console.log('JWT has expired');
+      setIsLoading(false)
+  });
+  }, []);
   
   if (isLoading) {
     return <div><h1>Loading Page</h1> </div>
@@ -119,7 +154,7 @@ function App() {
 
       <Route path ="/editProfile" element={
          <React.Fragment>
-         <EditProfile/>
+         <EditProfile user={user}/>
        </React.Fragment>
 
       }></Route>

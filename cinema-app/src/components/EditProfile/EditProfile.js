@@ -1,62 +1,131 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Form, Button } from 'react-bootstrap';
 import CardForm from "../CheckoutPage/CardForm.js";
 import Results from "../CheckoutPage/Results.js"
 import Collapse from 'react-bootstrap/Collapse';
+import { editUserProfile } from '../../utility/editUserProfileUtility';
+import {loginUtility} from '../../utility/loginUtility.js'
+import {useNavigate} from 'react-router-dom'
 
 
 
-const EditProfile = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+const EditProfile = ({ user }) => {
+  let nav = useNavigate()
+  const [firstName, setFirstName] = useState(user.firstName || '');
+  const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('')
-  const [billingAddress, setBillingAddress] = useState('');
-  const [birthday, setBirthday] = useState('')
-  const [cardInfo, setCardInfo] = useState('')
+  const [newPassword, setNewPassword] = useState('');
+  const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
+  const [birthday, setBirthday] = useState(user.birthday || '');
+  const [cardInfo, setCardInfo] = useState(  '');
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const [promos, setPromos] = useState(false)
+  const [promos, setPromos] = useState(false);
   const [switchState, setSwitchState] = useState(false);
+  const [passwordErrorMsg, setPasswordError] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const email = user.email;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrorMessage("")
+    setPasswordError("")
+    setFormErrors(validate(firstName,lastName,newPassword));
+    setIsSubmit(true);
     console.log('Registration form submitted!');
   }
-  const sendData = (cardInfo) =>{
+
+
+   useEffect(() => {
+    editStuff()
+   }
+
+  ,[formErrors]);
+
+
+async function editStuff(){
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      if(newPassword === ""){
+        editUserProfile(firstName,lastName,billingAddress, birthday, email)
+        setErrorMessage("Information was successfully changed")
+          setTimeout(()=>{
+            nav('/', {replace: true})
+          },2000)
+          
+      }
+      else if(newPassword.length < 4 || newPassword.length > 16){
+        setPasswordError("Password must be more than 4 characters and less than 16 characters")
+      }
+      else{
+        const login = await loginUtility(email,password)
+        if(login){
+          editUserProfile(firstName,lastName,billingAddress,birthday,email)
+          setErrorMessage("Information was successfully changed")
+          setTimeout(()=>{
+            nav('/', {replace: true})
+          },2000)
+          
+        }
+        else{
+          setErrorMessage("Please enter the correct current password to change to new password")
+        }
+      }
+    }
+    }
+
+
+const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
   }
+
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
     
-  } 
+  }
+
+  const validate = (firstName,lastName,newPassword,password) => {
+    const errors = {};
+    if (!firstName) {
+      errors.firstName = "first name is required!";
+    }
+    if (!lastName) {
+      errors.lastName = "last name is required!";
+    }
+    return errors;
+  };
 
   return (
     <div className="container">
       <h1 className='register'>Edit Profile</h1>
+      <p className="error">{errorMessage}</p>
+
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>Edit First Name</Form.Label>
           <Form.Control 
-            type="text" 
-            placeholder="*Current first name will be displayed*"
-            value={firstName}
+            type="text"
+            placeholder= {firstName}
+            value= {firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
+        <p className='error'>{formErrors.firstName}</p>
 
         <Form.Group controlId="formBasicLastName">
           <Form.Label>Edit Last Name</Form.Label>
           <Form.Control 
             type="text" 
-            placeholder="*Current last name will be displayed*"
+            placeholder= {lastName}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
-
+        <p className='error'>{formErrors.lastName}</p>
 
         <Button variant="btn btn-secondary mt-3 " size="md"
         onClick={() => setOpen2(!open2)}
@@ -86,34 +155,32 @@ const EditProfile = () => {
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
+          <p className='error'>{passwordErrorMsg}</p>
         </div>
         </Collapse>
+          <Form.Group controlId="formBasicBillingAddress">
+              <Form.Label>Billing Address</Form.Label>
+              <Form.Control
+                  type="text"
+                  placeholder= {billingAddress}
+                  value={billingAddress}
+                  onChange={(e) => setBillingAddress(e.target.value)}
+              />
+          </Form.Group>
+
+
+
+          <Form.Group controlId="formBirthday">
+              <Form.Label>Birthday</Form.Label>
+              <Form.Control
+                  type="text"
+                  placeholder= {birthday}
+                  value={birthday}
+                  onChange={(e) => setBirthday(e.target.value)}
+              />
+          </Form.Group>
       <br></br>
       <hr></hr>
-
-
-        <Form.Group controlId="formBasicBillingAddress">
-          <Form.Label>Billing Address</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Billing Address"
-            value={billingAddress}
-            onChange={(e) => setBillingAddress(e.target.value)}
-          />
-        </Form.Group>
-
-       
-
-        <Form.Group controlId="formBirthday">
-          <Form.Label>Birthday</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="(dd/mm/yyyy)"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-          />
-        </Form.Group>
-        
         
         <br></br>
         <Form.Check
@@ -141,7 +208,7 @@ const EditProfile = () => {
         
         <div className='text-center'>
           <hr></hr>
-        <Button variant="btn btn-danger" type="submit" href="/login">
+        <Button variant="btn btn-danger" type="submit">
           Confirm changes
         </Button>
         </div>
