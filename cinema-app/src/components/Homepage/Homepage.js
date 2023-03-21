@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Carousel, Stack} from "react-bootstrap";
 import './Homepage.css';
 import Cards from './Cards.js'
+import {useNavigate} from 'react-router-dom'
 
-export default function Homepage() {
+export default function Homepage(props) {
+    let nav = useNavigate()
     const moviearr = [{
         title: 'The Batman',
         image: "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
@@ -66,6 +68,12 @@ export default function Homepage() {
         image: 'https://m.media-amazon.com/images/M/MV5BODUyODM1OGEtNTY3ZC00OTFjLTkyNDgtODU4MTk5NzkzYmQ5XkEyXkFqcGdeQXVyNjczMjc4NTA@._V1_.jpg',
         trailer: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
     }]
+
+    useEffect(() => {
+        if (props.user.admin) {
+            nav('/admin')
+        }
+    })
 
   return (
     <div class = "homepage">

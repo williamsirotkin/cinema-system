@@ -114,8 +114,9 @@ function App() {
     const active = response.data.active
     const billing_address = response.data.billing_address
     const promos = response.data.promos
+    const admin = response.data.admin
     setUser({
-      firstName, lastName, email, role, birthday, active, billing_address, promos
+      firstName, lastName, email, role, birthday, active, billing_address, promos, admin
     })
     setLoggedIn(true)
     setIsLoading(false)
@@ -136,7 +137,7 @@ function App() {
 
     <Route path = "/" element={
       <React.Fragment> 
-        <Homepage/>
+        <Homepage user = {user}/>
       </React.Fragment>
     }></Route>
 
