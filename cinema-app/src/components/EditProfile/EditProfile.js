@@ -34,6 +34,8 @@ const EditProfile = ({ user }) => {
     setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
+    alert("Information successfully changed")
+    nav('/')
     console.log('Registration form submitted!');
   }
 
@@ -50,7 +52,7 @@ async function editStuff(){
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
         editUserProfile(firstName,lastName,billingAddress, birthday, email)
-        setErrorMessage("Information was successfully changed")
+        //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -63,7 +65,7 @@ async function editStuff(){
         const login = await loginUtility(email,password)
         if(login){
           editUserProfile(firstName,lastName,billingAddress,birthday,email)
-          setErrorMessage("Information was successfully changed")
+          //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
