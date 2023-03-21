@@ -31,8 +31,8 @@ const EditProfile = ({ user }) => {
 function compileEditedUserJSON() {
      const userJSON = {
       email: email,
-      firstName: firstName,
-      lastName: lastName,
+      first_name: firstName,
+      last_name: lastName,
       oldPassword: password,
       newPassword: newPassword,
       billing_address: billingAddress,
