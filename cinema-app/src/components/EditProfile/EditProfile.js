@@ -6,11 +6,14 @@ import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import {loginUtility} from '../../utility/loginUtility.js'
 import {useNavigate} from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal';
+
 
 
 
 const EditProfile = ({ user }) => {
   let nav = useNavigate()
+  const [show, setShow] = useState(false)
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
@@ -48,6 +51,7 @@ function compileEditedUserJSON() {
     setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
+    handleShow()
     console.log('Registration form submitted!');
   }
 
@@ -60,11 +64,12 @@ function compileEditedUserJSON() {
 
 
 async function editStuff(){
+  console.log(firstName)
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
         editUserProfile(compileEditedUserJSON())
-        setErrorMessage("Information was successfully changed")
+        setErrorMessage("")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -77,7 +82,7 @@ async function editStuff(){
         const login = await loginUtility(email,password)
         if(login){
           editUserProfile(compileEditedUserJSON())
-          setErrorMessage("Information was successfully changed")
+          setErrorMessage("")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -91,9 +96,17 @@ async function editStuff(){
     }
 
 
-const sendData = (cardInfo) =>{
+  const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
+  }
+
+  const handleClose = () => {
+    setShow(false);
+    nav('/')
+  }
+  const handleShow = () => {
+      setShow(true);
   }
 
   const handleChange=(e)=>{
@@ -195,7 +208,7 @@ const sendData = (cardInfo) =>{
           type="switch"
           id="custom-switch"
           label="Register for Promotions"
-          defaultChecked={switchState}
+          defaultChecked={firstName}
           onChange={handleChange}/>
 
         <Button variant="dark mt-3 " size="lg"
@@ -212,6 +225,25 @@ const sendData = (cardInfo) =>{
 
         <br></br>
         <br></br>
+
+        <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+            <Modal.Header closeButton>
+            <Modal.Title>Hooray!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Your information has been successfully changed
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
         
         <div className='text-center'>
           <hr></hr>
