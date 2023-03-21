@@ -20,7 +20,7 @@ def profile_home():
 @profile.route('/verifyEmail/<token>', methods = ['PATCH'])
 def verify_email(token):
     if db.profile.find_one({'emailToken': token}):
-        db.profile.update_one({'emailToken': token}, {'$set': {'active': True}})
+        db.profile.update_one({'emailToken': token}, {'$set': {'active': "active"}})
         return Response(status=200)
     return Response(status=400)
 
@@ -58,7 +58,7 @@ def create_profile():
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : encryptedPassword,
-        'active': False,
+        'active': "pending",
         'emailToken': token,
         'billing_address': billingAddress,
         'registered_for_promos': data['promos'],
@@ -112,6 +112,15 @@ def check_email_in_use():
     print(data)
     result = db.profile.find_one({"email": data['email']})
     if result:
+        return Response(status=400)
+    return Response(status=200)
+
+@profile.route('/checkActivite', methods = ['POST']) 
+def check_activity():
+    data = request.json
+    print(data)
+    result = db.profile.find_one({"email": data['email']})
+    if active == "pending":
         return Response(status=400)
     return Response(status=200)
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
+import {checkActive} from '../../utility/activeUtility.js'
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import Collapse from 'react-bootstrap/Collapse';
@@ -43,17 +44,21 @@ const Login = () => {
     event.preventDefault();
   }
 
-
   const handleLogin = async (email, password) => {
     let result = await loginUtility(email, password)
     if (result.token) {
+      let activeResult = await checkActive(email)
+
+      if (!activeResult) {
+        setErrorMessage("Pleas click your email confirmation")
+      } else {
       if (result.admin) {
         nav("/admin", {replace:true})
       } else {
         nav("/", {replace:true})
       }
       window.location.reload()
-    } else {
+    }} else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
   }
