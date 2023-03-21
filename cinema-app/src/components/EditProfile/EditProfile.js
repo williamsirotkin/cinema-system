@@ -30,6 +30,20 @@ const EditProfile = ({ user }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const email = user.email;
 
+function compileEditedUserJSON() {
+     const userJSON = {
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      oldPassword: password,
+      newPassword: newPassword,
+      billing_address: billingAddress,
+      birthday: birthday,
+      card_info: cardInfo,
+      registered_for_promos: promos
+    }
+    return userJSON
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("")
@@ -52,8 +66,8 @@ async function editStuff(){
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
-        editUserProfile(firstName,lastName,billingAddress, birthday, email)
-        //setErrorMessage("Information was successfully changed")
+        editUserProfile(compileEditedUserJSON())
+        setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -65,8 +79,9 @@ async function editStuff(){
       else{
         const login = await loginUtility(email,password)
         if(login){
-          editUserProfile(firstName,lastName,billingAddress,birthday,email)
-          //setErrorMessage("Information was successfully changed")
+          editUserProfile(compileEditedUserJSON())
+          setErrorMessage("Information was successfully changed")
+
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -96,10 +111,9 @@ const sendData = (cardInfo) =>{
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
-    
   }
 
-  const validate = (firstName,lastName,newPassword,password) => {
+  const validate = (firstName,lastName) => {
     const errors = {};
     if (!firstName) {
       errors.firstName = "first name is required!";
@@ -121,7 +135,10 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text"
             placeholder= {firstName}
+<<<<<<< HEAD
             //value= {}
+=======
+>>>>>>> origin/edit-profile-2-moved-from-fixing-main
             onChange={(e) => setFirstName(e.target.value)}
           />
         </Form.Group>
@@ -132,7 +149,10 @@ const sendData = (cardInfo) =>{
           <Form.Control 
             type="text" 
             placeholder= {lastName}
+<<<<<<< HEAD
             //value={lastName}
+=======
+>>>>>>> origin/edit-profile-2-moved-from-fixing-main
             onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
@@ -150,9 +170,8 @@ const sendData = (cardInfo) =>{
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>Current password</Form.Label>
           <Form.Control 
-            type="text" 
+            type="password" 
             placeholder="Enter password"
-            //value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           </Form.Group>
@@ -160,9 +179,8 @@ const sendData = (cardInfo) =>{
           <Form.Group controlId="formBasicFirstName">
           <Form.Label>Enter New Password</Form.Label>
           <Form.Control 
-            type="text" 
+            type="password" 
             placeholder="Enter new password"
-            //value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
           </Form.Group>
@@ -174,7 +192,6 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {billingAddress}
-                  //value={billingAddress}
                   onChange={(e) => setBillingAddress(e.target.value)}
               />
           </Form.Group>
@@ -186,7 +203,6 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
-                  //value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -205,7 +221,6 @@ const sendData = (cardInfo) =>{
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open}>
-
           Edit Credit Card
         </Button>
         <Collapse in={open}>
