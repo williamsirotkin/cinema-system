@@ -9,6 +9,7 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
+    const [isSubmit,setIsSubmit] = useState(false);
     const [error, setError] = useState('')
 
     function handleSubmit(e) {
@@ -22,7 +23,9 @@ export default function CardForm(props) {
       } if (!cvc) {
         setError("You must enter a valid cvc")
       } else {
+        e.preventDefault();
         setSubmittedData({ name, cardNumber, expiry, cvc });
+        props.isClicked(true)
       }
     }
   useEffect(()=>{
