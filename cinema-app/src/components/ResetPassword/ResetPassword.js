@@ -47,9 +47,9 @@ export default function ResetPassword() {
         <h1 className="mb-4">Reset Password</h1>
         <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicFirstName">
-          <Form.Label>New Password</Form.Label>
+          <Form.Label type="password">New Password</Form.Label>
           <Form.Control 
-            type="text" 
+            type="password" 
             placeholder="Enter new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -57,9 +57,9 @@ export default function ResetPassword() {
           </Form.Group>
 
           <Form.Group controlId="formBasicFirstName">
-          <Form.Label>Confirm New Password</Form.Label>
+          <Form.Label >Confirm New Password</Form.Label>
           <Form.Control 
-            type="text" 
+            type="password" 
             placeholder="Enter new password again"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
