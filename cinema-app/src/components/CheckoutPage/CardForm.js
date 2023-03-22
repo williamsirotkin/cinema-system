@@ -13,7 +13,6 @@ export default function CardForm(props) {
   function handleSubmit(e) {
         e.preventDefault();
         setSubmittedData({ name, cardNumber, expiry, cvc });
-        props.isClicked(true)
       }
   useEffect(()=>{
     props.sendData(submittedData)

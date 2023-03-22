@@ -17,8 +17,6 @@ import axios from 'axios'
              dataJSON[key] = userJSON[key];
          }
      }
-     console.log("data json")
-     console.log(dataJSON)
 
      axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/editProfile",
