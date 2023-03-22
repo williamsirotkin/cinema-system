@@ -37,7 +37,7 @@ function App() {
     useEffect(() => {
       if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
         let jwt = localStorage.getItem('jwt');
-        console.log(localStorage.getItem('jwt'));
+        //console.log(localStorage.getItem('jwt'));
         if (!jwt) {
           jwt = ""
         }

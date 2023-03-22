@@ -85,10 +85,8 @@ def create_profile():
 @profile.route('/login', methods = ['POST'])
 def login():
     data = request.json
-    print(data['remember_me'])
     # Login with email and password if there is no JWT from user, send JWT to user
     jwt_token = generate_jwt(data['email'], data['remember_me'])
-    print(bcrypt.generate_password_hash(data['password']))
     result = db.profile.find_one({"email": data['email']})
     if result:
         if (bcrypt.check_password_hash(result['password'], data['password'])):
@@ -132,6 +130,7 @@ def check_email_in_use():
     if result:
         return Response(status=400)
     return Response(status=200)
+
 
 @profile.route('/checkActive', methods = ['POST']) 
 def check_activity():

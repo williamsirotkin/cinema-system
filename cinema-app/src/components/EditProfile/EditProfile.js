@@ -54,8 +54,6 @@ function compileEditedUserJSON() {
     setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
-    alert("Information successfully changed")
-    nav('/')
     console.log('Registration form submitted!');
   }
 
@@ -82,9 +80,8 @@ async function editStuff(){
         setPasswordError("Password must be more than 4 characters and less than 16 characters")
       }
       else{
-        const login = await loginUtility(email,password)
+        const login = await loginUtility(email,password, false)
         if(login){
-
           editUserProfile(compileEditedUserJSON())
           setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
@@ -193,6 +190,7 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
+                 // value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -234,4 +232,3 @@ const sendData = (cardInfo) =>{
 }
 
 export default  EditProfile;
-
