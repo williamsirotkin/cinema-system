@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import MainNavbar from './components/Navbar/Navbar';
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import MainNavbar from './components/Navbar/Navbar'; 
+import EmailConfirmationPage from './components/EmailConfirmationPage/EmailConfirmationPage';
+import {BrowserRouter as Router, Routes, Route, Link, useNavigate} from "react-router-dom";
 import React,{useState, useEffect} from 'react';
 import Login from './components/Login/Login';
 import OrderSummary from './components/OrderSummary/OrderSummary';
@@ -26,12 +27,69 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
+  function setUserData(firstName, lastName, email, role) {
     setUser({
-      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
+      firstName, lastName, email, role
     })
   }
 
+  
+    useEffect(() => {
+      if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
+        let jwt = localStorage.getItem('jwt');
+        console.log(localStorage.getItem('jwt'));
+        if (!jwt) {
+          jwt = ""
+        }
+        
+        axios({
+          url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
+          data: {
+              "jwt": jwt
+          },
+          method: "post",
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+
+
+      .then((response => {
+        const firstName = response.data.firstName
+        const lastName = response.data.lastName
+        const email = response.data.email
+        const role = response.data.role
+        setUser({
+          firstName, lastName, email, role
+        })
+        setLoggedIn(true)
+        setIsLoading(false)
+      }))
+      .catch((error) => {
+          console.log('JWT has expired');
+          setIsLoading(false)
+      });
+      } else {
+        let token = window.location.pathname.substring(13)
+        
+        axios({
+          url: process.env.REACT_APP_BACKEND_URL + "/profile/verifyEmail/" + token, 
+          method: "patch",
+          headers: {
+              "Content-Type": "application/json"
+          }
+        })
+        .then((response => {
+            setIsLoading(false)
+            console.log(response);
+        }))
+        .catch((error) => {
+        })
+      }
+    
+    }
+    , []);
+  
   useEffect(() => {
     let jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -167,12 +225,17 @@ function App() {
           </React.Fragment>
       }></Route>
 
-      <Route path = "/resetPassword" element={
+      <Route path = "/resetPassword/:token" element={
           <React.Fragment>
             <ResetPassword/>
           </React.Fragment>
       }></Route>
 
+<Route path = "/verifyEmail/:token" element={
+    <React.Fragment>
+          <EmailConfirmationPage/>
+    </React.Fragment>
+      }></Route>
 
     </Routes>
 

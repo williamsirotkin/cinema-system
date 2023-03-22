@@ -5,6 +5,8 @@ from flask_cors import CORS
 import jwt
 from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt
+import random
+import string
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -14,6 +16,23 @@ profile = Blueprint("profile", __name__, url_prefix="/profile")
 @profile.route("/")
 def profile_home():
     return "This is the profile routes"
+
+@profile.route('/verifyEmail/<token>', methods = ['PATCH'])
+def verify_email(token):
+    if db.profile.find_one({'emailToken': token}):
+        db.profile.update_one({'emailToken': token}, {'$set': {'active': "active"}})
+        db.profile.update_one({'emailToken': token}, {'$unset': {'emailToken': ""}})
+        return Response(status=200)
+    return Response(status=400)
+
+@profile.route('/resetPassword/<resetEmail>', methods = ['PATCH'])
+def reset_password(resetEmail):
+    data = request.json
+    encryptedPassword = bcrypt.generate_password_hash(data['newPassword'])
+    if db.profile.find_one({'email': resetEmail}):
+        db.profile.update_one({'email': resetEmail}, {'$set': {'password':encryptedPassword}})
+        return Response(status=200)
+    return Response(status=400)
 
 @profile.route('/create', methods = ['POST'])
 def create_profile():
@@ -41,13 +60,15 @@ def create_profile():
         birthDay = data['birthday']
 
     encryptedPassword = bcrypt.generate_password_hash(data['password'])
+    token = ''.join(random.choices(string.ascii_uppercase + string.digits, k =10))
 
     user = {
         'first_name' : data['first_name'],
         'email' : data['email'],
         'last_name' : data['last_name'],
         'password' : encryptedPassword,
-        'active': True,
+        'active': "pending",
+        'emailToken': token,
         'billing_address': billingAddress,
         'registered_for_promos': data['promos'],
         'card_info': cardInfo,
@@ -57,19 +78,20 @@ def create_profile():
     print(user)
 
     db.profile.insert_one(user)
-    return Response(status=201)
+    return jsonify({
+        "email_token": token
+    })
 
 @profile.route('/login', methods = ['POST'])
 def login():
     data = request.json
-    
+    print(data['remember_me'])
     # Login with email and password if there is no JWT from user, send JWT to user
-    jwt_token = generate_jwt(data['email'])
+    jwt_token = generate_jwt(data['email'], data['remember_me'])
     print(bcrypt.generate_password_hash(data['password']))
     result = db.profile.find_one({"email": data['email']})
     if result:
         if (bcrypt.check_password_hash(result['password'], data['password'])):
-            jwt_token = generate_jwt(data['email'])
             isAdmin = db.admin.find_one({"email": data['email']})
             if isAdmin:
                 return jsonify({'firstName': result['first_name'], 'lastName': result['last_name'], 'email': result['email'], 'admin': True, 'token': jwt_token})
@@ -111,6 +133,15 @@ def check_email_in_use():
         return Response(status=400)
     return Response(status=200)
 
+@profile.route('/checkActive', methods = ['POST']) 
+def check_activity():
+    data = request.json
+    print(data)
+    result = db.profile.find_one({"email": data['email']})
+    if result['active'] == "pending":
+        return Response(status=400)
+    return Response(status=200)
+
 @profile.route('/editProfile', methods = ['PATCH'])
 def edit_profile():
     data = request.json
@@ -139,9 +170,18 @@ def edit_profile():
         return Response(status=200)
     return Response(status=400)
 
+# @profile.route('/verify_email/<token>')
+# def verify_email(token, methods = ['PATCH']):
+#      data = request.json
+#      if token == data['emailToken']:
+#         profile.update_one({'emailToken': token}, {'$set': {'active': True}})
 
-def generate_jwt(email):
-    exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
+
+def generate_jwt(email, rememberMe):
+    if not rememberMe:
+        exp_time = datetime.utcnow() + timedelta(minutes=int(os.environ['AUTHENTICATION_TIMEOUT_IN_MINUTES']))
+    else:
+        exp_time = datetime.utcnow() + timedelta(minutes=43200)
 
     payload = {
         'email': email,
@@ -158,3 +198,4 @@ def decode_jwt(jwt_token):
 @profile.route('/retrieveProfile', methods = ['PATCH'])
 def retrieve_profile():
     data = request.json
+
