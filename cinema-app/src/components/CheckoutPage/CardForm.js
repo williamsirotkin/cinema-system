@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Results from "./Results";
 import "./styles.css";
-import "./CheckoutPage.css"
 
 export default function CardForm(props) {
     const [name, setName] = useState("");
@@ -9,7 +8,6 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
-
     const [isSubmit,setIsSubmit] = useState(false);
 
   function handleSubmit(e) {
@@ -17,14 +15,13 @@ export default function CardForm(props) {
         setSubmittedData({ name, cardNumber, expiry, cvc });
         props.isClicked(true)
       }
-    }
   useEffect(()=>{
     props.sendData(submittedData)
+
   })
   return (
     <form className="card-form">
       <h2 className="text-center">Credit Card Form</h2>
-      <div class = "error">{error}</div>
       <div className="form-group mt-4">
         <input
           type="text"
@@ -61,6 +58,7 @@ export default function CardForm(props) {
         Submit
       </button>
       <hr />
+      <Results data={submittedData} />
     </form>
   )
 }
