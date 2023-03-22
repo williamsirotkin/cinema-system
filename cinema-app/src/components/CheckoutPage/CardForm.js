@@ -15,13 +15,13 @@ export default function CardForm(props) {
     function handleSubmit(e) {
       e.preventDefault();
       if (!name) {
-        setError("You must enter a cardholder name")
+        setError("Please fill in all missing credentials")
       } if (!cardNumber) {
-        setError("You must enter a valid cardnumber")
+        setError("Please fill in all missing credentials")
       } if (!expiry) {
-        setError("You must enter a valid expiration date in MM/YY format")
+        setError("Please fill in all missing credentials")
       } if (!cvc) {
-        setError("You must enter a valid cvc")
+        setError("Please fill in all missing credentials")
       } else {
         e.preventDefault();
         setSubmittedData({ name, cardNumber, expiry, cvc });
