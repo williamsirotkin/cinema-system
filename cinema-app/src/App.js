@@ -162,7 +162,7 @@ function App() {
 
       <Route path = "/admin" element={
           <React.Fragment>
-            <AdminHomePage/>
+            <AdminHomePage user = {user}/>
           </React.Fragment>
       }></Route>
       
