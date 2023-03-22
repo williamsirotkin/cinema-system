@@ -145,7 +145,9 @@ def check_activity():
 def edit_profile():
     data = request.json
     email = data['email']
-   
+    if 'registered_for_promos' not in data:
+        data['registered_for_promos'] = False
+
     update_dict = {}
     for key, value in data.items():
         if key != 'email' and key != 'oldPassword' and key != 'newPassword' and value is not None and value != "":

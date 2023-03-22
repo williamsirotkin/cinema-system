@@ -21,7 +21,7 @@ const EditProfile = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);
-  const [switchState, setSwitchState] = useState(false);
+  const [switchState, setSwitchState] = useState(user.promos);
   const [passwordErrorMsg, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
@@ -38,7 +38,7 @@ function compileEditedUserJSON() {
       newPassword: newPassword,
       billing_address: billingAddress,
       birthday: birthday,
-      registered_for_promos: promos
+      registered_for_promos: switchState
     }
 
     if (useCard) {

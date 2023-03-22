@@ -27,9 +27,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role) {
+  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
     setUser({
-      firstName, lastName, email, role
+      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
     })
   }
 
@@ -56,12 +56,16 @@ function App() {
 
       .then((response => {
         const firstName = response.data.firstName
-        const lastName = response.data.lastName
-        const email = response.data.email
-        const role = response.data.role
-        setUser({
-          firstName, lastName, email, role
-        })
+    const lastName = response.data.lastName
+    const email = response.data.email
+    const role = response.data.role
+    const birthday = response.data.birthday
+    const active = response.data.active
+    const billing_address = response.data.billing_address
+    const promos = response.data.promos
+    setUser({
+      firstName, lastName, email, role, birthday, active, billing_address, promos
+    })
         setLoggedIn(true)
         setIsLoading(false)
       }))
