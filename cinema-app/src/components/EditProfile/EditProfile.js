@@ -26,6 +26,7 @@ const EditProfile = ({ user }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [useCard, setUseCard] = useState(false)
   const email = user.email;
 
 function compileEditedUserJSON() {
@@ -37,9 +38,15 @@ function compileEditedUserJSON() {
       newPassword: newPassword,
       billing_address: billingAddress,
       birthday: birthday,
-      card_info: cardInfo,
       registered_for_promos: promos
     }
+
+    if (useCard) {
+      console.log("cardINFO from editProfile not util")
+      userJSON['card_info'] = cardInfo
+      // console.log(userJSON['card_info'])
+    }
+
     return userJSON
   }
   const handleSubmit = (e) => {
@@ -93,6 +100,7 @@ async function editStuff(){
 
 const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
+
 
   }
 
@@ -199,14 +207,14 @@ const sendData = (cardInfo) =>{
           onChange={handleChange}/>
 
         <Button variant="dark mt-3 " size="lg"
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen(!open)} 
         aria-controls="example-collapse-text"
         aria-expanded={open}>
           Edit Credit Card
         </Button>
         <Collapse in={open}>
         <div id="example-collapse-text">
-          <CardForm sendData = {sendData}></CardForm>
+          <CardForm sendData = {sendData} isClicked={setUseCard}></CardForm>
         </div>
         </Collapse>
 
