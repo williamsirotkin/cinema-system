@@ -44,7 +44,6 @@ function compileEditedUserJSON() {
     if (useCard) {
       console.log("cardINFO from editProfile not util")
       userJSON['card_info'] = cardInfo
-      // console.log(userJSON['card_info'])
     }
 
     return userJSON
