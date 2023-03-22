@@ -9,13 +9,20 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
+    const [error, setError] = useState('')
 
-    const [isSubmit,setIsSubmit] = useState(false);
-
-  function handleSubmit(e) {
-        e.preventDefault();
+    function handleSubmit(e) {
+      e.preventDefault();
+      if (!name) {
+        setError("You must enter a cardholder name")
+      } if (!cardNumber) {
+        setError("You must enter a valid cardnumber")
+      } if (!expiry) {
+        setError("You must enter a valid expiration date in MM/YY format")
+      } if (!cvc) {
+        setError("You must enter a valid cvc")
+      } else {
         setSubmittedData({ name, cardNumber, expiry, cvc });
-        props.isClicked(true)
       }
     }
   useEffect(()=>{
