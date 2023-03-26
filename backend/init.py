@@ -10,6 +10,10 @@ def create_app():
         from routes.profile_routes import profile
         
         app.register_blueprint(profile)
+
+        from routes.movie_routes import movie
+
+        app.register_blueprint(movie)
     return app
 
     
