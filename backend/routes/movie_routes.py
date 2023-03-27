@@ -96,7 +96,6 @@ def add_movie():
     query_title = {"title": data['title']}
     if db.movie.find_one(query_title, {'_id': 1}):
         return Response(status=409)
-    print(data)
     try:
         movie_map = {
             "title": data['title'],
