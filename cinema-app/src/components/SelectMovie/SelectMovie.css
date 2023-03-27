@@ -1,6 +1,6 @@
 .movie-row{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 20px;
 }
 .information{
@@ -11,4 +11,8 @@
 }
 .trailerBtn{
     margin-top: 15px;
+}
+
+.image {
+    height: 45vh
 }

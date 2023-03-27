@@ -83,9 +83,8 @@ def search_by_categroy():
     #use colobertaisonlnda
     # movie_query_result = db.movie.find_one({'title': query_name})
     # movie_query_Json = json_util.dumps(movie_query_result)
-    regex = {"$regex": category, "$options": "i"}
     pipeline = [
-        {'$match': {'category': regex}},
+        {'$match': {'category': category}},
         {'$lookup': {
             'from': 'movie_details',
             'localField': '_id',

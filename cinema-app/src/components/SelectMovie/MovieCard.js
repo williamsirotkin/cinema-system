@@ -8,7 +8,7 @@ export default function MovieCard(data) {
   return (
     <div>
         <Card style={{ width: '20rem' }}>
-            <Card.Img variant="top" src={data.image}/>
+            <Card.Img variant="top" class = "image" src={data.image}/>
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
         <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
