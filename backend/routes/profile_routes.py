@@ -25,6 +25,15 @@ def verify_email(token):
         return Response(status=200)
     return Response(status=400)
 
+@profile.route('/resetPassword/<resetEmail>', methods = ['PATCH'])
+def reset_password(resetEmail):
+    data = request.json
+    encryptedPassword = bcrypt.generate_password_hash(data['newPassword'])
+    if db.profile.find_one({'email': resetEmail}):
+        db.profile.update_one({'email': resetEmail}, {'$set': {'password':encryptedPassword}})
+        return Response(status=200)
+    return Response(status=400)
+
 @profile.route('/create', methods = ['POST'])
 def create_profile():
     data = request.json
@@ -53,7 +62,6 @@ def create_profile():
     encryptedPassword = bcrypt.generate_password_hash(data['password'])
     token = ''.join(random.choices(string.ascii_uppercase + string.digits, k =10))
 
-
     user = {
         'first_name' : data['first_name'],
         'email' : data['email'],
@@ -77,10 +85,8 @@ def create_profile():
 @profile.route('/login', methods = ['POST'])
 def login():
     data = request.json
-    print(data['remember_me'])
     # Login with email and password if there is no JWT from user, send JWT to user
     jwt_token = generate_jwt(data['email'], data['remember_me'])
-    print(bcrypt.generate_password_hash(data['password']))
     result = db.profile.find_one({"email": data['email']})
     if result:
         if (bcrypt.check_password_hash(result['password'], data['password'])):
@@ -139,7 +145,9 @@ def check_activity():
 def edit_profile():
     data = request.json
     email = data['email']
-    print(data)
+    if 'registered_for_promos' not in data:
+        data['registered_for_promos'] = False
+
     update_dict = {}
     for key, value in data.items():
         if key != 'email' and key != 'oldPassword' and key != 'newPassword' and value is not None and value != "":
@@ -150,14 +158,13 @@ def edit_profile():
             update_dict['password'] = bcrypt.generate_password_hash(data['newPassword'])
         else:
             return Response(status=401)
-    print(update_dict['card_info'])
-    if (update_dict['card_info'] is not None):
-        cardInfo = data['card_info']
+    if "card_info" in update_dict:
+        cardInfo = update_dict['card_info']
         cardInfo['name'] = bcrypt.generate_password_hash(cardInfo['name'])
         cardInfo['cardNumber'] = bcrypt.generate_password_hash(cardInfo['cardNumber'])
         cardInfo['expiry'] = bcrypt.generate_password_hash(cardInfo['expiry'])
         cardInfo['cvc'] = bcrypt.generate_password_hash(cardInfo['cvc'])
-        update_dict['card_info'] = cardInfo
+        data['card_info'] = cardInfo
 
     result = db.profile.update_one({'email': email}, {'$set': update_dict})
     if result:

@@ -9,25 +9,29 @@ export default function CardForm(props) {
     const [expiry, setExpiry] = useState("");
     const [cvc, setCvc] = useState("");
     const [submittedData, setSubmittedData] = useState({});
+    const [isSubmit,setIsSubmit] = useState(false);
     const [error, setError] = useState('')
 
     function handleSubmit(e) {
       e.preventDefault();
       if (!name) {
-        setError("You must enter a cardholder name")
+        setError("Please fill in all missing credentials")
       } if (!cardNumber) {
-        setError("You must enter a valid cardnumber")
+        setError("Please fill in all missing credentials")
       } if (!expiry) {
-        setError("You must enter a valid expiration date in MM/YY format")
+        setError("Please fill in all missing credentials")
       } if (!cvc) {
-        setError("You must enter a valid cvc")
+        setError("Please fill in all missing credentials")
       } else {
+        e.preventDefault();
         setSubmittedData({ name, cardNumber, expiry, cvc });
+        props.isClicked(true)
       }
     }
   useEffect(()=>{
     props.sendData(submittedData)
   })
+
   return (
     <form className="card-form">
       <h2 className="text-center">Credit Card Form</h2>

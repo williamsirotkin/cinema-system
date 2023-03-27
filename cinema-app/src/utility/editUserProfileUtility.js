@@ -16,13 +16,11 @@ import axios from 'axios'
          if (userJSON.hasOwnProperty(key) && userJSON[key]) {
              dataJSON[key] = userJSON[key];
          }
-         
      }
 
      axios({
         url: process.env.REACT_APP_BACKEND_URL + "/profile/editProfile",
         data: dataJSON,
-
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"

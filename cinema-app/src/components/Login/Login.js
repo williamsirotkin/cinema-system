@@ -7,6 +7,8 @@ import './Login.css';
 import Collapse from 'react-bootstrap/Collapse';
 import Nav from 'react-bootstrap/Nav';
 import Modal from 'react-bootstrap/Modal';
+import emailjs from '@emailjs/browser';
+
 
 
 
@@ -25,12 +27,19 @@ const Login = () => {
   const handleShow = () => {
     if (resetEmail === ''){
       setEmptyResetEmail("Please enter an email")
-
     }
     else {
       setShow(true);
       setEmptyResetEmail("")
+      console.log(resetEmail)
+      emailjs.send('service_ofjhgu6', 'template_15yauza', {'resetEmail': resetEmail}, 'DtNOiKN5xVEZfQwFe')
+        .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+      }, function(error) {
+        console.log('FAILED...', error);
+      });
     }
+    
   }
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -56,7 +65,7 @@ const Login = () => {
       let activeResult = await checkActive(email)
 
       if (!activeResult) {
-        setErrorMessage("Pleas click your email confirmation")
+        setErrorMessage("Please click your email confirmation")
       } else {
       if (result.admin) {
         nav("/admin", {replace:true})

@@ -19,25 +19,31 @@ import SelectSeats from './components/SelectSeats/SelectSeats';
 import SelectShowtime from './components/SelectShowtime/SelectShowtime';
 import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
+import EditMovie from './components/EditMovie/EditMovie';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState('');
+  const [movies, setMovies] = useState('')
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role) {
+  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
     setUser({
-      firstName, lastName, email, role
+      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
     })
+  }
+
+  function setMoviesFunc(movies) {
+    setMovies(movies)
   }
 
   
     useEffect(() => {
       if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
         let jwt = localStorage.getItem('jwt');
-        console.log(localStorage.getItem('jwt'));
+        //console.log(localStorage.getItem('jwt'));
         if (!jwt) {
           jwt = ""
         }
@@ -56,12 +62,16 @@ function App() {
 
       .then((response => {
         const firstName = response.data.firstName
-        const lastName = response.data.lastName
-        const email = response.data.email
-        const role = response.data.role
-        setUser({
-          firstName, lastName, email, role
-        })
+    const lastName = response.data.lastName
+    const email = response.data.email
+    const role = response.data.role
+    const birthday = response.data.birthday
+    const active = response.data.active
+    const billing_address = response.data.billing_address
+    const promos = response.data.promos
+    setUser({
+      firstName, lastName, email, role, birthday, active, billing_address, promos
+    })
         setLoggedIn(true)
         setIsLoading(false)
       }))
@@ -132,7 +142,7 @@ function App() {
   } else {
   return (
     <Router>
-       <MainNavbar user={user} loggedIn={loggedIn}/>
+       <MainNavbar user={user} loggedIn={loggedIn} setMovies={setMoviesFunc}/>
     <Routes>
 
     <Route path = "/" element={
@@ -199,7 +209,7 @@ function App() {
 
     <Route path = "/selectMovie" element={
           <React.Fragment>
-            <SelectMovie/>
+            <SelectMovie movies={movies}/>
           </React.Fragment>
       }></Route>
 
@@ -225,8 +235,13 @@ function App() {
             <Signup setUserData={setUserData}/>
           </React.Fragment>
       }></Route>
+      <Route path = "/editmovie" element={
+          <React.Fragment>
+            <EditMovie/>
+          </React.Fragment>
+      }></Route>
 
-      <Route path = "/resetPassword" element={
+      <Route path = "/resetPassword/:token" element={
           <React.Fragment>
             <ResetPassword/>
           </React.Fragment>

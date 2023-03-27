@@ -8,21 +8,21 @@ export default function MovieCard(data) {
   return (
     <div>
         <Card style={{ width: '20rem' }}>
-            <Card.Img variant="top" src={data.image}/>
+            <Card.Img variant="top" class = "image" src={data.image}/>
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
         <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
         <Accordion className='accordion'>
             <Accordion.Item eventKey="0">
-            <Accordion.Header>Description</Accordion.Header>
+            <Accordion.Header>Additional Details</Accordion.Header>
             <Accordion.Body>
             {data.description}
             <hr />
             Director: {data.director}
             <hr />
-            Writers: {data.writers}
+            Producer: {data.producers}
             <hr />
-            Stars: {data.stars}
+            Rating: {data.rating}
             <br></br>
             <a href={data.trailer} target="_blank"><Button variant="dark" size="md" className='trailerBtn'>Watch trailer</Button></a>
             </Accordion.Body>

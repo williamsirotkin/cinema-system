@@ -1,0 +1,8 @@
+.checkBoxes{
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.isShowing{
+    margin-top: 15px;
+}

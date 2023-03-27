@@ -6,35 +6,30 @@ import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import {loginUtility} from '../../utility/loginUtility.js'
 import {useNavigate} from 'react-router-dom'
-import Modal from 'react-bootstrap/Modal';
 
 
 
 const EditProfile = ({ user }) => {
   let nav = useNavigate()
-  const [show, setShow] = useState(false)
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
   const [birthday, setBirthday] = useState(user.birthday || '');
-  const [cardInfo, setCardInfo] = useState({});
+  const [cardInfo, setCardInfo] = useState('');
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);
-  const [switchState, setSwitchState] = useState(false);
+  const [switchState, setSwitchState] = useState(user.promos);
   const [passwordErrorMsg, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [useCreditCard, setUseCreditCard] = useState(false)
+  const [useCard, setUseCard] = useState(false)
   const email = user.email;
-  
-
 
 function compileEditedUserJSON() {
-
      const userJSON = {
       email: email,
       first_name: firstName,
@@ -43,11 +38,12 @@ function compileEditedUserJSON() {
       newPassword: newPassword,
       billing_address: billingAddress,
       birthday: birthday,
-      registered_for_promos: promos
+      registered_for_promos: switchState
     }
 
-    if (useCreditCard) {
-      userJSON["card_info"] = cardInfo
+    if (useCard) {
+      console.log("cardINFO from editProfile not util")
+      userJSON['card_info'] = cardInfo
     }
 
     return userJSON
@@ -58,7 +54,6 @@ function compileEditedUserJSON() {
     setPasswordError("")
     setFormErrors(validate(firstName,lastName,newPassword));
     setIsSubmit(true);
-    handleShow()
     console.log('Registration form submitted!');
   }
 
@@ -85,11 +80,10 @@ async function editStuff(){
         setPasswordError("Password must be more than 4 characters and less than 16 characters")
       }
       else{
-        const login = await loginUtility(email,password)
+        const login = await loginUtility(email,password, false)
         if(login){
           editUserProfile(compileEditedUserJSON())
           setErrorMessage("Information was successfully changed")
-
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -104,16 +98,9 @@ async function editStuff(){
 
 
 const sendData = (cardInfo) =>{
-    setUseCreditCard(true)
     setCardInfo(cardInfo)
-  }
 
-  const handleClose = () => {
-    setShow(false);
-    nav('/')
-  }
-  const handleShow = () => {
-      setShow(true);
+
   }
 
   const handleChange=(e)=>{
@@ -203,6 +190,7 @@ const sendData = (cardInfo) =>{
               <Form.Control
                   type="text"
                   placeholder= {birthday}
+                 // value={birthday}
                   onChange={(e) => setBirthday(e.target.value)}
               />
           </Form.Group>
@@ -218,39 +206,20 @@ const sendData = (cardInfo) =>{
           onChange={handleChange}/>
 
         <Button variant="dark mt-3 " size="lg"
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen(!open)} 
         aria-controls="example-collapse-text"
         aria-expanded={open}>
           Edit Credit Card
         </Button>
         <Collapse in={open}>
         <div id="example-collapse-text">
-          <CardForm sendData = {sendData}></CardForm>
+          <CardForm sendData = {sendData} isClicked={setUseCard}></CardForm>
         </div>
         </Collapse>
 
         <br></br>
         <br></br>
-
-        <Modal
-              show={show}
-              onHide={handleClose}
-              backdrop="static"
-              keyboard={false}
-            >
-            <Modal.Header closeButton>
-            <Modal.Title>Hooray!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Your information has been successfully changed
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
+        
         <div className='text-center'>
           <hr></hr>
         <Button variant="btn btn-danger" type="submit">
@@ -263,4 +232,3 @@ const sendData = (cardInfo) =>{
 }
 
 export default  EditProfile;
-
