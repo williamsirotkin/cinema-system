@@ -4,7 +4,6 @@ from db import db
 from bson import ObjectId
 from bson import json_util
 from pymongo.collation import Collation
-# import jwt
 
 app = Flask(__name__)
 
