@@ -74,6 +74,32 @@ def search_movie():
     else:
         return Response(status=404)
 
+@movie.route("/searchByCategory", methods=['GET'])
+def search_by_categroy():
+    category = request.args.get('category')
+    collation = Collation(locale='en', strength=2)
+    # result = db.movie.find_one({'title': {'$regex': query_name, '$options': 'i'}, 'collation': collation})
+    #white space trails & syntax done on front end plz
+    #use colobertaisonlnda
+    # movie_query_result = db.movie.find_one({'title': query_name})
+    # movie_query_Json = json_util.dumps(movie_query_result)
+    pipeline = [
+        {'$match': {'category': category}},
+        {'$lookup': {
+            'from': 'movie_details',
+            'localField': '_id',
+            'foreignField': 'movie_id',
+            'as': 'details'
+        }},
+        {'$unwind': '$details'},
+    ]
+    movie_collection_result = list(db.movie.aggregate(pipeline))
+    if len(movie_collection_result) > 0:
+        movie_query_json = json_util.dumps(movie_collection_result)
+        return movie_query_json
+    else:
+        return Response(status=404)
+
 
 
 @movie.route("/addMovie", methods = ['POST'])
