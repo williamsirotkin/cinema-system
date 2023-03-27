@@ -17,7 +17,7 @@ const EditProfile = ({ user }) => {
   const [newPassword, setNewPassword] = useState('');
   const [billingAddress, setBillingAddress] = useState(user.billing_address || '');
   const [birthday, setBirthday] = useState(user.birthday || '');
-  const [cardInfo, setCardInfo] = useState(  '');
+  const [cardInfo, setCardInfo] = useState('');
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [promos, setPromos] = useState(false);

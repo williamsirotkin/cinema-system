@@ -6,9 +6,15 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "./CardForm";
+import Results from './Results';
 
 export default function CheckoutPage() {
   const [open, setOpen] = useState(false);
+  const [cardInfo, setCardInfo] = useState('');
+  const sendData = (cardInfo) =>{
+    setCardInfo(cardInfo)
+
+  }
   return (
     <div>
       <h1 className='checkoutHeader'>Checkout Page</h1>
@@ -63,7 +69,7 @@ export default function CheckoutPage() {
         </Button>
         <Collapse in={open}>
         <div id="example-collapse-text">
-          <CardForm></CardForm>
+        <CardForm sendData = {sendData}></CardForm>
         </div>
         </Collapse>
         
