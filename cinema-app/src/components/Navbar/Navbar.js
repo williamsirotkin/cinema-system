@@ -77,6 +77,7 @@ function MainNavbar(props) {
               <NavDropdown.Item href="/selectMovie"> Select Movie </NavDropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
+              <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>
               <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
             </NavDropdown>
             {profileComponent}
