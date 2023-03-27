@@ -67,7 +67,7 @@ def search_movie():
         {'$unwind': '$details'},
     ]
     movie_collection_result = list(db.movie.aggregate(pipeline))
-
+    print(query_name)
     if len(movie_collection_result) > 0:
         movie_query_json = json_util.dumps(movie_collection_result)
         return movie_query_json
