@@ -5,7 +5,6 @@ import './EditMovie.css'
 const AddMovieForm = ({ onAddMovie }) => {
   const [title, setTitle] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
-  const [genre, setGenre] = useState('');
   const [director, setDirector] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('')
@@ -16,12 +15,13 @@ const AddMovieForm = ({ onAddMovie }) => {
   const [producer, setProducer] = useState('')
   const [isShowing, setIsShowing] = useState(false)
   const [switchState, setSwitchState] = useState(false);
-
+  const [genres, setGenres] = useState([]);
+  
   const {rating} = movieRating;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`${movieRating.rating}`);
+    alert("Selected checkboxes: " + genres);;
   };
   const handleChange=(e)=>{
     setSwitchState(!switchState)
@@ -35,6 +35,16 @@ const AddMovieForm = ({ onAddMovie }) => {
       ...prevState,
       rating: e.target.value
     }));
+};
+
+
+const handleCheckboxChange = (event) => {
+  const value = event.target.value;
+  if (event.target.checked) {
+    setGenres([...genres, value]);
+  } else {
+    setGenres(genres.filter((item) => item !== value));
+  }
 };
 
   
@@ -179,16 +189,71 @@ const AddMovieForm = ({ onAddMovie }) => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="releaseYear">
+            
               <Form.Label>Genre</Form.Label>
-              <Form.Control
-                type="text"
-                value={genre}
-                placeholder= "add cast with comma in between"
-                onChange={(e) => setGenre(e.target.value)}
+              <div className='checkBoxes'>
+              <Form.Check
+                type="checkbox"
+                label="Action"
+                value="Action"
+                onChange={handleCheckboxChange}
+                />
+                <Form.Check
+                type="checkbox"
+                label="Comedy"
+                value="Comedy"
+                onChange={handleCheckboxChange}
+                />
+                <Form.Check
+                type="checkbox"
+                label="Drama"
+                value="Drama"
+                onChange={handleCheckboxChange}
+                />
+                <Form.Check
+                type="checkbox"
+                label="Fantasy"
+                value="Fantasy"
+                onChange={handleCheckboxChange}
+                />
+                <Form.Check
+                type="checkbox"
+                label="Horror"
+                value="horror"
+                onChange={handleCheckboxChange}
+                />
                 
-              />
-            </Form.Group>
+                <Form.Check
+                type="checkbox"
+                label="Mystery"
+                value="Mystery"
+                onChange={handleCheckboxChange}
+                />
+                <Form.Check
+                type="checkbox"
+                label="Romance"
+                value="Romance"
+                onChange={handleCheckboxChange}
+                />
+                 <Form.Check
+                type="checkbox"
+                label="Thriller"
+                value="Thriller"
+                onChange={handleCheckboxChange}
+                />
+                 <Form.Check
+                type="checkbox"
+                label="Western"
+                value="Western"
+                onChange={handleCheckboxChange}
+                />
+                 <Form.Check
+                type="checkbox"
+                label="Sci-fi"
+                value="Sci-fi"
+                onChange={handleCheckboxChange}
+                />
+            </div>
           </Col>
         </Row>
 
