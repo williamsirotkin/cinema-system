@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+import {createMovie} from '../../utility/createMovieUtility.js'
 import './EditMovie.css'
 
 const AddMovieForm = () => {
@@ -22,9 +23,11 @@ const AddMovieForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // alert(`${movieRating.rating}`);
-    
+    handleCreateMovie()
   };
+  async function handleCreateMovie(){
+    await createMovie(title, rating, image, trailer, isShowing, genres, castArray, director, producerArray, description, reviews)
+  }
 
  useEffect(() =>{
     setCastArray(stars.split(","));
