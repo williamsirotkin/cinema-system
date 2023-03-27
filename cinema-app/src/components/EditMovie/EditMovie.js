@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+import {createMovie} from '../../utility/createMovieUtility.js'
 import './EditMovie.css'
 
 const AddMovieForm = () => {
@@ -22,9 +23,12 @@ const AddMovieForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // alert(`${movieRating.rating}`);
-    
+    // alert(castArray)
+    // handleCreateMovie()
   };
+  async function handleCreateMovie(){
+    await createMovie(title, rating, image, trailer, isShowing, genres, castArray, director, producerArray, description, reviews)
+  }
 
  useEffect(() =>{
     setCastArray(stars.split(","));
@@ -58,6 +62,11 @@ const handleCheckboxChange = (event) => {
   }
 };
 
+function handleConfirm() {
+  alert("Hello")
+  createMovie(title, movieRating, image, trailer, isShowing, genres, castArray, director, producer, description, reviews)
+}
+
   
   
 
@@ -74,6 +83,7 @@ const handleCheckboxChange = (event) => {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -85,6 +95,7 @@ const handleCheckboxChange = (event) => {
                 type="text"
                 value={director}
                 onChange={(e) => setDirector(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -99,6 +110,7 @@ const handleCheckboxChange = (event) => {
                 placeholder= "add cast with comma in between"
                 value={producer}
                 onChange={(e) => setProducer(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -111,6 +123,7 @@ const handleCheckboxChange = (event) => {
                 value={stars}
                 placeholder= "add cast with comma in between"
                 onChange={(e) => setStars(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -127,6 +140,7 @@ const handleCheckboxChange = (event) => {
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -145,6 +159,7 @@ const handleCheckboxChange = (event) => {
                 id={`inline-${type}-1`}
                 onChange={handleChangeRating}
                 checked={rating === "PG"}
+                
             />
             <Form.Check
                 inline
@@ -196,6 +211,7 @@ const handleCheckboxChange = (event) => {
                 type="text"
                 value={reviews}
                 onChange={(e) => setReviews(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -278,6 +294,7 @@ const handleCheckboxChange = (event) => {
                 value={image}
                 placeholder= "Place an image URL"
                 onChange={(e) => setImage(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -290,6 +307,7 @@ const handleCheckboxChange = (event) => {
                 value={trailer}
                 placeholder= "Place a URL"
                 onChange={(e) => setTrailer(e.target.value)}
+                required
                 
               />
             </Form.Group>
@@ -314,7 +332,7 @@ const handleCheckboxChange = (event) => {
         <div className='text-center'>
 
           <hr></hr>
-        <Button variant="btn btn-danger" type="submit">
+        <Button variant="btn btn-danger" onClick = {() => handleConfirm()} type="submit">
           Confirm 
         </Button>
         </div>
