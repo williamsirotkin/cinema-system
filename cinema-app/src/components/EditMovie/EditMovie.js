@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import './EditMovie.css'
 
@@ -16,13 +16,25 @@ const AddMovieForm = ({ onAddMovie }) => {
   const [isShowing, setIsShowing] = useState(false)
   const [switchState, setSwitchState] = useState(false);
   const [genres, setGenres] = useState([]);
+  const [castArray, setCastArray] = useState([]);
+  const [producerArray, setProducerArray] = useState([]);
   
   const {rating} = movieRating;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Selected checkboxes: " + genres);;
+    // alert(`${movieRating.rating}`);
+    
   };
+
+ useEffect(() =>{
+    setCastArray(stars.split(","));
+ },[stars])
+ 
+ useEffect(() =>{
+    setProducerArray(producer.split(","));
+ },[producer])
+ 
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setIsShowing(e.target.checked)
@@ -85,6 +97,7 @@ const handleCheckboxChange = (event) => {
               <Form.Label>Producer</Form.Label>
               <Form.Control
                 type="text"
+                placeholder= "add cast with comma in between"
                 value={producer}
                 onChange={(e) => setProducer(e.target.value)}
                 
