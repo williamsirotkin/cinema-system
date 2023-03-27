@@ -49,6 +49,7 @@ function MainNavbar(props) {
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
               <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
+              <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title= {props.user.firstName} id="basic-nav-dropdown">
               <NavDropdown.Item href="/editProfile">
@@ -103,6 +104,7 @@ function MainNavbar(props) {
                 <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
                 <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
                 <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
+                <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="Register/Login" id="basic-nav-dropdown">
               <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
