@@ -23,7 +23,6 @@ function Results(props) {
         />
       </div>
       <div className="text-center">
-        
       </div>
     </div>
   );

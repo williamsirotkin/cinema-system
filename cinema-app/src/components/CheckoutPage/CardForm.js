@@ -31,6 +31,7 @@ export default function CardForm(props) {
   useEffect(()=>{
     props.sendData(submittedData)
   })
+
   return (
     <form className="card-form">
       <h2 className="text-center">Credit Card Form</h2>
