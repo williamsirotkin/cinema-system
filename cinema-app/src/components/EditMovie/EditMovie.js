@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import './EditMovie.css'
 
-const AddMovieForm = ({ onAddMovie }) => {
+const AddMovieForm = () => {
   const [title, setTitle] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
   const [director, setDirector] = useState('');
