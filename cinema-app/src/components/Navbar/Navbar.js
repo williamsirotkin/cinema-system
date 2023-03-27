@@ -10,7 +10,7 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { searchMovieUtility } from '../../utility/searchMovieUtility';
 import { searchMoviesByCategoryUtility } from '../../utility/searchMoviesByCategoryUtility';
-import styled from "styled-components";
+// import styled from "styled-components";
 import {BsArrowLeftRight, BsSearch} from "react-icons/bs";
 
 
