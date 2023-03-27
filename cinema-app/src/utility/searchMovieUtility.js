@@ -10,7 +10,7 @@ async function searchMovieUtility(query) {
         method: "get",
     })
     .then((response => {
-        return response
+        return response.data
     }))
     .catch((error) => {
         return null

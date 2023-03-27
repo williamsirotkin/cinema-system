@@ -2,7 +2,9 @@ import './SelectMovie.css'
 import React, { useState } from 'react';
 import MovieCard from './MovieCard';
 
-export default function SelectMovie() {
+export default function SelectMovie(props) {
+  console.log(props.movies[0])
+
 const movieArr =[{
   title: "Intersteller",
   image: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
@@ -106,4 +108,5 @@ const movieArr =[{
 </div>
 </div>
 )
+
 }
