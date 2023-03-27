@@ -3,6 +3,7 @@ import json, os
 from db import db
 from bson import ObjectId
 from bson import json_util
+import re
 from pymongo.collation import Collation
 # import jwt
 
@@ -17,6 +18,7 @@ def movie_home():
 @movie.route("/getAllMovies", methods=['GET'])
 def get_all_movies():
     isDetails = request.args.get('isDetails')
+
     print(isDetails)
 
     #query param of isDetails ise equal to the string "true"
@@ -50,15 +52,16 @@ def get_all_movies():
 @movie.route("/searchMovie", methods=['GET'])
 def search_movie():
     query_name = request.args.get('query_name')
-    collation = Collation(locale='en', strength=2)
+    regex_query_name = re.compile('.*{}.*'.format(query_name.replace(' ', '.*')), re.IGNORECASE)
+    # collation = Collation(locale='en', strength=2, caseLevel=False)
     # result = db.movie.find_one({'title': {'$regex': query_name, '$options': 'i'}, 'collation': collation})
-    #white space trails & syntax done on front end plz
-    #use colobertaisonlnda
+    # white space trails & syntax done on front end plz
+    # use colobertaisonlnda
     # movie_query_result = db.movie.find_one({'title': query_name})
     # movie_query_Json = json_util.dumps(movie_query_result)
 
     pipeline = [
-        {'$match': {'title': query_name}},
+        {'$match': {'title': regex_query_name}},
         {'$lookup': {
             'from': 'movie_details',
             'localField': '_id',
