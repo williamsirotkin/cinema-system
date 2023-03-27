@@ -3,6 +3,7 @@ import json, os
 from db import db
 from bson import ObjectId
 from bson import json_util
+from pymongo.collation import Collation
 # import jwt
 
 app = Flask(__name__)
@@ -43,6 +44,36 @@ def get_all_movies():
     movie_collection = list(movie_collection_result)
     json_result = json_util.dumps(movie_collection)
     return json_result
+
+
+
+@movie.route("/searchMovie", methods=['GET'])
+def search_movie():
+    query_name = request.args.get('query_name')
+    collation = Collation(locale='en', strength=2)
+    # result = db.movie.find_one({'title': {'$regex': query_name, '$options': 'i'}, 'collation': collation})
+    #white space trails & syntax done on front end plz
+    #use colobertaisonlnda
+    # movie_query_result = db.movie.find_one({'title': query_name})
+    # movie_query_Json = json_util.dumps(movie_query_result)
+
+    pipeline = [
+        {'$match': {'title': query_name}},
+        {'$lookup': {
+            'from': 'movie_details',
+            'localField': '_id',
+            'foreignField': 'movie_id',
+            'as': 'details'
+        }},
+        {'$unwind': '$details'},
+    ]
+    movie_collection_result = list(db.movie.aggregate(pipeline))
+
+    if len(movie_collection_result) > 0:
+        movie_query_json = json_util.dumps(movie_collection_result)
+        return movie_query_json
+    else:
+        return Response(status=404)
 
 
 
