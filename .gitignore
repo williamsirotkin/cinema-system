@@ -12,3 +12,4 @@
 *.pyc
 backend/__pycache__/init.cpython-39.pyc
 backend/routes/__pycache__/profile_routes.cpython-39.pyc
+*.pyc
