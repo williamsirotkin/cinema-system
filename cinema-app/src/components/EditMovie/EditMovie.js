@@ -23,7 +23,8 @@ const AddMovieForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleCreateMovie()
+    // alert(castArray)
+    // handleCreateMovie()
   };
   async function handleCreateMovie(){
     await createMovie(title, rating, image, trailer, isShowing, genres, castArray, director, producerArray, description, reviews)
