@@ -8,12 +8,12 @@ def create_app():
     #Put blueprints in here
     with app.app_context():
         from routes.profile_routes import profile
+        from routes.movie_routes import movie
+        from routes.promo_routes import promo
         
         app.register_blueprint(profile)
-
-        from routes.movie_routes import movie
-
         app.register_blueprint(movie)
+        app.register_blueprint(promo)
     return app
 
     

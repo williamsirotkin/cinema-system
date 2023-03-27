@@ -3,25 +3,70 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {Image, Form } from 'react-bootstrap';
 import './AddPromotions.css'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { round } from 'lodash';
-
-
+import axios from 'axios';
 
 
 export default function AddPromotions() {
-    const [promo, setPromo] = useState([
-        { id: 1, name: 'Save10', type: "Seasonal", discount: 10},
-        { id: 2, name: 'NEWYEARS23', type: "Subscriber", discount: 23},
-        { id: 3, name: 'Save15', type: "Email", discount: 15},
-    ]);
 
-    const handleDelete = (id) => {
-        const updatedPromo = promo.filter(promo =>
-            promo.id !== id
-        );
-        setPromo(updatedPromo);
+    //let nav = useNavigate();
+    const [promoName, setPromoName] = useState('');
+    const [discountAmnt, setDiscountAmnt] = useState('');
+
+
+    const [promo, setPromo] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+          try {
+            const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/promotions/get-all');
+            setPromo(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        fetchData();
+      }, []);
+    
+
+    // const [promo, setPromo] = useState([
+    //     { id: 1, name: 'Save10', type: "Seasonal", discount: 10},
+    //     { id: 2, name: 'NEWYEARS23', type: "Subscriber", discount: 23},
+    //     { id: 3, name: 'Save15', type: "Email", discount: 15},
+    // ]);
+
+    const handleDelete = async (_id) => {
+        // const updatedPromo = promo.filter(promo =>
+        //     promo._id !== _id
+        // );
+        // setPromo(updatedPromo);
+        try {
+            const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + '/promotions/delete/' + _id);
+            console.log(response.data);
+            // Update the state variable with the new array of records
+            setPromo(promo.filter((promo) => promo._id !== _id));
+          } catch (error) {
+            console.error(error);
+          }
+      
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(promoName);
+        console.log(discountAmnt);
+        try {
+          const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/promotions/add', {
+            promoName,
+            discountAmnt
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+        window.location.reload();
+      };
 
   return (
       <div className = "movieCard">
@@ -32,9 +77,9 @@ export default function AddPromotions() {
                   <Card.Text>
                       {promo.map(promo => (
                           <div key={promo.id}>
-                              <span>{promo.id}&nbsp;{promo.name} &nbsp;{promo.type}&nbsp;-&nbsp;{promo.discount}</span>
+                              <span>{promo.promoName} &nbsp;{promo.discountAmnt}&nbsp;</span>
                               &nbsp;
-                              <Button  onClick={() => handleDelete(promo.id)} variant="danger" size="sm">Delete </Button>
+                              <Button  onClick={() => handleDelete(promo._id)} variant="danger" size="sm">Delete </Button>
                               <br></br>
                               <br></br>
                           </div>
@@ -57,22 +102,32 @@ export default function AddPromotions() {
               </Card.Body>
               <br></br>
               <div>
-                  <Form>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
-                          <Form.Label>Promo Name</Form.Label>
-                          <Form.Control type="email" placeholder="Enter Promo Name" />
-                          <Form.Text className="text-muted">
-                          </Form.Text>
+                  <Form onSubmit={handleSubmit}>
+                      <Form.Group className="mb-3" controlId="formBasicPromoName">
+                            <Form.Label>Promo Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Promo Name"
+                                value={promoName}
+                                onChange={(e) => setPromoName(e.target.value)}
+                            />
+                            <Form.Text className="text-muted">
+                            </Form.Text>
                       </Form.Group>
-                      <Form.Group className="mb-3" controlId="formBasicPassword">
-                          <Form.Label>Discount</Form.Label>
-                          <Form.Control type="Discount" placeholder="Discount Amount" />
+                      <Form.Group className="mb-3" controlId="formBasiceDiscountAmnt">
+                          <Form.Label>Discount Amount</Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Discount Amount"
+                            value={discountAmnt}
+                            onChange={(e) => setDiscountAmnt(e.target.value)}
+                            />
                       </Form.Group>
-                      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                      {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                           <Form.Check type="checkbox" label="Seasonal" />
                           <Form.Check type="checkbox" label="Email" />
                           <Form.Check type="checkbox" label="Subscriber" />
-                      </Form.Group>
+                      </Form.Group> */}
                       <Button variant="primary" type="submit" className='submitBtn'>
                           Submit
                       </Button>
@@ -84,3 +139,5 @@ export default function AddPromotions() {
   );
 
 }
+
+//export default PromoPage;
