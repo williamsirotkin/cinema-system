@@ -4,7 +4,6 @@ import './EditMovie.css'
 
 const AddMovieForm = () => {
   const [title, setTitle] = useState('');
-  const [releaseYear, setReleaseYear] = useState('');
   const [director, setDirector] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('')
