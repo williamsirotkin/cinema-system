@@ -3,8 +3,25 @@ import React, { useState } from 'react';
 import MovieCard from './MovieCard';
 
 export default function SelectMovie(props) {
-  console.log(props.movies[0])
-
+  let display;
+  let movies;
+  if (props.movies) {
+    console.log(props.movies)
+    display = 
+    <div> 
+      {props.movies.map((movie, index) => (
+        <MovieCard title={movie.title} image={movie.photo_link} 
+        description={"Not done yet"} director={"Not done yet"}  
+        writers={"Not done yet"} rating={movie.MPAA_rating} trailer = {movie.trailer_link}/>
+      ))}
+    </div>
+  } else {
+    display = <div> <h1> No Movies Available with that Title </h1></div>
+  }
+  return (
+    display
+  )
+/*
 const movieArr =[{
   title: "Intersteller",
   image: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
@@ -108,5 +125,5 @@ const movieArr =[{
 </div>
 </div>
 )
-
+*/
 }

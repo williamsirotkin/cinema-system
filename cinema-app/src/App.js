@@ -34,8 +34,8 @@ function App() {
     })
   }
 
-  function setMoviesFunc(title, rating, photoLink, trailerLink, category, isShowing, details) {
-    setMovies(title, rating, photoLink, trailerLink, category, isShowing, details)
+  function setMoviesFunc(movies) {
+    setMovies(movies)
   }
 
   
