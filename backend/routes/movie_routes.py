@@ -81,7 +81,6 @@ def add_movie():
     data = request.json
     # test if data.user.is admin
     # return Response(status=401) unauthorized
-
     for key, value in data.items ():
         if value is None or value =="":
             return Response(status=400)
@@ -97,7 +96,7 @@ def add_movie():
     query_title = {"title": data['title']}
     if db.movie.find_one(query_title, {'_id': 1}):
         return Response(status=409)
-
+    print(data)
     try:
         movie_map = {
             "title": data['title'],
@@ -116,7 +115,6 @@ def add_movie():
     result1 = db.movie.insert_one(movie_map)
     movie_id = result1.inserted_id
     movie_object_id = ObjectId(movie_id)
-
     try:
         movie_details_map = {
             "movie_id": movie_object_id,

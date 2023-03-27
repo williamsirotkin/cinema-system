@@ -13,9 +13,8 @@ async function createMovie(title, MPAA_rating, photo_link, trailer_link, isShowi
             "cast": cast,
             "director": director,
             "producer": producer,
-            "synposis": synopsis,
+            "synopsis": synopsis,
             "reviews": reviews
-
         },
         method: "post",
         headers: {

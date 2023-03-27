@@ -62,6 +62,11 @@ const handleCheckboxChange = (event) => {
   }
 };
 
+function handleConfirm() {
+  alert("Hello")
+  createMovie(title, movieRating, image, trailer, isShowing, genres, castArray, director, producer, description, reviews)
+}
+
   
   
 
@@ -327,7 +332,7 @@ const handleCheckboxChange = (event) => {
         <div className='text-center'>
 
           <hr></hr>
-        <Button variant="btn btn-danger" type="submit">
+        <Button variant="btn btn-danger" onClick = {() => handleConfirm()} type="submit">
           Confirm 
         </Button>
         </div>
