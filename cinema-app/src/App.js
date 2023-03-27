@@ -19,6 +19,7 @@ import SelectSeats from './components/SelectSeats/SelectSeats';
 import SelectShowtime from './components/SelectShowtime/SelectShowtime';
 import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
+import EditMovie from './components/EditMovie/EditMovie';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import axios from 'axios';
 
@@ -231,6 +232,11 @@ function App() {
       <Route path = "/signup" element={
           <React.Fragment>
             <Signup setUserData={setUserData}/>
+          </React.Fragment>
+      }></Route>
+      <Route path = "/editmovie" element={
+          <React.Fragment>
+            <EditMovie/>
           </React.Fragment>
       }></Route>
 
