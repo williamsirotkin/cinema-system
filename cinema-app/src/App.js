@@ -24,6 +24,7 @@ import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState('');
+  const [movies, setMovies] = useState('')
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
@@ -31,6 +32,10 @@ function App() {
     setUser({
       firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
     })
+  }
+
+  function setMoviesFunc(title, rating, photoLink, trailerLink, category, isShowing, details) {
+    setMovies(title, rating, photoLink, trailerLink, category, isShowing, details)
   }
 
   
@@ -135,7 +140,7 @@ function App() {
   } else {
   return (
     <Router>
-       <MainNavbar user={user} loggedIn={loggedIn}/>
+       <MainNavbar user={user} loggedIn={loggedIn} setMovies={setMoviesFunc}/>
     <Routes>
 
     <Route path = "/" element={
@@ -202,7 +207,7 @@ function App() {
 
     <Route path = "/selectMovie" element={
           <React.Fragment>
-            <SelectMovie/>
+            <SelectMovie movies={movies}/>
           </React.Fragment>
       }></Route>
 
