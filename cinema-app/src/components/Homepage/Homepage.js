@@ -12,14 +12,14 @@ export default function Homepage(props) {
     }
 
     const moviearr = [{
-        title: 'The Batman',
-        image: "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
-        trailer: "https://www.youtube.com/watch?v=mqqft2x_Aa4" 
+        title: props.showingNow[0].title,
+        image: props.showingNow[0].photo_link,
+        trailer: props.showingNow[0].trailer_link 
     },
     {
-        title: 'Everything Everywhere All At Once',
-        image: "https://m.media-amazon.com/images/I/A1f7vq1AwuL.jpg" ,
-        trailer: "https://www.youtube.com/watch?v=wxN1T1uxQ2g"
+        title: props.showingNow[1].title,
+        image: props.showingNow[1].photo_link,
+        trailer: props.showingNow[1].trailer_link 
     },
     {
         title: 'Intersteller',
@@ -82,7 +82,6 @@ export default function Homepage(props) {
 
   return (
     <div class = "homepage">
-    
     <div className='homepageTitles'> 
     &nbsp; &nbsp; &nbsp; 
     <h1> Showing Now </h1> 
