@@ -4,7 +4,6 @@ import MovieCard from './MovieCard';
 
 export default function SelectMovie(props) {
   let display;
-  let movies;
   if (props.movies) {
     console.log(props.movies)
     display = 
