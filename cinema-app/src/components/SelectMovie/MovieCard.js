@@ -18,9 +18,13 @@ export default function MovieCard(data) {
             <Accordion.Body>
             {data.description}
             <hr />
+            Genre: {data.genre.join(", ")}
+            <hr/>
             Director: {data.director}
             <hr />
-            Producers: {data.producers.join(",")}
+            Producers: {data.producers.join(", ")}
+            <hr/>
+            Cast: {data.cast.join(", ")}
             <hr />
             Rating: {data.rating}
             <br></br>
