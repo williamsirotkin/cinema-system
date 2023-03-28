@@ -20,7 +20,7 @@ export default function MovieCard(data) {
             <hr />
             Director: {data.director}
             <hr />
-            Producer: {data.producers}
+            Producers: {data.producers}
             <hr />
             Rating: {data.rating}
             <br></br>

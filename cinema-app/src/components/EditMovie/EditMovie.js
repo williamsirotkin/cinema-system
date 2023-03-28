@@ -23,8 +23,7 @@ const AddMovieForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // alert(castArray)
-    // handleCreateMovie()
+    handleCreateMovie()
   };
   async function handleCreateMovie(){
     await createMovie(title, rating, image, trailer, isShowing, genres, castArray, director, producerArray, description, reviews)
@@ -62,13 +61,6 @@ const handleCheckboxChange = (event) => {
   }
 };
 
-function handleConfirm() {
-  alert("Hello")
-  createMovie(title, movieRating, image, trailer, isShowing, genres, castArray, director, producer, description, reviews)
-}
-
-  
-  
 
   return (
     <Container>
@@ -332,7 +324,7 @@ function handleConfirm() {
         <div className='text-center'>
 
           <hr></hr>
-        <Button variant="btn btn-danger" onClick = {() => handleConfirm()} type="submit">
+        <Button variant="btn btn-danger" type="submit">
           Confirm 
         </Button>
         </div>
