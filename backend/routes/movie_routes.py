@@ -224,17 +224,13 @@ def get_movies(showing):
         movie_collection_result = db.movie.aggregate(pipeline)
     else:
         pipeline = [
-        {
-        '$match': {'isShowing': False},
-
-            "$lookup": {
+            {'$match': {'isShowing': False}},
+            {"$lookup": {
                 "from": "movie_details",
-                    "localField": "_id",
-                    "foreignField": "movie_id",
-                    "as": "details",
-                },
-
-            },
+                "localField": "_id",
+                "foreignField": "movie_id",
+                "as": "details",
+            }},
             {
                 "$addFields": {
                     "details": {"$arrayElemAt": ["$details", 0]}

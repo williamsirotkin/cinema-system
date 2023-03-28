@@ -13,3 +13,5 @@ seat = Blueprint("seat", __name__, url_prefix="/seat")
 def seat_home():
     return "This is the seat routes."
 
+
+
