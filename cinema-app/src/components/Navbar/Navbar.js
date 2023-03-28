@@ -14,7 +14,7 @@ import { getAllMovies } from '../../utility/getAllMoviesUtility';
 import styled from "styled-components";
 import {BsArrowLeftRight, BsSearch} from "react-icons/bs";
 
-const details = true;
+
 
 async function handleSearch(setMovies, searchBarInput) {
   let movies = await searchMovieUtility(searchBarInput)
@@ -104,7 +104,7 @@ function MainNavbar(props) {
               <NavDropdown.Item href="/orderSummary"> Order Summary </NavDropdown.Item>
               <NavDropdown.Item href="/registrationConfirmationPage"> Registration Confirmation </NavDropdown.Item>
               <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
-              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, details); nav('/selectMovie')}}>Select Movie</Dropdown.Item>
+              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, "true"); nav('/selectMovie')}}>Select Movie</Dropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
               <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>

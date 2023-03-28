@@ -27,7 +27,7 @@ def get_all_movies():
                     "from": "movie_details",
                     "localField": "_id",
                     "foreignField": "movie_id",
-                    "as": "movie_detail"
+                    "as": "details"
                 }
             },
             {
@@ -42,6 +42,7 @@ def get_all_movies():
 
     movie_collection = list(movie_collection_result)
     json_result = json_util.dumps(movie_collection)
+
     return json_result
 
 
