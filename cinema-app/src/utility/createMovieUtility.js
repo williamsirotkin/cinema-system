@@ -22,10 +22,8 @@ async function createMovie(title, MPAA_rating, photo_link, trailer_link, isShowi
         }
     })
     .then((response => {
-        alert("sucess")
     }))
     .catch((error) => {
-        alert("Failed")
     });
 }
 

@@ -166,7 +166,8 @@ def add_movie():
 
 @movie.route("/removeMovie", methods = ['DELETE'])
 def remove_movie():
-    data = request.json
+    param_title = request.args.get('title')
+    #data = request.json
 
     ##########################
     # test if data.user.is admin
@@ -174,14 +175,10 @@ def remove_movie():
     ###############################
 
 
-    if 'title' in data:
-        if data['title'] is None or data['title'] == "":
-            print("title is none")
-            return Response(status=400)
-    else:
-        return Response(status=400)
-
-    query_title = {"title": data['title']}
+    if param_title is None or param_title == "":
+            print("title is none or ")
+            return Response(status=404)
+    query_title = {"title": param_title}
     movie_query_result = db.movie.find_one(query_title, {'_id': 1})
 
     if movie_query_result is None:
