@@ -200,3 +200,53 @@ def remove_movie():
         return Response(status=202)
     else:
         return Response(status=204)
+    
+@movie.route("/get/<showing>", methods=['GET'])
+def get_movies(showing):
+
+    #query param of isDetails ise equal to the string "true"
+    print(showing)
+    if showing == "Showing":
+        pipeline = [
+            {'$match': {'isShowing': True}},
+            {"$lookup": {
+                "from": "movie_details",
+                "localField": "_id",
+                "foreignField": "movie_id",
+                "as": "details",
+            }},
+            {
+                "$addFields": {
+                    "details": {"$arrayElemAt": ["$details", 0]}
+                }
+            }
+        ]
+        movie_collection_result = db.movie.aggregate(pipeline)
+    else:
+        pipeline = [
+        {
+        '$match': {'isShowing': False},
+
+            "$lookup": {
+                "from": "movie_details",
+                    "localField": "_id",
+                    "foreignField": "movie_id",
+                    "as": "details",
+                },
+
+            },
+            {
+                "$addFields": {
+                    "details": {"$arrayElemAt": ["$details", 0]}
+                }
+            }
+        ]
+        movie_collection_result = db.movie.aggregate(pipeline)
+
+    movie_collection = list(movie_collection_result)
+    json_result = json_util.dumps(movie_collection)
+
+    return json_result
+
+    
+

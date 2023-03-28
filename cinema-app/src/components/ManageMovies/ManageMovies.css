@@ -1,8 +1,12 @@
-.movie-row {
+.movie-row{
     display: flex;
     justify-content: space-between
 }
 
 .add-movie-row {
+    margin-left: 20px;
+}
+.manageButtons{
     display: flex;
+    gap: 5px;
 }
