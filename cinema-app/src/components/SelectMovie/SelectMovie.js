@@ -2,14 +2,15 @@ import './SelectMovie.css'
 import React, { useEffect,useState } from 'react';
 import MovieCard from './MovieCard';
 import { getAllMovies } from '../../utility/getAllMoviesUtility';
+import { getShowingNow } from '../../utility/getShowingNowUtility';
 
-async function handleGetAllMovies(setMovies, details) {
-  let movies = await getAllMovies(details)
+async function handleGetShowingMovies(setMovies, details) {
+  let movies = await getShowingNow()
   setMovies(movies)
 }
 export default function SelectMovie(props) {
   useEffect(()=>{
-    handleGetAllMovies(props.setMovies, "true")
+    handleGetShowingMovies(props.setMovies, "true")
   },[])
 
   let display;
