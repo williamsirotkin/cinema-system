@@ -191,7 +191,7 @@ function App() {
 
       <Route path = "/manageMovies" element={
           <React.Fragment>
-            <ManageMovies/>
+            <ManageMovies movies={movies} setMovies={setMoviesFunc}/>
           </React.Fragment>
       }></Route>
 
@@ -209,7 +209,7 @@ function App() {
 
     <Route path = "/selectMovie" element={
           <React.Fragment>
-            <SelectMovie movies={movies}/>
+            <SelectMovie movies={movies} setMovies={setMoviesFunc}/>
           </React.Fragment>
       }></Route>
 

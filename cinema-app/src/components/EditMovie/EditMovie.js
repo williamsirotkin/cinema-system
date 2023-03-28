@@ -20,7 +20,7 @@ const AddMovieForm = () => {
   const [producerArray, setProducerArray] = useState([]);
   
   const {rating} = movieRating;
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     handleCreateMovie()
@@ -81,7 +81,7 @@ const handleCheckboxChange = (event) => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="releaseYear">
+            <Form.Group>
               <Form.Label>Director</Form.Label>
               <Form.Control
                 type="text"
@@ -95,7 +95,7 @@ const handleCheckboxChange = (event) => {
         </Row>
         <Row>
           <Col>
-            <Form.Group controlId="title">
+            <Form.Group>
               <Form.Label>Producer</Form.Label>
               <Form.Control
                 type="text"
@@ -108,7 +108,7 @@ const handleCheckboxChange = (event) => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="releaseYear">
+            <Form.Group>
               <Form.Label>Cast</Form.Label>
               <Form.Control
                 type="text"
@@ -138,7 +138,7 @@ const handleCheckboxChange = (event) => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group controlId="releaseYear">
+            <Form.Group>
               <Form.Label>Rating</Form.Label>
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="mb-3">
@@ -239,7 +239,7 @@ const handleCheckboxChange = (event) => {
                 <Form.Check
                 type="checkbox"
                 label="Horror"
-                value="horror"
+                value="Horror"
                 onChange={handleCheckboxChange}
                 />
                 

@@ -1,7 +1,6 @@
 .movie-row{
-    display: flex;
-    justify-content: flex-start;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 }
 .information{
     margin-bottom: 5px;
