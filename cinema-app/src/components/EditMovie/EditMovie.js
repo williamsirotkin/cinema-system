@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import {createMovie} from '../../utility/createMovieUtility.js'
 import './EditMovie.css'
+import {useNavigate} from 'react-router-dom'
 
 const AddMovieForm = () => {
   const [title, setTitle] = useState('');
@@ -18,15 +19,23 @@ const AddMovieForm = () => {
   const [genres, setGenres] = useState([]);
   const [castArray, setCastArray] = useState([]);
   const [producerArray, setProducerArray] = useState([]);
+  const [message, setMessage] = useState("");
   
   const {rating} = movieRating;
-  
+  let nav = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleCreateMovie()
+    setMessage("")
+    handleCreateMovie();
+    setTimeout(()=>{
+      nav('/ManageMovies', {replace: true})
+    },2000)
+
   };
   async function handleCreateMovie(){
     await createMovie(title, rating, image, trailer, isShowing, genres, castArray, director, producerArray, description, reviews)
+    setMessage("Movie was successfully added")
   }
 
  useEffect(() =>{
@@ -64,8 +73,8 @@ const handleCheckboxChange = (event) => {
 
   return (
     <Container>
-    
     <h1 className='register'>Add/Edit movie</h1>
+    <p className="error">{message}</p>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col>
