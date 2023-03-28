@@ -1,6 +1,6 @@
 .carousel {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     width: 100vw;
 }
 

@@ -3,12 +3,14 @@ import { Carousel, Stack, Button, Nav} from "react-bootstrap";
 import './Homepage.css';
 import Cards from './Cards.js'
 import {useNavigate} from 'react-router-dom'
+import { BrowserRouter, useParams } from 'react-router-dom';
+
 
 export default function Homepage(props) {
     let nav = useNavigate()
 
     function handleSeeAll(type) {
-        nav('./selectMovie')
+        nav('./selectMovie/' + type)
     }
 
     const moviearr = [{
