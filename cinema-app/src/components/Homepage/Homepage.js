@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react'
-import { Carousel, Stack} from "react-bootstrap";
+import { Carousel, Stack, Button, Nav} from "react-bootstrap";
 import './Homepage.css';
 import Cards from './Cards.js'
 import {useNavigate} from 'react-router-dom'
 
 export default function Homepage(props) {
     let nav = useNavigate()
+
+    function handleSeeAll(type) {
+        nav('./selectMovie')
+    }
+
     const moviearr = [{
         title: 'The Batman',
         image: "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
@@ -78,15 +83,23 @@ export default function Homepage(props) {
   return (
     <div class = "homepage">
     
-    <h1 className='homepageTitles'> Showing Now</h1>
+    <div className='homepageTitles'> 
+    &nbsp; &nbsp; &nbsp; 
+    <h1> Showing Now </h1> 
+    &nbsp; &nbsp; 
+    <Nav.Link onClick = {() => handleSeeAll("showingNow")}> 
+    <p className = 'nav-link-'> See All -{'>'} </p> </Nav.Link> 
+    </div>
     <div class = "carousel">
      <Carousel>
         <Carousel.Item  width = {500} height = {5}>
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
 
-            <Cards title={moviearr[0].title} image={moviearr[0].image} trailer={moviearr[0].trailer}></Cards>
-            <Cards title={moviearr[1].title} image={moviearr[1].image} trailer={moviearr[1].trailer}></Cards>
-            <Cards title={moviearr[2].title} image={moviearr[2].image} trailer={moviearr[2].trailer}></Cards>
+            <Cards  title={moviearr[0].title} image={moviearr[0].image} trailer={moviearr[0].trailer}></Cards>
+            <Cards  title={moviearr[1].title} image={moviearr[1].image} trailer={moviearr[1].trailer}></Cards>
+            <Cards  title={moviearr[2].title} image={moviearr[2].image} trailer={moviearr[2].trailer}></Cards>
+            <Cards  title={moviearr[3].title} image={moviearr[3].image} trailer={moviearr[3].trailer}></Cards>
+            <Cards  title={moviearr[4].title} image={moviearr[4].image} trailer={moviearr[4].trailer}></Cards>
             </Stack>
         </Carousel.Item>
 
@@ -94,35 +107,44 @@ export default function Homepage(props) {
      <Carousel.Item  width = {500} height = {5}>
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
 
-        <Cards title={moviearr[3].title} image={moviearr[3].image} trailer={moviearr[3].trailer}></Cards>
-        <Cards title={moviearr[4].title} image={moviearr[4].image} trailer={moviearr[4].trailer}></Cards>
-        <Cards title={moviearr[5].title} image={moviearr[5].image} trailer={moviearr[5].trailer}></Cards>
+        <Cards  title={moviearr[3].title} image={moviearr[3].image} trailer={moviearr[3].trailer}></Cards>
+        <Cards  title={moviearr[4].title} image={moviearr[4].image} trailer={moviearr[4].trailer}></Cards>
+        <Cards  title={moviearr[5].title} image={moviearr[5].image} trailer={moviearr[5].trailer}></Cards>
+        <Cards  title={moviearr[0].title} image={moviearr[0].image} trailer={moviearr[0].trailer}></Cards>
+        <Cards  title={moviearr[1].title} image={moviearr[1].image} trailer={moviearr[1].trailer}></Cards>
 
             </Stack>
         </Carousel.Item>
 </Carousel>
 
 </div>
-    <h1 className='homepageTitles'> Coming Soon </h1>
+    <div className='homepageTitles'> 
+    &nbsp; &nbsp; &nbsp; 
+    <h1>Coming Soon </h1> 
+    &nbsp; &nbsp; 
+    <Nav.Link onClick = {() => handleSeeAll("comingSoon")} > 
+       <p className = 'nav-link-'> See All -{'>'} </p> </Nav.Link> 
+    </div>
     <div class = "carousel">
      <Carousel>
         <Carousel.Item  width = {500} height = {5}>
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
 
-        <Cards title={comingSoonMovies[0].title} image={comingSoonMovies[0].image} trailer={comingSoonMovies[0].trailer}></Cards>
-        <Cards title={comingSoonMovies[1].title} image={comingSoonMovies[1].image} trailer={comingSoonMovies[1].trailer}></Cards>
+        <Cards  title={comingSoonMovies[0].title} image={comingSoonMovies[0].image} trailer={comingSoonMovies[0].trailer}></Cards>
+        <Cards  title={comingSoonMovies[1].title} image={comingSoonMovies[1].image} trailer={comingSoonMovies[1].trailer}></Cards>
         <Cards title={comingSoonMovies[2].title} image={comingSoonMovies[2].image} trailer={comingSoonMovies[2].trailer}></Cards>
-            
-        </Stack>
+        <Cards title={comingSoonMovies[3].title} image={comingSoonMovies[3].image} trailer={comingSoonMovies[3].trailer}></Cards>
+        </Stack>    
         </Carousel.Item>
 
 
         <Carousel.Item  width = {250}>
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
         
-        <Cards title={comingSoonMovies[3].title} image={comingSoonMovies[3].image} trailer={comingSoonMovies[3].trailer}></Cards>
-        <Cards title={comingSoonMovies[4].title} image={comingSoonMovies[4].image} trailer={comingSoonMovies[4].trailer}></Cards>
-        <Cards title={comingSoonMovies[5].title} image={comingSoonMovies[5].image} trailer={comingSoonMovies[5].trailer}></Cards>
+        <Cards  title={comingSoonMovies[3].title} image={comingSoonMovies[3].image} trailer={comingSoonMovies[3].trailer}></Cards>
+        <Cards  title={comingSoonMovies[4].title} image={comingSoonMovies[4].image} trailer={comingSoonMovies[4].trailer}></Cards>
+        <Cards  title={comingSoonMovies[5].title} image={comingSoonMovies[5].image} trailer={comingSoonMovies[5].trailer}></Cards>
+        <Cards  title={comingSoonMovies[0].title} image={comingSoonMovies[0].image} trailer={comingSoonMovies[0].trailer}></Cards>
     
 
             </Stack>
