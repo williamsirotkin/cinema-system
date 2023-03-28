@@ -6,7 +6,7 @@ import Accordion from 'react-bootstrap/Accordion';
 
 export default function MovieCard(data) {
   return (
-    <div>
+    <div className='cards'>
         <Card style={{ width: '20rem' }}>
             <Card.Img variant="top" class = "image" src={data.image}/>
         <Card.Body>
