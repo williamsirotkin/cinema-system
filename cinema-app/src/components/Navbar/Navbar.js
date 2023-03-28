@@ -10,9 +10,11 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { searchMovieUtility } from '../../utility/searchMovieUtility';
 import { searchMoviesByCategoryUtility } from '../../utility/searchMoviesByCategoryUtility';
+import { getAllMovies } from '../../utility/getAllMoviesUtility';
 import styled from "styled-components";
 import {BsArrowLeftRight, BsSearch} from "react-icons/bs";
 
+const details = true;
 
 async function handleSearch(setMovies, searchBarInput) {
   let movies = await searchMovieUtility(searchBarInput)
@@ -21,6 +23,10 @@ async function handleSearch(setMovies, searchBarInput) {
 
 async function handleFilter(setMovies, category) {
   let movies = await searchMoviesByCategoryUtility(category)
+  setMovies(movies)
+}
+async function handleGetAllMovies(setMovies, details) {
+  let movies = await getAllMovies(details)
   setMovies(movies)
 }
 
@@ -98,7 +104,7 @@ function MainNavbar(props) {
               <NavDropdown.Item href="/orderSummary"> Order Summary </NavDropdown.Item>
               <NavDropdown.Item href="/registrationConfirmationPage"> Registration Confirmation </NavDropdown.Item>
               <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
-              <NavDropdown.Item href="/selectMovie"> Select Movie </NavDropdown.Item>
+              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, details); nav('/selectMovie')}}>Select Movie</Dropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
               <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>
