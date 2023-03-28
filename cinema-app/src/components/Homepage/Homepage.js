@@ -16,6 +16,7 @@ export default function Homepage(props) {
     let numbers = randomNumbers(props.showingNow.length)
     let numbersSoon = randomNumbers(props.comingSoon.length)
 
+
     function getShowingNowCarouselItem(num) {
         let showNowCarouselItem = <Carousel.Item  width = {500} height = {5}>
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
@@ -23,18 +24,14 @@ export default function Homepage(props) {
             <Cards  title={props.showingNow[numbers[1 + num]].title} image={props.showingNow[numbers[1 + num]].photo_link} trailer={props.showingNow[numbers[1 + num]].trailer_link}></Cards>
             <Cards  title={props.showingNow[numbers[2 + num]].title} image={props.showingNow[numbers[2 + num]].photo_link} trailer={props.showingNow[numbers[2 + num]].trailer_link}></Cards>
             <Cards  title={props.showingNow[numbers[3 + num]].title} image={props.showingNow[numbers[3 + num]].photo_link} trailer={props.showingNow[numbers[3 + num]].trailer_link}></Cards>
-            <Cards  title={props.showingNow[numbers[4 + num]].title} image={props.showingNow[numbers[4 + num]].photo_link} trailer={props.comingSoon[numbers[4 + num]].trailer_link}></Cards>
+            <Cards  title={props.showingNow[numbers[4 + num]].title} image={props.showingNow[numbers[4 + num]].photo_link} trailer={props.showingNow[numbers[4 + num]].trailer_link}></Cards>
             </Stack> 
         </Carousel.Item>
         return showNowCarouselItem
     }
 
     function getShowingNowCarouselItems(num) {
-        if (props.showingNow.length >= 15) {
-            return (
-            getShowingNowCarouselItem(Math.min(num, 10))
-            )
-        } else if (props.showingNow.length >= 10) {
+        if (props.showingNow.length >= 10) {
             return (
             getShowingNowCarouselItem(Math.min(num, 5))
             )
@@ -93,7 +90,6 @@ export default function Homepage(props) {
      <Carousel>
        {getShowingNowCarouselItems(0)}
        {getShowingNowCarouselItems(5)}
-       {getShowingNowCarouselItems(10)}
     </Carousel>
 
 </div>
@@ -108,7 +104,6 @@ export default function Homepage(props) {
      <Carousel>
         {getComingSoonCarouselItems(0)}
        {getComingSoonCarouselItems(5)}
-       {getComingSoonCarouselItems(10)}
 </Carousel>
 </div>
     </div>

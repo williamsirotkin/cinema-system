@@ -147,6 +147,7 @@ function App() {
   })
   .then((response => {
     setShowingNow(response.data)
+    console.log(response.data)
     console.log("sucess showing")
   }))
   .catch((error) => {
