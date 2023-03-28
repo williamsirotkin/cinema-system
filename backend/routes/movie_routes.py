@@ -32,7 +32,7 @@ def get_all_movies():
             },
             {
                 "$addFields": {
-                    "movie_detail": {"$arrayElemAt": ["$movie_detail", 0]}
+                    "details": {"$arrayElemAt": ["$details", 0]}
                 }
             }
         ]
