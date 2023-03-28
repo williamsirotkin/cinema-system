@@ -20,7 +20,7 @@ export default function SelectMovie(props) {
       {props.movies.map((movie, index) => (
         <MovieCard title={movie.title} image={movie.photo_link} 
         description={movie.details.synopsis} director={movie.details.director}  
-        producers={movie.details.producer} rating={movie.MPAA_rating} trailer = {movie.trailer_link}/>
+        producers={movie.details.producer} rating={movie.MPAA_rating} trailer = {movie.trailer_link} cast={movie.details.cast} genre={movie.category} reviews={movie.details.reviews}/>
       ))}
     </div>
   } else {
