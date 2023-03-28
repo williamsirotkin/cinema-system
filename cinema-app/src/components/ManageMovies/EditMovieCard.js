@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-
+import './ManageMovies.css'
 export default function EditMovieCard(data) {
   return (
     <div className='cards'>
@@ -11,7 +11,11 @@ export default function EditMovieCard(data) {
             <Card.Img variant="top" class = "image" src={data.image}/>
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
-        <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
+        <div className='manageButtons'>
+        <Link to  = "/selectshowtime"><Button variant="btn btn-dark">showtime</Button></Link>
+        <Link to  = "/editMovie"><Button variant="btn btn-secondary">edit Movie</Button></Link>
+        <Button variant="btn btn-danger">Delete</Button>
+        </div>
         <Accordion className='accordion'>
             <Accordion.Item eventKey="0">
             <Accordion.Header>Additional Details</Accordion.Header>
