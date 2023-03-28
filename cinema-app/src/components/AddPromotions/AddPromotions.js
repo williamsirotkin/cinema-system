@@ -28,19 +28,8 @@ export default function AddPromotions() {
         }
         fetchData();
       }, []);
-    
-
-    // const [promo, setPromo] = useState([
-    //     { id: 1, name: 'Save10', type: "Seasonal", discount: 10},
-    //     { id: 2, name: 'NEWYEARS23', type: "Subscriber", discount: 23},
-    //     { id: 3, name: 'Save15', type: "Email", discount: 15},
-    // ]);
 
     const handleDelete = async (_id) => {
-        // const updatedPromo = promo.filter(promo =>
-        //     promo._id !== _id
-        // );
-        // setPromo(updatedPromo);
         try {
             const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + '/promotions/delete/' + _id);
             console.log(response.data);
