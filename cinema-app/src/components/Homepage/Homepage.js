@@ -69,11 +69,11 @@ export default function Homepage(props) {
         trailer: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
     }]
 
-    useEffect(() => {
-        if (props.user.admin) {
-            nav('/admin')
-        }
-    })
+    // useEffect(() => {
+    //     if (props.user.admin) {
+    //         nav('/admin')
+    //     }
+    // })
 
   return (
     <div class = "homepage">
