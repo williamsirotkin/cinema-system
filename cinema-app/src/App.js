@@ -54,8 +54,6 @@ function App() {
         setUserData(
           profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.card_info, profile.active, profile.billing_address, profile.promos
         )
-        console.log(profile.billing_address)
-        console.log(profile.promos)
         setLoggedIn(true)
       } else {
         console.log('JWT has expired');
@@ -89,7 +87,7 @@ function App() {
       let profile = await jwtLoginUtility()
       if (profile) {
         setUserData(
-          profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.active, profile.billing_address, profile.promos
+          profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday,profile.card_info, profile.active, profile.billing_address, profile.promos
         )
         setLoggedIn(true)
       } else {

@@ -50,8 +50,6 @@ function compileEditedUserJSON() {
 
     return userJSON
   }
-  console.log(user.billing_address)
-  console.log(user.promos)
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("")
