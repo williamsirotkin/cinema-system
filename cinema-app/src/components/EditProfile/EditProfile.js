@@ -6,11 +6,13 @@ import Collapse from 'react-bootstrap/Collapse';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import {loginUtility} from '../../utility/loginUtility.js'
 import {useNavigate} from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal';
 
 
 
 const EditProfile = ({ user }) => {
   let nav = useNavigate()
+  const [show, setShow] = useState(false)
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [password, setPassword] = useState('');
@@ -70,7 +72,8 @@ async function editStuff(){
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       if(newPassword === ""){
         editUserProfile(compileEditedUserJSON())
-        setErrorMessage("Information was successfully changed")
+        handleShow()
+        //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -83,7 +86,8 @@ async function editStuff(){
         const login = await loginUtility(email,password, false)
         if(login){
           editUserProfile(compileEditedUserJSON())
-          setErrorMessage("Information was successfully changed")
+          handleShow()
+          //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
           },2000)
@@ -106,6 +110,15 @@ const sendData = (cardInfo) =>{
   const handleChange=(e)=>{
     setSwitchState(!switchState)
     setPromos(e.target.checked)
+  }
+
+  const handleClose = () => {
+    setShow(false);
+    nav('/')
+  }
+
+  const handleShow = () => {
+      setShow(true);
   }
 
   const validate = (firstName,lastName) => {
@@ -219,6 +232,25 @@ const sendData = (cardInfo) =>{
 
         <br></br>
         <br></br>
+
+        <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+            <Modal.Header closeButton>
+            <Modal.Title>Hooray!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Your information has been successfully changed
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
         
         <div className='text-center'>
           <hr></hr>
