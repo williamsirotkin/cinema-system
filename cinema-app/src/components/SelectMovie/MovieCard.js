@@ -7,12 +7,19 @@ import Accordion from 'react-bootstrap/Accordion';
 export default function MovieCard(data) {
   const [showTrailer, setShowTrailer] = useState(false)
 
-  let movieDisplay;
-  if (!showTrailer)  {
-    movieDisplay = <Card.Img variant="top" class = "image" src={data.image}/>
-  } else {
-    movieDisplay = <iframe width="300" height= "450" src="https://www.youtube.com/embed/4eaZ_48ZYog" title="Superbad (2007) Official Trailer 1 - Jonah Hill Movie" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-  }
+  function embedLink(link) {
+    let beginLink = "https://www.youtube.com";
+    let middleLink = "/embed/"
+    let endLink = link.substring(32);
+     return beginLink + middleLink + endLink
+   }
+ 
+   let movieDisplay;
+   if (showTrailer) {
+     movieDisplay = <iframe width="310" height= "400" src={embedLink(data.trailer)} title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen webkitallowfullscreen></iframe>
+   } else {
+     movieDisplay = <Card.Img class = 'movieImage' variant="top" src={data.image} />
+   }
 
   return (
     <div className='cards'>
