@@ -3,6 +3,7 @@ import json, os
 from db import db
 from bson import ObjectId
 from bson import json_util
+import re
 from pymongo.collation import Collation
 
 app = Flask(__name__)
@@ -16,6 +17,7 @@ def movie_home():
 @movie.route("/getAllMovies", methods=['GET'])
 def get_all_movies():
     isDetails = request.args.get('isDetails')
+
     print(isDetails)
 
     #query param of isDetails ise equal to the string "true"
@@ -50,23 +52,34 @@ def get_all_movies():
 @movie.route("/searchMovie", methods=['GET'])
 def search_movie():
     query_name = request.args.get('query_name')
-    collation = Collation(locale='en', strength=2)
-    # result = db.movie.find_one({'title': {'$regex': query_name, '$options': 'i'}, 'collation': collation})
-    #white space trails & syntax done on front end plz
-    #use colobertaisonlnda
-    # movie_query_result = db.movie.find_one({'title': query_name})
-    # movie_query_Json = json_util.dumps(movie_query_result)
 
     pipeline = [
-        {'$match': {'title': query_name}},
-        {'$lookup': {
-            'from': 'movie_details',
-            'localField': '_id',
-            'foreignField': 'movie_id',
-            'as': 'details'
-        }},
-        {'$unwind': '$details'},
+        {
+            '$search': {
+                'index': 'searchMovies',
+                'text': {
+                    'query': query_name,
+                    'path': 'title',
+                    'fuzzy': {
+                        'maxEdits': 2,
+                        'prefixLength': 3
+                    }
+                }
+            }
+        },
+        {
+            '$lookup': {
+                'from': 'movie_details',
+                'localField': '_id',
+                'foreignField': 'movie_id',
+                'as': 'details'
+            }
+        },
+        {
+            '$unwind': '$details'
+        }
     ]
+
     movie_collection_result = list(db.movie.aggregate(pipeline))
     print(query_name)
     if len(movie_collection_result) > 0:
