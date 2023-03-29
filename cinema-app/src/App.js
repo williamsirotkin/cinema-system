@@ -239,7 +239,7 @@ function App() {
           </React.Fragment>
       }></Route>
 
-    <Route path = "/selectMovie" element={
+    <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
             <SelectMovie movies={movies} setMovies={setMoviesFunc} />
           </React.Fragment>
