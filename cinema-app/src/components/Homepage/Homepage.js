@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Carousel, Stack, Button, Nav} from "react-bootstrap";
 import './Homepage.css';
 import Cards from './Cards.js'
@@ -12,6 +12,7 @@ export default function Homepage(props) {
     function handleSeeAll(type) {
         nav('./selectMovie/' + type)
     }
+
 
     let numbers = randomNumbers(props.showingNow.length)
     let numbersSoon = randomNumbers(props.comingSoon.length)
