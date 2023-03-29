@@ -23,6 +23,7 @@ import EditMovie from './components/EditMovie/EditMovie';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import {getMoviesUtility} from './utility/getMoviesUtility.js';
 import {jwtLoginUtility} from './utility/jwtLoginUtility.js';
+import ScheduleMoviePage from './components/ScheduleMoviePage/ScheduleMoviePage';
 import axios from 'axios';
 
 function App() {
@@ -139,7 +140,7 @@ function App() {
 
       <Route path = "/admin" element={
           <React.Fragment>
-            <AdminHomePage user = {user}/>
+            <AdminHomePage user = {user} />
           </React.Fragment>
       }></Route>
       
@@ -228,6 +229,12 @@ function App() {
 <Route path = "/verifyEmail/:token" element={
     <React.Fragment>
           <EmailConfirmationPage/>
+    </React.Fragment>
+      }></Route>
+
+<Route path = "/scheduleMovie/:movie" element={
+    <React.Fragment>
+          <ScheduleMoviePage showingNow = {showingNow} comingSoon = {comingSoon}/>
     </React.Fragment>
       }></Route>
 

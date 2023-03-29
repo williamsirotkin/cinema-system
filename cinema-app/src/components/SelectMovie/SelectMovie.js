@@ -43,6 +43,7 @@ export default function SelectMovie(props) {
       <div className='selectMovieTitles'> <h1> {movieType} </h1>
     </div>
       <h1 className='mt-5'>No movies were found, please search again</h1>
+
     </div>
   }
   return (

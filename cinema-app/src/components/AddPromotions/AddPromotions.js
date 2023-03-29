@@ -38,7 +38,7 @@ export default function AddPromotions() {
     const handleDelete = async (_id) => {
     try {
         const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + '/promotions/delete/' + _id);
-        console.log(response.data);
+        console.log("Deleted!");
         setPromo(promo.filter((promo) => promo._id !== _id));
         } catch (error) {
         console.error(error);
@@ -47,7 +47,7 @@ export default function AddPromotions() {
 
 
     function sendEmail(email) {
-        emailjs.send('service_96npu8c', 'template_ie2brcl', {'email': email, 'promoName': promoName, 'discountAmnt': discountAmnt}, 'm8yxyvLLbYsPK3HRZ')
+        emailjs.send('service_96npu8c', 'template_ie2brcl', {'email': email, 'promoName': promoName, 'discountAmnt': discountAmnt + discountType}, 'm8yxyvLLbYsPK3HRZ')
         .then(function(response) {
         console.log('SUCCESS!', response.status, response.text);
       }, function(error) {
@@ -58,17 +58,21 @@ export default function AddPromotions() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-          const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/promotions/add', {
-            promoName,
-            discountAmnt,
-            discountType
-          });
-          console.log(response.data);
-        } catch (error) {
-          console.error(error);
+        if(discountType) {
+            try {
+            const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/promotions/add', {
+                promoName,
+                discountAmnt,
+                discountType
+            });
+            console.log("Added!");
+            } catch (error) {
+            console.error(error);
+            }
+            await HandleEmail();
+        } else {
+            alert("Please select a discount type!");
         }
-        await HandleEmail();
     };
 
     const HandleEmail = async () => {
@@ -130,6 +134,7 @@ export default function AddPromotions() {
                                 placeholder="Promo Name"
                                 value={promoName}
                                 onChange={(e) => setPromoName(e.target.value)}
+                                required
                             />
                             <Form.Text className="text-muted">
                             </Form.Text>
@@ -141,6 +146,7 @@ export default function AddPromotions() {
                             placeholder="Discount Amount"
                             value={discountAmnt}
                             onChange={(e) => setDiscountAmnt(e.target.value)}
+                            required
                             />
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicCheckbox">
