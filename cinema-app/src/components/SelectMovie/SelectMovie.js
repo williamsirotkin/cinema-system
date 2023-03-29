@@ -11,6 +11,9 @@ async function handleGetAllMovies(setMovies, details) {
 export default function SelectMovie(props) {
   let params = useParams()
   useEffect(()=>{
+    if (params.filter != "Movies") { 
+      return
+    }
     handleGetAllMovies(props.setMovies, "true")
   },[])
 
@@ -35,9 +38,12 @@ export default function SelectMovie(props) {
     </div>
     </div>
   } else {
-    display =  <div><div className='selectMovieTitles'> 
-    <h1> {movieType} </h1> </div>
-    <h1> No Results Found </h1>
+    display = 
+    <div>
+      <div className='selectMovieTitles'> <h1> {movieType} </h1>
+    </div>
+      <h1 className='mt-5'>No movies were found, please search again</h1>
+
     </div>
   }
   return (
