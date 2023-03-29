@@ -85,10 +85,10 @@ function MainNavbar(props) {
             <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Sci-fi"); nav('/selectMovie/filter/Sci-fi')}}> Sci-fi</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-          <div class="search-bar" >
-            <div class="input-group" >
-            <input type="search" class="form-control rounded" value = {searchBarInput} onChange = {handleInputChange} placeholder="Search"  />
-            <Link to ={"/selectMovie/filter/" + "Results for " + "'" + searchBarInput + "'"}><button type="button"  onClick = {() => handleSearch(props.setMovies, searchBarInput)} class="btn btn-primary">
+          <div className="search-bar" >
+            <div className="input-group" >
+            <input type="search" className="form-control rounded" value = {searchBarInput} onChange = {handleInputChange} placeholder="Search"  />
+            <Link to ={"/selectMovie/filter/" + "Results for " + "'" + searchBarInput + "'"}><button type="button"  onClick = {() => handleSearch(props.setMovies, searchBarInput)} className="btn btn-primary">
             <BsSearch/>
             </button>
             </Link>

@@ -42,41 +42,42 @@ function App() {
   function setMoviesFunc(movies) {
     setMovies(movies)
   }
-    useEffect(() => {
-      async function stuff() {
-      if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
-        let profile = await jwtLoginUtility()
-        if (profile) {
-          setUserData(
-            profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
-          )
-          setLoggedIn(true)
-        } else {
-          console.log('JWT has expired');
-        }
-        setIsLoading(false)
-      
+
+  useEffect(() => {
+    async function stuff() {
+    if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
+      let profile = await jwtLoginUtility()
+      if (profile) {
+        setUserData(
+          profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+        )
+        setLoggedIn(true)
       } else {
-        let token = window.location.pathname.substring(13)
-        
-        axios({
-          url: process.env.REACT_APP_BACKEND_URL + "/profile/verifyEmail/" + token, 
-          method: "patch",
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        .then((response => {
-            setIsLoading(false)
-            console.log(response);
-        }))
-        .catch((error) => {
-          console.log(error)
-        })
+        console.log('JWT has expired');
       }
+      setIsLoading(false)
+    
+    } else {
+      let token = window.location.pathname.substring(13)
+      
+      axios({
+        url: process.env.REACT_APP_BACKEND_URL + "/profile/verifyEmail/" + token, 
+        method: "patch",
+        headers: {
+            "Content-Type": "application/json"
+        }
+      })
+      .then((response => {
+          setIsLoading(false)
+          console.log(response);
+      }))
+      .catch((error) => {
+        console.log(error)
+      })
     }
-    stuff()
-   }, []);
+  }
+  stuff()
+  }, []);
   
   useEffect(() => {
     async function jwtStuff() {
