@@ -7,6 +7,7 @@ import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
 import emailjs from '@emailjs/browser';
+import { scheduleMovieAsAdminUtility } from '../../utility/scheduleMovieAsAdminUtility';
 
 
 
@@ -67,6 +68,7 @@ const ScheduleMoviePage = (props) => {
     if (formErrors.day || formErrors.month || formErrors.showRoom || formErrors.showTime) {
         return
     }
+    scheduleMovieAsAdminUtility(day, month, showTime, showRoom, movie.title)
     console.log('Scheduled Movie');
   }
 
