@@ -25,22 +25,13 @@ export default function Homepage(props) {
             <Cards  title={props.showingNow[numbers[1 + num]].title} image={props.showingNow[numbers[1 + num]].photo_link} trailer={props.showingNow[numbers[1 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
             <Cards  title={props.showingNow[numbers[2 + num]].title} image={props.showingNow[numbers[2 + num]].photo_link} trailer={props.showingNow[numbers[2 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
             <Cards  title={props.showingNow[numbers[3 + num]].title} image={props.showingNow[numbers[3 + num]].photo_link} trailer={props.showingNow[numbers[3 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
-        
             </Stack> 
         </Carousel.Item>
         return showNowCarouselItem
     }
 
     function getShowingNowCarouselItems(num) {
-        if (props.showingNow.length >= 10) {
-            return (
-            getShowingNowCarouselItem(Math.min(num, 5))
-            )
-        } else {
-            return (
-            getShowingNowCarouselItem(0)
-            )
-        }
+        return getShowingNowCarouselItem(num)
     }
 
     function getComingSoonCarouselItem(num) {
@@ -57,19 +48,7 @@ export default function Homepage(props) {
     }
 
     function getComingSoonCarouselItems(num) {
-        if (props.comingSoon.length >= 15) {
-            return (
-            getComingSoonCarouselItem(Math.min(num, 10))
-            )
-        } else if (props.comingSoon.length >= 10) {
-            return (
-            getComingSoonCarouselItem(Math.min(num, 5))
-            )
-        } else {
-            return (
-            getComingSoonCarouselItem(0)
-            )
-        }
+       return getComingSoonCarouselItem(num)
     }
 
     // useEffect(() => {
@@ -90,7 +69,8 @@ export default function Homepage(props) {
     <div className = "carousel">
      <Carousel>
        {getShowingNowCarouselItems(0)}
-       {getShowingNowCarouselItems(5)}
+       {getShowingNowCarouselItems(4)}
+       {getShowingNowCarouselItems(8)}
     </Carousel>
 
 </div>
@@ -104,7 +84,7 @@ export default function Homepage(props) {
     <div className = "carousel">
      <Carousel>
         {getComingSoonCarouselItems(0)}
-       {getComingSoonCarouselItems(5)}
+        {getComingSoonCarouselItems(4)}
 </Carousel>
 </div>
     </div>
