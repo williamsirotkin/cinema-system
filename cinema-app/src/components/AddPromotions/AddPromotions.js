@@ -14,9 +14,14 @@ export default function AddPromotions() {
     //let nav = useNavigate();
     const [promoName, setPromoName] = useState('');
     const [discountAmnt, setDiscountAmnt] = useState('');
-
     const [promo, setPromo] = useState([]);
     const [emails, setEmails] = useState([]);
+    const [discountType, setDiscountType] = useState('');
+
+
+    const handleCheckboxChange = (e) => {
+        setDiscountType(e.target.value);
+      }
 
     useEffect(() => {
         async function fetchPromos() {
@@ -56,14 +61,14 @@ export default function AddPromotions() {
         try {
           const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/promotions/add', {
             promoName,
-            discountAmnt
+            discountAmnt,
+            discountType
           });
           console.log(response.data);
         } catch (error) {
           console.error(error);
         }
         await HandleEmail();
-        //window.location.reload();
     };
 
     const HandleEmail = async () => {
@@ -92,7 +97,7 @@ export default function AddPromotions() {
                   <Card.Text>
                       {promo.map(promo => (
                           <div key={promo.id}>
-                              <span>{promo.promoName} &nbsp;{promo.discountAmnt}&nbsp;</span>
+                              <span>{promo.promoName} &nbsp;{promo.discountAmnt}{promo.discountType}</span>
                               &nbsp;
                               <Button  onClick={() => handleDelete(promo._id)} variant="danger" size="sm">Delete </Button>
                               <br></br>
@@ -132,17 +137,32 @@ export default function AddPromotions() {
                       <Form.Group className="mb-3" controlId="formBasiceDiscountAmnt">
                           <Form.Label>Discount Amount</Form.Label>
                           <Form.Control
-                            type="text"
+                            type="number"
                             placeholder="Discount Amount"
                             value={discountAmnt}
                             onChange={(e) => setDiscountAmnt(e.target.value)}
                             />
                       </Form.Group>
-                      {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                          <Form.Check type="checkbox" label="Seasonal" />
-                          <Form.Check type="checkbox" label="Email" />
-                          <Form.Check type="checkbox" label="Subscriber" />
-                      </Form.Group> */}
+                      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <div>
+                          <Form.Check
+                            inline
+                            type="checkbox"
+                            label="Dollar"
+                            value="$"
+                            checked={discountType === '$'}
+                            onChange={handleCheckboxChange}
+                          />
+                          <Form.Check
+                            inline
+                            type="checkbox"
+                            label="Percent"
+                            value="%"
+                            checked={discountType === '%'}
+                            onChange={handleCheckboxChange}
+                          />
+                        </div>
+                      </Form.Group>
                       <Button variant="primary" type="submit" className='submitBtn'>
                           Submit
                       </Button>
