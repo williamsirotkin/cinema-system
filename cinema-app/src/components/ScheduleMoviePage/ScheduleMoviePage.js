@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import './Signup.css'
+import './ScheduleMoviePage.css'
 import {createProfile} from '../../utility/signupUtility.js'
-import {useNavigate} from 'react-router-dom'
+import {isRouteErrorResponse, useNavigate, useParams} from 'react-router-dom'
 import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
@@ -12,199 +12,192 @@ import emailjs from '@emailjs/browser';
 
 
 const ScheduleMoviePage = (props) => {
+  let params = useParams()  
   let nav = useNavigate()
-  const [movie, setMovie] = useState('')
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('')
-
-
-
+  const [movie, setMovie] = useState({})
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [showTime, setShowTime] = useState('')
+  const [showRoom, setShowRoom] = useState('')
 
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false)
   const [open, setOpen] = useState(false);
-
-
-  const handleChange=(e)=>{
-    setSwitchState(!switchState)
-    setPromos(e.target.checked)
- } 
-
-  const sendData = (cardInfo) =>{
-    setCardInfo(cardInfo)
-
-  }
  
+  const handleDayChange = (event) => {
+    setDay(event.target.value);
+  };
+
+
+  useEffect(() => setFormErrors(validate(day, month, showTime, showRoom)), [])
+  
+  function getFormError() {
+    if (!isSubmit) {
+        return ""
+    }
+    if (formErrors.day) {
+        return formErrors.day
+    } else if (formErrors.month) {
+        return formErrors.month
+    } else if (formErrors.showTime) {
+        return formErrors.showTime 
+    } else if (formErrors.showRoom) {
+        return formErrors.showRoom
+    }
+
+    return "Movie Successfully Scheduled!"
+  }
+
+  const handleMonthChange = (event) => {
+    setMonth(event.target.value);
+  };
+
+  const handleShowTimeChange = (event) => {
+    setShowTime(event.target.value);
+  };
+
+  const handleShowRoomChange = (event) => {
+    setShowRoom(event.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(firstName,lastName,email,password));
-    setIsSubmit(true);
-    setErrorMessage("")
-    console.log('Registration form submitted!');
+    setIsSubmit(true)
+    setFormErrors(validate(day, month, showTime, showRoom));
+    if (formErrors.day || formErrors.month || formErrors.showRoom || formErrors.showTime) {
+        return
+    }
+    console.log('Scheduled Movie');
   }
 
   useEffect(() => {
+    for (let i = 0; i < props.showingNow.length; i++) {
+        if (props.showingNow[i].title == params.movie) {
+            setMovie(props.showingNow[i])
+            break
+        }
+    }
+    for (let i = 0; i < props.comingSoon.length; i++) {
+        if (props.comingSoon[i].title == params.movie) {
+            setMovie(props.comingSoon[i])
+            break
+        }
+    }
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(firstName,lastName,email,password);
+      console.log(day, month, showTime, showRoom);
     }
   
   }, [formErrors]);
-
-  useEffect(()=> {
-    checkEmail(firstName, lastName, email, password, billingAddress, promos, cardInfo,birthday)
-  },[formErrors])
   
-  const validate = (firstName,lastName,email,password) => {
+  const validate = (day, month, showTime, showRoom) => {
     const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!firstName) {
-      errors.firstName = "first name is required!";
+    
+    if (day == "") {
+        errors.day = "Please specify the day of this showing"
     }
-    if (!lastName) {
-      errors.lastName = "last name is required!";
+    if (month == "") {
+      errors.month = "Please specify the month of this showing"
+    } 
+    if (showRoom == "") {
+        errors.showRoom = "Please specify the showroom of this showing"
     }
-    if (!email) {
-      errors.email = "email is required!";
-    }else if(!regex.test(email)){
-      errors.email = "Valid email format is required";
-    }
-    if (!password) {
-      errors.password = "Password is required";
-    } else if (password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (password.length > 16) {
-      errors.password = "Password cannot exceed more than 16 characters";
+    if (showTime == "") {
+        errors.showTime = "Please specify the showtime of this showing"
     }
     return errors;
   };
 
 
-async function checkEmail(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday) {
-
-  //puts in the data to database
-
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      const check = await checkEmailInUse(email)
-
-      if(check){
-       let emailToken = await createProfile(firstName, lastName, email, password, billingAddress, promos, cardInfo, birthday); 
-        props.setUserData(firstName,lastName,email, "customer", billingAddress, promos, cardInfo, birthday);
-        nav('/registrationConfirmationPage', {replace: true})
-
-        //console.log({'first_name': firstName, 'email': email, 'email_token': emailToken})
-        emailjs.send('service_ofjhgu6', 'template_05n96oa', {'first_name': firstName, 'email': email, 'email_token': emailToken}, 'DtNOiKN5xVEZfQwFe')
-          .then(function(response) {
-          console.log('SUCCESS!', response.status, response.text);
-        }, function(error) {
-          console.log('FAILED...', error);
-        });
-
-      } else {
-        setErrorMessage("Email is already in use, please login with that email or use another email address to sign up")
-    }
-
-    }  
-      
-  }
-
-
   return (
+
     <div className="container">
-      <h1 className='register'>Register</h1>
-      <p class = "error" >{errorMessage}</p>
-
+      <h1 className='register'>Schedule a Movie</h1>
+        <h4 className = "error"> {getFormError()} </h4>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicFirstName">
-          <Form.Label>First Name*</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter first name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </Form.Group>
-        <p className='error'>{formErrors.firstName}</p>
-
-        <Form.Group controlId="formBasicLastName">
-          <Form.Label>Last Name*</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter last name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </Form.Group>
-        <p className='error'>{formErrors.lastName}</p>
-
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address*</Form.Label>
-          <Form.Control 
-            type="email" 
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-        <p className='error'>{formErrors.email}</p>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password*</Form.Label>
-          <Form.Control 
-            type="password" 
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <p className='error'>{formErrors.password}</p>
-        <Form.Group controlId="formBasicBillingAddress">
-          <Form.Label>Billing Address</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Billing Address"
-            value={billingAddress}
-            onChange={(e) => setBillingAddress(e.target.value)}
-          />
-        </Form.Group>
-        
-        <Form.Group controlId="formBirthday" className='mt-3'>
-          <Form.Label>Birthday</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="(dd/mm/yyyy)"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-          />
+      <Form.Group controlId="formBasicMonth">
+          <Form.Label>Select Showing Month*</Form.Label>
+          <select class="form-select" onChange = {handleMonthChange} aria-label="Default select example">
+            <option selected> Select Month </option>
+            <option value="Janurary">Janurary</option>
+            <option value="Februrary">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+            </select>
         </Form.Group>
         <br></br>
-        <Form.Check
-          type="switch"
-          id="custom-switch"
-          label="Register for Promotions"
-          defaultChecked={switchState}
-          onChange={handleChange}/>
-
-        <Button variant="dark mt-3 " size="lg"
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}>
-
-          Add new credit card
-        </Button>
-        <Collapse in={open}>
-        <div id="example-collapse-text">
-          <CardForm sendData = {sendData}></CardForm>
-        </div>
-        </Collapse>
+        <Form.Group controlId="formBasicDay">
+          <Form.Label>Select Showing Day*</Form.Label>
+          <select class="form-select" onChange = {handleDayChange} aria-label="Default select example">
+            <option selected> Select Day </option>
+            <option value="1">1st</option>
+            <option value="2">2nd</option>
+            <option value="3">3rd</option>
+            <option value="4">4th</option>
+            <option value="5">5th</option>
+            <option value="6">6th</option>
+            <option value="7">7th</option>
+            <option value="8">8th</option>
+            <option value="9">9th</option>
+            <option value="10">10th</option>
+            <option value="11">11th</option>
+            <option value="12">12th</option>
+            <option value="13">13th</option>
+            <option value="14">14th</option>
+            <option value="15">15th</option>
+            <option value="16">16th</option>
+            <option value="17">17th</option>
+            <option value="18">18th</option>
+            <option value="19">19th</option>
+            <option value="20">20th</option>
+            <option value="21">21st</option>
+            <option value="22">22nd</option>
+            <option value="23">23rd</option>
+            <option value="24">24th</option>
+            <option value="25">25th</option>
+            <option value="26">26th</option>
+            <option value="27">27th</option>
+            <option value="28">28th</option>
+            <option value="29">29th</option>
+            <option value="30">30th</option>
+            <option value="31">31st</option>
+            </select>
+        </Form.Group>
         <br></br>
-       <Button variant="btn btn-danger mt-3" type="submit">
+        <Form.Group controlId="formBasicYear">
+          <Form.Label>Select Showing Time*</Form.Label>
+          <select class="form-select" onChange = {handleShowTimeChange} aria-label="Default select example">
+            <option selected> Select Time </option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="1:30 PM">1:30 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="8:30 PM">8:30 PM</option>
+            </select>
+        </Form.Group>
+        <br></br>
+        <Form.Group controlId="formBasicYear">
+          <Form.Label>Select Showroom*</Form.Label>
+          <select class="form-select" onChange = {handleShowRoomChange} aria-label="Default select example">
+            <option selected> Select Showroom </option>
+            <option value="Room 1">Room 1</option>
+            </select>
+        </Form.Group>
+       <Button variant="btn btn-danger mt-3" onClick = {handleSubmit} type="submit">
           Submit
         </Button>
       </Form>
     </div>
+    
   );
+  
 }
 
 export default ScheduleMoviePage;
