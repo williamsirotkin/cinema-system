@@ -10,7 +10,7 @@ import axios from 'axios'
         oldPassword: oldPassword,
         newPassword: newPassword
     };*/
-
+    
      let dataJSON = {};
      for (const key in userJSON) {
          if (userJSON.hasOwnProperty(key) && userJSON[key]) {

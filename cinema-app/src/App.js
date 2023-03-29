@@ -38,6 +38,7 @@ function App() {
     setUser({
       firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos
     })
+    
   }
 
   function setMoviesFunc(movies) {
@@ -50,7 +51,7 @@ function App() {
       let profile = await jwtLoginUtility()
       if (profile) {
         setUserData(
-          profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.active, profile.billing_address, profile.promos
+          profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.card_info, profile.active, profile.billing_address, profile.promos
         )
         setLoggedIn(true)
       } else {

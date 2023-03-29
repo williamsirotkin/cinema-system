@@ -39,8 +39,8 @@ function compileEditedUserJSON() {
       oldPassword: password,
       newPassword: newPassword,
       billing_address: billingAddress,
+      registered_for_promos: switchState,
       birthday: birthday,
-      registered_for_promos: switchState
     }
 
     if (useCard) {
@@ -50,6 +50,8 @@ function compileEditedUserJSON() {
 
     return userJSON
   }
+  console.log(user.billing_address)
+  console.log(user.promos)
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("")
