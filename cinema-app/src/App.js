@@ -21,7 +21,8 @@ import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
 import EditMovie from './components/EditMovie/EditMovie';
 import ResetPassword from './components/ResetPassword/ResetPassword';
-import { getMoviesUtility } from './utility/getMoviesUtility';
+import {getMoviesUtility} from './utility/getMoviesUtility.js';
+import {jwtLoginUtility} from './utility/jwtLoginUtility.js';
 import axios from 'axios';
 
 function App() {
@@ -41,45 +42,20 @@ function App() {
   function setMoviesFunc(movies) {
     setMovies(movies)
   }
-
-  
     useEffect(() => {
+      async function stuff() {
       if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
-        let jwt = localStorage.getItem('jwt');
-        //console.log(localStorage.getItem('jwt'));
-        if (!jwt) {
-          jwt = ""
-        }
-        
-        axios({
-          url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
-          data: {
-              "jwt": jwt
-          },
-          method: "post",
-          headers: {
-              "Content-Type": "application/json"
-          }
-      })
-      .then((response => {
-        const firstName = response.data.firstName
-        const lastName = response.data.lastName
-        const email = response.data.email
-        const role = response.data.role
-        const birthday = response.data.birthday
-        const active = response.data.active
-        const billing_address = response.data.billing_address
-        const promos = response.data.promos
-    setUser({
-      firstName, lastName, email, role, birthday, active, billing_address, promos
-    })
-        setLoggedIn(true)
-        setIsLoading(false)
-      }))
-      .catch((error) => {
+        let profile = await jwtLoginUtility()
+        if (profile) {
+          setUserData(
+            profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+          )
+          setLoggedIn(true)
+        } else {
           console.log('JWT has expired');
-          setIsLoading(false)
-      });
+        }
+        setIsLoading(false)
+      
       } else {
         let token = window.location.pathname.substring(13)
         
@@ -95,47 +71,27 @@ function App() {
             console.log(response);
         }))
         .catch((error) => {
+          console.log(error)
         })
       }
-    
     }
-    , []);
+    stuff()
+   }, []);
   
   useEffect(() => {
-    let jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      jwt = ""
-    }
-    axios({
-      url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
-      data: {
-          "jwt": jwt
-      },
-      method: "post",
-      headers: {
-          "Content-Type": "application/json"
+    async function jwtStuff() {
+      let profile = await jwtLoginUtility()
+      if (profile) {
+        setUserData(
+          profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+        )
+        setLoggedIn(true)
+      } else {
+        console.log('JWT has expired');
       }
-  })
-  .then((response => {
-    const firstName = response.data.firstName
-    const lastName = response.data.lastName
-    const email = response.data.email
-    const role = response.data.role
-    const birthday = response.data.birthday
-    const active = response.data.active
-    const billing_address = response.data.billing_address
-    const promos = response.data.promos
-    const admin = response.data.admin
-    setUser({
-      firstName, lastName, email, role, birthday, active, billing_address, promos, admin
-    })
-    setLoggedIn(true)
-    setIsLoading(false)
-  }))
-  .catch((error) => {
-      console.log('JWT has expired');
       setIsLoading(false)
-  });
+  }
+  jwtStuff()
   }, []);
 
   useEffect(() => {
