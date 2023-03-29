@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Carousel, Stack, Button, Nav} from "react-bootstrap";
 import './Homepage.css';
 import Cards from './Cards.js'
@@ -13,6 +13,7 @@ export default function Homepage(props) {
         nav('./selectMovie/' + type)
     }
 
+
     let numbers = randomNumbers(props.showingNow.length)
     let numbersSoon = randomNumbers(props.comingSoon.length)
 
@@ -24,7 +25,7 @@ export default function Homepage(props) {
             <Cards  title={props.showingNow[numbers[1 + num]].title} image={props.showingNow[numbers[1 + num]].photo_link} trailer={props.showingNow[numbers[1 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
             <Cards  title={props.showingNow[numbers[2 + num]].title} image={props.showingNow[numbers[2 + num]].photo_link} trailer={props.showingNow[numbers[2 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
             <Cards  title={props.showingNow[numbers[3 + num]].title} image={props.showingNow[numbers[3 + num]].photo_link} trailer={props.showingNow[numbers[3 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
-            <Cards  title={props.showingNow[numbers[4 + num]].title} image={props.showingNow[numbers[4 + num]].photo_link} trailer={props.showingNow[numbers[4 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
+        
             </Stack> 
         </Carousel.Item>
         return showNowCarouselItem
@@ -49,7 +50,7 @@ export default function Homepage(props) {
             <Cards  title={props.comingSoon[numbersSoon[1 + num]].title} image={props.comingSoon[numbersSoon[1 + num]].photo_link} trailer={props.comingSoon[numbersSoon[1 + num]].trailer_link}></Cards>
             <Cards  title={props.comingSoon[numbersSoon[2 + num]].title} image={props.comingSoon[numbersSoon[2 + num]].photo_link} trailer={props.comingSoon[numbersSoon[2 + num]].trailer_link}></Cards>
             <Cards  title={props.comingSoon[numbersSoon[3 + num]].title} image={props.comingSoon[numbersSoon[3 + num]].photo_link} trailer={props.comingSoon[numbersSoon[3 + num]].trailer_link}></Cards>
-            <Cards  title={props.comingSoon[numbersSoon[4 + num]].title} image={props.comingSoon[numbersSoon[4 + num]].photo_link} trailer={props.comingSoon[numbersSoon[4 + num]].trailer_link}></Cards>
+        
             </Stack>
         </Carousel.Item>
         return showNowCarouselItem
