@@ -6,7 +6,7 @@ import './Homepage.css'
 export default function Cards(data) {
   return (
     <div>
-        <Card className="text-center" style={{ width: '19rem'}}>
+        <Card className="text-center" style={{ width: '19.5rem'}}>
             <Card.Img class = 'movieImage' variant="top" src={data.image} />
             <Card.Body>
                 <Card.Title>{data.title}</Card.Title>
