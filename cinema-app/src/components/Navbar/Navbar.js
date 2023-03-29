@@ -57,6 +57,20 @@ function MainNavbar(props) {
     </NavDropdown>
   }
 
+  let userSpecificComponent = <div className = "the-row">
+    <Nav.Link href="/">Home</Nav.Link>
+    <Nav.Link href="/selectMovie/filter/Movies"> Booking </Nav.Link>
+  <Nav.Link href="/orderSummary"> My Cart </Nav.Link></div>
+
+  if (props.user.admin) {
+    userSpecificComponent = <div className = "the-row">
+      <Nav.Link href="/admin">Home</Nav.Link>
+      <Nav.Link href="/manageMovies"> Manage Movies </Nav.Link>
+    <Nav.Link href="/addPromotions"> Manage Promotions </Nav.Link>
+          </div>
+  }
+
+
   return (
     <Navbar bg="light" expand="lg">
       <Container className = "navbar">
@@ -95,9 +109,7 @@ function MainNavbar(props) {
             </div>
           </div>
 
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/selectMovie/filter/Movies"> Booking </Nav.Link>
-            <Nav.Link href="/orderSummary"> My Cart </Nav.Link>
+            {userSpecificComponent}
             <NavDropdown title="Every Page" id="basic-nav-dropdown">
             <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
               <NavDropdown.Item href="/admin"> Admin Page </NavDropdown.Item>
