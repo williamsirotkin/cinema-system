@@ -124,6 +124,12 @@ function App() {
           </React.Fragment>
       }></Route>
 
+      <Route path = "/login/:title" element={
+        <React.Fragment>
+          <Login/>
+        </React.Fragment>
+      }></Route>
+
       <Route path = "/orderSummary" element={
           <React.Fragment>
             <OrderSummary/>
