@@ -39,8 +39,8 @@ function compileEditedUserJSON() {
       oldPassword: password,
       newPassword: newPassword,
       billing_address: billingAddress,
-      registered_for_promos: switchState,
       birthday: birthday,
+      registered_for_promos: switchState
     }
 
     if (useCard) {

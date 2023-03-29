@@ -34,7 +34,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) {
+  const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
+
     setUser({
       firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos
     })
@@ -53,6 +54,8 @@ function App() {
         setUserData(
           profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.card_info, profile.active, profile.billing_address, profile.promos
         )
+        console.log(profile.billing_address)
+        console.log(profile.promos)
         setLoggedIn(true)
       } else {
         console.log('JWT has expired');
