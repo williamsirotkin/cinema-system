@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import {loginUtility} from '../../utility/loginUtility.js'
 import {checkActive} from '../../utility/activeUtility.js'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import './Login.css';
 import Collapse from 'react-bootstrap/Collapse';
 import Nav from 'react-bootstrap/Nav';
@@ -13,6 +13,7 @@ import emailjs from '@emailjs/browser';
 
 
 const Login = () => {
+  const location = useLocation()
   let nav = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -76,19 +77,16 @@ const Login = () => {
           nav("/", {replace:true})
         } else {      //clicked login before being logged in
           console.log("hi")
-          console.log(nav)
           // console.log("nav", nav)
-          const currentUrl = nav.location.pathname + nav.location.search;
-          console.log(currentUrl)
-          const newUrl = currentUrl.replace('login', 'selectShow');
+          const newUrl = location.pathname.replace('login', 'selectShowtime')
           console.log(newUrl)
-          nav.replace(newUrl);
-          //nav.replace('login', { merge: true, params: { newParam: 'selectShowtime' } });
-          //console.log("bye")
+
+          console.log("bye")
+          nav(newUrl, {replace:true})
           //nav("/", {replace:true})
         }
       }
-      window.location.reload()
+      //window.location.reload()
     }} else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
