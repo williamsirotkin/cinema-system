@@ -52,24 +52,34 @@ def get_all_movies():
 @movie.route("/searchMovie", methods=['GET'])
 def search_movie():
     query_name = request.args.get('query_name')
-    regex_query_name = re.compile('.*{}.*'.format(query_name.replace(' ', '.*')), re.IGNORECASE)
-    # collation = Collation(locale='en', strength=2, caseLevel=False)
-    # result = db.movie.find_one({'title': {'$regex': query_name, '$options': 'i'}, 'collation': collation})
-    # white space trails & syntax done on front end plz
-    # use colobertaisonlnda
-    # movie_query_result = db.movie.find_one({'title': query_name})
-    # movie_query_Json = json_util.dumps(movie_query_result)
 
     pipeline = [
-        {'$match': {'title': regex_query_name}},
-        {'$lookup': {
-            'from': 'movie_details',
-            'localField': '_id',
-            'foreignField': 'movie_id',
-            'as': 'details'
-        }},
-        {'$unwind': '$details'},
+        {
+            '$search': {
+                'index': 'searchMovies',
+                'text': {
+                    'query': query_name,
+                    'path': 'title',
+                    'fuzzy': {
+                        'maxEdits': 2,
+                        'prefixLength': 3
+                    }
+                }
+            }
+        },
+        {
+            '$lookup': {
+                'from': 'movie_details',
+                'localField': '_id',
+                'foreignField': 'movie_id',
+                'as': 'details'
+            }
+        },
+        {
+            '$unwind': '$details'
+        }
     ]
+
     movie_collection_result = list(db.movie.aggregate(pipeline))
 
     if len(movie_collection_result) > 0:
