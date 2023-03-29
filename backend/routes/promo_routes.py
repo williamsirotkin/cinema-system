@@ -13,12 +13,18 @@ promo = Blueprint("promotions", __name__, url_prefix="/promotions")
 def promo_home():
     return "This is the promotions routes."
 
-@promo.route('/get-all', methods=['GET'])
-def get_all():
+@promo.route('/get-promos', methods=['GET'])
+def get_promos():
     all_items = list(db.promotions.find())
     for item in all_items:
         item['_id'] = str(item['_id'])
     return jsonify(all_items)
+
+@promo.route('/get-emails', methods=['GET'])
+def get_emails():
+    emails = list(db.profile.find({'registered_for_promos': True, 'active': 'active'}).distinct('email'))
+    print(jsonify(emails))
+    return jsonify(emails)
 
 @promo.route("/add", methods=['POST'])
 def promo_add():
