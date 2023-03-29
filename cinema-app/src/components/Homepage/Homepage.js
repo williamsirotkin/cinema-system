@@ -20,11 +20,11 @@ export default function Homepage(props) {
     function getShowingNowCarouselItem(num) {
         let showNowCarouselItem = <Carousel.Item  width = {500} height = {5}>
         <Stack direction="horizontal" className="h-100 justify-content-center align-items-center" gap={3}>
-            <Cards  title={props.showingNow[numbers[0 + num]].title} image={props.showingNow[numbers[0 + num]].photo_link} trailer={props.showingNow[numbers[0 + num]].trailer_link}></Cards>
-            <Cards  title={props.showingNow[numbers[1 + num]].title} image={props.showingNow[numbers[1 + num]].photo_link} trailer={props.showingNow[numbers[1 + num]].trailer_link}></Cards>
-            <Cards  title={props.showingNow[numbers[2 + num]].title} image={props.showingNow[numbers[2 + num]].photo_link} trailer={props.showingNow[numbers[2 + num]].trailer_link}></Cards>
-            <Cards  title={props.showingNow[numbers[3 + num]].title} image={props.showingNow[numbers[3 + num]].photo_link} trailer={props.showingNow[numbers[3 + num]].trailer_link}></Cards>
-            <Cards  title={props.showingNow[numbers[4 + num]].title} image={props.showingNow[numbers[4 + num]].photo_link} trailer={props.showingNow[numbers[4 + num]].trailer_link}></Cards>
+            <Cards  title={props.showingNow[numbers[0 + num]].title} image={props.showingNow[numbers[0 + num]].photo_link} trailer={props.showingNow[numbers[0 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
+            <Cards  title={props.showingNow[numbers[1 + num]].title} image={props.showingNow[numbers[1 + num]].photo_link} trailer={props.showingNow[numbers[1 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
+            <Cards  title={props.showingNow[numbers[2 + num]].title} image={props.showingNow[numbers[2 + num]].photo_link} trailer={props.showingNow[numbers[2 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
+            <Cards  title={props.showingNow[numbers[3 + num]].title} image={props.showingNow[numbers[3 + num]].photo_link} trailer={props.showingNow[numbers[3 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
+            <Cards  title={props.showingNow[numbers[4 + num]].title} image={props.showingNow[numbers[4 + num]].photo_link} trailer={props.showingNow[numbers[4 + num]].trailer_link} loggedIn={props.loggedIn}></Cards>
             </Stack> 
         </Carousel.Item>
         return showNowCarouselItem
