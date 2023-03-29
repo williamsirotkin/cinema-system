@@ -13,7 +13,7 @@ export default function Cards(data) {
         </div>
     } else {
       loggedInComponent = <div>
-          <Link to  = "/login"><Button variant="btn btn-dark"> Book now </Button></Link>
+          <Link to  = {"/login/" + data.title}><Button variant="btn btn-dark"> Book now </Button></Link>
         </div>
     }
 

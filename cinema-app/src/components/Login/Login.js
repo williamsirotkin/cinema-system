@@ -70,7 +70,23 @@ const Login = () => {
       if (result.admin) {
         nav("/admin", {replace:true})
       } else {
-        nav("/", {replace:true})
+
+        //user went straght to login page, didnt click book movie before being logged in
+        if (nav === "/login") {
+          nav("/", {replace:true})
+        } else {      //clicked login before being logged in
+          console.log("hi")
+          console.log(nav)
+          // console.log("nav", nav)
+          const currentUrl = nav.location.pathname + nav.location.search;
+          console.log(currentUrl)
+          const newUrl = currentUrl.replace('login', 'selectShow');
+          console.log(newUrl)
+          nav.replace(newUrl);
+          //nav.replace('login', { merge: true, params: { newParam: 'selectShowtime' } });
+          //console.log("bye")
+          //nav("/", {replace:true})
+        }
       }
       window.location.reload()
     }} else {
