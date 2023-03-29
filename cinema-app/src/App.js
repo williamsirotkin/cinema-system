@@ -21,6 +21,7 @@ import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
 import EditMovie from './components/EditMovie/EditMovie';
 import ResetPassword from './components/ResetPassword/ResetPassword';
+import { getMoviesUtility } from './utility/getMoviesUtility';
 import axios from 'axios';
 
 function App() {
@@ -138,35 +139,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios({
-      url: process.env.REACT_APP_BACKEND_URL + "/movie/get/" + "Showing", 
-      method: "get",
-      headers: {
-          "Content-Type": "application/json"
-      }
-  })
-  .then((response => {
-    setShowingNow(response.data)
-    console.log(response.data)
-    console.log("sucess showing")
-  }))
-  .catch((error) => {
-    console.log("Failed showing")
-  });
-  axios({
-    url: process.env.REACT_APP_BACKEND_URL + "/movie/get/" + "Soon", 
-    method: "get",
-    headers: {
-        "Content-Type": "application/json"
+    async function setMovieStuff() {
+      setShowingNow(await getMoviesUtility("Showing"))
+      setComingSoon(await getMoviesUtility("Soon"))
     }
-    })
-    .then((response => {
-      setComingSoon(response.data)
-      console.log(response.data)
-    }))
-    .catch((error) => {
-      console.log("Failed soon")
-    });
+    setMovieStuff()
   } ,[])
   
   if (isLoading || !showingNow || !comingSoon) {
