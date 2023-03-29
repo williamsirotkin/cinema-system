@@ -27,7 +27,7 @@ export default function Cards(data) {
 
   let movieDisplay;
   if (showTrailer) {
-    movieDisplay = <iframe width="350" height= "400" src={embedLink(data.trailer)} title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen webkitallowfullscreen></iframe>
+    movieDisplay = <iframe width="325" height= "400" src={embedLink(data.trailer)} title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen webkitallowfullscreen></iframe>
   } else {
     movieDisplay = <Card.Img class = 'movieImage' variant="top" src={data.image} />
   }
