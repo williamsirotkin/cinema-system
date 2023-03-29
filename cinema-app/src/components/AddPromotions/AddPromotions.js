@@ -38,7 +38,7 @@ export default function AddPromotions() {
     const handleDelete = async (_id) => {
     try {
         const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + '/promotions/delete/' + _id);
-        console.log(response.data);
+        console.log("Deleted!");
         setPromo(promo.filter((promo) => promo._id !== _id));
         } catch (error) {
         console.error(error);
@@ -47,7 +47,7 @@ export default function AddPromotions() {
 
 
     function sendEmail(email) {
-        emailjs.send('service_96npu8c', 'template_ie2brcl', {'email': email, 'promoName': promoName, 'discountAmnt': discountAmnt}, 'm8yxyvLLbYsPK3HRZ')
+        emailjs.send('service_96npu8c', 'template_ie2brcl', {'email': email, 'promoName': promoName, 'discountAmnt': discountAmnt + discountType}, 'm8yxyvLLbYsPK3HRZ')
         .then(function(response) {
         console.log('SUCCESS!', response.status, response.text);
       }, function(error) {
@@ -64,7 +64,7 @@ export default function AddPromotions() {
             discountAmnt,
             discountType
           });
-          console.log(response.data);
+          console.log("Added!");
         } catch (error) {
           console.error(error);
         }
