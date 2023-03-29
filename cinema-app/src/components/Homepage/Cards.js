@@ -13,7 +13,6 @@ export default function Cards(data) {
         </div>
     } else {
       loggedInComponent = <div>
-          <h1> Please log in </h1>
           <Link to  = "/login"><Button variant="btn btn-dark"> Book now </Button></Link>
         </div>
     }
