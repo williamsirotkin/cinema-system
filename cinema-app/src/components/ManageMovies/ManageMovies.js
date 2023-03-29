@@ -21,8 +21,10 @@ export default function ManageMovies(props) {
     display = 
     <div>
       <div className = "add-movie-row">
+          <div className='homepageTitles'> 
             <h1> Manage Movies </h1>
-            <Button variant="success" onClick={()=>nav('/EditMovie', {replace: true})}> Add Movie + </Button>
+            </div>
+            <Button className = "add-movie-button" variant="success" onClick={()=>nav('/EditMovie', {replace: true})}> Add Movie + </Button>
       </div>
       <div className='movie-row mt-2'>
       {props.movies.map((movie, index) => (

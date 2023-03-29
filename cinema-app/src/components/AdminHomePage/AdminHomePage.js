@@ -5,8 +5,11 @@ import './AdminHomePage.css'
 
 export default function AdminHomePage(props) {
   return (
-    <div>
-        <h1 className = "admin-page"> Welcome {props.user.firstName}! </h1>
+    <div className = "admin-center">
+         <div className='homepageTitles'> 
+        <h1 > Admin Homepage </h1>
+        </div>
+        <br></br>
         <div className = "admin-page">
         <Link  to  = "/manageMovies"><Button variant="primary"> Manage Movies </Button></Link>
         &nbsp; &nbsp; &nbsp;

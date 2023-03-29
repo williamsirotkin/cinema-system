@@ -5,8 +5,13 @@
 
 .add-movie-row {
     margin-left: 20px;
+    text-align: center;
 }
 .manageButtons{
     display: flex;
     gap: 5px;
+}
+
+.add-movie-button {
+    float: center;
 }
