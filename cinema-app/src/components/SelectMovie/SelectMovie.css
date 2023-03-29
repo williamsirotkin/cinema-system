@@ -1,6 +1,7 @@
 .movie-row{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 50px;
 }
 .information{
     margin-bottom: 5px;
@@ -10,6 +11,27 @@
 }
 .trailerBtn{
     margin-top: 15px;
+}
+
+.card {
+    margin-bottom: 2vh;
+}
+
+.selectMovieTitles {
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    color:white;
+    margin-left: auto;
+    margin-right: auto;
+    height:50px;
+    width: 95%;
+    background-color: #BA0C2F;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
 }
 
 .image {

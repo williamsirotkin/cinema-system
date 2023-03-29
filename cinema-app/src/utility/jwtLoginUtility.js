@@ -1,6 +1,6 @@
-/*import axios from 'axios';
+import axios from 'axios';
 
-async function jwtLoginUtility(email, password) {
+async function jwtLoginUtility() {
     let jwt = localStorage.getItem('jwt');
     if (!jwt) {
         jwt = ""
@@ -16,12 +16,10 @@ async function jwtLoginUtility(email, password) {
         }
     })
     .then((response => {
-        return {
-            "admin": response.data.admin
-        }
+        return response.data
     }))
     .catch((error) => {
-        console.log('JWT has expired');
+        console.log('JWT has expiredd');
         if (localStorage.getItem('jwt')) {
             localStorage.removeItem('jwt');
         }
@@ -30,4 +28,3 @@ async function jwtLoginUtility(email, password) {
 }
 
 export {jwtLoginUtility}
-*/

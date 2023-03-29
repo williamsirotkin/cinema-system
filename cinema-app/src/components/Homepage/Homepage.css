@@ -1,6 +1,5 @@
 .carousel {
-    display: flex;
-    justify-content: center;
+    width: 100vw;
 }
 
 .homepage {
@@ -15,6 +14,7 @@
 }
 .homepageTitles{
         border-radius: 5px;
+        margin-bottom: 5px;
         margin-top: 15px;
         font-family: 'Courier New', monospace;
         color:white;
@@ -24,4 +24,28 @@
         width: 95%;
         background-color: #BA0C2F;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        vertical-align: middle;
+}
+
+.movieImage {
+    height: 40vh;
+}
+
+.show-all-button {
+    font-family: 'Courier New', monospace;
+    background-color: #9b9a9b;
+    height: 5vh;
+    color: white;
+    border-radius: 10px;
+}
+
+.nav-link- {
+    color: white;
+    margin-top: 1.3vh;
+}
+
+.nav-link-:hover {
+    text-decoration: underline
 }

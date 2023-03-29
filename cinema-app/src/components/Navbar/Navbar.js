@@ -68,27 +68,27 @@ function MainNavbar(props) {
           <Nav className="me-auto">
           <Dropdown>
           <Dropdown.Toggle>
-            Filter
+            Category
           </Dropdown.Toggle>
           &nbsp;
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Action"); nav('/selectMovie')}}> Action </Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Comedy"); nav('/selectMovie')}}> Comedy </Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Horror"); nav('/selectMovie')}}> Horror </Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Drama"); nav('/selectMovie')}}> Drama </Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Fantasy"); nav('/selectMovie')}}>Fantasy</Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Mystery"); nav('/selectMovie')}}>Mystery</Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Romance"); nav('/selectMovie')}}> Romance</Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Thriller"); nav('/selectMovie')}}> Thriller</Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Western"); nav('/selectMovie')}}> Western </Dropdown.Item>
-            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Sci-fi"); nav('/selectMovie')}}> Sci-fi</Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Action"); nav('/selectMovie/filter/Action')}}> Action </Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Comedy"); nav('/selectMovie/filter/Comedy')}}> Comedy </Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Horror"); nav('/selectMovie/filter/Horror')}}> Horror </Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Drama"); nav('/selectMovie/filter/Drama')}}> Drama </Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Fantasy"); nav('/selectMovie/filter/Fantasy')}}>Fantasy</Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Mystery"); nav('/selectMovie/filter/Mystery')}}>Mystery</Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Romance"); nav('/selectMovie/filter/Romance')}}> Romance</Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Thriller"); nav('/selectMovie/filter/Thriller')}}> Thriller</Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Western"); nav('/selectMovie/filter/Western')}}> Western </Dropdown.Item>
+            <Dropdown.Item onClick = {() => {handleFilter(props.setMovies, "Sci-fi"); nav('/selectMovie/filter/Sci-fi')}}> Sci-fi</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-          <div class="search-bar" >
-            <div class="input-group" >
-            <input type="search" class="form-control rounded" value = {searchBarInput} onChange = {handleInputChange} placeholder="Search"  />
-            <Link to = "/selectMovie"><button type="button"  onClick = {() => handleSearch(props.setMovies, searchBarInput)} class="btn btn-primary">
+          <div className="search-bar" >
+            <div className="input-group" >
+            <input type="search" className="form-control rounded" value = {searchBarInput} onChange = {handleInputChange} placeholder="Search"  />
+            <Link to ={"/selectMovie/filter/" + "Results for " + "'" + searchBarInput + "'"}><button type="button"  onClick = {() => handleSearch(props.setMovies, searchBarInput)} className="btn btn-primary">
             <BsSearch/>
             </button>
             </Link>
@@ -96,7 +96,7 @@ function MainNavbar(props) {
           </div>
 
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/selectMovie"> Booking </Nav.Link>
+            <Nav.Link href="/selectMovie/filter/Movies"> Booking </Nav.Link>
             <Nav.Link href="/orderSummary"> My Cart </Nav.Link>
             <NavDropdown title="Every Page" id="basic-nav-dropdown">
             <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
@@ -110,7 +110,7 @@ function MainNavbar(props) {
               <NavDropdown.Item href="/orderSummary"> Order Summary </NavDropdown.Item>
               <NavDropdown.Item href="/registrationConfirmationPage"> Registration Confirmation </NavDropdown.Item>
               <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
-              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, "true"); nav('/selectMovie')}}>Select Movie</Dropdown.Item>
+              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, "true"); nav('/selectMovie/filter/Movies')}}>Select Movie</Dropdown.Item>
               <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
               <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
               <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>

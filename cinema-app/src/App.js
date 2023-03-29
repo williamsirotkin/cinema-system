@@ -21,11 +21,15 @@ import Homepage from './components/Homepage/Homepage';
 import Signup from './components/Signup/Signup';
 import EditMovie from './components/EditMovie/EditMovie';
 import ResetPassword from './components/ResetPassword/ResetPassword';
+import {getMoviesUtility} from './utility/getMoviesUtility.js';
+import {jwtLoginUtility} from './utility/jwtLoginUtility.js';
 import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState('');
   const [movies, setMovies] = useState('')
+  const [showingNow, setShowingNow] = useState('');
+  const [comingSoon, setComingSoon] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
@@ -39,105 +43,67 @@ function App() {
     setMovies(movies)
   }
 
-  
-    useEffect(() => {
-      if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
-        let jwt = localStorage.getItem('jwt');
-        //console.log(localStorage.getItem('jwt'));
-        if (!jwt) {
-          jwt = ""
-        }
-        
-        axios({
-          url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
-          data: {
-              "jwt": jwt
-          },
-          method: "post",
-          headers: {
-              "Content-Type": "application/json"
-          }
-      })
-
-
-      .then((response => {
-        const firstName = response.data.firstName
-    const lastName = response.data.lastName
-    const email = response.data.email
-    const role = response.data.role
-    const birthday = response.data.birthday
-    const active = response.data.active
-    const billing_address = response.data.billing_address
-    const promos = response.data.promos
-    setUser({
-      firstName, lastName, email, role, birthday, active, billing_address, promos
-    })
+  useEffect(() => {
+    async function stuff() {
+    if (!(window.location.pathname.substring(0,12)=== '/verifyEmail')) {
+      let profile = await jwtLoginUtility()
+      if (profile) {
+        setUserData(
+          profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+        )
         setLoggedIn(true)
-        setIsLoading(false)
+      } else {
+        console.log('JWT has expired');
+      }
+      setIsLoading(false)
+    
+    } else {
+      let token = window.location.pathname.substring(13)
+      
+      axios({
+        url: process.env.REACT_APP_BACKEND_URL + "/profile/verifyEmail/" + token, 
+        method: "patch",
+        headers: {
+            "Content-Type": "application/json"
+        }
+      })
+      .then((response => {
+          setIsLoading(false)
+          console.log(response);
       }))
       .catch((error) => {
-          console.log('JWT has expired');
-          setIsLoading(false)
-      });
-      } else {
-        let token = window.location.pathname.substring(13)
-        
-        axios({
-          url: process.env.REACT_APP_BACKEND_URL + "/profile/verifyEmail/" + token, 
-          method: "patch",
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        .then((response => {
-            setIsLoading(false)
-            console.log(response);
-        }))
-        .catch((error) => {
-        })
-      }
-    
+        console.log(error)
+      })
     }
-    , []);
-  
-  useEffect(() => {
-    let jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      jwt = ""
-    }
-    axios({
-      url: process.env.REACT_APP_BACKEND_URL + "/profile/jwt/login", 
-      data: {
-          "jwt": jwt
-      },
-      method: "post",
-      headers: {
-          "Content-Type": "application/json"
-      }
-  })
-  .then((response => {
-    const firstName = response.data.firstName
-    const lastName = response.data.lastName
-    const email = response.data.email
-    const role = response.data.role
-    const birthday = response.data.birthday
-    const active = response.data.active
-    const billing_address = response.data.billing_address
-    const promos = response.data.promos
-    const admin = response.data.admin
-    setUser({
-      firstName, lastName, email, role, birthday, active, billing_address, promos, admin
-    })
-    setLoggedIn(true)
-    setIsLoading(false)
-  }))
-  .catch((error) => {
-      console.log('JWT has expired');
-      setIsLoading(false)
-  });
+  }
+  stuff()
   }, []);
   
-  if (isLoading) {
+  useEffect(() => {
+    async function jwtStuff() {
+      let profile = await jwtLoginUtility()
+      if (profile) {
+        setUserData(
+          profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+        )
+        setLoggedIn(true)
+      } else {
+        console.log('JWT has expired');
+      }
+      setIsLoading(false)
+  }
+  jwtStuff()
+  }, []);
+
+  useEffect(() => {
+    async function setMovieStuff() {
+      setShowingNow(await getMoviesUtility("Showing"))
+      setComingSoon(await getMoviesUtility("Soon"))
+    }
+    setMovieStuff()
+  } ,[])
+  
+  if (isLoading || !showingNow || !comingSoon) {
     return <div><h1>Loading Page</h1> </div>
   } else {
   return (
@@ -147,7 +113,7 @@ function App() {
 
     <Route path = "/" element={
       <React.Fragment> 
-        <Homepage user = {user}/>
+        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon}/>
       </React.Fragment>
     }></Route>
 
@@ -207,9 +173,21 @@ function App() {
           </React.Fragment>
       }></Route>
 
-    <Route path = "/selectMovie" element={
+    <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie movies={movies} setMovies={setMoviesFunc}/>
+            <SelectMovie movies={movies} setMovies={setMoviesFunc} />
+          </React.Fragment>
+      }></Route>
+
+<Route path = "/selectMovie/showingNow" element={
+          <React.Fragment>
+            <SelectMovie movies={showingNow} setMovies={setMoviesFunc} />
+          </React.Fragment>
+      }></Route>
+
+<Route path = "/selectMovie/comingSoon" element={
+          <React.Fragment>
+            <SelectMovie movies={comingSoon} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
