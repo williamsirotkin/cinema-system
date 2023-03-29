@@ -58,17 +58,21 @@ export default function AddPromotions() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-          const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/promotions/add', {
-            promoName,
-            discountAmnt,
-            discountType
-          });
-          console.log("Added!");
-        } catch (error) {
-          console.error(error);
+        if(discountType) {
+            try {
+            const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/promotions/add', {
+                promoName,
+                discountAmnt,
+                discountType
+            });
+            console.log("Added!");
+            } catch (error) {
+            console.error(error);
+            }
+            await HandleEmail();
+        } else {
+            alert("Please select a discount type!");
         }
-        await HandleEmail();
     };
 
     const HandleEmail = async () => {
@@ -130,6 +134,7 @@ export default function AddPromotions() {
                                 placeholder="Promo Name"
                                 value={promoName}
                                 onChange={(e) => setPromoName(e.target.value)}
+                                required
                             />
                             <Form.Text className="text-muted">
                             </Form.Text>
@@ -141,6 +146,7 @@ export default function AddPromotions() {
                             placeholder="Discount Amount"
                             value={discountAmnt}
                             onChange={(e) => setDiscountAmnt(e.target.value)}
+                            required
                             />
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicCheckbox">
