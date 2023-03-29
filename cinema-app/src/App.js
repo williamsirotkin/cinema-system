@@ -33,9 +33,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
-  function setUserData(firstName, lastName, email, role, birthday, card_info, active, billing_address, promos) {
+  function setUserData(firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) {
     setUser({
-      firstName, lastName, email, role, birthday, card_info, active, billing_address, promos
+      firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos
     })
   }
 
@@ -49,7 +49,7 @@ function App() {
       let profile = await jwtLoginUtility()
       if (profile) {
         setUserData(
-          profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+          profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.active, profile.billing_address, profile.promos
         )
         setLoggedIn(true)
       } else {
@@ -84,7 +84,7 @@ function App() {
       let profile = await jwtLoginUtility()
       if (profile) {
         setUserData(
-          profile.firstName, profile.lastName, profile.email, profile.role, profile.birthday, profile.active, profile.billing_address, profile.promos, profile.admin
+          profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.active, profile.billing_address, profile.promos
         )
         setLoggedIn(true)
       } else {
