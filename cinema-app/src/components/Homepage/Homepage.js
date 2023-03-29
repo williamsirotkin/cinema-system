@@ -78,7 +78,7 @@ export default function Homepage(props) {
     // })
 
   return (
-    <div class = "homepage">
+    <div className = "homepage">
     <div className='homepageTitles'> 
     &nbsp; &nbsp; &nbsp; 
     <h1> Showing Now </h1> 
@@ -86,7 +86,7 @@ export default function Homepage(props) {
     <Nav.Link onClick = {() => handleSeeAll("showingNow")}> 
     <p className = 'nav-link-'> See All -{'>'} </p> </Nav.Link> 
     </div>
-    <div class = "carousel">
+    <div className = "carousel">
      <Carousel>
        {getShowingNowCarouselItems(0)}
        {getShowingNowCarouselItems(5)}
@@ -100,7 +100,7 @@ export default function Homepage(props) {
     <Nav.Link onClick = {() => handleSeeAll("comingSoon")} > 
        <p className = 'nav-link-'> See All -{'>'} </p> </Nav.Link> 
     </div>
-    <div class = "carousel">
+    <div className = "carousel">
      <Carousel>
         {getComingSoonCarouselItems(0)}
        {getComingSoonCarouselItems(5)}
