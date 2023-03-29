@@ -71,9 +71,11 @@ const Login = () => {
       if (result.admin) {
         nav("/admin", {replace:true})
       } else {
-
+        console.log("dub")
         //user went straght to login page, didnt click book movie before being logged in
-        if (nav === "/login") {
+        console.log(nav)
+        if (location.pathname === "/login") {
+          console.log("crack")
           nav("/", {replace:true})
         } else {      //clicked login before being logged in
           console.log("hi")
@@ -86,7 +88,7 @@ const Login = () => {
           //nav("/", {replace:true})
         }
       }
-      //window.location.reload()
+      window.location.reload()
     }} else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
