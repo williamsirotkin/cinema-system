@@ -35,7 +35,10 @@ export default function SelectMovie(props) {
     </div>
     </div>
   } else {
-    display = <div className='selectMovieTitles'> <h1> {movieType} </h1></div>
+    display =  <div><div className='selectMovieTitles'> 
+    <h1> {movieType} </h1> </div>
+    <h1> No Results Found </h1>
+    </div>
   }
   return (
     display
