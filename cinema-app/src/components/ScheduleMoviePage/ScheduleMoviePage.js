@@ -8,6 +8,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
 import emailjs from '@emailjs/browser';
 import {getTimesByRoomNumberUtility} from '../../utility/getTimesByRoomNumberUtility';
+import { scheduleMovieAsAdminUtility } from '../../utility/scheduleMovieAsAdminUtility';
 import Select from 'react-select';
 
 
@@ -26,6 +27,15 @@ const ScheduleMoviePage = (props) => {
 
   useEffect(() => setFormErrors(validate(showRoom)), []) 
   
+  function getIDByTitle() {
+    for (let i = 0; i < props.showingNow.length; i++) {
+      if (props.showingNow[i].title == params.movie) {
+        alert(props.showingNow[i]._id.$oid)
+        return (props.showingNow[i]._id.$oid)
+      }
+    }
+  }
+
   function getShowRoomFormErrors() {
     if (!isSubmit) {
         return ""
@@ -63,7 +73,7 @@ const ScheduleMoviePage = (props) => {
       setIsSubmit(true)
       return
     }
-    setAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value))
+    setAvailableShowTimes(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
     setDisplay('showtimes')
   }
 
@@ -74,9 +84,9 @@ const ScheduleMoviePage = (props) => {
       setIsSubmit(true)
       return
     }
-    console.log(validateTimes(showTimes))
-    console.log(showTimes[0].value)
-    //scheduleMovieAsAdminUtility(showTime, showRoom, movie.title)
+    alert("Scheduled Specified Movie Times")
+    nav('/admin')
+    scheduleMovieAsAdminUtility(convertShowTimes(showTimes), showRoom, params.movie.title, getIDByTitle(params.movie))
   }
 /*
   useEffect(() => {
@@ -178,5 +188,28 @@ const ScheduleMoviePage = (props) => {
       )
     }
 }
+
+function convertShowTimes(showTimes) {
+  let temp = []
+    for (let i  = 0; i < showTimes.length; i++) {
+      temp.append(showTimes[i].value)
+    }
+    return temp
+}
+
+function getAvailableShowTimes(takenShowTimes) {
+  let today = new Date("05 October 2011 14:48 UTC");
+  let isoDate = today.toISOString(); // Returns 2011-10-05T14:48:00.000Z
+  alert(isoDate)
+  let availableShowTimes = [
+
+  ]
+  for (let i = 0; i < takenShowTimes.length; i++) {
+
+  }
+
+  return takenShowTimes
+}
+
 
 export default ScheduleMoviePage;
