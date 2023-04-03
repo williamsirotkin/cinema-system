@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useParams } from 'react';
 import './SelectShowtime.css'
 import { Card, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
 
 
 const SelectShowtimes = (props) => {
-
+  
   const [schedule, setSchedule] = useState([])
   
   // Define an array of days and their corresponding showtimes
