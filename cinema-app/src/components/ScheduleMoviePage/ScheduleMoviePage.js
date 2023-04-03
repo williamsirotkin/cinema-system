@@ -7,7 +7,7 @@ import { checkEmailInUse } from '../../utility/checkEmailInUseUtility';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
 import emailjs from '@emailjs/browser';
-import { scheduleMovieAsAdminUtility } from '../../utility/scheduleMovieAsAdminUtility';
+import {getTimesByRoomNumberUtility} from '../../utility/getTimesByRoomNumberUtility';
 
 
 
@@ -18,7 +18,8 @@ const ScheduleMoviePage = (props) => {
   let nav = useNavigate()
   const [display, setDisplay] = useState('showroom')
   const [showRoom, setShowRoom] = useState('')
-  const [showTime, setShowTime] = useState('')
+  const [availableShowTimes, setAvailableShowTimes] = useState([])
+  const [showTimes, setShowTimes] = useState([])
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false)
 
@@ -33,23 +34,25 @@ const ScheduleMoviePage = (props) => {
 
     return ""
   }
-
+/*
   const handleShowTimeChange = (event) => {
     setShowTime(event.target.value);
   };
+  */
   
 
   const handleShowRoomChange = (event) => {
     setShowRoom(event.target.value);
   };
 
-  const handleShowRoomSubmit = (e) => {
+  const handleShowRoomSubmit = async (e) => {
     e.preventDefault();
     setFormErrors(validate(showRoom));
     if (validate(showRoom).showRoom) {
       setIsSubmit(true)
       return
     }
+    setAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom))
     setDisplay('showtimes')
     //scheduleMovieAsAdminUtility(showTime, showRoom, movie.title)
   }
@@ -96,11 +99,11 @@ const ScheduleMoviePage = (props) => {
           <Form.Label>Select Room* </Form.Label>
           <select class="form-select" onChange = {handleShowRoomChange} aria-label="Default select example">
             <option selected> Select Showroom </option>
-            <option value="Room 1"> Room 1</option>
-            <option value="Room 2"> Room 2</option>
-            <option value="Room 3"> Room 3</option>
-            <option value="Room 4"> Room 4</option>
-            <option value="Room 5"> Room 5</option>
+            <option value="room_one"> Room 1</option>
+            <option value="room_two"> Room 2</option>
+            <option value="room_three"> Room 3</option>
+            <option value="room_four"> Room 4</option>
+            <option value="room_five"> Room 5</option>
             </select>
         </Form.Group>
        <Button variant="btn btn-danger mt-3" onClick = {handleShowRoomSubmit} type="submit">
@@ -109,9 +112,12 @@ const ScheduleMoviePage = (props) => {
       </Form>
     </div>
 
-    const showTimesDisplay = <div>
-        <h1> Showtimes </h1>
+    let showTimesDisplay = 
+       <div className="container">
+      <h1 className='register'>Schedule {params.movie} </h1>
+        <h4 className = "error"> {availableShowTimes[0]} {availableShowTimes[1]} </h4>
     </div>
+
     
     if (display == "showroom") {
     return (
