@@ -69,14 +69,15 @@ console.log(schedule)
 
   return (
     <div className='box'>
+      <Card.Img class = 'movieImage' variant="top" src={props.image} />
       <h2 className = "center"><strong>{props.title} </strong></h2>
       <br></br>
-      <div  className = "center" >
-      <Button variant="primary" onClick={decrementSelectedDay}> Previous Day </Button>
+      <div className = "center" >
+      <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
         <span><h3>{showtimes[selectedDay].day}</h3></span>
         &nbsp;&nbsp;&nbsp;
-        <Button variant="primary" onClick={incrementSelectedDay}> Next Day </Button>
+        <Button variant="outline-danger" onClick={incrementSelectedDay}> Next Day </Button>
       </div>
       <br></br>
       <br></br>

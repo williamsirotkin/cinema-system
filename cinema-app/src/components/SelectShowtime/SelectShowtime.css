@@ -16,7 +16,11 @@
     text-align: center;
 }
 
-
+.movieImage{
+    float:left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 .center {
     margin-top: 25px;
     display: flex;

@@ -42,8 +42,8 @@ function App() {
     })
     
   }
-  function handleSelectSingleMovie(singleMovie){
-    setSingleMovie(singleMovie)
+  function handleSelectSingleMovie(title,image){
+    setSingleMovie({title,image})
   }
 
   function setMoviesFunc(movies) {
@@ -206,7 +206,7 @@ function App() {
 
       <Route path = "/selectShowtime" element={
           <React.Fragment>
-            <SelectShowtime title={singleMovie} setTitle={handleSelectSingleMovie}/>
+            <SelectShowtime title={singleMovie.title} image={singleMovie.image} setTitle={handleSelectSingleMovie}/>
           </React.Fragment>
       }></Route>
 

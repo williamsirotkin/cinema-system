@@ -8,7 +8,7 @@ export default function Cards(data) {
   let loggedInComponent;
   const [showTrailer, setShowTrailer] = useState(false)
   function handleTitle(){
-    data.handleSetMovie(data.title)
+    data.handleSetMovie(data.title,data.image)
   }
 
     if (data.loggedIn) {
