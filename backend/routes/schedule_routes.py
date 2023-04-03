@@ -25,6 +25,7 @@ def get_room_schedule():
     showtimes = []
     for doc in collection.find({}, {'_id': 0, 'showtime': 1}):
         showtime = doc['showtime']
+        showtime = json.dumps(showtime.isoformat())
         showtimes.append(showtime)
     return jsonify({'showtimes': showtimes})
 
@@ -45,6 +46,7 @@ def get_movie_schedule():
 @schedule.route('/scheduleMovie', methods=['POST'])
 def schedule_movie():
     data = request.json
+    print(data)
     # test if data.user.is admin
     # return Response(status=401) unauthorized
     for key, value in data.items():
@@ -57,10 +59,11 @@ def schedule_movie():
     #     "movie_id": "6421daad33a6f676ac62ee53"
     # }
     # #
-    # #
+    # 
     movie_title = request.json.get('movie_title'),
     seats_available = [True] * 25
     collection_name = request.args.get('collection')
+    print(collection_name + "hi")
     collection = db[collection_name]
 
     time_check = {'showtime': datetime.fromisoformat(request.json.get('showtime'))}

@@ -1,15 +1,16 @@
 import axios from 'axios';
 
-async function scheduleMovieAsAdminUtility(day, month, time, showRoom, movieTitle) {
+async function scheduleMovieAsAdminUtility(time, showRoom, movieTitle, movieID) {
 
     return await axios({
-        url: process.env.REACT_APP_BACKEND_URL + "/movie/scheduleAsAdmin", 
+        url: process.env.REACT_APP_BACKEND_URL + "/schedule/scheduleMovie", 
         params: {
-            movieTitle: movieTitle,
-            day: day,
-            month: month,
-            time: time,
-            showRoom: showRoom
+            collection: showRoom,
+        },
+        data: {
+            showtime: time,
+            movie_title: movieTitle,
+            movie_id: movieID
         },
         method: "post",
     })
@@ -23,5 +24,13 @@ async function scheduleMovieAsAdminUtility(day, month, time, showRoom, movieTitl
        
     });
 }
+
+/*
+ 'showtime': datetime.fromisoformat(request.json.get('showtime')),
+            'movie_id': ObjectId(request.json.get('movie_id')),
+            'movie_title': request.json.get('movie_title'),
+            'seats_available': seats_available,
+            "roomData": {"room_Id": "collection"}
+*/
 
 export {scheduleMovieAsAdminUtility}
