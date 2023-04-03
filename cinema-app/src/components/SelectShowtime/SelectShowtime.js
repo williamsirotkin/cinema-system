@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SelectShowtime.css'
 import { Card, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
+import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
+
+
 
 const SelectShowtimes = (props) => {
+
+  const [schedule, setSchedule] = useState([])
+  
   // Define an array of days and their corresponding showtimes
   const showtimes = [
     {
@@ -31,6 +37,18 @@ const SelectShowtimes = (props) => {
       times: ["10:30am", "1:30pm", "4:30pm", "7:30pm"]
     }
   ];
+
+async function handleGetSchedule() {
+    let schedule = await getMovieSchedule(props.title)
+    setSchedule(schedule)
+
+  }
+useEffect(()=>{
+    handleGetSchedule()
+},[])
+
+// console.log(props.title)
+console.log(schedule)
 
   // Define state for the selected day
   const [selectedDay, setSelectedDay] = useState(0);

@@ -206,7 +206,7 @@ function App() {
 
       <Route path = "/selectShowtime" element={
           <React.Fragment>
-            <SelectShowtime title={singleMovie}/>
+            <SelectShowtime title={singleMovie} setTitle={handleSelectSingleMovie}/>
           </React.Fragment>
       }></Route>
 
