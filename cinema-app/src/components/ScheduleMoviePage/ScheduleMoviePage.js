@@ -36,14 +36,24 @@ const ScheduleMoviePage = (props) => {
     return ""
   }
 
+  function getShowTimeFormErrors() {
+    if (!isSubmit) {
+        return ""
+    } else if (formErrors.showTimes) {
+        return formErrors.showTimes
+    }
+
+    return ""
+  }
+
   const handleShowTimeChange = (options) => {
     setShowTimes(options);
   };
   
   
 
-  const handleShowRoomChange = (event) => {
-    setShowRoom(event.target.value);
+  const handleShowRoomChange = (room) => {
+    setShowRoom(room);
   };
 
   const handleShowRoomSubmit = async (e) => {
@@ -53,8 +63,19 @@ const ScheduleMoviePage = (props) => {
       setIsSubmit(true)
       return
     }
-    setAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom))
+    setAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value))
     setDisplay('showtimes')
+  }
+
+  const handleShowTimeSubmit = async (e) => {
+    e.preventDefault();
+    setFormErrors(validateTimes(showTimes));
+    if (validateTimes(showTimes).showTimes) {
+      setIsSubmit(true)
+      return
+    }
+    console.log(validateTimes(showTimes))
+    console.log(showTimes[0].value)
     //scheduleMovieAsAdminUtility(showTime, showRoom, movie.title)
   }
 /*
@@ -87,10 +108,26 @@ const ScheduleMoviePage = (props) => {
     return errors;
   };
 
+  const validateTimes = (showTimes) => {
+    const errors = {};
+    if (showTimes.length == 0) {
+        errors.showTimes= "Please specify the showtimes of this showing"
+    }
+    return errors;
+  };
+
   const timeOptions = availableShowTimes.map((date) => {
     return { value: date, label: date };
   });
-  
+
+  const roomOptions = 
+    [
+      { value: "room_one", label: "Room 1"},
+      { value: "room_two", label: "Room 2"},
+      { value: "room_three", label: "Room 3"},
+      { value: "room_four", label: "Room 4"},
+      { value: "room_five", label: "Room 5"}
+    ]
   
 
 
@@ -98,39 +135,39 @@ const ScheduleMoviePage = (props) => {
     <div className="container">
       <h1 className='register'>Schedule {params.movie} </h1>
         <h4 className = "error"> {getShowRoomFormErrors()} </h4>
-      <Form onSubmit={handleShowRoomSubmit}>   
-        <br></br>
-        <Form.Group controlId="formBasicYear">
-          <Form.Label>Select Room* </Form.Label>
-          <select class="form-select" onChange = {handleShowRoomChange} aria-label="Default select example">
-            <option selected> Select Showroom </option>
-            <option value="room_one"> Room 1</option>
-            <option value="room_two"> Room 2</option>
-            <option value="room_three"> Room 3</option>
-            <option value="room_four"> Room 4</option>
-            <option value="room_five"> Room 5</option>
-            </select>
-        </Form.Group>
+        <label> Select Room* </label>
+        <Select
+        value={showRoom}
+        onChange={handleShowRoomChange}
+        options={roomOptions}
+        placeholder="Select Showroom"
+        />
        <Button variant="btn btn-danger mt-3" onClick = {handleShowRoomSubmit} type="submit">
           Submit
         </Button>
-      </Form>
     </div>
 
     let showTimesDisplay = 
        <div className="container">
       <h1 className='register'>Schedule {params.movie} </h1>
-        <h4 className = "error"> a </h4>
+        <h4 className = "error"> {getShowTimeFormErrors()}  </h4>
+        <label> Select Showtimes*</label>
         <Select
         isMulti
         value={showTimes}
         onChange={handleShowTimeChange}
         options={timeOptions}
         placeholder="Select showtime(s)"
-/>
+        />
+         <Button variant="btn btn-danger mt-3" onClick = {handleShowTimeSubmit} type="submit">
+          Submit
+        </Button>
     </div>
 
-    
+    if (availableShowTimes.length == 0) {
+      showTimesDisplay = <h1> No Showtimes Available For This Room </h1>
+    }
+
     if (display == "showroom") {
     return (
       showRoomDisplay
@@ -140,7 +177,6 @@ const ScheduleMoviePage = (props) => {
         showTimesDisplay
       )
     }
-  
 }
 
 export default ScheduleMoviePage;
