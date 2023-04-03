@@ -5,11 +5,6 @@ import RegistrationPage from '../Signup/Signup.js';
 import './RegistrationConfirmationPage.css'
 
 const RegistrationConfirmationPage = (props) => {
-  const [data, setData] = useState("");
-
-  const handleData = (data) => {
-    setData(data);
-  };
   return (
     <Container className = 'container1'>
       <br></br>
