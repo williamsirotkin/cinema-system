@@ -8,6 +8,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "../CheckoutPage/CardForm.js";
 import emailjs from '@emailjs/browser';
 import {getTimesByRoomNumberUtility} from '../../utility/getTimesByRoomNumberUtility';
+import Select from 'react-select';
 
 
 
@@ -34,11 +35,11 @@ const ScheduleMoviePage = (props) => {
 
     return ""
   }
-/*
-  const handleShowTimeChange = (event) => {
-    setShowTime(event.target.value);
+
+  const handleShowTimeChange = (options) => {
+    setShowTimes(options);
   };
-  */
+  
   
 
   const handleShowRoomChange = (event) => {
@@ -85,6 +86,10 @@ const ScheduleMoviePage = (props) => {
     }
     return errors;
   };
+
+  const timeOptions = availableShowTimes.map((date) => {
+    return { value: date, label: date };
+  });
   
   
 
@@ -115,7 +120,14 @@ const ScheduleMoviePage = (props) => {
     let showTimesDisplay = 
        <div className="container">
       <h1 className='register'>Schedule {params.movie} </h1>
-        <h4 className = "error"> {availableShowTimes[0]} {availableShowTimes[1]} </h4>
+        <h4 className = "error"> a </h4>
+        <Select
+        isMulti
+        value={showTimes}
+        onChange={handleShowTimeChange}
+        options={timeOptions}
+        placeholder="Select showtime(s)"
+/>
     </div>
 
     
