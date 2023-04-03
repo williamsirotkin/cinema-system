@@ -13,7 +13,7 @@ export default function Cards(data) {
 
     if (data.loggedIn) {
         loggedInComponent = <div>
-           <Link to  = "/selectShowtime"><Button variant="btn btn-dark" onClick={handleTitle}> Book now </Button></Link>
+           <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark" onClick={handleTitle}> Book now </Button></Link>
         </div>
     } else {
       loggedInComponent = <div>
