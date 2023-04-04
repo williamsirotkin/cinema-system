@@ -8,7 +8,7 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 
 
-const SelectShowtimes = (props) => {
+const SelectShowtimes = () => {
   const {movieTitle} = useParams();
   const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
   const [movieImg,setMovieImg] = useState([])
