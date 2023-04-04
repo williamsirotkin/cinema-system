@@ -39,11 +39,7 @@ const SelectShowtimes = (props) => {
       times: ["10:30am", "1:30pm", "4:30pm", "7:30pm"]
     }
   ];
-  async function handleGetMovie(result){
-    result = await searchMovieUtility(movieTitle)
-    console.log(result)
-    
-  }
+
 
 async function handleGetSchedule() {
     let schedule = await getMovieSchedule(movieTitle)
