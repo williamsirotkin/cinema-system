@@ -33,7 +33,7 @@ function App() {
   const [comingSoon, setComingSoon] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
-  const [singleMovie, setSingleMovie] = useState('')
+
 
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
 
@@ -42,9 +42,7 @@ function App() {
     })
     
   }
-  function handleSelectSingleMovie(title,image){
-    setSingleMovie({title,image})
-  }
+
 
   function setMoviesFunc(movies) {
     setMovies(movies)
@@ -120,7 +118,7 @@ function App() {
 
     <Route path = "/" element={
       <React.Fragment> 
-        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon} loggedIn={loggedIn} setSingleMovie={handleSelectSingleMovie}/>
+        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon} loggedIn={loggedIn}/>
       </React.Fragment>
     }></Route>
 
@@ -206,7 +204,7 @@ function App() {
 
       <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
-            <SelectShowtime title={singleMovie.title} image={singleMovie.image} setTitle={handleSelectSingleMovie}/>
+            <SelectShowtime/>
           </React.Fragment>
       }></Route>
 

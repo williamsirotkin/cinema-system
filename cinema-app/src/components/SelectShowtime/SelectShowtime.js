@@ -64,7 +64,7 @@ useEffect(()=>{
 
 
 
-// console.log(props.title)
+
 console.log(schedule)
 
 
