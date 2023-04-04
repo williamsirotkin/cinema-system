@@ -4,14 +4,14 @@ import { Card, Button } from "react-bootstrap";
 import { Link, useParams } from 'react-router-dom'
 import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
 import { searchMovieUtility } from '../../utility/searchMovieUtility';
+import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 
 
 const SelectShowtimes = (props) => {
   const {movieTitle} = useParams();
   const [schedule, setSchedule] = useState([])
-  const [movieArray,setMovieArray] = useState([])
-  const result = []
+  const [movieImg,setMovieImg] = useState([])
   // Define an array of days and their corresponding showtimes
   const showtimes = [
     {
@@ -42,8 +42,7 @@ const SelectShowtimes = (props) => {
   async function handleGetMovie(result){
     result = await searchMovieUtility(movieTitle)
     console.log(result)
-    setMovieArray(result)
-    return result
+    
   }
 
 async function handleGetSchedule() {
@@ -56,8 +55,14 @@ useEffect(()=>{
 },[])
 
 useEffect(()=>{
-  handleGetMovie(result)
+  (async()=>{
+    const result = await getMovieByTitle(movieTitle)
+    setMovieImg(result[0].photo_link)
+  })();
+  
 },[])
+
+
 
 // console.log(props.title)
 console.log(schedule)
@@ -79,12 +84,13 @@ console.log(schedule)
     setSelectedDay(selectedDay - 1);
     }
   };
+ 
 
   return (
     <div className='box'>
 
 
-      <Card.Img class = 'movieImage' variant="top" src={props.image} />
+      <Card.Img class = 'movieImage' variant="top" src={movieImg} />
       <h2 className = "center"><strong>{movieTitle} </strong></h2>
       <br></br>
       <div className = "center" >
