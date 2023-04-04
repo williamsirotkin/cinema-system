@@ -32,7 +32,6 @@ const ScheduleMoviePage = (props) => {
   function getIDByTitle() {
     for (let i = 0; i < props.showingNow.length; i++) {
       if (props.showingNow[i].title == params.movie) {
-        alert(props.showingNow[i]._id.$oid)
         return (props.showingNow[i]._id.$oid)
       }
     }

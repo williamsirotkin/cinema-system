@@ -25,7 +25,7 @@ export default function EditMovieCard(data) {
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
         <div className='manageButtons'>
-        <Link to  = "/selectshowtime"><Button variant="btn btn-dark">showtime</Button></Link>
+        <Link to  = {"/scheduleMovie/" + data.title}><Button variant="btn btn-dark">Edit Times</Button></Link>
         <Link to  = "/editMovie"><Button variant="btn btn-secondary">edit Movie</Button></Link>
         <Button variant="btn btn-danger" onClick={handleDelete}>Delete</Button>
         </div>
