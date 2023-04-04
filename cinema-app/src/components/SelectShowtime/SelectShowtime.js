@@ -41,14 +41,14 @@ const SelectShowtimes = (props) => {
   ];
 
 
-async function handleGetSchedule() {
-    let schedule = await getMovieSchedule(movieTitle)
-    setSchedule(schedule)
+// async function handleGetSchedule() {
+//     let schedule = await getMovieSchedule(movieTitle)
+//     setSchedule(schedule)
 
-  }
-useEffect(()=>{
-    handleGetSchedule()
-},[])
+//   }
+// useEffect(()=>{
+//     handleGetSchedule()
+// },[])
 
 useEffect(()=>{
   (async()=>{
@@ -57,11 +57,16 @@ useEffect(()=>{
   })();
   
 },[])
-
-
-
-
+useEffect(()=>{
+  (async()=>{
+    const result = await getMovieSchedule(movieTitle)
+    setSchedule(result.schedule)
+  })();
+  
+},[])
 console.log(schedule)
+
+
 
 
   // Define state for the selected day
