@@ -127,7 +127,7 @@ const ScheduleMoviePage = (props) => {
   };
 
   const timeOptions = availableShowTimes.map((date) => {
-    return { value: date, label: date };
+    return {value: date, label: stringifyDate(date)}
   });
 
   const roomOptions = 
@@ -192,24 +192,93 @@ const ScheduleMoviePage = (props) => {
 function convertShowTimes(showTimes) {
   let temp = []
     for (let i  = 0; i < showTimes.length; i++) {
-      temp.append(showTimes[i].value)
+      temp.push(showTimes[i].value)
     }
     return temp
 }
 
 function getAvailableShowTimes(takenShowTimes) {
-  let today = new Date("05 October 2011 14:48 UTC");
-  let isoDate = today.toISOString(); // Returns 2011-10-05T14:48:00.000Z
-  alert(isoDate)
-  let availableShowTimes = [
+  let today = new Date()
+  let hours = today.getHours()
+  let dayOfWeek = today.getDay()
+  let calendarDay = today.getUTCDay()
+  let month = today.getMonth()
+  let year = today.getFullYear()
+  let numHoursRemoved = Math.max(0, Math.ceil((hours - 12) / 3))
+  console.log("hours removed:" + numHoursRemoved)
+  console.log(hours, dayOfWeek, calendarDay, month, year)
 
-  ]
-  for (let i = 0; i < takenShowTimes.length; i++) {
-
+  let temp = {}
+  let availableShowTimesArr = []
+  for (let i = 0; i < 120; i++) {
+      temp = {
+      hours: 12 + (i % 4) * 3,
+      calendarDay: dayConversion(calendarDay + Math.floor(i / 4 + numHoursRemoved), new Date(year, month+1, 0).getDate()),
+      month: month + Math.floor((calendarDay + Math.floor(i / 4 + numHoursRemoved) - 1) / (new Date(year, month+1, 0).getDate())),
+      year: year + Math.floor((month + Math.min(calendarDay, 32)) / 31)
+    }
+    let tempBool = true
+    for (let i = 0; i < takenShowTimes.length; i++) {
+      if (!noConflict(temp, takenShowTimes[i])) {
+        tempBool = false
+      }
+    }
+    if (tempBool)
+      availableShowTimesArr.push(temp)
   }
+  console.log("days in month" + new Date(year, month+1, 0).getDate())
 
-  return takenShowTimes
+  console.log(availableShowTimesArr)
+
+  return availableShowTimesArr
 }
 
+function noConflict(temp, takenDay) {
+    if (JSON.stringify(temp) === JSON.stringify(toDateFormat(takenDay))) {
+      return false
+    }
+  return true
+}
+
+function toDateFormat(dateStr) {
+  console.log(dateStr)
+  let dateString = dateStr.toString()
+  let hours = dateString.substring(12, 14)
+  let dayOfWeek = "Monday"
+  let calendarDays = dateString.substring(9, 11)
+  let month = dateString.substring(6, 8)
+  let year = dateString.substring(1, 5)
+
+  let returnValue = {
+    hours: parseInt(hours),
+    calendarDay: parseInt(calendarDays),
+    month: parseInt(month) - 1,
+    year: parseInt(year)
+  }
+
+  console.log(returnValue)
+  return returnValue
+}
+
+function dayConversion(day, numDaysInMonth) {
+  if (day > numDaysInMonth) {
+    return day -= numDaysInMonth
+  }
+  return day
+}
+
+function stringifyDate(date) {
+  let tempDate = new Date(date.year, date.month, date.calendarDay)
+  let month = tempDate.toLocaleString('default', { month: 'long' });
+  return month + " " + date.calendarDay + ", " + date.year + " at " + fixHours(date.hours) + "PM"
+}
+
+function fixHours(hours) {
+  if (hours == 12) {
+    return hours 
+  } else {
+    return hours - 12
+  }
+}
 
 export default ScheduleMoviePage;
