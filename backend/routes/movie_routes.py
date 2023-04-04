@@ -18,6 +18,7 @@ def movie_home():
 @movie.route("/getMovieByTitle", methods=['GET'])
 def get_by_title():
      title = request.args.get('title')
+     print("title", title)
      collection = db.movie
      result = collection.find({'title': title})
      json_result = dumps(result)
