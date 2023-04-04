@@ -10,7 +10,7 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 const SelectShowtimes = (props) => {
   const {movieTitle} = useParams();
-  const [schedule, setSchedule] = useState([])
+  const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
   const [movieImg,setMovieImg] = useState([])
   // Define an array of days and their corresponding showtimes
   const showtimes = [
@@ -41,21 +41,11 @@ const SelectShowtimes = (props) => {
   ];
 
 
-// async function handleGetSchedule() {
-//     let schedule = await getMovieSchedule(movieTitle)
-//     setSchedule(schedule)
-
-//   }
-// useEffect(()=>{
-//     handleGetSchedule()
-// },[])
-
 useEffect(()=>{
   (async()=>{
     const result = await getMovieByTitle(movieTitle)
     setMovieImg(result[0].photo_link)
   })();
-  
 },[])
 useEffect(()=>{
   (async()=>{
@@ -64,6 +54,7 @@ useEffect(()=>{
   })();
   
 },[])
+console.log(movieImg)
 console.log(schedule)
 
 
@@ -90,10 +81,10 @@ console.log(schedule)
   return (
     <div className='box'>
 
-
-      <Card.Img class = 'movieImage' variant="top" src={movieImg} />
+      <div className='showtimeImg'> <Card.Img class = 'movieImage' variant="top" src={movieImg} /></div>
       <h2 className = "center"><strong>{movieTitle} </strong></h2>
       <br></br>
+      {/* <h1>{schedule[3].showtime}</h1> */}
       <div className = "center" >
       <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
