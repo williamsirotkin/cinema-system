@@ -9,8 +9,20 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 
 const SelectShowtimes = () => {
+  const [scheduleMap,setScheduleMap]= useState('')
   const {movieTitle} = useParams();
-  const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
+  const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}
+,{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
   const [movieImg,setMovieImg] = useState([])
   // Define an array of days and their corresponding showtimes
   const showtimes = [
@@ -51,10 +63,20 @@ useEffect(()=>{
   (async()=>{
     const result = await getMovieSchedule(movieTitle)
     setSchedule(result.schedule)
+    let tempMap = {}
+    for (let i = 0; i < result.schedule.length; i++) {
+      if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
+        tempMap[result.schedule[i].showtime.substring(0, 11)] = []
+      }
+      tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
+    }
+    setScheduleMap(tempMap)
+    // console.log(tempMap)
+    // handleKeyMapping(schedule)
+
   })();
-  
 },[])
-console.log(movieImg)
+console.log(scheduleMap)
 console.log(schedule)
 
 
@@ -84,7 +106,7 @@ console.log(schedule)
       <div className='showtimeImg'> <Card.Img class = 'movieImage' variant="top" src={movieImg} /></div>
       <h2 className = "center"><strong>{movieTitle} </strong></h2>
       <br></br>
-      {/* <h1>{schedule[3].showtime}</h1> */}
+      {/* <h1>{schedule[6].showtime}</h1> */}
       <div className = "center" >
       <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
