@@ -9,6 +9,7 @@ import CardForm from "../CheckoutPage/CardForm.js";
 import emailjs from '@emailjs/browser';
 import {getTimesByRoomNumberUtility} from '../../utility/getTimesByRoomNumberUtility';
 import { scheduleMovieAsAdminUtility } from '../../utility/scheduleMovieAsAdminUtility';
+import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
 import Select from 'react-select';
 
 
@@ -22,6 +23,7 @@ const ScheduleMoviePage = (props) => {
   const [showRoom, setShowRoom] = useState('')
   const [availableShowTimes, setAvailableShowTimes] = useState([])
   const [showTimes, setShowTimes] = useState([])
+  const [showTimesLabel, setShowTimesLabel] = useState([])
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false)
 
@@ -34,6 +36,19 @@ const ScheduleMoviePage = (props) => {
         return (props.showingNow[i]._id.$oid)
       }
     }
+  }
+
+  function convertShowTimesToObject(showTimes) {
+    console.log(showTimes.schedule)
+    console.log(showRoom)
+    let temp = []
+      for (let i  = 0; i < showTimes.schedule.length; i++) {
+        if (showTimes.schedule[i].room_name == showRoom.value) {
+         temp.push({value: showTimes.schedule[i], label: showTimes.schedule[i]})
+        }
+      }
+      console.log(temp)
+      return temp
   }
 
   function getShowRoomFormErrors() {
@@ -75,6 +90,8 @@ const ScheduleMoviePage = (props) => {
     }
     setAvailableShowTimes(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
     console.log(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
+    //setShowTimes((await getMovieSchedule(params.movie, getIDByTitle(params.movie)).schedule))
+    //console.log(await getMovieSchedule(params.movie, getIDByTitle(params.movie)).schedule)
     setDisplay('showtimes')
   }
 
@@ -189,6 +206,7 @@ const ScheduleMoviePage = (props) => {
       )
     }
 }
+
 
 function convertShowTimes(showTimes) {
   let temp = []
