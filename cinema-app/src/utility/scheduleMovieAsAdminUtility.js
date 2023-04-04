@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 async function scheduleMovieAsAdminUtility(time, showRoom, movieTitle, movieID) {
-
+    alert(movieTitle)
     return await axios({
         url: process.env.REACT_APP_BACKEND_URL + "/schedule/scheduleMovie", 
         params: {

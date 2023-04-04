@@ -65,8 +65,8 @@ def schedule_movie():
     #     "movie_title": "Superbad",
     #     "movie_id": "6421daad33a6f676ac62ee53"
     # }
-
     data = request.json
+    print(data)
     showtimes = data.get('showtime')
 
     for key, value in data.items():
@@ -74,6 +74,7 @@ def schedule_movie():
             return Response(status=400)
 
     collection_name = request.args.get('collection')
+    print(request.args)
     collection = db[collection_name]
 
     time_checks = [{'showtime': datetime.fromisoformat(showtime)} for showtime in showtimes]

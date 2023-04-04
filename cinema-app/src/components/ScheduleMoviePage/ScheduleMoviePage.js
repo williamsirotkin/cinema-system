@@ -74,6 +74,7 @@ const ScheduleMoviePage = (props) => {
       return
     }
     setAvailableShowTimes(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
+    console.log(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
     setDisplay('showtimes')
   }
 
@@ -86,7 +87,7 @@ const ScheduleMoviePage = (props) => {
     }
     alert("Scheduled Specified Movie Times")
     nav('/admin')
-    scheduleMovieAsAdminUtility(convertShowTimes(showTimes), showRoom, params.movie.title, getIDByTitle(params.movie))
+    scheduleMovieAsAdminUtility(convertShowTimes(showTimes), showRoom.value, params.movie, getIDByTitle(params.movie))
   }
 /*
   useEffect(() => {
@@ -192,16 +193,18 @@ const ScheduleMoviePage = (props) => {
 function convertShowTimes(showTimes) {
   let temp = []
     for (let i  = 0; i < showTimes.length; i++) {
-      temp.push(showTimes[i].value)
+      temp.push(showTimes[i].value.year + "-" + inputValue(showTimes[i].value.month + 1) + "-" + inputValue(showTimes[i].value.calendarDay) + " " + inputValue(showTimes[i].value.hours) + ":00:00")
     }
+    console.log(temp)
     return temp
 }
 
 function getAvailableShowTimes(takenShowTimes) {
   let today = new Date()
+  console.log(today)
   let hours = today.getHours()
   let dayOfWeek = today.getDay()
-  let calendarDay = today.getUTCDay()
+  let calendarDay = today.getUTCDay() + 2
   let month = today.getMonth()
   let year = today.getFullYear()
   let numHoursRemoved = Math.max(0, Math.ceil((hours - 12) / 3))
@@ -234,6 +237,8 @@ function getAvailableShowTimes(takenShowTimes) {
 }
 
 function noConflict(temp, takenDay) {
+    console.log(takenDay)
+    console.log(JSON.stringify(temp), JSON.stringify(toDateFormat(takenDay)))
     if (JSON.stringify(temp) === JSON.stringify(toDateFormat(takenDay))) {
       return false
     }
@@ -243,16 +248,16 @@ function noConflict(temp, takenDay) {
 function toDateFormat(dateStr) {
   console.log(dateStr)
   let dateString = dateStr.toString()
-  let hours = dateString.substring(12, 14)
+  let hours = dateString.substring(17, 19)
   let dayOfWeek = "Monday"
-  let calendarDays = dateString.substring(9, 11)
-  let month = dateString.substring(6, 8)
-  let year = dateString.substring(1, 5)
-
+  let calendarDays = dateString.substring(5, 7)
+  let month = monthInt(dateString.substring(8, 11))
+  let year = dateString.substring(12, 16)
+  console.log(dateStr)
   let returnValue = {
     hours: parseInt(hours),
     calendarDay: parseInt(calendarDays),
-    month: parseInt(month) - 1,
+    month: parseInt(month),
     year: parseInt(year)
   }
 
@@ -280,5 +285,19 @@ function fixHours(hours) {
     return hours - 12
   }
 }
+
+function inputValue(value) {
+  if (value < 10) {
+    return "0" + value
+  }
+  return value
+}
+
+function monthInt(monthStr) {
+    console.log(monthStr)
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    return months.indexOf(monthStr)
+}
+
 
 export default ScheduleMoviePage;
