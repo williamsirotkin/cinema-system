@@ -11,6 +11,7 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 const SelectShowtimes = () => {
   const [scheduleMap,setScheduleMap]= useState('')
   const {movieTitle} = useParams();
+  const [days,setDays] = useState('')
   const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}
 ,{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
 {room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
@@ -64,20 +65,31 @@ useEffect(()=>{
     const result = await getMovieSchedule(movieTitle)
     setSchedule(result.schedule)
     let tempMap = {}
+    // let tempArray =[{day:"",times:[]}]
     for (let i = 0; i < result.schedule.length; i++) {
       if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
         tempMap[result.schedule[i].showtime.substring(0, 11)] = []
+        
+        
       }
       tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
+
+
     }
+
+
+    for (let i = 0; i < result.schedule.length; i++){
+      
+    }
+    
+    
     setScheduleMap(tempMap)
-    // console.log(tempMap)
-    // handleKeyMapping(schedule)
 
   })();
 },[])
+// console.log(Object.keys(scheduleMap));
 console.log(scheduleMap)
-console.log(schedule)
+// console.log(schedule)
 
 
 
