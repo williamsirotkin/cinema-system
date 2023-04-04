@@ -10,7 +10,8 @@ import { searchMovieUtility } from '../../utility/searchMovieUtility';
 const SelectShowtimes = (props) => {
   const {movieTitle} = useParams();
   const [schedule, setSchedule] = useState([])
-  console.log(movieTitle)
+  const [movieArray,setMovieArray] = useState([])
+  const result = []
   // Define an array of days and their corresponding showtimes
   const showtimes = [
     {
@@ -38,9 +39,10 @@ const SelectShowtimes = (props) => {
       times: ["10:30am", "1:30pm", "4:30pm", "7:30pm"]
     }
   ];
-  async function handleGetMovie(){
-    let result = await searchMovieUtility(movieTitle)
+  async function handleGetMovie(result){
+    result = await searchMovieUtility(movieTitle)
     console.log(result)
+    setMovieArray(result)
     return result
   }
 
@@ -52,12 +54,14 @@ async function handleGetSchedule() {
 useEffect(()=>{
     handleGetSchedule()
 },[])
+
 useEffect(()=>{
-  handleGetMovie()
+  handleGetMovie(result)
 },[])
 
 // console.log(props.title)
 console.log(schedule)
+
 
   // Define state for the selected day
   const [selectedDay, setSelectedDay] = useState(0);
@@ -78,6 +82,7 @@ console.log(schedule)
 
   return (
     <div className='box'>
+
 
       <Card.Img class = 'movieImage' variant="top" src={props.image} />
       <h2 className = "center"><strong>{movieTitle} </strong></h2>
