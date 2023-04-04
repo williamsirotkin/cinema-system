@@ -7,11 +7,13 @@ import './Homepage.css'
 export default function Cards(data) {
   let loggedInComponent;
   const [showTrailer, setShowTrailer] = useState(false)
-    
+  // function handleTitle(){
+  //   data.handleSetMovie(data.title,data.image)
+  // }
 
     if (data.loggedIn) {
         loggedInComponent = <div>
-           <Link to  = "/selectShowtime"><Button variant="btn btn-dark"> Book now </Button></Link>
+           <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Book now </Button></Link>
         </div>
     } else {
       loggedInComponent = <div>

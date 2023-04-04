@@ -34,6 +34,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
+
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
 
     setUser({
@@ -41,6 +42,7 @@ function App() {
     })
     
   }
+
 
   function setMoviesFunc(movies) {
     setMovies(movies)
@@ -200,7 +202,7 @@ function App() {
           </React.Fragment>
       }></Route>
 
-      <Route path = "/selectShowtime" element={
+      <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
             <SelectShowtime/>
           </React.Fragment>
@@ -242,7 +244,7 @@ function App() {
 
 <Route path = "/scheduleMovie/:movie" element={
     <React.Fragment>
-          <ScheduleMoviePage showingNow = {showingNow} comingSoon = {comingSoon}/>
+          <ScheduleMoviePage showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
 

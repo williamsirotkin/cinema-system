@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import './SelectShowtime.css'
 import { Card, Button } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
+import { searchMovieUtility } from '../../utility/searchMovieUtility';
+import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
+
+
 
 const SelectShowtimes = () => {
+  const {movieTitle} = useParams();
+  const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
+  const [movieImg,setMovieImg] = useState([])
   // Define an array of days and their corresponding showtimes
   const showtimes = [
     {
@@ -32,6 +40,26 @@ const SelectShowtimes = () => {
     }
   ];
 
+
+useEffect(()=>{
+  (async()=>{
+    const result = await getMovieByTitle(movieTitle)
+    setMovieImg(result[0].photo_link)
+  })();
+},[])
+useEffect(()=>{
+  (async()=>{
+    const result = await getMovieSchedule(movieTitle)
+    setSchedule(result.schedule)
+  })();
+  
+},[])
+console.log(movieImg)
+console.log(schedule)
+
+
+
+
   // Define state for the selected day
   const [selectedDay, setSelectedDay] = useState(0);
 
@@ -48,17 +76,21 @@ const SelectShowtimes = () => {
     setSelectedDay(selectedDay - 1);
     }
   };
+ 
 
   return (
     <div className='box'>
-      <h2 className = "center"><strong>Showtimes for The Batman </strong></h2>
+
+      <div className='showtimeImg'> <Card.Img class = 'movieImage' variant="top" src={movieImg} /></div>
+      <h2 className = "center"><strong>{movieTitle} </strong></h2>
       <br></br>
-      <div  className = "center" >
-      <Button variant="primary" onClick={decrementSelectedDay}> Previous Day </Button>
+      {/* <h1>{schedule[3].showtime}</h1> */}
+      <div className = "center" >
+      <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
         <span><h3>{showtimes[selectedDay].day}</h3></span>
         &nbsp;&nbsp;&nbsp;
-        <Button variant="primary" onClick={incrementSelectedDay}> Next Day </Button>
+        <Button variant="outline-danger" onClick={incrementSelectedDay}> Next Day </Button>
       </div>
       <br></br>
       <br></br>
@@ -75,122 +107,3 @@ const SelectShowtimes = () => {
 };
 
 export default SelectShowtimes;
-/*
-export default function SelectShowtime() {
-  return (
-    <div className = "select-showtime-page">
-      <div className = "showtimes-title"><h1>Select Your Showtime For The Batman </h1></div>
-      <div className = "dayHeader">
-        <h1> March 2nd </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 3rd </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 4th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 5th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 6th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 7th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 8th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 9th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-    </div>
-  )
-}
-*/
