@@ -144,12 +144,20 @@ console.log(finalSchedule)
         {finalSchedule[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button href = "/selectAges" variant="danger" key  = {time} size="lg" > {time} </Button>
+            <Button href = "/selectAges" variant="danger" key  = {time} size="lg" > {formatTime(time)} </Button>
           </div>
         ))}
       </div>
     </div>
   );
 };
+
+function formatTime(time) {
+  let temp = parseInt(time.substring(0, 2))
+  if (temp > 12) {
+    temp -= 12
+  }
+  return temp + ":00 PM"
+}
 
 export default SelectShowtimes;
