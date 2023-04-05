@@ -9,9 +9,15 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 
 const SelectShowtimes = () => {
-  const [scheduleMap,setScheduleMap]= useState('')
+  const [scheduleMap,setScheduleMap] = useState('')
   const {movieTitle} = useParams();
-  const [days,setDays] = useState('')
+  const [length,setLength] = useState(0)
+  const [finalSchedule,setFinalSchedule] = useState([{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]}])
+
   const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}
 ,{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
 {room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
@@ -69,27 +75,29 @@ useEffect(()=>{
     for (let i = 0; i < result.schedule.length; i++) {
       if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
         tempMap[result.schedule[i].showtime.substring(0, 11)] = []
-        
-        
+
       }
       tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
-
-
     }
-
-
-    for (let i = 0; i < result.schedule.length; i++){
-      
-    }
-    
-    
     setScheduleMap(tempMap)
+    const reformattedData = [];
+
+    for (const key in tempMap) {
+      const [dayName, day] = key.split(", ");
+      const times = tempMap[key];
+      
+      reformattedData.push({
+        day: `${dayName}, ${day}`,
+        times: times.map(time => (time))
+      });
+    }
+    setLength(reformattedData.length)
+    setFinalSchedule(reformattedData)
 
   })();
 },[])
-// console.log(Object.keys(scheduleMap));
 console.log(scheduleMap)
-// console.log(schedule)
+console.log(finalSchedule)
 
 
 
@@ -99,7 +107,7 @@ console.log(scheduleMap)
 
   // Define a function to increment the selected day
   const incrementSelectedDay = () => {
-    if (selectedDay < 5) {
+    if (selectedDay < length-1) {
     setSelectedDay(selectedDay + 1);
     }
   };
@@ -122,14 +130,14 @@ console.log(scheduleMap)
       <div className = "center" >
       <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
-        <span><h3>{showtimes[selectedDay].day}</h3></span>
+        <span><h3>{finalSchedule[selectedDay].day}</h3></span>
         &nbsp;&nbsp;&nbsp;
         <Button variant="outline-danger" onClick={incrementSelectedDay}> Next Day </Button>
       </div>
       <br></br>
       <br></br>
       <div className = "center">
-        {showtimes[selectedDay].times.map((time) => (
+        {finalSchedule[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Button href = "/selectAges" variant="danger" key  = {time}> {time} </Button>
