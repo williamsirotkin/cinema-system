@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
 
 export default function MovieCard(data) {
   const [showTrailer, setShowTrailer] = useState(false)
@@ -32,19 +33,69 @@ export default function MovieCard(data) {
             <Accordion.Item eventKey="0">
             <Accordion.Header>Additional Details</Accordion.Header>
             <Accordion.Body>
-            {data.description}
-            <hr />
-            Genre: {data.genre.join(", ")}
-            <hr/>
-            Director: {data.director}
-            <hr />
-            Producers: {data.producers.join(", ")}
-            <hr/>
-            Cast: {data.cast.join(", ")}
-            <hr />
-            Rating: {data.rating}
-            <hr />
-            Reviews: {data.reviews}
+
+            <Accordion className='accordion'>
+                <Accordion.Item eventKey="0">
+                  <AccordionHeader> Synopsis </AccordionHeader>
+                    <Accordion.Body>
+                      {data.description}
+                    </Accordion.Body>
+                </Accordion.Item>
+          </Accordion>
+
+            <Accordion className='accordion'>
+              <Accordion.Item eventKey="0">
+                <AccordionHeader> Genre </AccordionHeader>
+                  <Accordion.Body>
+                    {data.genre.join(", ")}
+                  </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+            <Accordion className='accordion'>
+              <Accordion.Item eventKey="0">
+                <AccordionHeader> Director </AccordionHeader>
+                  <Accordion.Body>
+                    {data.director}
+                  </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+            <Accordion className='accordion'>
+              <Accordion.Item eventKey="0">
+                <AccordionHeader> Producers </AccordionHeader>
+                  <Accordion.Body>
+                    {data.producers.join(", ")}
+                  </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+            <Accordion className='accordion'>
+              <Accordion.Item eventKey="0">
+                <AccordionHeader> Cast </AccordionHeader>
+                  <Accordion.Body>
+                    {data.cast.join(", ")}
+                  </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+            <Accordion className='accordion'>
+              <Accordion.Item eventKey="0">
+                <AccordionHeader> Rating </AccordionHeader>
+                  <Accordion.Body>
+                    {data.rating}
+                  </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+
+            <Accordion className='accordion'>
+              <Accordion.Item eventKey="0">
+                <AccordionHeader> Reviews </AccordionHeader>
+                  <Accordion.Body>
+                    {data.reviews}
+                  </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
             <br></br>
            <Button onClick = {() => setShowTrailer(!showTrailer)} variant="dark" size="md" className='trailerBtn'>Watch trailer</Button>
             </Accordion.Body>
