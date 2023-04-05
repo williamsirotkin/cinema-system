@@ -24,6 +24,8 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import {getMoviesUtility} from './utility/getMoviesUtility.js';
 import {jwtLoginUtility} from './utility/jwtLoginUtility.js';
 import ScheduleMoviePage from './components/ScheduleMoviePage/ScheduleMoviePage';
+import AddOrRemoveMovie from './components/AddOrRemoveMovie/AddOrRemoveMovie';
+import RemoveMoviesPage from './components/RemoveMoviesPage/RemoveMoviesPage';
 import axios from 'axios';
 
 function App() {
@@ -248,6 +250,17 @@ function App() {
     </React.Fragment>
       }></Route>
 
+  <Route path = "/addOrRemoveMovie/:movie" element={
+    <React.Fragment>
+          <AddOrRemoveMovie/>
+    </React.Fragment>
+      }></Route>
+
+<Route path = "/removeMovie/:movie" element={
+    <React.Fragment>
+          <RemoveMoviesPage showingNow = {showingNow}/>
+    </React.Fragment>
+      }></Route>
     </Routes>
 
     

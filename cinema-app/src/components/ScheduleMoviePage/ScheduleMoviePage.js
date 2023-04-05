@@ -23,7 +23,6 @@ const ScheduleMoviePage = (props) => {
   const [showRoom, setShowRoom] = useState('')
   const [availableShowTimes, setAvailableShowTimes] = useState([])
   const [showTimes, setShowTimes] = useState([])
-  const [showTimesLabel, setShowTimesLabel] = useState([])
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false)
 
@@ -88,7 +87,7 @@ const ScheduleMoviePage = (props) => {
       return
     }
     setAvailableShowTimes(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
-    console.log(getAvailableShowTimes(await getTimesByRoomNumberUtility(showRoom.value)))
+    console.log(await getTimesByRoomNumberUtility(showRoom.value))
     //setShowTimes((await getMovieSchedule(params.movie, getIDByTitle(params.movie)).schedule))
     //console.log(await getMovieSchedule(params.movie, getIDByTitle(params.movie)).schedule)
     setDisplay('showtimes')
@@ -191,6 +190,8 @@ const ScheduleMoviePage = (props) => {
         </Button>
     </div>
 
+    
+
     if (availableShowTimes.length == 0) {
       showTimesDisplay = <h1> No Showtimes Available For This Room </h1>
     }
@@ -217,6 +218,7 @@ function convertShowTimes(showTimes) {
 }
 
 function getAvailableShowTimes(takenShowTimes) {
+  console.log(takenShowTimes)
   let today = new Date()
   console.log(today)
   let hours = today.getHours()
@@ -230,7 +232,7 @@ function getAvailableShowTimes(takenShowTimes) {
 
   let temp = {}
   let availableShowTimesArr = []
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 60; i++) {
       temp = {
       hours: 12 + (i % 4) * 3,
       calendarDay: dayConversion(calendarDay + Math.floor(i / 4 + numHoursRemoved), new Date(year, month+1, 0).getDate()),
@@ -238,11 +240,13 @@ function getAvailableShowTimes(takenShowTimes) {
       year: year + Math.floor((month + Math.min(calendarDay, 32)) / 31)
     }
     let tempBool = true
+    if (takenShowTimes) {
     for (let i = 0; i < takenShowTimes.length; i++) {
       if (!noConflict(temp, takenShowTimes[i])) {
         tempBool = false
       }
     }
+  }
     if (tempBool)
       availableShowTimesArr.push(temp)
   }

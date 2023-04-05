@@ -19,7 +19,7 @@ def schedule_home():
 def get_room_schedule():
     # postman param of collection name only, example "room_one"
     collection_name = request.args.get('collection')
-
+    
     if collection_name not in db.list_collection_names():
         return jsonify({'error': f'Collection {collection_name} not found.'}), 400
 
@@ -150,6 +150,7 @@ def delete_movie_schedule():
     # Find the room name where the movie is playing and ensure that it matches the given room name
     room_name_found = False
     for schedule in movie_schedule['schedule']:
+        print(str(schedule['showtime']), showtime, schedule['room_name'], room_name)
         if str(schedule['showtime']) == showtime and schedule['room_name'] == room_name:
             room_name_found = True
             break
