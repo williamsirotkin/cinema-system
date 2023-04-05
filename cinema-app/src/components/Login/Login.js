@@ -65,8 +65,10 @@ const Login = () => {
     if (result.token) {
       let activeResult = await checkActive(email)
 
-      if (!activeResult) {
+      if (activeResult == 1 ) {
         setErrorMessage("Please click your email confirmation")
+      } else if (activeResult == 2 ) {
+        setErrorMessage("You have been banned")
       } else {
       if (result.admin) {
         nav("/admin", {replace:true})

@@ -113,6 +113,7 @@ function MainNavbar(props) {
             <NavDropdown title="Every Page" id="basic-nav-dropdown">
             <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
               <NavDropdown.Item href="/admin"> Admin Page </NavDropdown.Item>
+              <NavDropdown.Item href="/manageUsers"> Manage Users </NavDropdown.Item>
               <NavDropdown.Item href="/checkoutPage"> Checkout Page </NavDropdown.Item>
               <NavDropdown.Item href="/editProfile"> Edit Profile </NavDropdown.Item>
               <NavDropdown.Item href="/"> Homepage </NavDropdown.Item>

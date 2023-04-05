@@ -14,10 +14,14 @@ async function checkActive(email) {
         }
     })
     .then((response => {
-
-        return true
+        return 0
     }))
     .catch((error) => {
+        if (error.response.status === 400) {
+            return 1
+          } else if (error.response.status === 405) {
+            return 2
+          }
         return false
     });
 }
