@@ -86,9 +86,15 @@ useEffect(()=>{
       const [dayName, day] = key.split(", ");
       const times = tempMap[key];
       
+      // const convertedTimes = times.map(time => {
+      //   const easternTime = new Date(`2023-01-01T${time}:00Z`);
+      //   const localTime = easternTime.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour12: true, hour: "2-digit", minute: "2-digit" });
+      //   return localTime.toLowerCase().replace('am', 'am').replace('pm', 'pm');
+      // });
+  
       reformattedData.push({
         day: `${dayName}, ${day}`,
-        times: times.map(time => (time))
+        times: times.map(time => (`${time} PM`))
       });
     }
     setLength(reformattedData.length)
