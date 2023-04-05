@@ -43,6 +43,8 @@ export default function MovieCard(data) {
             Cast: {data.cast.join(", ")}
             <hr />
             Rating: {data.rating}
+            <hr />
+            Reviews: {data.reviews}
             <br></br>
            <Button onClick = {() => setShowTrailer(!showTrailer)} variant="dark" size="md" className='trailerBtn'>Watch trailer</Button>
             </Accordion.Body>
