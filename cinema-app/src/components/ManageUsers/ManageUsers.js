@@ -35,33 +35,6 @@ export default function ManageUsers() {
             }  
     };
     
-    // function BanButton(props) {
-    //     const handleBan = async (_id) => {
-    //         alert("Yo")
-    //         try {
-    //             const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/profile/banStatus/' + _id);
-    //             console.log("Changed Ban Status!");
-    //             //setPromo(promo.filter((promo) => promo._id !== _id));
-    //             } catch (error) {
-    //             console.error(error);
-    //             }  
-    //     };
-      
-    //     return (
-    //       <Button variant={props.isBanned ? 'success' : 'danger'} onClick={() => handleBan(users._id)}>
-    //         {props.isBanned ? 'Unban' : 'Ban'}
-    //       </Button>
-    //     );
-    // }
-    // const handleDelete = async (_id) => {
-    // try {
-    //     const response = await axios.delete(process.env.REACT_APP_BACKEND_URL + '/promotions/delete/' + _id);
-    //     console.log("Deleted!");
-    //     setPromo(promo.filter((promo) => promo._id !== _id));
-    //     } catch (error) {
-    //     console.error(error);
-    //     }  
-    // };
 
     // function sendEmail(email) {
     //     emailjs.send('service_96npu8c', 'template_ie2brcl', {'email': email, 'promoName': promoName, 'discountAmnt': discountAmnt + discountType}, 'm8yxyvLLbYsPK3HRZ')
@@ -83,7 +56,6 @@ export default function ManageUsers() {
                           <div key={users.id}>
                               <span>
                               {users.email} &nbsp;&nbsp;&nbsp;{users.active} &nbsp;&nbsp;&nbsp;
-                              {/* <BanButton isBanned={users.active === 'banned'} /> */}
                               
                               <Button onClick={() => handleBan(users._id)} variant={users.active === 'banned' ? 'success' : 'danger'} size="sm">
                                 {users.active === 'banned' ? 'Unban' : 'Ban'}
