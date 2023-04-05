@@ -70,14 +70,20 @@ useEffect(()=>{
 useEffect(()=>{
   (async()=>{
     const result = await getDatesByTitle(movieTitle)
+    console.log(result.schedule)
     setSchedule(result.schedule)
     let tempMap = {}
+    let seen = new Set()
     for (let i = 0; i < result.schedule.length; i++) {
-      if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
-        tempMap[result.schedule[i].showtime.substring(0, 11)] = []
+      if (!seen.has(result.schedule[i].showtime)) {
+        if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
+          seen.add(result.schedule[i].showtime)
+          tempMap[result.schedule[i].showtime.substring(0, 11)] = []
 
+        }
+        tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
       }
-      tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
+      console.log(seen)
     }
     
     const reformattedData = [];
@@ -91,15 +97,27 @@ useEffect(()=>{
       //   const localTime = easternTime.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour12: true, hour: "2-digit", minute: "2-digit" });
       //   return localTime.toLowerCase().replace('am', 'am').replace('pm', 'pm');
       // });
-  
       reformattedData.push({
         day: `${dayName}, ${day}`,
         times: times.map(time => (`${time} PM`))
       });
     }
-    setLength(reformattedData.length)
-    setFinalSchedule(reformattedData)
-
+    let retArr = []
+    for (let i = 0; i < reformattedData.length; i++) {
+      let tempSet = new Set()
+      let tempHourArr = []
+      for (let j = 0; j < reformattedData[i].times.length; j++) {
+        if (!tempSet.has(reformattedData[i].times[j])) {
+          tempHourArr.push(reformattedData[i].times[j])
+        }
+        tempSet.add(reformattedData[i].times[j])
+      }
+      reformattedData[i].times = tempHourArr
+      retArr.push(reformattedData[i])
+    }
+    setLength(retArr.length)
+    console.log(retArr)
+    setFinalSchedule(retArr)
   })();
 },[])
 // console.log(scheduleMap)
