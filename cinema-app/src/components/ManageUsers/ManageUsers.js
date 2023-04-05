@@ -1,13 +1,8 @@
-import { Link } from 'react-router-dom'
-import { Dropdown } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import {Image, Form } from 'react-bootstrap';
 import './ManageUsers.css'
 import React, { useState, useEffect } from 'react';
-import { round } from 'lodash';
 import axios from 'axios';
-import emailjs from '@emailjs/browser';
 
 
 export default function ManageUsers() {

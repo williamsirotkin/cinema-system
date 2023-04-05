@@ -158,6 +158,8 @@ def check_activity():
     result = db.profile.find_one({"email": data['email']})
     if result['active'] == "active":
         return Response(status=200)
+    if result['active'] == "banned":
+        return Response(status=405)
     return Response(status=400)
 
 @profile.route('/editProfile', methods = ['PATCH'])
