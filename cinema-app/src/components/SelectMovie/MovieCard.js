@@ -27,7 +27,7 @@ export default function MovieCard(data) {
             {movieDisplay}
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
-        <Link to  = "/selectshowtime"><Button variant="btn btn-dark"> Select showtime</Button></Link>
+        <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
         <Accordion className='accordion'>
             <Accordion.Item eventKey="0">
             <Accordion.Header>Additional Details</Accordion.Header>

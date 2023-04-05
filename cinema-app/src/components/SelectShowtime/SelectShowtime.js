@@ -66,6 +66,7 @@ useEffect(()=>{
     setMovieImg(result[0].photo_link)
   })();
 },[])
+
 useEffect(()=>{
   (async()=>{
     const result = await getMovieSchedule(movieTitle)
