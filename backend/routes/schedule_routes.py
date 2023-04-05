@@ -29,9 +29,8 @@ def get_sorted_times():
 
     results = list(collection.aggregate(pipeline))
     schedule_data = [x["schedule"] for x in results]
-
-    to_json = json_util.dumps(schedule_data)
-    return to_json
+    to_json = json_util.dumps(schedule_data[0])
+    return jsonify({'schedule': schedule_data[0]})
     
 @schedule.route('/getAllRoomSchedule', methods=['GET'])
 def get_room_schedule():

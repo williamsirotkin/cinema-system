@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
 import { searchMovieUtility } from '../../utility/searchMovieUtility';
 import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
+import { getDatesByTitle } from '../../utility/getDatesByTitle';
 
 
 
@@ -68,7 +69,7 @@ useEffect(()=>{
 
 useEffect(()=>{
   (async()=>{
-    const result = await getMovieSchedule(movieTitle)
+    const result = await getDatesByTitle(movieTitle)
     setSchedule(result.schedule)
     let tempMap = {}
     for (let i = 0; i < result.schedule.length; i++) {

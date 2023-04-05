@@ -10,6 +10,7 @@ async function getDatesByTitle(title) {
         method: "get",
     })
     .then((response => {
+        console.log(response.data)
         return response.data
     }))
     .catch((error) => {
