@@ -26,7 +26,7 @@ export default function EditMovieCard(data) {
         <Card.Title>{data.title}</Card.Title>
         <div className='manageButtons'>
         <Link to  = {"/scheduleMovie/" + data.title}><Button variant="btn btn-dark">Edit Times</Button></Link>
-        <Link to  = "/editMovie"><Button variant="btn btn-secondary">edit Movie</Button></Link>
+        <Link to  = "/editMovie"><Button variant="btn btn-secondary">edit movie</Button></Link>
         <Button variant="btn btn-danger" onClick={handleDelete}>Delete</Button>
         </div>
         <Accordion className='accordion'>

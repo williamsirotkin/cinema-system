@@ -9,7 +9,6 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 
 const SelectShowtimes = () => {
-  const [scheduleMap,setScheduleMap] = useState('')
   const {movieTitle} = useParams();
   const [length,setLength] = useState(0)
   const [finalSchedule,setFinalSchedule] = useState([{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
@@ -72,7 +71,6 @@ useEffect(()=>{
     const result = await getMovieSchedule(movieTitle)
     setSchedule(result.schedule)
     let tempMap = {}
-    // let tempArray =[{day:"",times:[]}]
     for (let i = 0; i < result.schedule.length; i++) {
       if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
         tempMap[result.schedule[i].showtime.substring(0, 11)] = []
@@ -80,7 +78,7 @@ useEffect(()=>{
       }
       tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
     }
-    setScheduleMap(tempMap)
+    
     const reformattedData = [];
 
     for (const key in tempMap) {
