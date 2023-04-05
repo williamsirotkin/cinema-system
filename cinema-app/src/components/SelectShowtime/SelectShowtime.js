@@ -96,7 +96,7 @@ useEffect(()=>{
 
   })();
 },[])
-console.log(scheduleMap)
+// console.log(scheduleMap)
 console.log(finalSchedule)
 
 
@@ -126,7 +126,6 @@ console.log(finalSchedule)
       <div className='showtimeImg'> <Card.Img class = 'movieImage' variant="top" src={movieImg} /></div>
       <h2 className = "center"><strong>{movieTitle} </strong></h2>
       <br></br>
-      {/* <h1>{schedule[6].showtime}</h1> */}
       <div className = "center" >
       <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
@@ -140,7 +139,7 @@ console.log(finalSchedule)
         {finalSchedule[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button href = "/selectAges" variant="danger" key  = {time}> {time} </Button>
+            <Button href = "/selectAges" variant="danger" key  = {time} size="lg" > {time} </Button>
           </div>
         ))}
       </div>
