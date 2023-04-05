@@ -9,6 +9,7 @@ import OrderSummary from './components/OrderSummary/OrderSummary';
 import AdminHomePage from './components/AdminHomePage/AdminHomePage';
 import EditProfile from './components/EditProfile/EditProfile';
 import AddPromotions from './components/AddPromotions/AddPromotions';
+import ManageUsers from './components/ManageUsers/ManageUsers';
 import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
 import ManageMovies from './components/ManageMovies/ManageMovies';
 import CheckoutPage from './components/CheckoutPage/CheckoutPage';
@@ -162,7 +163,13 @@ function App() {
           </React.Fragment>
       }></Route>
 
-    <Route path = "/orderConfirmation" element={
+      <Route path = "/manageUsers" element={
+          <React.Fragment>
+            <ManageUsers/>
+          </React.Fragment>
+      }></Route>
+
+      <Route path = "/orderConfirmation" element={
           <React.Fragment>
             <OrderConfirmation/>
           </React.Fragment>

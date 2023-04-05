@@ -14,7 +14,6 @@ async function checkActive(email) {
         }
     })
     .then((response => {
-
         return true
     }))
     .catch((error) => {

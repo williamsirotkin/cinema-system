@@ -14,6 +14,8 @@ export default function AdminHomePage(props) {
         <Link  to  = "/manageMovies"><Button variant="primary"> Manage Movies </Button></Link>
         &nbsp; &nbsp; &nbsp;
         <Link  to  = "/addPromotions"><Button variant="success"> Manage Promotions </Button></Link>
+        &nbsp; &nbsp; &nbsp;
+        <Link  to  = "/manageUsers"><Button variant="primary"> Manage Users </Button></Link>
         </div>
     </div>
   )

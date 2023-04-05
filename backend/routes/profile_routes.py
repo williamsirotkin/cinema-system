@@ -7,6 +7,8 @@ from datetime import datetime, timedelta
 from flask_bcrypt import Bcrypt
 import random
 import string
+from bson import ObjectId
+
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -16,6 +18,23 @@ profile = Blueprint("profile", __name__, url_prefix="/profile")
 @profile.route("/")
 def profile_home():
     return "This is the profile routes"
+
+@profile.route('/get-users', methods=['GET'])
+def get_users():
+    all_items = list(db.profile.find({'active': {'$ne': 'pending'}}, {'_id': True, 'email': True, 'active': True}))
+    for item in all_items:
+        item['_id'] = str(item['_id'])
+    return jsonify(all_items)
+
+@profile.route("/banStatus/<userId>", methods=['POST'])
+def ban_status(userId):
+    user = db.profile.find_one({'_id': ObjectId(userId)})
+
+    if user['active'] == 'banned':
+        db.profile.update_one({'_id': ObjectId(userId)}, {'$set': {'active': "active"}})
+    else:
+        db.profile.update_one({'_id': ObjectId(userId)}, {'$set': {'active': "banned"}})
+    return 'OK'
 
 @profile.route('/verifyEmail/<token>', methods = ['PATCH'])
 def verify_email(token):
@@ -137,9 +156,9 @@ def check_activity():
     data = request.json
     print(data)
     result = db.profile.find_one({"email": data['email']})
-    if result['active'] == "pending":
-        return Response(status=400)
-    return Response(status=200)
+    if result['active'] == "active":
+        return Response(status=200)
+    return Response(status=400)
 
 @profile.route('/editProfile', methods = ['PATCH'])
 def edit_profile():
