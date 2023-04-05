@@ -3,7 +3,6 @@ import './SelectShowtime.css'
 import { Card, Button } from "react-bootstrap";
 import { Link, useParams } from 'react-router-dom'
 import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
-import { searchMovieUtility } from '../../utility/searchMovieUtility';
 import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 
