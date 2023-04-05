@@ -15,6 +15,24 @@ schedule = Blueprint("schedule", __name__, url_prefix="/schedule")
 def schedule_home():
     return "This is the schedule routes."
 
+@schedule.route("/getSortedShowtimes")
+def get_sorted_times():
+    collection = db['movie_schedule']
+    movie_title = request.args.get('movie_title')
+
+    pipeline = [
+    {'$match': {'movie_title': movie_title}},
+    {'$unwind': '$schedule'},
+    {'$sort': {'schedule.showtime': 1}},
+    {'$group': {'_id': '$_id', 'schedule': {'$push': '$schedule'}}}
+    ]
+
+    results = list(collection.aggregate(pipeline))
+    schedule_data = [x["schedule"] for x in results]
+
+    to_json = json_util.dumps(schedule_data)
+    return to_json
+    
 @schedule.route('/getAllRoomSchedule', methods=['GET'])
 def get_room_schedule():
     # postman param of collection name only, example "room_one"
