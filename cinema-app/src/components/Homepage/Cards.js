@@ -3,6 +3,8 @@ import {Card,Button } from "react-bootstrap";
 import { BsArrowLeftRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom'
 import './Homepage.css'
+import Accordion from 'react-bootstrap/Accordion';
+import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
 
 export default function Cards(data) {
   let loggedInComponent;

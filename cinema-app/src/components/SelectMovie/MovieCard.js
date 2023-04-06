@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import AccordionHeader from 'react-bootstrap/esm/AccordionHeader';
+import './SelectMovie.css'
 
 export default function MovieCard(data) {
   const [showTrailer, setShowTrailer] = useState(false)
@@ -17,18 +18,21 @@ export default function MovieCard(data) {
  
    let movieDisplay;
    if (showTrailer) {
-     movieDisplay = <iframe width="310" height= "400" src={embedLink(data.trailer)} title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen webkitallowfullscreen></iframe>
+    movieDisplay = <iframe width="325" height= "400" src={embedLink(data.trailer)} title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen webkitallowfullscreen></iframe>
    } else {
      movieDisplay = <Card.Img class = 'movieImage' variant="top" src={data.image} />
    }
 
   return (
     <div className='cards'>
-        <Card class = "card" style={{ width: '18vw' }}>
+        <Card className="text-center" style={{ width: '20.5rem'}}>
             {movieDisplay}
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
+        <div class = "showtimes">
         <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
+        <Button variant="secondary" onClick = {() => setShowTrailer(!showTrailer)}>Watch trailer</Button>
+        </div>
         <Accordion className='accordion'>
             <Accordion.Item eventKey="0">
             <Accordion.Header>Additional Details</Accordion.Header>
@@ -96,8 +100,6 @@ export default function MovieCard(data) {
                   </Accordion.Body>
               </Accordion.Item>
             </Accordion>
-            <br></br>
-           <Button onClick = {() => setShowTrailer(!showTrailer)} variant="dark" size="md" className='trailerBtn'>Watch trailer</Button>
             </Accordion.Body>
             </Accordion.Item>
         </Accordion>
