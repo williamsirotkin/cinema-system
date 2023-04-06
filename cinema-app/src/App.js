@@ -121,7 +121,7 @@ function App() {
 
     <Route path = "/" element={
       <React.Fragment> 
-        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon} loggedIn={loggedIn}/>
+        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon} loggedIn={loggedIn} setMovies={setMoviesFunc}/>
       </React.Fragment>
     }></Route>
 
