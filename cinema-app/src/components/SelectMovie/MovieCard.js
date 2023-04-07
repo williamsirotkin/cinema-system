@@ -15,12 +15,17 @@ export default function MovieCard(data) {
     let endLink = link.substring(32);
      return beginLink + middleLink + endLink
    }
- 
+  
    let movieDisplay;
    if (showTrailer) {
     movieDisplay = <iframe width="325" height= "400" src={embedLink(data.trailer)} title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen webkitallowfullscreen></iframe>
    } else {
      movieDisplay = <Card.Img class = 'movieImage' variant="top" src={data.image} />
+   }
+
+   let selectShowtime;
+   if (!data.admin) {
+    selectShowtime = <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
    }
 
   return (
@@ -30,7 +35,7 @@ export default function MovieCard(data) {
         <Card.Body>
         <Card.Title>{data.title}</Card.Title>
         <div class = "showtimes">
-        <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
+        {selectShowtime}
         <Button variant="secondary" onClick = {() => setShowTrailer(!showTrailer)}>Watch trailer</Button>
         </div>
         <Accordion className='accordion'>
@@ -108,4 +113,5 @@ export default function MovieCard(data) {
       
     </div>
   )
+
 }

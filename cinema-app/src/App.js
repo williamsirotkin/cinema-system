@@ -195,7 +195,7 @@ function App() {
 
     <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie movies={movies} setMovies={setMoviesFunc} />
+            <SelectMovie movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
           </React.Fragment>
       }></Route>
 
