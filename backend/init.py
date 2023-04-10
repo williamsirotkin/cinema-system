@@ -10,10 +10,12 @@ def create_app():
         from routes.profile_routes import profile
         from routes.movie_routes import movie
         from routes.promo_routes import promo
+        from routes.schedule_routes import schedule
         
         app.register_blueprint(profile)
         app.register_blueprint(movie)
         app.register_blueprint(promo)
+        app.register_blueprint(schedule)
     return app
 
     

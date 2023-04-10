@@ -1,9 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import './SelectShowtime.css'
 import { Card, Button } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
+import { searchMovieUtility } from '../../utility/searchMovieUtility';
+import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
+import { getDatesByTitle } from '../../utility/getDatesByTitle';
+
+
 
 const SelectShowtimes = () => {
+  const {movieTitle} = useParams();
+  const [length,setLength] = useState(0)
+  const [finalSchedule,setFinalSchedule] = useState([{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
+  {day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]}])
+
+  const [schedule, setSchedule] = useState([{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}
+,{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},
+{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
+  const [movieImg,setMovieImg] = useState([])
   // Define an array of days and their corresponding showtimes
   const showtimes = [
     {
@@ -32,12 +59,79 @@ const SelectShowtimes = () => {
     }
   ];
 
+
+useEffect(()=>{
+  (async()=>{
+    const result = await getMovieByTitle(movieTitle)
+    setMovieImg(result[0].photo_link)
+  })();
+},[])
+
+useEffect(()=>{
+  (async()=>{
+    const result = await getDatesByTitle(movieTitle)
+    console.log(result.schedule)
+    setSchedule(result.schedule)
+    let tempMap = {}
+    let seen = new Set()
+    for (let i = 0; i < result.schedule.length; i++) {
+      if (!seen.has(result.schedule[i].showtime)) {
+        if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
+          seen.add(result.schedule[i].showtime)
+          tempMap[result.schedule[i].showtime.substring(0, 11)] = []
+
+        }
+        tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
+      }
+      console.log(seen)
+    }
+    
+    const reformattedData = [];
+
+    for (const key in tempMap) {
+      const [dayName, day] = key.split(", ");
+      const times = tempMap[key];
+      
+      // const convertedTimes = times.map(time => {
+      //   const easternTime = new Date(`2023-01-01T${time}:00Z`);
+      //   const localTime = easternTime.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour12: true, hour: "2-digit", minute: "2-digit" });
+      //   return localTime.toLowerCase().replace('am', 'am').replace('pm', 'pm');
+      // });
+      reformattedData.push({
+        day: `${dayName}, ${day}`,
+        times: times.map(time => (`${time} PM`))
+      });
+    }
+    let retArr = []
+    for (let i = 0; i < reformattedData.length; i++) {
+      let tempSet = new Set()
+      let tempHourArr = []
+      for (let j = 0; j < reformattedData[i].times.length; j++) {
+        if (!tempSet.has(reformattedData[i].times[j])) {
+          tempHourArr.push(reformattedData[i].times[j])
+        }
+        tempSet.add(reformattedData[i].times[j])
+      }
+      reformattedData[i].times = tempHourArr
+      retArr.push(reformattedData[i])
+    }
+    setLength(retArr.length)
+    console.log(retArr)
+    setFinalSchedule(retArr)
+  })();
+},[])
+// console.log(scheduleMap)
+console.log(finalSchedule)
+
+
+
+
   // Define state for the selected day
   const [selectedDay, setSelectedDay] = useState(0);
 
   // Define a function to increment the selected day
   const incrementSelectedDay = () => {
-    if (selectedDay < 5) {
+    if (selectedDay < length-1) {
     setSelectedDay(selectedDay + 1);
     }
   };
@@ -48,25 +142,28 @@ const SelectShowtimes = () => {
     setSelectedDay(selectedDay - 1);
     }
   };
+ 
 
   return (
     <div className='box'>
-      <h2 className = "center"><strong>Showtimes for The Batman </strong></h2>
+
+      <div className='showtimeImg'> <Card.Img class = 'movieImage' variant="top" src={movieImg} /></div>
+      <h2 className = "center"><strong> Select Showtime For {movieTitle} </strong></h2>
       <br></br>
-      <div  className = "center" >
-      <Button variant="primary" onClick={decrementSelectedDay}> Previous Day </Button>
+      <div className = "center" >
+      <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
       &nbsp;&nbsp;&nbsp;
-        <span><h3>{showtimes[selectedDay].day}</h3></span>
+        <span><h3>{finalSchedule[selectedDay].day}</h3></span>
         &nbsp;&nbsp;&nbsp;
-        <Button variant="primary" onClick={incrementSelectedDay}> Next Day </Button>
+        <Button variant="outline-danger" onClick={incrementSelectedDay}> Next Day </Button>
       </div>
       <br></br>
       <br></br>
       <div className = "center">
-        {showtimes[selectedDay].times.map((time) => (
+        {finalSchedule[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button href = "/selectAges" variant="danger" key  = {time}> {time} </Button>
+            <Button href = "/selectAges" variant="danger" key  = {time} size="lg" > {formatTime(time)} </Button>
           </div>
         ))}
       </div>
@@ -74,123 +171,12 @@ const SelectShowtimes = () => {
   );
 };
 
-export default SelectShowtimes;
-/*
-export default function SelectShowtime() {
-  return (
-    <div className = "select-showtime-page">
-      <div className = "showtimes-title"><h1>Select Your Showtime For The Batman </h1></div>
-      <div className = "dayHeader">
-        <h1> March 2nd </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 3rd </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 4th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 5th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 6th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 7th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 8th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 4:30 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-      <br></br>
-      <br></br>
-      <div className = "dayHeader">
-        <h1> March 9th </h1>
-      </div>
-      <br></br>
-      <div className = "showtimes-row">
-      <Link to  = "/selectSeats"><Button variant="success"> 12:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 2:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 5:50 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 6:45 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 8:10 pm </Button></Link>
-      <Link to  = "/selectSeats"><Button variant="success"> 9:30 pm </Button></Link>
-      </div>
-    </div>
-  )
+function formatTime(time) {
+  let temp = parseInt(time.substring(0, 2))
+  if (temp > 12) {
+    temp -= 12
+  }
+  return temp + ":00 PM"
 }
-*/
+
+export default SelectShowtimes;

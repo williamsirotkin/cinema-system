@@ -67,6 +67,7 @@ function MainNavbar(props) {
       <Nav.Link href="/admin">Home</Nav.Link>
       <Nav.Link href="/manageMovies"> Manage Movies </Nav.Link>
     <Nav.Link href="/addPromotions"> Manage Promotions </Nav.Link>
+    <Nav.Link href="/manageUsers"> Manage Users </Nav.Link>
           </div>
   }
 
@@ -110,25 +111,6 @@ function MainNavbar(props) {
           </div>
 
             {userSpecificComponent}
-            <NavDropdown title="Every Page" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/addPromotions"> Add Promotions </NavDropdown.Item>
-              <NavDropdown.Item href="/admin"> Admin Page </NavDropdown.Item>
-              <NavDropdown.Item href="/checkoutPage"> Checkout Page </NavDropdown.Item>
-              <NavDropdown.Item href="/editProfile"> Edit Profile </NavDropdown.Item>
-              <NavDropdown.Item href="/"> Homepage </NavDropdown.Item>
-              <NavDropdown.Item href="/login"> Login </NavDropdown.Item>
-              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, "true"); nav('/ManageMovies')}}>Manage Movies</Dropdown.Item>
-              <NavDropdown.Item href="/orderConfirmation"> Order Confirmation </NavDropdown.Item>
-              <NavDropdown.Item href="/orderSummary"> Order Summary </NavDropdown.Item>
-              <NavDropdown.Item href="/registrationConfirmationPage"> Registration Confirmation </NavDropdown.Item>
-              <NavDropdown.Item href="/selectAges"> Select Age </NavDropdown.Item>
-              <Dropdown.Item onClick = {() => {handleGetAllMovies(props.setMovies, "true"); nav('/selectMovie/filter/Movies')}}>Select Movie</Dropdown.Item>
-              <NavDropdown.Item href="/selectShowtime"> Select Showtime </NavDropdown.Item>
-              <NavDropdown.Item href="/resetPassword"> Reset Password </NavDropdown.Item>
-              <NavDropdown.Item href="/EditMovie"> Edit Movie</NavDropdown.Item>
-              <NavDropdown.Item href="/ScheduleMovie/Superbad"> Schedule Movie </NavDropdown.Item>
-              <NavDropdown.Item href="/signup"> Register </NavDropdown.Item>
-            </NavDropdown>
             {profileComponent}
           </Nav>
         </Navbar.Collapse>

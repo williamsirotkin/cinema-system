@@ -7,7 +7,6 @@ import re
 from pymongo.collation import Collation
 from bson.json_util import dumps
 
-
 app = Flask(__name__)
 
 movie = Blueprint("movie", __name__, url_prefix="/movie")
@@ -17,12 +16,14 @@ def movie_home():
     return "This is the movie routes."
 
 @movie.route("/getMovieByTitle", methods=['GET'])
-def get_by_title(title):
-    collection = db.movie
-    result = collection.find({'title': title})
-    json_result = dumps(result)
-    return json_result
 
+def get_by_title():
+     title = request.args.get('title')
+     print("title", title)
+     collection = db.movie
+     result = collection.find({'title': title})
+     json_result = dumps(result)
+     return json_result
 
 @movie.route("/getAllMovies", methods=['GET'])
 def get_all_movies():

@@ -16,7 +16,14 @@
     text-align: center;
 }
 
-
+.movieImage{
+    float:left;
+    border-radius: 6px;
+}
+.showtimeImg{
+     margin-top: 10px;
+    margin-left: 10px;
+}
 .center {
     margin-top: 25px;
     display: flex;

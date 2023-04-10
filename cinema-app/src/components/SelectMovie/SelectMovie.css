@@ -40,3 +40,10 @@
 .cards{
     margin-left: 20px;
 }
+
+.showtimes {
+    gap: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}

@@ -9,6 +9,7 @@ import OrderSummary from './components/OrderSummary/OrderSummary';
 import AdminHomePage from './components/AdminHomePage/AdminHomePage';
 import EditProfile from './components/EditProfile/EditProfile';
 import AddPromotions from './components/AddPromotions/AddPromotions';
+import ManageUsers from './components/ManageUsers/ManageUsers';
 import OrderConfirmation from './components/OrderConfirmation/OrderConfirmation';
 import ManageMovies from './components/ManageMovies/ManageMovies';
 import CheckoutPage from './components/CheckoutPage/CheckoutPage';
@@ -24,6 +25,8 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import {getMoviesUtility} from './utility/getMoviesUtility.js';
 import {jwtLoginUtility} from './utility/jwtLoginUtility.js';
 import ScheduleMoviePage from './components/ScheduleMoviePage/ScheduleMoviePage';
+import AddOrRemoveMovie from './components/AddOrRemoveMovie/AddOrRemoveMovie';
+import RemoveMoviesPage from './components/RemoveMoviesPage/RemoveMoviesPage';
 import axios from 'axios';
 
 function App() {
@@ -34,6 +37,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
 
+
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
 
     setUser({
@@ -41,6 +45,7 @@ function App() {
     })
     
   }
+
 
   function setMoviesFunc(movies) {
     setMovies(movies)
@@ -116,7 +121,7 @@ function App() {
 
     <Route path = "/" element={
       <React.Fragment> 
-        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon} loggedIn={loggedIn}/>
+        <Homepage user = {user} showingNow = {showingNow} comingSoon = {comingSoon} loggedIn={loggedIn} setMovies={setMoviesFunc}/>
       </React.Fragment>
     }></Route>
 
@@ -158,7 +163,13 @@ function App() {
           </React.Fragment>
       }></Route>
 
-    <Route path = "/orderConfirmation" element={
+      <Route path = "/manageUsers" element={
+          <React.Fragment>
+            <ManageUsers/>
+          </React.Fragment>
+      }></Route>
+
+      <Route path = "/orderConfirmation" element={
           <React.Fragment>
             <OrderConfirmation/>
           </React.Fragment>
@@ -184,7 +195,7 @@ function App() {
 
     <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie movies={movies} setMovies={setMoviesFunc} />
+            <SelectMovie movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
           </React.Fragment>
       }></Route>
 
@@ -200,7 +211,7 @@ function App() {
           </React.Fragment>
       }></Route>
 
-      <Route path = "/selectShowtime" element={
+      <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
             <SelectShowtime/>
           </React.Fragment>
@@ -242,10 +253,21 @@ function App() {
 
 <Route path = "/scheduleMovie/:movie" element={
     <React.Fragment>
-          <ScheduleMoviePage showingNow = {showingNow} comingSoon = {comingSoon}/>
+          <ScheduleMoviePage showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
 
+  <Route path = "/addOrRemoveMovie/:movie" element={
+    <React.Fragment>
+          <AddOrRemoveMovie/>
+    </React.Fragment>
+      }></Route>
+
+<Route path = "/removeMovie/:movie" element={
+    <React.Fragment>
+          <RemoveMoviesPage showingNow = {showingNow}/>
+    </React.Fragment>
+      }></Route>
     </Routes>
 
     
