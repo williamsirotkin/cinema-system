@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-export default function ManageUsers() {
+export default function ManageUsers(props) {
 
 
     const [users, setUsers] = useState([]);
@@ -44,7 +44,7 @@ export default function ManageUsers() {
     //     console.log('FAILED...', error);
     //   });
     // }
-
+    if (props.user.admin) {
   return (
       <div className = "movieCard">
           <br></br>
@@ -76,6 +76,11 @@ export default function ManageUsers() {
           </Card>
       </div>
   );
+                      } else {
+                        return (
+                            <h1> You are not authorized to view this page </h1>
+                        )
+                      }
 
 }
 
