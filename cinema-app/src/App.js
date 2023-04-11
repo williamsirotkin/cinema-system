@@ -37,7 +37,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
   const [seats,setSeats] = useState([])
-  const [seatsSelected,setSeatSelected] = useState('')
+  const [seatsSelected,setSeatSelected] = useState()
 
 
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {

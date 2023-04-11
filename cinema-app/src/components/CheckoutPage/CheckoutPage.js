@@ -15,9 +15,15 @@ export default function CheckoutPage(props) {
     setCardInfo(cardInfo)
 
   }
-  // useEffect(()=>{
-  //   console.log(props)
-  // },[])
+  let display;
+  if(props.seats){
+    display = props.seats.join(",")
+  }else{
+    display = ""
+  }
+  useEffect(()=>{
+    console.log(props)
+  },[])
 
  
   return (
@@ -28,7 +34,7 @@ export default function CheckoutPage(props) {
        <div className='movieInfo'>
        <h1 className='movieTitle'>Parasite</h1>
        <p class="subtitle">Thursday 16 February at 11:20 pm <br></br><b>E-cinema 4</b></p>
-       <h4>Screen: 10<br></br>Seats: {props.seats.join(",")}</h4>
+       <h4>Screen: 10<br></br>Seats: {display}</h4>
        </div>
     
     </div>
