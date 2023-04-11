@@ -1,5 +1,6 @@
 import React, { Children, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom'
 import './SelectSeats.css';
 
 const SelectedSeats = (props) => {
@@ -7,11 +8,25 @@ const SelectedSeats = (props) => {
   const [disabledSeats, setDisabledSeats] = useState([])
   const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
   const [length, setLength] = useState(0)
+  const [errorMsg, setErrorMsg] = useState("")
+
+  let nav = useNavigate()
 
   useEffect(() => {
     const seatVal = props.adult + props.child + props.senior
     setLength(seatVal)
   }, [])
+  const handleSubmit = () =>{
+    if (selectedSeats.length != length){
+      setErrorMsg("Please select the appropiate number of tickets you chose")
+    }else{
+      nav('/checkoutPage',{replace:"true"})
+      
+    }
+  }
+  useEffect(()=>{
+    setErrorMsg("")
+  },[selectedSeats.length])
 
   const handleSeatClick = async (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
@@ -35,7 +50,6 @@ const SelectedSeats = (props) => {
 
   const renderSeat = (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
-    //const isDisabled = Math.random() < 0.3;
     let isDisabled;
     if (disabledSeats) {
       isDisabled = disabledSeats.includes(seatNumber) || takenSeats.includes(seatNumber)
@@ -88,12 +102,13 @@ const SelectedSeats = (props) => {
         <Col>
           <div className="selected-seats">
             <h3>Your selected seats</h3>
+            <h3 className='error'>{errorMsg}</h3>
             {selectedSeats.length === 0 ? <p>No seats selected.</p> : (
               <ul>
                 {selectedSeats.map(seat => <li key={seat}>Seat {seat}</li>)}
               </ul>
             )}
-            <Button href = "/orderSummary" variant="primary"> Select Seats </Button>
+            <Button variant="primary" onClick={handleSubmit}> Select Seats </Button>
           </div>
         </Col>
       </Row>
