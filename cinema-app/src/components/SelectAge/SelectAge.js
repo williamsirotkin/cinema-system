@@ -22,7 +22,7 @@ export default function SelectAge(props) {
     }
   }
   const handleSubmit =() =>{
-    props.setSeats(childTickets,adultTickets,seniorTickets)
+    props.setSeats(adultTickets,childTickets,seniorTickets)
   }
   
 

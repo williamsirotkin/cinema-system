@@ -21,9 +21,9 @@ export default function CheckoutPage(props) {
   }else{
     display = ""
   }
-  // useEffect(()=>{
-  //   console.log(props)
-  // },[])
+  useEffect(()=>{
+    console.log(props)
+  },[])
 
  
   return (
