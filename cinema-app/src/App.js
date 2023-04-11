@@ -203,25 +203,25 @@ function App() {
 
     <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
+            <SelectMovie user = {user}  movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/showingNow" element={
           <React.Fragment>
-            <SelectMovie movies={showingNow} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/comingSoon" element={
           <React.Fragment>
-            <SelectMovie movies={comingSoon} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={comingSoon} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
       <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
-            <SelectShowtime/>
+            <SelectShowtime user = {user} />
           </React.Fragment>
       }></Route>
 
@@ -243,7 +243,7 @@ function App() {
       }></Route>
       <Route path = "/editmovie" element={
           <React.Fragment>
-            <EditMovie/>
+            <EditMovie user = {user}/>
           </React.Fragment>
       }></Route>
 
@@ -261,19 +261,19 @@ function App() {
 
 <Route path = "/scheduleMovie/:movie" element={
     <React.Fragment>
-          <ScheduleMoviePage showingNow = {showingNow}/>
+          <ScheduleMoviePage user = {user} showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
 
   <Route path = "/addOrRemoveMovie/:movie" element={
     <React.Fragment>
-          <AddOrRemoveMovie/>
+          <AddOrRemoveMovie user = {user} />
     </React.Fragment>
       }></Route>
 
 <Route path = "/removeMovie/:movie" element={
     <React.Fragment>
-          <RemoveMoviesPage showingNow = {showingNow}/>
+          <RemoveMoviesPage user = {user} showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
     </Routes>

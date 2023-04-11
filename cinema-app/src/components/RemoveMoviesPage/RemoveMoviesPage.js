@@ -149,7 +149,9 @@ const RemoveMoviesPage = (props) => {
         { value: "room_five", label: "Room 5"}
       ]
     
-  
+      if (!props.user.admin) {
+        return <h1> You are not authorized to view this page </h1>
+      }
   
     let showRoomDisplay = 
       <div className="container">
