@@ -4,6 +4,7 @@ import './SelectSeats.css';
 
 const SelectedSeats = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [disabledSeats, setDisabledSetas] = useState([])
 
   const handleSeatClick = (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
