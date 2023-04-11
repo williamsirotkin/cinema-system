@@ -1,22 +1,46 @@
-import React, { useState } from 'react';
+import React, { Children, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
 import './SelectSeats.css';
 
-const SelectedSeats = () => {
+const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [disabledSeats, setDisabledSeats] = useState([])
+  const [length, setLength] = useState(0)
 
-  const handleSeatClick = (seatNumber) => {
+  useEffect(() => {
+    const seatVal = props.adult + props.child + props.senior
+    setLength(seatVal)
+  }, [])
+
+  const handleSeatClick = async (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
       setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
     } else {
       setSelectedSeats([...selectedSeats, seatNumber]);
+    }
+    if (selectedSeats.length == length - 1) {
+      let temp = []
+      for (let i =1 ; i <= 38; i++) {
+        if (!selectedSeats.includes(i) && i != seatNumber) {
+          temp.push(i)
+        }
+      }
+      setDisabledSeats(temp)
+      console.log(temp)
+    } else {
+      setDisabledSeats([1, 2, 3])
     }
   };
 
   const renderSeat = (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
     //const isDisabled = Math.random() < 0.3;
-    const isDisabled = 0
+    let isDisabled;
+    if (disabledSeats) {
+      isDisabled = disabledSeats.includes(seatNumber)
+    } else {
+      isDisabled = true
+    }
 
     return (
       <Button

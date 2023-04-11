@@ -227,7 +227,7 @@ function App() {
 
         <Route path = "/selectSeats" element={
           <React.Fragment>
-            <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]}/>
+            <SelectSeats adult ={seats[0]} child={seats[1]} senior={seats[2]}/>
           </React.Fragment>
       }></Route>
 
