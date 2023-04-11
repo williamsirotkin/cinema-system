@@ -5,6 +5,7 @@ import './SelectSeats.css';
 const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [disabledSeats, setDisabledSeats] = useState([])
+  const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
   const [length, setLength] = useState(0)
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const SelectedSeats = (props) => {
     //const isDisabled = Math.random() < 0.3;
     let isDisabled;
     if (disabledSeats) {
-      isDisabled = disabledSeats.includes(seatNumber)
+      isDisabled = disabledSeats.includes(seatNumber) || takenSeats.includes(seatNumber)
     } else {
       isDisabled = true
     }
