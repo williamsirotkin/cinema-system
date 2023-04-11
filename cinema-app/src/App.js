@@ -259,7 +259,7 @@ function App() {
 
   <Route path = "/addOrRemoveMovie/:movie" element={
     <React.Fragment>
-          <AddOrRemoveMovie/>
+          <AddOrRemoveMovie user = {user} />
     </React.Fragment>
       }></Route>
 

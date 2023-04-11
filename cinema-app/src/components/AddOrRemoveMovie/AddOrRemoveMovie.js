@@ -13,8 +13,11 @@ import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
 import { Link } from 'react-router-dom'
 import Select from 'react-select';
 
-export default function AddOrRemoveMovie() {
+export default function AddOrRemoveMovie(props) {
 let params = useParams()  
+if (!props.user.admin) {
+  return <h1> You are not authorized to view this page </h1>
+}
   return (
     <div className="container">
         <h1 className='register'>Schedule {params.movie} </h1>
