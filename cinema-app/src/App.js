@@ -195,25 +195,25 @@ function App() {
 
     <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
+            <SelectMovie user = {user}  movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/showingNow" element={
           <React.Fragment>
-            <SelectMovie movies={showingNow} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/comingSoon" element={
           <React.Fragment>
-            <SelectMovie movies={comingSoon} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={comingSoon} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
       <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
-            <SelectShowtime/>
+            <SelectShowtime user = {user} />
           </React.Fragment>
       }></Route>
 

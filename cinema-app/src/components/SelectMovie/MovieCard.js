@@ -9,6 +9,7 @@ import './SelectMovie.css'
 export default function MovieCard(data) {
   const [showTrailer, setShowTrailer] = useState(false)
 
+
   function embedLink(link) {
     let beginLink = "https://www.youtube.com";
     let middleLink = "/embed/"
@@ -24,10 +25,11 @@ export default function MovieCard(data) {
    }
 
    let selectShowtime;
-   if (!data.admin) {
+   if (!data.admin && data.user) {
     selectShowtime = <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
+   } else if (!data.user) {
+    selectShowtime = <Link to  = {`/login`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
    }
-
   return (
     <div className='cards'>
         <Card className="text-center" style={{ width: '20.5rem'}}>

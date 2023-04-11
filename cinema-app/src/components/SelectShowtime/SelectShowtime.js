@@ -9,7 +9,7 @@ import { getDatesByTitle } from '../../utility/getDatesByTitle';
 
 
 
-const SelectShowtimes = () => {
+const SelectShowtimes = (props) => {
   const {movieTitle} = useParams();
   const [length,setLength] = useState(0)
   const [finalSchedule,setFinalSchedule] = useState([{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
@@ -143,7 +143,7 @@ console.log(finalSchedule)
     }
   };
  
-
+  if (props.user.admin) {
   return (
     <div className='box'>
 
@@ -169,8 +169,12 @@ console.log(finalSchedule)
       </div>
     </div>
   );
+} else {
+  return (
+    <h1> You are not authorized to view this page </h1>
+  )
+}
 };
-
 function formatTime(time) {
   let temp = parseInt(time.substring(0, 2))
   if (temp > 12) {
