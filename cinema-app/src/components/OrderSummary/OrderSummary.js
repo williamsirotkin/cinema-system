@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import {Image, Form } from 'react-bootstrap';
 import './OrderSummary.css'
 import React, { useState } from 'react';
 import { round } from 'lodash';

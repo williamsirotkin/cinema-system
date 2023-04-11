@@ -21,7 +21,7 @@ const SelectedSeats = (props) => {
       setErrorMsg("Please select the appropiate number of tickets you chose")
     }else{
       props.handleSeatsSelected(selectedSeats)
-      nav('/checkoutPage',{replace:"true"})
+      nav('/orderSummary',{replace:"true"})
       
     }
   }
