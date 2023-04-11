@@ -37,6 +37,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
   const [seats,setSeats] = useState([])
+  const [seatsSelected,setSeatSelected] = useState('')
 
 
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
@@ -48,6 +49,10 @@ function App() {
   }
   const setSeatAmount = (childSeats,adultSeats,seniorSeats) => {
     setSeats([childSeats,adultSeats,seniorSeats])
+    
+  }
+  const handleSeatsSelected = (seatsSelected) => {
+    setSeatSelected(seatsSelected)
     
   }
   // useEffect(()=>{
@@ -191,7 +196,7 @@ function App() {
 
       <Route path = "/checkoutPage" element={
           <React.Fragment>
-            <CheckoutPage/>
+            <CheckoutPage seats={seatsSelected} adult ={seats[0]} child={seats[1]} senior={seats[2]}/>
           </React.Fragment>
       }></Route>
 
@@ -227,7 +232,7 @@ function App() {
 
         <Route path = "/selectSeats" element={
           <React.Fragment>
-            <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]}/>
+            <SelectSeats adult ={seats[0]} child={seats[1]} senior={seats[2]} handleSeatsSelected={handleSeatsSelected}/>
           </React.Fragment>
       }></Route>
 
