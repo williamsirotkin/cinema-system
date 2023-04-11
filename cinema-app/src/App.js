@@ -159,13 +159,13 @@ function App() {
       
       <Route path = "/addPromotions" element={
           <React.Fragment>
-            <AddPromotions/>
+            <AddPromotions user = {user} />
           </React.Fragment>
       }></Route>
 
       <Route path = "/manageUsers" element={
           <React.Fragment>
-            <ManageUsers/>
+            <ManageUsers user = {user} />
           </React.Fragment>
       }></Route>
 
@@ -177,7 +177,7 @@ function App() {
 
       <Route path = "/manageMovies" element={
           <React.Fragment>
-            <ManageMovies movies={movies} setMovies={setMoviesFunc}/>
+            <ManageMovies user = {user} movies={movies} setMovies={setMoviesFunc}/>
           </React.Fragment>
       }></Route>
 

@@ -9,7 +9,7 @@ import axios from 'axios';
 import emailjs from '@emailjs/browser';
 
 
-export default function AddPromotions() {
+export default function AddPromotions(props) {
 
     //let nav = useNavigate();
     const [promoName, setPromoName] = useState('');
@@ -91,7 +91,7 @@ export default function AddPromotions() {
         emails.forEach(sendEmail)
         console.log(emails);
       }, [emails]);
-
+      if (props.user.admin) {
   return (
       <div className = "movieCard">
           <br></br>
@@ -178,6 +178,11 @@ export default function AddPromotions() {
           </Card>
       </div>
   );
+                    } else {
+                        return (
+                            <h1> You are not authorized to view this page </h1>
+                        )
+                    }
 
 }
 
