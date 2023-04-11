@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import EditMovieCard from './EditMovieCard';
 import { getAllMovies } from '../../utility/getAllMoviesUtility';
 import Button from 'react-bootstrap/Button';
+import { BsPersonPlus } from 'react-icons/bs';
 
 async function handleGetAllMovies(setMovies, details) {
   let movies = await getAllMovies(details)
@@ -37,9 +38,15 @@ export default function ManageMovies(props) {
   } else {
     display = <div> <h1> No Movies Available</h1></div>
   }
+  if (props.user.admin) {
   return (
     display
   )
+  } else {
+    return (
+      <h1> You are not authorized to view this page </h1>
+    )
+  }
 }
 
 

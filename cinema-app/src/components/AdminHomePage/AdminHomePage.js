@@ -4,6 +4,7 @@ import { Card, Button } from "react-bootstrap";
 import './AdminHomePage.css'
 
 export default function AdminHomePage(props) {
+  if (props.user.admin) {
   return (
     <div className = "admin-center">
          <div className='homepageTitles'> 
@@ -19,4 +20,9 @@ export default function AdminHomePage(props) {
         </div>
     </div>
   )
+  } else {
+    return (
+      <h1> You are not authorized to view this page </h1>
+    )
+  }
 }
