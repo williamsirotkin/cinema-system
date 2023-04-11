@@ -235,7 +235,7 @@ function App() {
       }></Route>
       <Route path = "/editmovie" element={
           <React.Fragment>
-            <EditMovie/>
+            <EditMovie user = {user}/>
           </React.Fragment>
       }></Route>
 

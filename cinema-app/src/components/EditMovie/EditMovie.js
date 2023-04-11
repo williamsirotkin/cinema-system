@@ -4,7 +4,7 @@ import {createMovie} from '../../utility/createMovieUtility.js'
 import './EditMovie.css'
 import {useNavigate} from 'react-router-dom'
 
-const AddMovieForm = () => {
+const AddMovieForm = (props) => {
   const [title, setTitle] = useState('');
   const [director, setDirector] = useState('');
   const [image, setImage] = useState('');
@@ -70,6 +70,9 @@ const handleCheckboxChange = (event) => {
   }
 };
 
+if (!props.user.admin) {
+  return <h1> You are not authorized to view this page </h1>
+}
 
   return (
     <Container>
