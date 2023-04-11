@@ -253,7 +253,7 @@ function App() {
 
 <Route path = "/scheduleMovie/:movie" element={
     <React.Fragment>
-          <ScheduleMoviePage showingNow = {showingNow}/>
+          <ScheduleMoviePage user = {user} showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
 
