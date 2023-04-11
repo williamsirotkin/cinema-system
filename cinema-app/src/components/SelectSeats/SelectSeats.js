@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
+import { getTakenSeatsUtility } from '../../utility/getTakenSeatsUtility';
 import './SelectSeats.css';
 
-const SelectedSeats = () => {
+const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [takenSeats, setTakenSeats] = useState([]);
 
   const handleSeatClick = (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
@@ -12,11 +14,18 @@ const SelectedSeats = () => {
       setSelectedSeats([...selectedSeats, seatNumber]);
     }
   };
+  useEffect(()=> {
+    getTaken()
+  },[])
+
+  async function getTaken() {
+    setTakenSeats(await getTakenSeatsUtility(props.room, props.showtime))
+  }
 
   const renderSeat = (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
-    //const isDisabled = Math.random() < 0.3;
-    const isDisabled = 0
+    const isDisabled = takenSeats.includes(seatNumber)
+    //let disabledSeats = await getAvailableSeatsUtility(props.room, props.showtime)
 
     return (
       <Button

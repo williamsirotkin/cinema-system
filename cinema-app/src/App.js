@@ -36,6 +36,8 @@ function App() {
   const [comingSoon, setComingSoon] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
+  const [movieRoom, setMovieRoom] = useState('')
+  const [movieShowtime, setMovieShowtime] = useState('')
   const [seats,setSeats] = useState([])
 
 
@@ -53,6 +55,14 @@ function App() {
   // useEffect(()=>{
   //   console.log(seats)
   // },[seats])
+
+  function setMovieRoomFunc(room) {
+    setMovieRoom(room)
+  }
+
+  function setMovieShowtimeFunc(showtime) {
+    setMovieShowtime(showtime)
+  }
 
 
   function setMoviesFunc(movies) {
@@ -221,19 +231,19 @@ function App() {
 
       <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
-            <SelectShowtime user = {user} />
+            <SelectShowtime user = {user} setMovieRoomFunc = {setMovieRoomFunc} setMovieShowtimeFunc = {setMovieShowtimeFunc} />
           </React.Fragment>
       }></Route>
 
         <Route path = "/selectSeats" element={
           <React.Fragment>
-            <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]}/>
+            <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]} room = {movieRoom} showtime = {movieShowtime}/>
           </React.Fragment>
       }></Route>
 
         <Route path = "/selectAges" element={
           <React.Fragment>
-            <SelectAge setSeats ={setSeatAmount}/>
+            <SelectAge setSeats ={setSeatAmount} />
           </React.Fragment>
       }></Route>
       <Route path = "/signup" element={
