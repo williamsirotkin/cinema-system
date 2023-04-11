@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 //should maybe be changed to decide how many tickets per age and then choose the seats rather than choose age after choosing the seats already
-export default function SelectAge() {
+export default function SelectAge(props) {
   const[childTickets, setChildTickets] = useState(0)
   const[adultTickets, setAdultTickets] = useState(0)
   const[seniorTickets, setSeniorTickets] = useState(0)
@@ -21,6 +21,10 @@ export default function SelectAge() {
       setSeniorTickets(Math.max(seniorTickets + change, 0))
     }
   }
+  const handleSubmit =() =>{
+    props.setSeats(childTickets,adultTickets,seniorTickets)
+  }
+  
 
   return (
     <div className = "select-ages-page">
@@ -53,7 +57,7 @@ export default function SelectAge() {
     </div> 
     <br></br>
     <br></br>
-    <Link className = "select-ages" to  = "/selectSeats"><Button variant="dark"> Choose seats </Button></Link>
+    <Link className = "select-ages" to  = "/selectSeats"><Button variant="dark" onClick={handleSubmit}> Choose seats </Button></Link>
       </div>
   )
 }

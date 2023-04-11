@@ -27,7 +27,7 @@ const ScheduleMoviePage = (props) => {
   const [isSubmit, setIsSubmit] = useState(false)
 
   useEffect(() => setFormErrors(validate(showRoom)), []) 
-  
+
   function getIDByTitle() {
     for (let i = 0; i < props.showingNow.length; i++) {
       if (props.showingNow[i].title == params.movie) {
@@ -35,6 +35,7 @@ const ScheduleMoviePage = (props) => {
       }
     }
   }
+
 
   function convertShowTimesToObject(showTimes) {
     console.log(showTimes.schedule)
@@ -155,7 +156,10 @@ const ScheduleMoviePage = (props) => {
       { value: "room_five", label: "Room 5"}
     ]
   
-
+    if (!props.user.admin) {
+      return <h1> You are not authorized to view this page </h1>
+    }
+    
 
   let showRoomDisplay = 
     <div className="container">

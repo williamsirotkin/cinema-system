@@ -15,7 +15,9 @@ const SelectedSeats = () => {
 
   const renderSeat = (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
-    const isDisabled = Math.random() < 0.3;
+    //const isDisabled = Math.random() < 0.3;
+    const isDisabled = 0
+
     return (
       <Button
         key={seatNumber}

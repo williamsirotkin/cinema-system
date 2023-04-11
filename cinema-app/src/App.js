@@ -36,6 +36,7 @@ function App() {
   const [comingSoon, setComingSoon] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState('');
+  const [seats,setSeats] = useState([])
 
 
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
@@ -45,6 +46,13 @@ function App() {
     })
     
   }
+  const setSeatAmount = (childSeats,adultSeats,seniorSeats) => {
+    setSeats([childSeats,adultSeats,seniorSeats])
+    
+  }
+  // useEffect(()=>{
+  //   console.log(seats)
+  // },[seats])
 
 
   function setMoviesFunc(movies) {
@@ -195,37 +203,37 @@ function App() {
 
     <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
+            <SelectMovie user = {user}  movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/showingNow" element={
           <React.Fragment>
-            <SelectMovie movies={showingNow} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/comingSoon" element={
           <React.Fragment>
-            <SelectMovie movies={comingSoon} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={comingSoon} setMovies={setMoviesFunc} />
           </React.Fragment>
       }></Route>
 
       <Route path = "/selectShowtime/:movieTitle" element={
           <React.Fragment>
-            <SelectShowtime/>
+            <SelectShowtime user = {user} />
           </React.Fragment>
       }></Route>
 
         <Route path = "/selectSeats" element={
           <React.Fragment>
-            <SelectSeats/>
+            <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]}/>
           </React.Fragment>
       }></Route>
 
         <Route path = "/selectAges" element={
           <React.Fragment>
-            <SelectAge/>
+            <SelectAge setSeats ={setSeatAmount}/>
           </React.Fragment>
       }></Route>
       <Route path = "/signup" element={
@@ -235,7 +243,7 @@ function App() {
       }></Route>
       <Route path = "/editmovie" element={
           <React.Fragment>
-            <EditMovie/>
+            <EditMovie user = {user}/>
           </React.Fragment>
       }></Route>
 
@@ -253,19 +261,19 @@ function App() {
 
 <Route path = "/scheduleMovie/:movie" element={
     <React.Fragment>
-          <ScheduleMoviePage showingNow = {showingNow}/>
+          <ScheduleMoviePage user = {user} showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
 
   <Route path = "/addOrRemoveMovie/:movie" element={
     <React.Fragment>
-          <AddOrRemoveMovie/>
+          <AddOrRemoveMovie user = {user} />
     </React.Fragment>
       }></Route>
 
 <Route path = "/removeMovie/:movie" element={
     <React.Fragment>
-          <RemoveMoviesPage showingNow = {showingNow}/>
+          <RemoveMoviesPage user = {user} showingNow = {showingNow}/>
     </React.Fragment>
       }></Route>
     </Routes>
