@@ -9,6 +9,7 @@ const SelectedSeats = (props) => {
   const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
   const [length, setLength] = useState(0)
   const [errorMsg, setErrorMsg] = useState("")
+  const [disabledSeats, setDisabledSetas] = useState([])
 
   let nav = useNavigate()
 
