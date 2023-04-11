@@ -143,7 +143,7 @@ console.log(finalSchedule)
     }
   };
  
-  if (props.user.admin) {
+  if (props.user) {
   return (
     <div className='box'>
 
