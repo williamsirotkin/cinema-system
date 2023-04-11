@@ -20,6 +20,7 @@ const SelectedSeats = (props) => {
     if (selectedSeats.length != length){
       setErrorMsg("Please select the appropiate number of tickets you chose")
     }else{
+      props.handleSeatsSelected(selectedSeats)
       nav('/checkoutPage',{replace:"true"})
       
     }
@@ -42,7 +43,6 @@ const SelectedSeats = (props) => {
         }
       }
       setDisabledSeats(temp)
-      console.log(temp)
     } else {
       setDisabledSeats([1, 2, 3])
     }
