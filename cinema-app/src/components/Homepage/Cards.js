@@ -65,7 +65,6 @@ export default function Cards(data) {
               <Accordion.Item eventKey="0">
                 <AccordionHeader> Genre </AccordionHeader>
                   <Accordion.Body>
-                    console.log({data.genre})
                     {data.genre.join(", ")}
                   </Accordion.Body>
               </Accordion.Item>
