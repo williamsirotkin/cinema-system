@@ -214,7 +214,7 @@ function App() {
 
 <Route path = "/selectMovie/showingNow" element={
           <React.Fragment>
-            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc}loggedIn={loggedIn}/>
           </React.Fragment>
       }></Route>
 
