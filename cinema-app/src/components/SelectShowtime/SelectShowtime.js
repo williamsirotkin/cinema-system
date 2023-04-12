@@ -148,7 +148,7 @@ console.log(finalSchedule)
     <div className='box'>
 
       <div className='showtimeImg'> <Card.Img class = 'movieImage' variant="top" src={movieImg} /></div>
-      <h2 className = "center"><strong> Select Showtime For {movieTitle} </strong></h2>
+      <h2 className = "center"><strong>{movieTitle} </strong></h2>
       <br></br>
       <div className = "center" >
       <Button variant="outline-danger" onClick={decrementSelectedDay}> Previous Day </Button>
