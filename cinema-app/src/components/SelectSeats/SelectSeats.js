@@ -7,15 +7,33 @@ const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [disabledSeats, setDisabledSeats] = useState([])
   const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
-  const [length, setLength] = useState(0)
+  //const [length, setLength] = useState(0)
   const [errorMsg, setErrorMsg] = useState("")
+  const [length, setLength] = useState(localStorage.getItem('length') || props.adult + props.child + props.senior);
+  
+  console.log("bug")
+  console.log(length)
 
   let nav = useNavigate()
 
   useEffect(() => {
-    const seatVal = props.adult + props.child + props.senior
-    setLength(seatVal)
-  }, [])
+    // Calculate the new value of length based on props
+    const newLength = (props.adult || 0) + (props.child || 0) + (props.senior || 0);
+    console.log("newLength");
+    console.log(newLength);
+    console.log("length");
+    console.log(length);
+    
+    // Update length only if it has changed
+
+    if (newLength !== length && newLength !== 0) {
+      setLength(newLength);
+      localStorage.setItem('length', newLength);
+      console.log("hello")
+    }
+
+  }, [props.adult, props.child, props.senior]); // Only run effect when these props change
+  
   const handleSubmit = () =>{
     if (selectedSeats.length != length){
       setErrorMsg("Please select the appropiate number of tickets you chose")
