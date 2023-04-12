@@ -19,17 +19,14 @@ const SelectedSeats = (props) => {
   useEffect(() => {
     // Calculate the new value of length based on props
     const newLength = (props.adult || 0) + (props.child || 0) + (props.senior || 0);
-    console.log("newLength");
-    console.log(newLength);
-    console.log("length");
-    console.log(length);
-    
+    console.log("newLength: " + newLength);
+    console.log("length: " + length);
     // Update length only if it has changed
 
     if (newLength !== length && newLength !== 0) {
       setLength(newLength);
-      localStorage.setItem('length', newLength);
       console.log("hello")
+      localStorage.setItem('length', newLength);
     }
 
   }, [props.adult, props.child, props.senior]); // Only run effect when these props change
