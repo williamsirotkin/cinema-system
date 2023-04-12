@@ -34,7 +34,7 @@ const SelectedSeats = (props) => {
 
   }, [props.adult, props.child, props.senior]); // Only run effect when these props change
   
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     if (selectedSeats.length != length){
       setErrorMsg("Please select the appropiate number of tickets you chose")
     }else{
