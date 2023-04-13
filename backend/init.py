@@ -11,7 +11,7 @@ def create_app():
         from routes.movie_routes import movie
         from routes.promo_routes import promo
         from routes.schedule_routes import schedule
-        from routes.seat_routes import seat
+        from routes.seats_routes import seat
         
         app.register_blueprint(profile)
         app.register_blueprint(movie)
