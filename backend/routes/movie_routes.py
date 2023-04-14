@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, request, Response, jsonify
 import json, os
 from db import db
+from flask_cors import CORS
 from bson import ObjectId
 from bson import json_util
 from datetime import datetime
@@ -269,8 +270,14 @@ def get_movies(showing):
 @movie.route('/api/getSeatIndices', methods=['POST'])
 def get_false_seat_indices():
     data = request.json  # Get the JSON data from the request
+    input_format = "%a, %d %b %Y %H:%M:%S %Z"
+    date_object = datetime.strptime(data['showtime'], input_format)
+    output_format = "%Y-%m-%dT%H:%M:%S.%f%z"
+    output_date_string = date_object.strftime(output_format)
+    output_date_string = output_date_string[:-3] + "+00:00"
+    showtime = output_date_string
+    print(data)
     room = data['room']  # Extract 'room' value from JSON
-    showtime = data['showtime']  # Extract 'showtime' value from JSON
     # Query your MongoDB collection using the room and showtime values
     collection = db[room]
     showtime = datetime.fromisoformat(showtime)
