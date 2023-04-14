@@ -1,17 +1,77 @@
-import React, { useState, useEffect} from 'react';
+
+import React, { Children, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
+import {useNavigate} from 'react-router-dom'
 import { getTakenSeatsUtility } from '../../utility/getTakenSeatsUtility';
 import './SelectSeats.css';
 
 const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [takenSeats, setTakenSeats] = useState([]);
+  const [disabledSeats, setDisabledSeats] = useState([])
+  const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
+  //const [length, setLength] = useState(0)
+  const [errorMsg, setErrorMsg] = useState("")
+  const [length, setLength] = useState(localStorage.getItem('length') || props.adult + props.child + props.senior);
+  
+  console.log("bug")
+  console.log(length)
 
-  const handleSeatClick = (seatNumber) => {
+  let nav = useNavigate()
+  
+  // useEffect(()=>{
+  //   (async()=>{
+  //     const result = await getTakenSeatsUtility(props.room, props.showtime)
+  //     console.log(result)
+  //     setTakenSeats(result)
+      
+  //   })();
+  // },[])
+
+  useEffect(() => {
+    // Calculate the new value of length based on props
+    const newLength = (props.adult || 0) + (props.child || 0) + (props.senior || 0);
+    console.log("newLength: " + newLength);
+    console.log("length: " + length);
+    // Update length only if it has changed
+
+    if (newLength !== length && newLength !== 0) {
+      setLength(newLength);
+      console.log("hello")
+      localStorage.setItem('length', newLength);
+    }
+
+  }, [props.adult, props.child, props.senior]); // Only run effect when these props change
+  
+  const handleSubmit = () =>{
+    if (selectedSeats.length != length){
+      setErrorMsg("Please select the appropiate number of tickets you chose")
+    }else{
+      props.handleSeatsSelected(selectedSeats)
+      nav('/orderSummary',{replace:"true"})
+      
+    }
+  }
+  useEffect(()=>{
+    setErrorMsg("")
+  },[selectedSeats.length])
+
+  const handleSeatClick = async (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
       setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
     } else {
       setSelectedSeats([...selectedSeats, seatNumber]);
+    }
+    if (selectedSeats.length == length - 1) {
+      let temp = []
+      for (let i =1 ; i <= 38; i++) {
+        if (!selectedSeats.includes(i) && i != seatNumber) {
+          temp.push(i)
+        }
+      }
+      setDisabledSeats(temp)
+    } else {
+      setDisabledSeats([1, 2, 3])
     }
   };
   useEffect(()=> {
@@ -72,12 +132,13 @@ const SelectedSeats = (props) => {
         <Col>
           <div className="selected-seats">
             <h3>Your selected seats</h3>
+            <h3 className='error'>{errorMsg}</h3>
             {selectedSeats.length === 0 ? <p>No seats selected.</p> : (
               <ul>
                 {selectedSeats.map(seat => <li key={seat}>Seat {seat}</li>)}
               </ul>
             )}
-            <Button href = "/orderSummary" variant="primary"> Select Seats </Button>
+            <Button variant="primary" onClick={handleSubmit}> Select Seats </Button>
           </div>
         </Col>
       </Row>

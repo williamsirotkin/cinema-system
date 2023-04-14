@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import RegistrationPage from '../Signup/Signup.js';
 import './RegistrationConfirmationPage.css'
 
 const RegistrationConfirmationPage = (props) => {
+  useEffect(()=>{
+    console.log(props)
+  },[])
   return (
     <Container className = 'container1'>
       <br></br>

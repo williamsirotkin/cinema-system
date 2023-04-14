@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link} from 'react-router-dom'
 import {Image, Form } from 'react-bootstrap';
 import './CheckoutPage.css'
@@ -8,13 +8,24 @@ import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "./CardForm";
 import Results from './Results';
 
-export default function CheckoutPage() {
+export default function CheckoutPage(props) {
   const [open, setOpen] = useState(false);
   const [cardInfo, setCardInfo] = useState('');
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
   }
+  let display;
+  if(props.seats){
+    display = props.seats.join(",")
+  }else{
+    display = ""
+  }
+  useEffect(()=>{
+    console.log(props)
+  },[])
+
+ 
   return (
     <div>
       <h1 className='checkoutHeader'>Checkout Page</h1>
@@ -23,7 +34,7 @@ export default function CheckoutPage() {
        <div className='movieInfo'>
        <h1 className='movieTitle'>Parasite</h1>
        <p class="subtitle">Thursday 16 February at 11:20 pm <br></br><b>E-cinema 4</b></p>
-       <h4>Screen: 10<br></br>Seats: F5, F6</h4>
+       <h4>Screen: 10<br></br>Seats: {display}</h4>
        </div>
     
     </div>
@@ -33,7 +44,7 @@ export default function CheckoutPage() {
       <Card.Body>
         <Card.Text>
         <div class="d-flex justify-content-between">
-        <p class="fs-5">Adult x2</p>
+        <p class="fs-5">Adult x{props.adult}</p>
         <p class="fs-5">$32.52</p>
         </div>
         <hr />
