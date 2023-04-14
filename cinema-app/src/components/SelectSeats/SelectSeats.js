@@ -9,7 +9,6 @@ const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [takenSeats, setTakenSeats] = useState([]);
   const [disabledSeats, setDisabledSeats] = useState([])
-  const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
   //const [length, setLength] = useState(0)
   const [errorMsg, setErrorMsg] = useState("")
   const [length, setLength] = useState(localStorage.getItem('length') || props.adult + props.child + props.senior);
@@ -40,10 +39,14 @@ const SelectedSeats = (props) => {
       console.log("hello")
       localStorage.setItem('length', newLength);
     }
+    if (!length){
+      nav('/')
+    }
 
   }, [props.adult, props.child, props.senior]); // Only run effect when these props change
   
   const handleSubmit = () =>{
+     console.log(selectedSeats.length)
     if (selectedSeats.length != length){
       setErrorMsg("Please select the appropiate number of tickets you chose")
     }else{
@@ -84,7 +87,10 @@ const SelectedSeats = (props) => {
 
   const renderSeat =  (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
-    const isDisabled = takenSeats.includes(seatNumber)
+    let isDisabled = takenSeats.includes(seatNumber)
+    if (selectedSeats.length == length && !selectedSeats.includes(seatNumber)) {
+      isDisabled = true
+    }
     //let disabledSeats = await getTakenSeatsUtility(props.room, props.showtime)
 
     return (
