@@ -162,7 +162,7 @@ function App() {
 
       <Route path = "/orderSummary" element={
           <React.Fragment>
-            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]}/>
+            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected}/>
           </React.Fragment>
       }></Route>
 
