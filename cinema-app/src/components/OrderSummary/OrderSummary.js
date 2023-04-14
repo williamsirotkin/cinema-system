@@ -95,6 +95,13 @@ function OrderSummary(props) {
         setTotal(total - round(tickets[i].price ,2));
       }
     }
+    let deletedType = ""
+    for (let i = 0; i < tickets.length; i++) {
+      if (tickets[i].id == id) {
+        deletedType = tickets[i].type
+      }
+    }
+    console.log(deletedType)
     const updatedTickets = tickets.filter(ticket =>
       ticket.id !== id
     );
@@ -109,7 +116,19 @@ function OrderSummary(props) {
       }
     });
 
-    props.setSeats(newArray)
+    props.setTickets(newArray)
+    if (deletedType == "Adult") {
+      console.log(props.adult, props.child, props.senior)
+      console.log(props.seats)
+      console.log(props.tickets)
+      props.setTickets(props.adult - 1, props.child, props.senior)
+    }
+    if (deletedType == "Child") {
+      props.setTickets(props.adult, props.child - 1, props.senior)
+    }
+    if (deletedType == "Senior") {
+      props.setTickets(props.adult, props.child, props.senior - 1)
+    }
     console.log(newArray)
   };
   if (tickets) {

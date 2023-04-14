@@ -16,7 +16,7 @@ export default function CheckoutPage(props) {
 
   }
   let display;
-  if(props.seats){
+  if(props.tickets){
     display = props.seats.join(",")
   }else{
     display = ""
@@ -44,7 +44,7 @@ export default function CheckoutPage(props) {
       <Card.Body>
         <Card.Text>
         <div class="d-flex justify-content-between">
-        <p class="fs-5">Adult x{props.adult}</p>
+        <p class="fs-5">Adult x{props.tickets[0]} Childx {props.tickets[1]} Seniorx {props.tickets[2]}</p>
         <p class="fs-5">$32.52</p>
         </div>
         <hr />

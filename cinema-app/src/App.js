@@ -39,6 +39,7 @@ function App() {
   const [movieRoom, setMovieRoom] = useState('')
   const [movieShowtime, setMovieShowtime] = useState('')
   const [seats,setSeats] = useState([])
+  const [tickets,setTickets] = useState([])
   const [seatsSelected,setSeatSelected] = useState()
 
 
@@ -49,14 +50,18 @@ function App() {
     })
     
   }
-  const setSeatAmount = (childSeats,adultSeats,seniorSeats) => {
-    setSeats([childSeats,adultSeats,seniorSeats])
+  const setSeatAmount = (adultSeats,childSeats, seniorSeats) => {
+    setSeats([adultSeats,childSeats,seniorSeats])
     
   }
   
   const setSeatsFunc = (someSeats) => {
     setSeats([someSeats])
     
+  }
+
+  const setTicketsFunc = (adult, child, senior) => {
+    setTickets([adult, child, senior])
   }
 
   const handleSeatsSelected = (seatsSelected) => {
@@ -168,7 +173,7 @@ function App() {
 
       <Route path = "/orderSummary" element={
           <React.Fragment>
-            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc}/>
+            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
           </React.Fragment>
       }></Route>
 
@@ -212,7 +217,7 @@ function App() {
 
       <Route path = "/checkoutPage" element={
           <React.Fragment>
-            <CheckoutPage seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]}/>
+            <CheckoutPage seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets}/>
           </React.Fragment>
       }></Route>
 
