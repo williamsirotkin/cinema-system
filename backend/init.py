@@ -11,11 +11,13 @@ def create_app():
         from routes.movie_routes import movie
         from routes.promo_routes import promo
         from routes.schedule_routes import schedule
+        from routes.seats_routes import seat
         
         app.register_blueprint(profile)
         app.register_blueprint(movie)
         app.register_blueprint(promo)
         app.register_blueprint(schedule)
+        app.register_blueprint(seat)
     return app
 
     

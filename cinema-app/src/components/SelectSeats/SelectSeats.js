@@ -1,3 +1,4 @@
+
 import React, { Children, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
@@ -6,6 +7,7 @@ import './SelectSeats.css';
 
 const SelectedSeats = (props) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [takenSeats, setTakenSeats] = useState([]);
   const [disabledSeats, setDisabledSeats] = useState([])
   const [takenSeats, setTakenSeats] = useState([1, 2, 16, 17, 18, 36,37])
   //const [length, setLength] = useState(0)
@@ -72,15 +74,18 @@ const SelectedSeats = (props) => {
       setDisabledSeats([1, 2, 3])
     }
   };
+  useEffect(()=> {
+    getTaken()
+  },[])
 
-  const renderSeat = (seatNumber) => {
+  async function getTaken() {
+    setTakenSeats(await getTakenSeatsUtility(props.room, props.showtime))
+  }
+
+  const renderSeat =  (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
-    let isDisabled;
-    if (disabledSeats) {
-      isDisabled = disabledSeats.includes(seatNumber) || takenSeats.includes(seatNumber)
-    } else {
-      isDisabled = true
-    }
+    const isDisabled = takenSeats.includes(seatNumber)
+    //let disabledSeats = await getTakenSeatsUtility(props.room, props.showtime)
 
     return (
       <Button

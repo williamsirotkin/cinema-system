@@ -1,9 +1,10 @@
 from flask import Flask, Blueprint, request, Response, jsonify
 import json, os
 from db import db
+from flask_cors import CORS
 from bson import ObjectId
 from bson import json_util
-import re
+from datetime import datetime
 from pymongo.collation import Collation
 from bson.json_util import dumps
 
@@ -265,5 +266,61 @@ def get_movies(showing):
 
     return json_result
 
-    
+
+@movie.route('/api/getSeatIndices', methods=['POST'])
+def get_false_seat_indices():
+    data = request.json  # Get the JSON data from the request
+    input_format = "%a, %d %b %Y %H:%M:%S %Z"
+    date_object = datetime.strptime(data['showtime'], input_format)
+    output_format = "%Y-%m-%dT%H:%M:%S.%f%z"
+    output_date_string = date_object.strftime(output_format)
+    output_date_string = output_date_string[:-3] + "+00:00"
+    showtime = output_date_string
+    print(data)
+    room = data['room']  # Extract 'room' value from JSON
+    # Query your MongoDB collection using the room and showtime values
+    collection = db[room]
+    showtime = datetime.fromisoformat(showtime)
+    document = collection.find_one({'showtime': showtime})
+    if document:
+        seats_available = document['seats_available']
+        false_indices = [i for i, x in enumerate(seats_available) if not x]  # Get indices of False values
+        if len(false_indices) > 0:
+            return {'false_indices': false_indices}
+        else:
+            return {'false_indices': [-1]}  # Return -1 if all seats are True
+    else:
+        return {'error': 'Document not found'}, 404  # Return error if document not found
+
+
+@movie.route('/updateSeats', methods=['POST'])
+def update_seats():
+    try:
+        # Parse request JSON
+        data = request.json
+        collection_name_str = data['collection_name']
+        showtime_str = data['showtime']
+        selected_seats = data['selected_seats']
+
+        # Convert showtime string to datetime
+        showtime = datetime.datetime.fromisoformat(showtime_str)
+
+        # Find the document in the collection
+        doc = db.collection_name_str.find_one({'showtime': showtime})
+
+        if doc:
+            # Update selected seats
+            seats_available = doc['seats_available']
+            for seat_index in selected_seats:
+                seats_available[seat_index] = False
+
+            # Update the document in the collection
+            db.collection_name_str.update_one({'_id': ObjectId(doc['_id']['$oid'])}, {'$set': {'seats_available': seats_available}})
+
+            return jsonify({'message': 'Seats updated successfully'}), 200
+        else:
+            return jsonify({'error': 'Document not found'}), 404
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import './SelectShowtime.css'
 import { Card, Button } from "react-bootstrap";
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getMovieSchedule } from '../../utility/getMovieScheduleUtility';
 import { searchMovieUtility } from '../../utility/searchMovieUtility';
 import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
@@ -10,6 +10,7 @@ import { getDatesByTitle } from '../../utility/getDatesByTitle';
 
 
 const SelectShowtimes = (props) => {
+  let nav = useNavigate()
   const {movieTitle} = useParams();
   const [length,setLength] = useState(0)
   const [finalSchedule,setFinalSchedule] = useState([{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},{day:"",times:[]},
@@ -81,9 +82,13 @@ useEffect(()=>{
           tempMap[result.schedule[i].showtime.substring(0, 11)] = []
 
         }
-        tempMap[result.schedule[i].showtime.substring(0, 11)].push(result.schedule[i].showtime.substring(17, 19))
+        tempMap[result.schedule[i].showtime.substring(0, 11)].push({
+          hours: result.schedule[i].showtime.substring(17, 19),
+          room: result.schedule[i].room_name,
+          showtime: result.schedule[i].showtime
+        })
       }
-      console.log(seen)
+      console.log(tempMap)
     }
     
     const reformattedData = [];
@@ -99,13 +104,18 @@ useEffect(()=>{
       // });
       reformattedData.push({
         day: `${dayName}, ${day}`,
-        times: times.map(time => (`${time} PM`))
+        times: times.map(time => ({
+          hours: `${time.hours} PM`, 
+          room: time.room,
+          showtime: time.showtime
+        }))
       });
     }
     let retArr = []
     for (let i = 0; i < reformattedData.length; i++) {
       let tempSet = new Set()
       let tempHourArr = []
+      console.log(reformattedData[0].times[0])
       for (let j = 0; j < reformattedData[i].times.length; j++) {
         if (!tempSet.has(reformattedData[i].times[j])) {
           tempHourArr.push(reformattedData[i].times[j])
@@ -142,6 +152,12 @@ console.log(finalSchedule)
     setSelectedDay(selectedDay - 1);
     }
   };
+
+  function handleTimeSelection(time) {
+    props.setMovieRoomFunc(time.room);
+    props.setMovieShowtimeFunc(time.showtime)
+    nav('/selectAges', {replace: true})
+  }
  
   if (props.user) {
   return (
@@ -163,7 +179,7 @@ console.log(finalSchedule)
         {finalSchedule[selectedDay].times.map((time) => (
           <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Button href = "/selectAges" variant="danger" key  = {time} size="lg" > {formatTime(time)} </Button>
+            <Button  onClick = {() => handleTimeSelection(time)} variant="danger" key  = {time} size="lg" > {formatTime(time.hours)} </Button>
           </div>
         ))}
       </div>
