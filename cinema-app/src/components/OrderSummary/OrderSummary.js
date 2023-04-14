@@ -1,21 +1,20 @@
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import {Image, Form } from 'react-bootstrap';
 import './OrderSummary.css'
 import React, { useState } from 'react';
 import { round } from 'lodash';
 
-function OrderSummary() {
+function OrderSummary(props) {
 
   var BOOKING_FEE_PERCENTAGE = 0.0962;
 
-  const[total, setTotal] = useState(38.97)
+  const[total, setTotal] = useState(props.adult * 13.99 + props.child * 10.99 + props.senior * 6.99)
 
   const [tickets, setTickets] = useState([
-    { id: 1, name: 'Ticket', type: "Child", price: 10.99},
-    { id: 2, name: 'Ticket', type: "Adult", price: 13.99},
-    { id: 3, name: 'Ticket', type: "Adult", price: 13.99},
+    // { id: 1, name: 'Ticket', type: "Child", price: 10.99},
+    // { id: 2, name: 'Ticket', type: "Adult", price: 13.99},
+    // { id: 3, name: 'Ticket', type: "Adult", price: 13.99},
   ]);
 
   const handleDelete = (id) => {

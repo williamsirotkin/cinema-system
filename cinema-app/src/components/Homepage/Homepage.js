@@ -13,6 +13,7 @@ async function handleGetAllMovies(setMovies) {
   setMovies(comingSoon)
 }
 
+
 export default function Homepage(props) {
     let nav = useNavigate()
 

@@ -152,7 +152,7 @@ function App() {
 
       <Route path = "/orderSummary" element={
           <React.Fragment>
-            <OrderSummary/>
+            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]}/>
           </React.Fragment>
       }></Route>
 
@@ -208,13 +208,13 @@ function App() {
 
     <Route path = "/selectMovie/filter/:filter" element={
           <React.Fragment>
-            <SelectMovie user = {user}  movies={movies} setMovies={setMoviesFunc} admin = {user.admin} />
+            <SelectMovie user = {user}  movies={movies} setMovies={setMoviesFunc} admin = {user.admin} loggedIn={loggedIn}/>
           </React.Fragment>
       }></Route>
 
 <Route path = "/selectMovie/showingNow" element={
           <React.Fragment>
-            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc} />
+            <SelectMovie user = {user} movies={showingNow} setMovies={setMoviesFunc}loggedIn={loggedIn}/>
           </React.Fragment>
       }></Route>
 
