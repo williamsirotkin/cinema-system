@@ -15,6 +15,15 @@ const SelectedSeats = (props) => {
   console.log(length)
 
   let nav = useNavigate()
+  
+  // useEffect(()=>{
+  //   (async()=>{
+  //     const result = await getTakenSeatsUtility(props.room, props.showtime)
+  //     console.log(result)
+  //     setTakenSeats(result)
+      
+  //   })();
+  // },[])
 
   useEffect(() => {
     // Calculate the new value of length based on props
