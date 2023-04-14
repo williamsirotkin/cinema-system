@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import './OrderSummary.css'
 import React, { useState, useEffect } from 'react';
 import { round } from 'lodash';
+import SelectedSeats from '../SelectSeats/SelectSeats';
 
 
 function OrderSummary(props) {
@@ -96,6 +97,18 @@ function OrderSummary(props) {
       ticket.id !== id
     );
     setTickets(updatedTickets);
+    let newArray = [...tickets].filter((ticket) => ticket.id !== id)
+    newArray = newArray.map(obj => {
+      if (id != obj.id)
+      {
+        return obj.seats
+      } else {
+        return -1
+      }
+    });
+
+    props.setSeats(newArray)
+    console.log(newArray)
   };
   if (tickets) {
     return (

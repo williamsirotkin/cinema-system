@@ -53,6 +53,12 @@ function App() {
     setSeats([childSeats,adultSeats,seniorSeats])
     
   }
+  
+  const setSeatsFunc = (someSeats) => {
+    setSeats([someSeats])
+    
+  }
+
   const handleSeatsSelected = (seatsSelected) => {
     setSeatSelected(seatsSelected)
     
@@ -162,7 +168,7 @@ function App() {
 
       <Route path = "/orderSummary" element={
           <React.Fragment>
-            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected}/>
+            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc}/>
           </React.Fragment>
       }></Route>
 
