@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './OrderSummary.css'
@@ -8,6 +9,7 @@ import SelectedSeats from '../SelectSeats/SelectSeats';
 
 
 function OrderSummary(props) {
+  let nav = useNavigate()
 
   let priceMap = {
     adult: 13.99,
@@ -156,9 +158,17 @@ function OrderSummary(props) {
         </Card.Text>
       </Card.Body>
       <br></br>
-      <Link to  = "/checkoutPage"><Button  className="confirmOrder" variant="primary" size="lg">
+      <Button  onClick = {() => {
+        let newArray = tickets
+        newArray = newArray.map(obj => {
+            return obj.seats
+        });
+    
+        props.setSeats(newArray)
+        nav('/checkoutPage')
+      }} className="confirmOrder" variant="primary" size="lg">
           Checkout 
-        </Button>{' '}</Link>
+        </Button>{' '}
     </Card>
       </div>
     );
