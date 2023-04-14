@@ -2,22 +2,23 @@ import axios from 'axios'
 
 async function getTakenSeatsUtility(room, showtime) {
     return await axios({
-        url: process.env.REACT_APP_BACKEND_URL + "/seats/getTaken", 
+        url: process.env.REACT_APP_BACKEND_URL + "/movie/api/getSeatIndicies", 
         data: {
             "room": room,
             "showtime": showtime
         },
-        method: "get",
+        method: "post",
         headers: {
             "Content-Type": "application/json"
         }
     })
     .then((response => {
         console.log(response)
-        return true
+        return response.data.false_indices
     }))
     .catch((error) => {
-        return false
+        console.log(error)
+        return []
     });
 }
 

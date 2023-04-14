@@ -271,11 +271,10 @@ def get_false_seat_indices():
     data = request.json  # Get the JSON data from the request
     room = data['room']  # Extract 'room' value from JSON
     showtime = data['showtime']  # Extract 'showtime' value from JSON
-
     # Query your MongoDB collection using the room and showtime values
     collection = db[room]
+    showtime = datetime.fromisoformat(showtime)
     document = collection.find_one({'showtime': showtime})
-
     if document:
         seats_available = document['seats_available']
         false_indices = [i for i, x in enumerate(seats_available) if not x]  # Get indices of False values

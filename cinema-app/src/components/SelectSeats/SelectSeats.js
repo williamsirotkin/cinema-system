@@ -22,10 +22,10 @@ const SelectedSeats = (props) => {
     setTakenSeats(await getTakenSeatsUtility(props.room, props.showtime))
   }
 
-  const renderSeat = (seatNumber) => {
+  const renderSeat =  (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
     const isDisabled = takenSeats.includes(seatNumber)
-    //let disabledSeats = await getAvailableSeatsUtility(props.room, props.showtime)
+    //let disabledSeats = await getTakenSeatsUtility(props.room, props.showtime)
 
     return (
       <Button
