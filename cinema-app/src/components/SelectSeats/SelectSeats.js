@@ -1,6 +1,7 @@
 import React, { Children, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom'
+import { getTakenSeatsUtility } from '../../utility/getTakenSeatsUtility';
 import './SelectSeats.css';
 
 const SelectedSeats = (props) => {
