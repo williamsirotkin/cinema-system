@@ -33,32 +33,6 @@ const SelectShowtimes = (props) => {
 {room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""},{room_name:"",showtime:""}])
   const [movieImg,setMovieImg] = useState([])
   // Define an array of days and their corresponding showtimes
-  const showtimes = [
-    {
-      day: "Monday, March 2nd",
-      times: ["10:00am", "1:00pm", "4:00pm", "7:00pm"]
-    },
-    {
-      day: "Tuesday, March 3rd",
-      times: ["11:00am", "2:00pm", "5:00pm", "8:00pm"]
-    },
-    {
-      day: "Wednesday, March 4th",
-      times: ["10:30am", "1:30pm", "4:30pm", "7:30pm"]
-    },
-    {
-      day: "Thursday, March 5th",
-      times: ["10:00am", "1:00pm", "4:00pm", "7:00pm"]
-    },
-    {
-      day: "Friday, March 6th",
-      times: ["11:00am", "2:00pm", "5:00pm", "8:00pm"]
-    },
-    {
-      day: "Saturday, March 7th",
-      times: ["10:30am", "1:30pm", "4:30pm", "7:30pm"]
-    }
-  ];
 
 
 useEffect(()=>{
