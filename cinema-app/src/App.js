@@ -120,6 +120,8 @@ function App() {
   }
   stuff()
   }, []);
+
+
   
   useEffect(() => {
     async function jwtStuff() {
@@ -171,7 +173,7 @@ function App() {
         </React.Fragment>
       }></Route>
 
-      <Route path = "/orderSummary" element={
+      <Route path = "/orderSummary/:movie" element={
           <React.Fragment>
             <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
           </React.Fragment>
@@ -215,9 +217,9 @@ function App() {
           </React.Fragment>
       }></Route>
 
-      <Route path = "/checkoutPage" element={
+      <Route path = "/checkoutPage/:movie" element={
           <React.Fragment>
-            <CheckoutPage seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets}/>
+            <CheckoutPage seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
           </React.Fragment>
       }></Route>
 
@@ -251,14 +253,14 @@ function App() {
           </React.Fragment>
       }></Route>
 
-        <Route path = "/selectSeats" element={
+        <Route path = "/selectSeats/:movie" element={
           <React.Fragment>
             <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]} room = {movieRoom} showtime = {movieShowtime} handleSeatsSelected={handleSeatsSelected}/>
 
           </React.Fragment>
       }></Route>
 
-        <Route path = "/selectAges" element={
+        <Route path = "/selectAges/:movie" element={
           <React.Fragment>
             <SelectAge setSeats ={setSeatAmount} />
           </React.Fragment>

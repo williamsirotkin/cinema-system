@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Link} from 'react-router-dom'
+import { Link, useParams} from 'react-router-dom'
 import {Image, Form } from 'react-bootstrap';
 import './CheckoutPage.css'
 import Button from 'react-bootstrap/Button';
@@ -7,10 +7,13 @@ import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "./CardForm";
 import Results from './Results';
+import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 export default function CheckoutPage(props) {
   const [open, setOpen] = useState(false);
   const [cardInfo, setCardInfo] = useState('');
+  const [movieImg, setMovieImg] = useState('')
+  let params = useParams()
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
@@ -20,6 +23,7 @@ export default function CheckoutPage(props) {
     let temp = props.seats.sort(function(a, b) {
       return a - b;
     })
+    console.log(props.showtime)
     console.log(temp[0].sort(function(a, b) {
       return a - b;
     }))
@@ -45,15 +49,22 @@ export default function CheckoutPage(props) {
   let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
   total = total.toFixed(2)
 
+  useEffect(()=>{
+    (async()=>{
+      const result = await getMovieByTitle(params.movie)
+      setMovieImg(result[0].photo_link)
+    })();
+  },[])
+
  
   return (
     <div>
       <h1 className='checkoutHeader'>Checkout Page</h1>
     <div className='header'>
-       <Image className='filmImg' src="https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg" fluid style={{ maxWidth: '300px', padding: '20px' }} />
+       <Image className='filmImg' src={movieImg} fluid style={{ maxWidth: '300px', padding: '20px' }} />
        <div className='movieInfo'>
-       <h1 className='movieTitle'>Parasite</h1>
-       <p class="subtitle">Thursday 16 February at 11:20 pm <br></br><b>E-cinema 4</b></p>
+       <h1 className='movieTitle'> {params.movie}</h1>
+       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br><b>E-cinema 4</b></p>
        <h4>Screen: 10<br></br>Seats: {display}</h4>
        </div>
     
@@ -120,4 +131,9 @@ export default function CheckoutPage(props) {
     </div>
     </div>
   )
+}
+
+function formatShowtime(showtime) {
+  // Edit this to look more user friendly
+  return showtime
 }
