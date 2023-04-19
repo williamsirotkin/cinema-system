@@ -131,8 +131,27 @@ export default function CheckoutPage(props) {
 
 function formatShowtime(showtime) {
   // Edit this to look more user friendly
+  console.log(showtime)
+  const dayOfWeek = showtime.substring(0,3)
+  const month = showtime.substring(8,11)
+  const day = showtime.substring(5,7)
+  const year = showtime.substring(12,16)
+  let timeMin = showtime.substring(19,22)
+  let timeHour = showtime.substring(17,19)
+
+  if( (parseInt(timeHour) - 12) >= 0 ) {
+    if(parseInt(timeHour) != 12) {
+      timeHour = (parseInt(timeHour) - 12)
+    }
+    timeMin += " PM"
+  } else {
+    timeMin += " AM"
+  }
+
+  showtime = dayOfWeek + " " + month + "/" + day + "/" + year + " " + timeHour + timeMin
   return showtime
 }
+
 
 function formatRoom(room) {
   if (room.substring(5) === "one") {
