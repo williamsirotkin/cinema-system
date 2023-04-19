@@ -147,7 +147,6 @@ function OrderSummary(props) {
       <Card.Header as="h5">Order Summary</Card.Header>
       <Card.Body>
         <Card.Text>
-          {tickets.length}
         {tickets.map(ticket => (
         <div key={ticket.id}>
           <span>{"Seat "} {ticket.seats} &nbsp;{ticket.type}&nbsp;-&nbsp;{ticket.price}</span>

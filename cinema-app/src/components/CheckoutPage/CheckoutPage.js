@@ -198,6 +198,7 @@ function randomTypeOfCard() {
   } else {
     return "DISCOVER"
   }
+}
 
 function formatRoom(room) {
   if (room.substring(5) === "one") {
