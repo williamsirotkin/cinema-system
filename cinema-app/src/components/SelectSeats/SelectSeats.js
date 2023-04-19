@@ -1,7 +1,7 @@
 
 import React, { Children, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { getTakenSeatsUtility } from '../../utility/getTakenSeatsUtility';
 import './SelectSeats.css';
 
@@ -17,7 +17,7 @@ const SelectedSeats = (props) => {
   console.log(length)
 
   let nav = useNavigate()
-  
+  let params = useParams()
   // useEffect(()=>{
   //   (async()=>{
   //     const result = await getTakenSeatsUtility(props.room, props.showtime)
@@ -51,7 +51,7 @@ const SelectedSeats = (props) => {
       setErrorMsg("Please select the appropiate number of tickets you chose")
     }else{
       props.handleSeatsSelected(selectedSeats)
-      nav('/orderSummary',{replace:"true"})
+      nav('/orderSummary/' + params.movie,{replace:"true"})
       
     }
   }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SelectAge.css'
 import { Button } from "react-bootstrap";
-import { Link } from 'react-router-dom'
+import { Link, useParams  } from 'react-router-dom'
 
 
 //should maybe be changed to decide how many tickets per age and then choose the seats rather than choose age after choosing the seats already
@@ -9,6 +9,7 @@ export default function SelectAge(props) {
   const[childTickets, setChildTickets] = useState(0)
   const[adultTickets, setAdultTickets] = useState(0)
   const[seniorTickets, setSeniorTickets] = useState(0)
+  const params = useParams();
 
   const handleTicketChange = (age, change) => {
     if (age == "child") {
@@ -57,7 +58,7 @@ export default function SelectAge(props) {
     </div> 
     <br></br>
     <br></br>
-    <Link className = "select-ages" to  = "/selectSeats"><Button variant="dark" onClick={handleSubmit}> Choose seats </Button></Link>
+    <Link className = "select-ages" to  = {"/selectSeats/" + params.movie}><Button variant="dark" onClick={handleSubmit}> Choose seats </Button></Link>
       </div>
   )
 }

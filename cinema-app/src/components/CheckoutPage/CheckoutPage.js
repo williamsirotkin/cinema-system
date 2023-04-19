@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Link} from 'react-router-dom'
+import { Link, useParams} from 'react-router-dom'
 import {Image, Form } from 'react-bootstrap';
 import './CheckoutPage.css'
 import Button from 'react-bootstrap/Button';
@@ -7,17 +7,29 @@ import Card from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "./CardForm";
 import Results from './Results';
+import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 
 export default function CheckoutPage(props) {
   const [open, setOpen] = useState(false);
   const [cardInfo, setCardInfo] = useState('');
+  const [movieImg, setMovieImg] = useState('')
+  let params = useParams()
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
   }
   let display;
   if(props.tickets){
-    display = props.seats.join(",")
+    let temp = props.seats.sort(function(a, b) {
+      return a - b;
+    })
+    console.log(props.showtime)
+    console.log(temp[0].sort(function(a, b) {
+      return a - b;
+    }))
+    display = temp[0].sort(function(a, b) {
+      return a - b;
+    }).join(",")
   }else{
     display = ""
   }
@@ -25,15 +37,34 @@ export default function CheckoutPage(props) {
     console.log(props)
   },[])
 
+  let price = {
+    adult: 13.99,
+    child: 10.99,
+    senior: 6.99
+  }
+
+  var BOOKING_FEE_PERCENTAGE = 0.0962;
+
+  let subTotal = price["adult"] * props.tickets[0] +price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
+  let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
+  total = total.toFixed(2)
+
+  useEffect(()=>{
+    (async()=>{
+      const result = await getMovieByTitle(params.movie)
+      setMovieImg(result[0].photo_link)
+    })();
+  },[])
+
  
   return (
     <div>
       <h1 className='checkoutHeader'>Checkout Page</h1>
     <div className='header'>
-       <Image className='filmImg' src="https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg" fluid style={{ maxWidth: '300px', padding: '20px' }} />
+       <Image className='filmImg' src={movieImg} fluid style={{ maxWidth: '300px', padding: '20px' }} />
        <div className='movieInfo'>
-       <h1 className='movieTitle'>Parasite</h1>
-       <p class="subtitle">Thursday 16 February at 11:20 pm <br></br><b>E-cinema 4</b></p>
+       <h1 className='movieTitle'> {params.movie}</h1>
+       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br><b>E-cinema 4</b></p>
        <h4>Screen: 10<br></br>Seats: {display}</h4>
        </div>
     
@@ -44,21 +75,21 @@ export default function CheckoutPage(props) {
       <Card.Body>
         <Card.Text>
         <div class="d-flex justify-content-between">
-        <p class="fs-5">Adult x{props.tickets[0]} Childx {props.tickets[1]} Seniorx {props.tickets[2]}</p>
-        <p class="fs-5">$32.52</p>
+        <p class="fs-5">Adult x{props.tickets[0]} Child x{props.tickets[1]} Senior x{props.tickets[2]}</p>
+        <p class="fs-5">${ subTotal } </p>
         </div>
         <hr />
         <div class="d-flex justify-content-between">
         <p class="fs-5">Subtotal</p>
-        <p class="fs-5">$32.52</p>
+        <p class="fs-5"> ${subTotal}</p>
         </div>
         <div class="d-flex justify-content-between">
         <p class="fs-6">Booking Fee</p>
-        <p class="fs-5">$3.88</p>
+        <p class="fs-5"> ${(subTotal * BOOKING_FEE_PERCENTAGE).toFixed(2)} </p>
         </div>
         <div class="d-flex justify-content-between">
         <p class="fs-4">TOTAL</p>
-        <p class="fs-4">$36.40</p>
+        <p class="fs-4"> ${total} </p>
         </div>
         <p class="text-end">Includes applicable state and local sales taxes.</p>
         <hr />
@@ -85,11 +116,7 @@ export default function CheckoutPage(props) {
         </Collapse>
         
         <hr />
-        <Form.Label>Email address</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter Email"
-          />
+      
         </div>
       </Card.Body>
       <br></br>
@@ -100,4 +127,9 @@ export default function CheckoutPage(props) {
     </div>
     </div>
   )
+}
+
+function formatShowtime(showtime) {
+  // Edit this to look more user friendly
+  return showtime
 }

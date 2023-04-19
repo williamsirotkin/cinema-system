@@ -130,7 +130,7 @@ console.log(finalSchedule)
   function handleTimeSelection(time) {
     props.setMovieRoomFunc(time.room);
     props.setMovieShowtimeFunc(time.showtime)
-    nav('/selectAges', {replace: true})
+    nav('/selectAges/' + movieTitle, {replace: true})
   }
  
   if (props.user) {

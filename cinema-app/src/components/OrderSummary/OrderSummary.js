@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './OrderSummary.css'
@@ -10,6 +10,7 @@ import SelectedSeats from '../SelectSeats/SelectSeats';
 
 function OrderSummary(props) {
   let nav = useNavigate()
+  let params = useParams()
 
   let priceMap = {
     adult: 13.99,
@@ -87,6 +88,7 @@ function OrderSummary(props) {
 
     console.log(tickets)
     console.log(tickets.length)
+    props.setTickets(props.adult, props.child, props.senior)
   }
 
   const handleDelete = (id) => {
@@ -184,7 +186,7 @@ function OrderSummary(props) {
         });
     
         props.setSeats(newArray)
-        nav('/checkoutPage')
+        nav('/checkoutPage/' + params.movie)
       }} className="confirmOrder" variant="primary" size="lg">
           Checkout 
         </Button>{' '}
