@@ -28,6 +28,7 @@ import ScheduleMoviePage from './components/ScheduleMoviePage/ScheduleMoviePage'
 import AddOrRemoveMovie from './components/AddOrRemoveMovie/AddOrRemoveMovie';
 import RemoveMoviesPage from './components/RemoveMoviesPage/RemoveMoviesPage';
 import axios from 'axios';
+import OrderHistory from './components/orderHistory/OrderHistory';
 
 function App() {
   const [user, setUser] = useState('');
@@ -175,13 +176,19 @@ function App() {
 
       <Route path = "/orderSummary/:movie" element={
           <React.Fragment>
-            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
+            <OrderSummary  adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
           </React.Fragment>
       }></Route>
 
       <Route path ="/editProfile" element={
          <React.Fragment>
          <EditProfile user={user}/>
+       </React.Fragment>
+
+      }></Route>
+       <Route path ="/orderHistory" element={
+         <React.Fragment>
+         <OrderHistory user={user}/>
        </React.Fragment>
 
       }></Route>
@@ -219,7 +226,7 @@ function App() {
 
       <Route path = "/checkoutPage/:movie" element={
           <React.Fragment>
-            <CheckoutPage seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
+            <CheckoutPage room = {movieRoom} seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
           </React.Fragment>
       }></Route>
 

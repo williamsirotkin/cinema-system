@@ -64,8 +64,8 @@ export default function CheckoutPage(props) {
        <Image className='filmImg' src={movieImg} fluid style={{ maxWidth: '300px', padding: '20px' }} />
        <div className='movieInfo'>
        <h1 className='movieTitle'> {params.movie}</h1>
-       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br><b>E-cinema 4</b></p>
-       <h4>Screen: 10<br></br>Seats: {display}</h4>
+       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br></p>
+       <h4>Room: {formatRoom(props.room)}<br></br>Seats: {display}</h4>
        </div>
     
     </div>
@@ -132,4 +132,23 @@ export default function CheckoutPage(props) {
 function formatShowtime(showtime) {
   // Edit this to look more user friendly
   return showtime
+}
+
+function formatRoom(room) {
+  if (room.substring(5) === "one") {
+    return 1
+  } 
+  if (room.substring(5) === "two") {
+    return 2
+  } 
+  if (room.substring(5) === "three") {
+    return 3
+  } 
+  if (room.substring(5) === "four") {
+    return 4
+  } 
+  if (room.substring(5) === "five") {
+    return 5
+  } 
+  return 6
 }
