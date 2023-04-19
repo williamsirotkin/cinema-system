@@ -25,6 +25,18 @@ export default function CheckoutPage(props) {
     console.log(props)
   },[])
 
+  let price = {
+    adult: 13.99,
+    child: 10.99,
+    senior: 6.99
+  }
+
+  var BOOKING_FEE_PERCENTAGE = 0.0962;
+
+  let subTotal = price["adult"] * props.tickets[0] +price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
+  let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
+  total = total.toFixed(2)
+
  
   return (
     <div>
@@ -44,21 +56,21 @@ export default function CheckoutPage(props) {
       <Card.Body>
         <Card.Text>
         <div class="d-flex justify-content-between">
-        <p class="fs-5">Adult x{props.tickets[0]} Childx {props.tickets[1]} Seniorx {props.tickets[2]}</p>
-        <p class="fs-5">$32.52</p>
+        <p class="fs-5">Adult x{props.tickets[0]} Child x{props.tickets[1]} Senior x{props.tickets[2]}</p>
+        <p class="fs-5">${ subTotal } </p>
         </div>
         <hr />
         <div class="d-flex justify-content-between">
         <p class="fs-5">Subtotal</p>
-        <p class="fs-5">$32.52</p>
+        <p class="fs-5"> ${subTotal}</p>
         </div>
         <div class="d-flex justify-content-between">
         <p class="fs-6">Booking Fee</p>
-        <p class="fs-5">$3.88</p>
+        <p class="fs-5"> ${(subTotal * BOOKING_FEE_PERCENTAGE).toFixed(2)} </p>
         </div>
         <div class="d-flex justify-content-between">
         <p class="fs-4">TOTAL</p>
-        <p class="fs-4">$36.40</p>
+        <p class="fs-4"> ${total} </p>
         </div>
         <p class="text-end">Includes applicable state and local sales taxes.</p>
         <hr />
