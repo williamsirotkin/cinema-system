@@ -8,9 +8,15 @@ import Collapse from 'react-bootstrap/Collapse';
 import CardForm from "./CardForm";
 import Results from './Results';
 import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
+import './CreditCard.css'
+import CreditCard from './CreditCard';
 
 export default function CheckoutPage(props) {
+  const [type, setType] = useState("");
+  const [number, setNumber] = useState(0);
+  const [chosenCard, setChosenCard] = useState(false)
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [cardInfo, setCardInfo] = useState('');
   const [movieImg, setMovieImg] = useState('')
   let params = useParams()
@@ -33,6 +39,10 @@ export default function CheckoutPage(props) {
   }else{
     display = ""
   }
+  let chosenCardDisplayed;
+  if (chosenCard) {
+    chosenCardDisplayed = <h1> {type} ending in {number * 10000} selected! </h1>
+  }
   useEffect(()=>{
     console.log(props)
   },[])
@@ -48,9 +58,10 @@ export default function CheckoutPage(props) {
   let subTotal = price["adult"] * props.tickets[0] +price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
   let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
   total = total.toFixed(2)
-
   useEffect(()=>{
     (async()=>{
+      setType(randomTypeOfCard())
+      setNumber(Math.floor(Math.random(9999) * 10000)/ 10000)
       const result = await getMovieByTitle(params.movie)
       setMovieImg(result[0].photo_link)
     })();
@@ -96,17 +107,26 @@ export default function CheckoutPage(props) {
         <p class="fs-3">Payment Method</p>
         </Card.Text>
         <div className="d-grid gap-2">
-
-        <Button variant="dark" size="lg">
+        {chosenCardDisplayed}
+        <Button variant="dark" size="lg"
+        onClick={() => setOpen2(!open2)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open2}>
           Use existing credit card
         </Button>{' '}
+        <Collapse in={open2 || chosenCard}>
+        <div id="example-collapse-text">
+          <button class = "tom-did-this" onClick = {() => setChosenCard(!chosenCard)}>
+          <CreditCard type = {type} number = {number}/>
+          </button>
+        </div>
+        </Collapse>
 
 
         <Button variant="dark" size="lg"
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open}>
-
           Add new credit card
         </Button>
         <Collapse in={open}>
@@ -132,4 +152,18 @@ export default function CheckoutPage(props) {
 function formatShowtime(showtime) {
   // Edit this to look more user friendly
   return showtime
+}
+
+function randomTypeOfCard() {
+  let rando = Math.random()
+
+  if (rando < 0.25) {
+    return "AMEX"
+  } else if (rando < 0.5) {
+    return "VISA"
+  } else if (rando < 0.75) {
+    return "MASTERCARD"
+  } else {
+    return "DISCOVER"
+  }
 }
