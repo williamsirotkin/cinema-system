@@ -88,6 +88,7 @@ function OrderSummary(props) {
 
     console.log(tickets)
     console.log(tickets.length)
+    props.setTickets(props.adult, props.child, props.senior)
   }
 
   const handleDelete = (id) => {

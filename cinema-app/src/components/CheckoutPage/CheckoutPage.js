@@ -116,11 +116,7 @@ export default function CheckoutPage(props) {
         </Collapse>
         
         <hr />
-        <Form.Label>Email address</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter Email"
-          />
+      
         </div>
       </Card.Body>
       <br></br>
