@@ -64,8 +64,8 @@ export default function CheckoutPage(props) {
        <Image className='filmImg' src={movieImg} fluid style={{ maxWidth: '300px', padding: '20px' }} />
        <div className='movieInfo'>
        <h1 className='movieTitle'> {params.movie}</h1>
-       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br><b>E-cinema 4</b></p>
-       <h4>Screen: {formatRoom(props.room)}<br></br>Seats: {display}</h4>
+       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br></p>
+       <h4>Room: {formatRoom(props.room)}<br></br>Seats: {display}</h4>
        </div>
     
     </div>
