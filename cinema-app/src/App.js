@@ -176,7 +176,7 @@ function App() {
 
       <Route path = "/orderSummary/:movie" element={
           <React.Fragment>
-            <OrderSummary adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
+            <OrderSummary  adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
           </React.Fragment>
       }></Route>
 
@@ -226,7 +226,7 @@ function App() {
 
       <Route path = "/checkoutPage/:movie" element={
           <React.Fragment>
-            <CheckoutPage seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
+            <CheckoutPage room = {movieRoom} seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
           </React.Fragment>
       }></Route>
 
