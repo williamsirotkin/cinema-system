@@ -12,9 +12,10 @@ import './CreditCard.css'
 import CreditCard from './CreditCard';
 
 export default function CheckoutPage(props) {
-  const [type, setType] = useState("");
-  const [number, setNumber] = useState(0);
-  const [chosenCard, setChosenCard] = useState(false)
+  const [type, setType] = useState([""]);
+  const [number, setNumber] = useState([0]);
+  const [CreditCards, setCreditCards] = useState([{}])
+  const [chosenCard, setChosenCard] = useState({})
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [cardInfo, setCardInfo] = useState('');
@@ -40,8 +41,8 @@ export default function CheckoutPage(props) {
     display = ""
   }
   let chosenCardDisplayed;
-  if (chosenCard) {
-    chosenCardDisplayed = <h1> {type} ending in {number * 10000} selected! </h1>
+  if (chosenCard.type) {
+    chosenCardDisplayed = <h1> {chosenCard.type} ending in {chosenCard.number} selected! </h1>
   }
   useEffect(()=>{
     console.log(props)
@@ -60,8 +61,15 @@ export default function CheckoutPage(props) {
   total = total.toFixed(2)
   useEffect(()=>{
     (async()=>{
-      setType(randomTypeOfCard())
-      setNumber(Math.floor(Math.random(9999) * 10000)/ 10000)
+      let creditCards = []
+      let numCards = 3
+      for (let i = 0; i < numCards; i++) {
+        creditCards.push({
+          type: randomTypeOfCard(), 
+          number: Math.floor(Math.random(9999) * 10000)/ 10000
+        })
+      }
+      setCreditCards(creditCards)
       const result = await getMovieByTitle(params.movie)
       setMovieImg(result[0].photo_link)
     })();
@@ -116,9 +124,15 @@ export default function CheckoutPage(props) {
         </Button>{' '}
         <Collapse in={open2 || chosenCard}>
         <div id="example-collapse-text">
-          <button class = "tom-did-this" onClick = {() => setChosenCard(!chosenCard)}>
-          <CreditCard type = {type} number = {number}/>
+          {CreditCards.map((stuff) => (
+          <button class = "tom-did-this" onClick = {() => {if (stuff.type != chosenCard.type){
+            setChosenCard({type: stuff.type, number: Math.floor(stuff.number* 10000)})
+          } else {
+            setChosenCard({})
+          }}}>
+          <CreditCard type = {stuff.type} number = {stuff.number}/>
           </button>
+          ))}
         </div>
         </Collapse>
 
