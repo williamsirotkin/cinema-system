@@ -28,6 +28,7 @@ import ScheduleMoviePage from './components/ScheduleMoviePage/ScheduleMoviePage'
 import AddOrRemoveMovie from './components/AddOrRemoveMovie/AddOrRemoveMovie';
 import RemoveMoviesPage from './components/RemoveMoviesPage/RemoveMoviesPage';
 import axios from 'axios';
+import OrderHistory from './components/orderHistory/OrderHistory';
 
 function App() {
   const [user, setUser] = useState('');
@@ -182,6 +183,12 @@ function App() {
       <Route path ="/editProfile" element={
          <React.Fragment>
          <EditProfile user={user}/>
+       </React.Fragment>
+
+      }></Route>
+       <Route path ="/orderHistory" element={
+         <React.Fragment>
+         <OrderHistory user={user}/>
        </React.Fragment>
 
       }></Route>
