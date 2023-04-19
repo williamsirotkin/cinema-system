@@ -22,6 +22,12 @@ function OrderSummary(props) {
 
   const[total, setTotal] = useState(props.adult * 13.99 + props.child * 10.99 + props.senior * 6.99)
 
+  console.log("total: " + total);
+
+  if (isNaN(total)) {
+    nav('/')
+  }
+
   const [tickets, setTickets] = useState([
     // { id: 2, name: 'Ticket', type: "Adult", price: 13.99},
     // { id: 3, name: 'Ticket', type: "Adult", price: 13.99},

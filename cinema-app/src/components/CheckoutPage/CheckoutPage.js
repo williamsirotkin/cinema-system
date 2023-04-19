@@ -83,8 +83,8 @@ export default function CheckoutPage(props) {
        <Image className='filmImg' src={movieImg} fluid style={{ maxWidth: '300px', padding: '20px' }} />
        <div className='movieInfo'>
        <h1 className='movieTitle'> {params.movie}</h1>
-       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br><b>E-cinema 4</b></p>
-       <h4>Screen: 10<br></br>Seats: {display}</h4>
+       <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br></p>
+       <h4>Room: {formatRoom(props.room)}<br></br>Seats: {display}</h4>
        </div>
     
     </div>
@@ -165,6 +165,24 @@ export default function CheckoutPage(props) {
 
 function formatShowtime(showtime) {
   // Edit this to look more user friendly
+  console.log(showtime)
+  const dayOfWeek = showtime.substring(0,3)
+  const month = showtime.substring(8,11)
+  const day = showtime.substring(5,7)
+  const year = showtime.substring(12,16)
+  let timeMin = showtime.substring(19,22)
+  let timeHour = showtime.substring(17,19)
+
+  if( (parseInt(timeHour) - 12) >= 0 ) {
+    if(parseInt(timeHour) != 12) {
+      timeHour = (parseInt(timeHour) - 12)
+    }
+    timeMin += " PM"
+  } else {
+    timeMin += " AM"
+  }
+
+  showtime = dayOfWeek + " " + month + "/" + day + "/" + year + " " + timeHour + timeMin
   return showtime
 }
 
@@ -180,4 +198,22 @@ function randomTypeOfCard() {
   } else {
     return "DISCOVER"
   }
+
+function formatRoom(room) {
+  if (room.substring(5) === "one") {
+    return 1
+  } 
+  if (room.substring(5) === "two") {
+    return 2
+  } 
+  if (room.substring(5) === "three") {
+    return 3
+  } 
+  if (room.substring(5) === "four") {
+    return 4
+  } 
+  if (room.substring(5) === "five") {
+    return 5
+  } 
+  return 6
 }
