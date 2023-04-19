@@ -17,7 +17,15 @@ export default function CheckoutPage(props) {
   }
   let display;
   if(props.tickets){
-    display = props.seats.join(",")
+    let temp = props.seats.sort(function(a, b) {
+      return a - b;
+    })
+    console.log(temp[0].sort(function(a, b) {
+      return a - b;
+    }))
+    display = temp[0].sort(function(a, b) {
+      return a - b;
+    }).join(",")
   }else{
     display = ""
   }
