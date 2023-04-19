@@ -108,19 +108,6 @@ export default function AddPromotions(props) {
                               <br></br>
                           </div>
                       ))}
-{/*                      <div class="d-flex justify-content-between">
-                          <p class="fs-5">Subtotal</p>
-                          <p class="fs-5">${round(total, 2)}</p>
-                      </div>*/}
-{/*
-                      <div class="d-flex justify-content-between">
-                          <p class="fs-6">Booking Fee</p>
-                          <p class="fs-5">${round(total * BOOKING_FEE_PERCENTAGE, 2)}</p>
-                      </div>*/}
-{/*                      <div class="d-flex justify-content-between">
-                          <p class="fs-4">TOTAL</p>
-                          <p class="fs-4">${round(total + total * BOOKING_FEE_PERCENTAGE, 2)}</p>
-                      </div>*/}
                       <hr />
                   </Card.Text>
               </Card.Body>
