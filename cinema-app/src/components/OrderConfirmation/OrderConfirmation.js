@@ -1,8 +1,43 @@
 
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
-export default function OrderConfirmation() {
+import { Link, useParams } from 'react-router-dom'
+import { formatShowtime } from '../CheckoutPage/CheckoutPage';
+export default function OrderConfirmation(props) {
+  let params = useParams()
+
+  let display;
+  console.log(props.creditCard)
+  if(props){
+    console.log(props.seats)
+    let temp = props.seats.sort(function(a, b) {
+      return a - b;
+    })
+    console.log(temp)
+    console.log(temp.sort(function(a, b) {
+      return a - b;
+    }))
+    display = temp.sort(function(a, b) {
+      return a - b;
+    }).join(", ")
+  }else{
+    display = ""
+  }
+
+  let seatsArr = [];
+  if (props.tickets[0] > 0) {
+    seatsArr.push(<div> Adult x {props.tickets[0]}</div>)
+  } 
+  if (props.tickets[1] > 0) {
+    seatsArr.push(<div> Child x {props.tickets[1]}</div>)
+  } 
+  if (props.tickets[2] > 0) {
+    seatsArr.push(<div> Senior x {props.tickets[2]}</div>)
+  } 
+
+  let seats;
+  seats = <div> {seatsArr.map((seat) => (seat))} </div>
+
 
   return (
     <Container className = 'container1'>
@@ -14,18 +49,18 @@ export default function OrderConfirmation() {
           <hr />
           <h4>Your order details:</h4>
           <h5><strong>Order number:</strong> #12468</h5>
-          <p><strong>Movie title:</strong> Parasite</p>
-          <p><strong>Date and time:</strong> 10:40, Friday, February 17, 2023</p>
+          <p><strong>Movie title:</strong>  {params.movie} </p>
+          <p><strong>Date and time:</strong> {formatShowtime(props.showtime)}</p>
           <p><strong>E-Booking 4</strong> <br></br>1235 Sushi Avenue<br></br>Alpharetta,GA 30009</p>
-          <p><strong>Seats:</strong>Adult 2<br></br>Reserved Seating: H11, H12</p>
+          <p><strong>Seats:</strong> {seats} <br></br>Reserved Seating: Seat {display}</p>
           <hr />
           <h2 className='fw-bold'>Payment Summary</h2>
-          <p><strong>Order total:</strong>$36.40<br></br>Charged to AmEx ending in 5623</p>
+          <p><strong>Order total:</strong>${props.total}<br></br>Charged to {props.creditCard.type} ending in {props.creditCard.number}</p>
           <Link to  = "/"><p>Refund/Exchange</p></Link>
           <p><strong>Refundable up until 60 minutes before the screening</strong></p>
           <hr />
 
-      <Link to  = "/"><Button variant="danger"> Return to homepage</Button></Link>
+      <Link to  = "/"><Button variant="danger"> Return to Homepage</Button></Link>
         </Col>
       </Row>
     </Container>
