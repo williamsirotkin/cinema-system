@@ -56,6 +56,14 @@ function CheckoutPage(props) {
     senior: 6.99
   }
 
+  let promotionComponent;
+  if (props.promoValue > 0) {
+    promotionComponent = <div class="d-flex justify-content-between">
+    <p class="fs-6"> Promotion </p>
+    <p class="fs-5"> -${(props.promoValue).toFixed(2)} </p>
+    </div>
+  }
+
 
   var BOOKING_FEE_PERCENTAGE = 0.0962;
 
@@ -124,9 +132,10 @@ function CheckoutPage(props) {
         <p class="fs-6">Booking Fee</p>
         <p class="fs-5"> ${(subTotal * BOOKING_FEE_PERCENTAGE).toFixed(2)} </p>
         </div>
+        {promotionComponent}
         <div class="d-flex justify-content-between">
         <p class="fs-4">TOTAL</p>
-        <p class="fs-4"> ${total} </p>
+        <p class="fs-4"> ${(total - props.promoValue).toFixed(2)} </p>
         </div>
         <p class="text-end">Includes applicable state and local sales taxes.</p>
         <hr />
