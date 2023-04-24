@@ -35,7 +35,7 @@ function CheckoutPage(props) {
       setCardInfo(cardInfo)
       editUserProfile({card_info: cardInfo, email: props.user.email})
       setCardComp("You have added and selected that card!")
-      setChosenCard({type: "MASTERCARD", number: Math.floor(Math.random()* 10000)})
+      setChosenCard({type: "AMEX", number: cardInfo.cardNumber.slice(-4)})
     }
   }
 
@@ -240,7 +240,7 @@ function CheckoutPage(props) {
         <div className="d-grid gap-2">
         {chosenCardDisplayed}
         {existingCardComponent}
-        <h2>
+        <h2 className='addCard'>
         {cardCom}
         </h2>
         {newCreditCardComponent}
