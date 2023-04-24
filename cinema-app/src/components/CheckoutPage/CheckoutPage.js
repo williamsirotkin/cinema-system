@@ -29,13 +29,12 @@ function CheckoutPage(props) {
   let params = useParams()
   let nav = useNavigate()
   const sendData = (cardInfo) =>{
-    console.log(cardInfo)
-    if (cardInfo.name) {
+    console.log(cardInfo, chosenCard)
+    if (cardInfo.name && !chosenCard.number) {
       setCardInfo(cardInfo)
       editUserProfile({card_info: cardInfo, email: props.user.email})
       setCardComp("You have added and selected that card!")
-      
-      
+      setChosenCard({type: "MASTERCARD", number: Math.floor(Math.random()* 10000)})
     }
   }
 
