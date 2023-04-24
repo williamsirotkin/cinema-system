@@ -23,17 +23,22 @@ function CheckoutPage(props) {
   const [cardInfo, setCardInfo] = useState('');
   const [movieImg, setMovieImg] = useState('')
   const [error, setError] = useState('')
-  const [newCard, setNewCard] = useState(false)
+  const [newCard, setNewCard] = useState(false);
+  const [cardCom, setCardComp] = useState("")
+  
   let params = useParams()
   let nav = useNavigate()
   const sendData = (cardInfo) =>{
     console.log(cardInfo)
     if (cardInfo.name) {
       setCardInfo(cardInfo)
-      setNewCard(true)
       editUserProfile({card_info: cardInfo, email: props.user.email})
+      setCardComp("You have added and selected that card")
+      
+      
     }
   }
+
   let display;
   if(props.tickets.length > 0){
     let temp = props.seats.sort(function(a, b) {
@@ -65,6 +70,7 @@ function CheckoutPage(props) {
 
   console.log(props.user)
   let newCreditCardComponent;
+
   if (!props.user.card_info && !newCard) {
     newCreditCardComponent = <div><div class = 'movieCard' ><Button variant="dark" size="lg"
     onClick={() => setOpen(!open)}
@@ -97,6 +103,7 @@ function CheckoutPage(props) {
         </div>
         </Collapse></div>
   }
+
 
 
   var BOOKING_FEE_PERCENTAGE = 0.0962;
@@ -137,9 +144,9 @@ function CheckoutPage(props) {
             </div>
             </Collapse></div>
       }
-      if (props.tickets.length == 0) {
-        nav('/')
-      }
+      // if (props.tickets.length == 0) {
+      //   nav('/')
+      // }
       let creditCards = []
       let numCards = 0
       console.log(props.user)
@@ -153,6 +160,7 @@ function CheckoutPage(props) {
         })
       }
       setCreditCards(creditCards)
+
       const result = await getMovieByTitle(params.movie)
       setMovieImg(result[0].photo_link)
     })();
@@ -169,7 +177,6 @@ function CheckoutPage(props) {
        <p class="subtitle"> Showing on {formatShowtime(props.showtime)} <br></br></p>
        <h4>Room: {formatRoom(props.room)}<br></br>Seats: {display}</h4>
        </div>
-    
     </div>
     <div className='movieCard'>
     <Card  style={{ width: '68rem' }}>
@@ -201,11 +208,13 @@ function CheckoutPage(props) {
         <div className="d-grid gap-2">
         {chosenCardDisplayed}
         {existingCardComponent}
+        {cardCom}
         {newCreditCardComponent}
         
         <hr />
-      
         </div>
+
+
       </Card.Body>
       <br></br>
      <Button onClick = {() => handleSubmit()} className="confirmOrder" variant="dark" size="lg">

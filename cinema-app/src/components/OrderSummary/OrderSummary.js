@@ -192,7 +192,7 @@ function OrderSummary(props) {
     
         props.setSeats(newArray)
         nav('/checkoutPage/' + params.movie)
-      }} className="confirmOrder" variant="primary" size="lg">
+      }} className="confirmOrder2" variant="primary" size="lg">
           Checkout 
         </Button>{' '}
     </Card>
