@@ -58,7 +58,7 @@ export default function OrderConfirmation(props) {
           <p>You will also receive an email confirmation  with all the details</p>
           <hr />
           <h4>Your order details:</h4>
-          <h5><strong>Order number:</strong> #12468</h5>
+          <h5><strong>Order number:</strong> #{randomNumber(10000, 100000)}</h5>
           <p><strong>Movie title:</strong>  {params.movie} </p>
           <p><strong>Date and time:</strong> {formatShowtime(props.showtime)}</p>
           <p><strong>E-Booking 4</strong> <br></br>1235 Sushi Avenue<br></br>Alpharetta,GA 30009</p>
@@ -75,4 +75,13 @@ export default function OrderConfirmation(props) {
       </Row>
     </Container>
   )
+}
+
+function randomNumber(min, max) {
+  let number = 0 
+  do {
+    number = Math.floor(Math.random() * 100000)
+  } while (number < min || number > max)
+
+  return number
 }

@@ -10,6 +10,8 @@ import Results from './Results';
 import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 import './CreditCard.css'
 import CreditCard from './CreditCard';
+import { editUserProfile } from '../../utility/editUserProfileUtility';
+import { BsArrowLeftRight } from 'react-icons/bs';
 
 function CheckoutPage(props) {
   const [type, setType] = useState([""]);
@@ -21,11 +23,16 @@ function CheckoutPage(props) {
   const [cardInfo, setCardInfo] = useState('');
   const [movieImg, setMovieImg] = useState('')
   const [error, setError] = useState('')
+  const [newCard, setNewCard] = useState(false)
   let params = useParams()
   let nav = useNavigate()
   const sendData = (cardInfo) =>{
-    setCardInfo(cardInfo)
-
+    console.log(cardInfo)
+    if (cardInfo.name) {
+      setCardInfo(cardInfo)
+      setNewCard(true)
+      editUserProfile({card_info: cardInfo, email: props.user.email})
+    }
   }
   let display;
   if(props.tickets.length > 0){
@@ -56,6 +63,41 @@ function CheckoutPage(props) {
     senior: 6.99
   }
 
+  console.log(props.user)
+  let newCreditCardComponent;
+  if (!props.user.card_info && !newCard) {
+    newCreditCardComponent = <div><div class = 'movieCard' ><Button variant="dark" size="lg"
+    onClick={() => setOpen(!open)}
+    aria-controls="example-collapse-text"
+    aria-expanded={open}>
+      Add new credit card
+    </Button>
+    <Collapse in={open}>
+    <div id="example-collapse-text">
+    <CardForm sendData = {sendData}></CardForm>
+    </div>
+    </Collapse>
+    </div></div>
+  }
+
+  let existingCardComponent;
+  if (props.user.card_info || newCard) {
+    existingCardComponent = <div>
+        <Collapse in={open2 || chosenCard}>
+        <div id="example-collapse-text">
+          {CreditCards.map((stuff) => (
+          <button class = "tom-did-this" onClick = {() => {if (stuff.type != chosenCard.type){
+            setChosenCard({type: stuff.type, number: Math.floor(stuff.number* 10000)})
+          } else {
+            setChosenCard({})
+          }}}>
+          <CreditCard type = {stuff.type} number = {stuff.number}/>
+          </button>
+          ))}
+        </div>
+        </Collapse></div>
+  }
+
 
   var BOOKING_FEE_PERCENTAGE = 0.0962;
 
@@ -76,11 +118,34 @@ function CheckoutPage(props) {
 
   useEffect(()=>{
     (async()=>{
+      if (props.user.card_info || newCard) {
+        if (newCard) {
+          alert("Credit Card Added!")
+        }
+        existingCardComponent = <div>
+            <Collapse in={open2 || chosenCard}>
+            <div id="example-collapse-text">
+              {CreditCards.map((stuff) => (
+              <button class = "tom-did-this" onClick = {() => {if (stuff.type != chosenCard.type){
+                setChosenCard({type: stuff.type, number: Math.floor(stuff.number* 10000)})
+              } else {
+                setChosenCard({})
+              }}}>
+              <CreditCard type = {stuff.type} number = {stuff.number}/>
+              </button>
+              ))}
+            </div>
+            </Collapse></div>
+      }
       if (props.tickets.length == 0) {
         nav('/')
       }
       let creditCards = []
-      let numCards = 3
+      let numCards = 0
+      console.log(props.user)
+      if (props.user.card_info) {
+        numCards = 1
+      }
       for (let i = 0; i < numCards; i++) {
         creditCards.push({
           type: randomTypeOfCard(), 
@@ -135,38 +200,8 @@ function CheckoutPage(props) {
         </Card.Text>
         <div className="d-grid gap-2">
         {chosenCardDisplayed}
-        <Button variant="dark" size="lg"
-        onClick={() => setOpen2(!open2)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open2}>
-          Use existing credit card
-        </Button>{' '}
-        <Collapse in={open2 || chosenCard}>
-        <div id="example-collapse-text">
-          {CreditCards.map((stuff) => (
-          <button class = "tom-did-this" onClick = {() => {if (stuff.type != chosenCard.type){
-            setChosenCard({type: stuff.type, number: Math.floor(stuff.number* 10000)})
-          } else {
-            setChosenCard({})
-          }}}>
-          <CreditCard type = {stuff.type} number = {stuff.number}/>
-          </button>
-          ))}
-        </div>
-        </Collapse>
-
-
-        <Button variant="dark" size="lg"
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}>
-          Add new credit card
-        </Button>
-        <Collapse in={open}>
-        <div id="example-collapse-text">
-        <CardForm sendData = {sendData}></CardForm>
-        </div>
-        </Collapse>
+        {existingCardComponent}
+        {newCreditCardComponent}
         
         <hr />
       
