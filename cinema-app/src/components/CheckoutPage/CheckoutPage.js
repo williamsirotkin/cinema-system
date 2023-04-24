@@ -10,6 +10,7 @@ import Results from './Results';
 import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 import './CreditCard.css'
 import CreditCard from './CreditCard';
+import emailjs from '@emailjs/browser';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import { BsArrowLeftRight } from 'react-icons/bs';
 
@@ -67,7 +68,30 @@ function CheckoutPage(props) {
     child: 10.99,
     senior: 6.99
   }
+  /////////////////////////////////////////////////////////////////////////////////////////
+  
+//   function sendEmailConfirmation() {
+//   let seatString;
 
+//   let temp1 = props.seats.sort(function(a, b) {
+//     return a - b;
+//   })
+//   console.log(props.showtime)
+//   console.log(temp1[0].sort(function(a, b) {
+//     return a - b;
+//   }))
+//   seatString = temp1[0].sort(function(a, b) {
+//     return a - b;
+//   }).join(",")
+  
+//   emailjs.send('service_96npu8c', 'template_ddsfy0a', {'room': formatRoom(props.room), 'seats': seatString, 'showtime': props.showtime, 'email': props.user.email, 'name': props.user.firstName, 'movie': params.movie}, 'm8yxyvLLbYsPK3HRZ')
+//   .then(function(response) {
+//   console.log('SUCCESS!', response.status, response.text);
+// }, function(error) {
+//   console.log('FAILED...', error);
+// });
+//   }
+  ////////////////////////////////////////////////////////////////////////////////////////////
   console.log(props.user)
   let newCreditCardComponent;
 
@@ -113,7 +137,6 @@ function CheckoutPage(props) {
     </div>
   }
 
-
   var BOOKING_FEE_PERCENTAGE = 0.0962;
 
   let subTotal = price["adult"] * props.tickets[0] +price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
@@ -125,6 +148,7 @@ function CheckoutPage(props) {
     if (chosenCard.type) {
       props.setTotal(total)
       props.setCreditCard(chosenCard.type, chosenCard.number)
+      //sendEmailConfirmation();
       nav("/OrderConfirmation/" + params.movie)
     } else {
       setError("Choose Your Payment Method!")
