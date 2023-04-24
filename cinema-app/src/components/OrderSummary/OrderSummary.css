@@ -38,6 +38,8 @@ h4, h1, p, h2, h5{
     font-family: 'Courier New', monospace;
 }
 .confirmOrder2{
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 10px;
 }
 
