@@ -31,7 +31,7 @@ export default function MovieCard(data) {
     selectShowtime = <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
    } else if (!data.user) {
     console.log(data.loggedIn)
-    selectShowtime = <Link to  = {`/login`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
+    selectShowtime = <Link to  = {"/login/" + data.title}><Button variant="btn btn-dark"> Select showtime</Button></Link>
    }
   return (
     <div className='cards'>
