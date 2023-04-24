@@ -33,7 +33,7 @@ function CheckoutPage(props) {
     if (cardInfo.name) {
       setCardInfo(cardInfo)
       editUserProfile({card_info: cardInfo, email: props.user.email})
-      setCardComp("You have added and selected that card")
+      setCardComp("You have added and selected that card!")
       
       
     }
@@ -144,9 +144,9 @@ function CheckoutPage(props) {
             </div>
             </Collapse></div>
       }
-      // if (props.tickets.length == 0) {
-      //   nav('/')
-      // }
+       if (props.tickets.length == 0) {
+         nav('/')
+       }
       let creditCards = []
       let numCards = 0
       console.log(props.user)
@@ -208,7 +208,9 @@ function CheckoutPage(props) {
         <div className="d-grid gap-2">
         {chosenCardDisplayed}
         {existingCardComponent}
+        <h2>
         {cardCom}
+        </h2>
         {newCreditCardComponent}
         
         <hr />
