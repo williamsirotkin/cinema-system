@@ -26,10 +26,11 @@ def get_emails():
     print(jsonify(emails))
     return jsonify(emails)
 
-@promo.route('get-promo-value', methods = ['GET'])
+@promo.route('/get-promo-value', methods = ['POST'])
 def get_promo_value():
     data = request.json
     promo = list(db.promotions.find({'promoName': data['promoName']}))
+    print(promo)
     print(promo[0])
     return jsonify({
         'discountAmnt': promo[0]['discountAmnt'],
