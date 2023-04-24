@@ -245,6 +245,7 @@ function App() {
 
       <Route path = "/checkoutPage/:movie" element={
           <React.Fragment>
+
             <CheckoutPage user = {user} promo = {promo} promoValue = {promoValue} setTotal = {setTotalFunc} setCreditCard = {setCreditCardFunc} room = {movieRoom} seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
           </React.Fragment>
       }></Route>
