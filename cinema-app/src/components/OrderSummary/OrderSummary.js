@@ -206,13 +206,13 @@ function OrderSummary(props) {
 
         <div class="d-flex justify-content-between">
         <p class="fs-6">Booking Fee</p>
-        <p class="fs-5">${parseFloat((total - promoValue) * BOOKING_FEE_PERCENTAGE, 2).toFixed(2)}</p>
+        <p class="fs-5">${parseFloat(total * BOOKING_FEE_PERCENTAGE, 2).toFixed(2)}</p>
         </div>
 
         {promotionComponent}
         <div class="d-flex justify-content-between">
         <p class="fs-4">TOTAL</p>
-        <p class="fs-4">${parseFloat(total - promoValue + (total - promoValue) * BOOKING_FEE_PERCENTAGE, 2).toFixed(2)}</p>
+        <p class="fs-4">${parseFloat(total - promoValue + total * BOOKING_FEE_PERCENTAGE, 2).toFixed(2)}</p>
         
         </div>
         <div class="promo-bar">
@@ -231,7 +231,8 @@ function OrderSummary(props) {
         newArray = newArray.map(obj => {
             return obj.seats
         });
-    
+        props.setPromoFunc(promo)
+        props.setPromoValueFunc(promoValue)
         props.setSeats(newArray)
         nav('/checkoutPage/' + params.movie)
       }} className="confirmOrder" variant="primary" size="lg">

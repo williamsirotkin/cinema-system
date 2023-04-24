@@ -35,7 +35,7 @@ def get_promo_value():
     return jsonify({
         'discountAmnt': promo[0]['discountAmnt'],
         'discountType': promo[0]['discountType']
-        })
+    })
 
 @promo.route("/add", methods=['POST'])
 def promo_add():
