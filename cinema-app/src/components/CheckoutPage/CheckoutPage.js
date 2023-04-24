@@ -95,18 +95,18 @@ function CheckoutPage(props) {
   let newCreditCardComponent;
 
   if (!props.user.card_info && !newCard) {
-    newCreditCardComponent = <div><div class = 'movieCard' ><Button variant="dark" size="lg"
-    onClick={() => setOpen(!open)}
+    newCreditCardComponent = <div><Button variant="dark mt-3 " size="lg"
+    onClick={() => setOpen(!open)} 
     aria-controls="example-collapse-text"
     aria-expanded={open}>
-      Add new credit card
+      Add New Card
     </Button>
     <Collapse in={open}>
     <div id="example-collapse-text">
-    <CardForm sendData = {sendData}></CardForm>
+      <CardForm sendData = {sendData}></CardForm>
     </div>
     </Collapse>
-    </div></div>
+    </div>
   }
 
   let existingCardComponent;
@@ -175,9 +175,9 @@ function CheckoutPage(props) {
             </div>
             </Collapse></div>
       }
-       if (props.tickets.length == 0) {
-         nav('/')
-       }
+      //  if (props.tickets.length == 0) {
+      //    nav('/')
+      //  }
       let creditCards = []
       let numCards = 0
       console.log(props.user)
