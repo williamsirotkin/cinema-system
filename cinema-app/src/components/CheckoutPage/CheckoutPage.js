@@ -28,7 +28,7 @@ function CheckoutPage(props) {
 
   }
   let display;
-  if(props.tickets){
+  if(props.tickets.length > 0){
     let temp = props.seats.sort(function(a, b) {
       return a - b;
     })
@@ -76,6 +76,9 @@ function CheckoutPage(props) {
 
   useEffect(()=>{
     (async()=>{
+      if (props.tickets.length == 0) {
+        nav('/')
+      }
       let creditCards = []
       let numCards = 3
       for (let i = 0; i < numCards; i++) {

@@ -1,14 +1,24 @@
 
-import React from 'react'
+import {React, useEffect} from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { formatShowtime } from '../CheckoutPage/CheckoutPage';
 export default function OrderConfirmation(props) {
   let params = useParams()
+  let nav = useNavigate()
+
+  useEffect(()=>{
+    (async()=>{
+      console.log(props.tickets)
+      if (props.tickets.length == 0) {
+        nav('/')
+      }
+    })();
+  },[])
 
   let display;
   console.log(props.creditCard)
-  if(props){
+  if(props.tickets.length > 0){
     console.log(props.seats)
     let temp = props.seats.sort(function(a, b) {
       return a - b;
