@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Link, useParams} from 'react-router-dom'
+import { Link, useParams, useNavigate} from 'react-router-dom'
 import {Image, Form } from 'react-bootstrap';
 import './CheckoutPage.css'
 import Button from 'react-bootstrap/Button';
@@ -20,7 +20,9 @@ function CheckoutPage(props) {
   const [open2, setOpen2] = useState(false);
   const [cardInfo, setCardInfo] = useState('');
   const [movieImg, setMovieImg] = useState('')
+  const [error, setError] = useState('')
   let params = useParams()
+  let nav = useNavigate()
   const sendData = (cardInfo) =>{
     setCardInfo(cardInfo)
 
@@ -62,8 +64,14 @@ function CheckoutPage(props) {
   total = total.toFixed(2)
 
   function handleSubmit() {
-    props.setTotal(total)
-    props.setCreditCard(chosenCard.type, chosenCard.number)
+    console.log(chosenCard.type)
+    if (chosenCard.type) {
+      props.setTotal(total)
+      props.setCreditCard(chosenCard.type, chosenCard.number)
+      nav("/OrderConfirmation/" + params.movie)
+    } else {
+      setError("Choose Your Payment Method!")
+    }
   }
 
   useEffect(()=>{
@@ -119,6 +127,7 @@ function CheckoutPage(props) {
         </div>
         <p class="text-end">Includes applicable state and local sales taxes.</p>
         <hr />
+        <h2 class ="error"> {error} </h2>
         <p class="fs-3">Payment Method</p>
         </Card.Text>
         <div className="d-grid gap-2">
@@ -161,9 +170,9 @@ function CheckoutPage(props) {
         </div>
       </Card.Body>
       <br></br>
-      <Link to  = {"/OrderConfirmation/" + params.movie}><Button onClick = {() => handleSubmit()} className="confirmOrder" variant="dark" size="lg">
+     <Button onClick = {() => handleSubmit()} className="confirmOrder" variant="dark" size="lg">
           Complete Order
-        </Button>{' '}</Link>
+        </Button>
     </Card>
     </div>
     </div>
