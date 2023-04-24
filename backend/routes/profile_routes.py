@@ -18,7 +18,6 @@ profile = Blueprint("profile", __name__, url_prefix="/profile")
 @profile.route("/")
 def profile_home():
     return "This is the profile routes"
-
 @profile.route('/get-users', methods=['GET'])
 def get_users():
     all_items = list(db.profile.find({'active': {'$ne': 'pending'}}, {'_id': True, 'email': True, 'active': True}))
@@ -129,6 +128,9 @@ def jwt_login():
         temp = False
         if isAdmin:
             temp = True
+        card_info = False
+        if 'card_info' in result and result["card_info"] != "":
+            card_info = True
         return jsonify({'firstName': result['first_name'],
                         'lastName': result['last_name'],
                         'email': result['email'],
@@ -137,7 +139,8 @@ def jwt_login():
                         'billing_address': result['billing_address'],
                         'promos': result['registered_for_promos'],
                         'admin': temp,
-                        'token': jwt_token
+                        'token': jwt_token,
+                        'card_info': card_info
                         })
     return Response(status=404)
     
