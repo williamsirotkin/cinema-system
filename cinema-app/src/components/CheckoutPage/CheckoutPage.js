@@ -175,9 +175,9 @@ function CheckoutPage(props) {
             </div>
             </Collapse></div>
       }
-      //  if (props.tickets.length == 0) {
-      //    nav('/')
-      //  }
+       if (props.tickets.length == 0) {
+         nav('/')
+       }
       let creditCards = []
       let numCards = 0
       console.log(props.user)
