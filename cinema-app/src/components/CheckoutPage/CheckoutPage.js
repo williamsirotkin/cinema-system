@@ -59,27 +59,27 @@ function CheckoutPage(props) {
   }
   /////////////////////////////////////////////////////////////////////////////////////////
   
-  function sendEmailConfirmation() {
-  let seatString;
+//   function sendEmailConfirmation() {
+//   let seatString;
 
-  let temp1 = props.seats.sort(function(a, b) {
-    return a - b;
-  })
-  console.log(props.showtime)
-  console.log(temp1[0].sort(function(a, b) {
-    return a - b;
-  }))
-  seatString = temp1[0].sort(function(a, b) {
-    return a - b;
-  }).join(",")
+//   let temp1 = props.seats.sort(function(a, b) {
+//     return a - b;
+//   })
+//   console.log(props.showtime)
+//   console.log(temp1[0].sort(function(a, b) {
+//     return a - b;
+//   }))
+//   seatString = temp1[0].sort(function(a, b) {
+//     return a - b;
+//   }).join(",")
   
-  emailjs.send('service_96npu8c', 'template_ddsfy0a', {'room': formatRoom(props.room), 'seats': seatString, 'showtime': props.showtime, 'email': props.user.email, 'name': props.user.firstName, 'movie': params.movie}, 'm8yxyvLLbYsPK3HRZ')
-  .then(function(response) {
-  console.log('SUCCESS!', response.status, response.text);
-}, function(error) {
-  console.log('FAILED...', error);
-});
-  }
+//   emailjs.send('service_96npu8c', 'template_ddsfy0a', {'room': formatRoom(props.room), 'seats': seatString, 'showtime': props.showtime, 'email': props.user.email, 'name': props.user.firstName, 'movie': params.movie}, 'm8yxyvLLbYsPK3HRZ')
+//   .then(function(response) {
+//   console.log('SUCCESS!', response.status, response.text);
+// }, function(error) {
+//   console.log('FAILED...', error);
+// });
+//   }
   ////////////////////////////////////////////////////////////////////////////////////////////
 
   var BOOKING_FEE_PERCENTAGE = 0.0962;
@@ -93,12 +93,11 @@ function CheckoutPage(props) {
     if (chosenCard.type) {
       props.setTotal(total)
       props.setCreditCard(chosenCard.type, chosenCard.number)
+      //sendEmailConfirmation();
       nav("/OrderConfirmation/" + params.movie)
     } else {
       setError("Choose Your Payment Method!")
     }
-
-    sendEmailConfirmation();
   }
 
   useEffect(()=>{
