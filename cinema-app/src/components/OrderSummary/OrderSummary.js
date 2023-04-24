@@ -136,6 +136,8 @@ function OrderSummary(props) {
   }
 
   const handleDelete = (id) => {
+    setPromoValue(0)
+    setPromo('')
     for (let i = 0; i < tickets.length; i++) {
       if (tickets[i].id == id) {
         setTotal(total - round(tickets[i].price ,2));
