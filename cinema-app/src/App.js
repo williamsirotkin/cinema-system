@@ -44,6 +44,16 @@ function App() {
   const [seatsSelected,setSeatSelected] = useState()
   const [total, setTotal] = useState()
   const [creditCard, setCreditCard] = useState({})
+  const [promo, setPromo] = useState('')
+  const [promoValue, setPromoValue] = useState(0)
+
+  const setPromoFunc = (promo) => {
+    setPromo(promo)
+  }
+
+  const setPromoValueFunc = (promoValue) => {
+    setPromoValue(promoValue)
+  }
 
   const setUserData = (firstName, lastName, email, admin, birthday, card_info, active, billing_address, promos) => {
 
@@ -185,7 +195,7 @@ function App() {
 
       <Route path = "/orderSummary/:movie" element={
           <React.Fragment>
-            <OrderSummary  adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
+            <OrderSummary setPromoFunc = {setPromoFunc} setPromoValueFunc = {setPromoValueFunc} adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
           </React.Fragment>
       }></Route>
 
@@ -235,7 +245,7 @@ function App() {
 
       <Route path = "/checkoutPage/:movie" element={
           <React.Fragment>
-            <CheckoutPage user = {user} setTotal = {setTotalFunc} setCreditCard = {setCreditCardFunc} room = {movieRoom} seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
+            <CheckoutPage user = {user} promo = {promo} promoValue = {promoValue} setTotal = {setTotalFunc} setCreditCard = {setCreditCardFunc} room = {movieRoom} seats={seats} adult ={seats[0]} child={seats[1]} senior={seats[2]} tickets = {tickets} showtime = {movieShowtime}/>
           </React.Fragment>
       }></Route>
 
