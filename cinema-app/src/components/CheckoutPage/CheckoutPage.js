@@ -11,7 +11,7 @@ import { getMovieByTitle } from '../../utility/getMovieByTitleUtility';
 import './CreditCard.css'
 import CreditCard from './CreditCard';
 
-export default function CheckoutPage(props) {
+function CheckoutPage(props) {
   const [type, setType] = useState([""]);
   const [number, setNumber] = useState([0]);
   const [CreditCards, setCreditCards] = useState([{}])
@@ -54,11 +54,18 @@ export default function CheckoutPage(props) {
     senior: 6.99
   }
 
+
   var BOOKING_FEE_PERCENTAGE = 0.0962;
 
   let subTotal = price["adult"] * props.tickets[0] +price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
   let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
   total = total.toFixed(2)
+
+  function handleSubmit() {
+    props.setTotal(total)
+    props.setCreditCard(chosenCard.type, chosenCard.number)
+  }
+
   useEffect(()=>{
     (async()=>{
       let creditCards = []
@@ -66,7 +73,7 @@ export default function CheckoutPage(props) {
       for (let i = 0; i < numCards; i++) {
         creditCards.push({
           type: randomTypeOfCard(), 
-          number: Math.floor(Math.random(9999) * 10000)/ 10000
+          number: generateRandomLastFour()
         })
       }
       setCreditCards(creditCards)
@@ -154,7 +161,7 @@ export default function CheckoutPage(props) {
         </div>
       </Card.Body>
       <br></br>
-      <Link to  = "/OrderConfirmation"><Button  className="confirmOrder" variant="dark" size="lg">
+      <Link to  = {"/OrderConfirmation/" + params.movie}><Button onClick = {() => handleSubmit()} className="confirmOrder" variant="dark" size="lg">
           Complete Order
         </Button>{' '}</Link>
     </Card>
@@ -218,3 +225,14 @@ function formatRoom(room) {
   } 
   return 6
 }
+
+function generateRandomLastFour() {
+  let random = 0
+  do {
+    console.log(random)
+    random = Math.floor(Math.random(9999) * 10000) / 10000
+  } while (random < 0.1)
+  return random
+}
+
+export {CheckoutPage, formatShowtime}
