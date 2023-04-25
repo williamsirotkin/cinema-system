@@ -94,6 +94,7 @@ def order_submit():
     return jsonify(response_data), 201
 
 @order.route("/getInvoice/<string:email>")
+
 # /getInvoice/williamsirotkin@gmail.com
 # [
 #     {
@@ -126,6 +127,8 @@ def order_submit():
 #         "total_amount": 23.46
 #     }
 # ]
+
+
 def get_orders_by_email(email):
     orders = db.order_Booking.find({"email": email})
     order_list = []
