@@ -92,7 +92,7 @@ function CheckoutPage(props) {
 // });
 //   }
   ////////////////////////////////////////////////////////////////////////////////////////////
-  console.log(props.user)
+  console.log(props)
   let newCreditCardComponent;
 
   if (!props.user.card_info && !newCard) {
