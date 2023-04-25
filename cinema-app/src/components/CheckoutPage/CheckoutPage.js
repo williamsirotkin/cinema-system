@@ -63,6 +63,8 @@ function CheckoutPage(props) {
     console.log(props)
   },[])
 
+
+
   let price = {
     adult: 13.99,
     child: 10.99,
@@ -92,7 +94,6 @@ function CheckoutPage(props) {
 // });
 //   }
   ////////////////////////////////////////////////////////////////////////////////////////////
-  console.log(props)
   let newCreditCardComponent;
 
   if (!props.user.card_info && !newCard) {
@@ -139,9 +140,12 @@ function CheckoutPage(props) {
 
   var BOOKING_FEE_PERCENTAGE = 0.0962;
 
-  let subTotal = price["adult"] * props.tickets[0] +price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
+  let subTotal = price["adult"] * props.tickets[0] + price["child"] * props.tickets[1] + price["senior"] * props.tickets[2]
   let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
   total = total.toFixed(2)
+  const parsedTotal = parseFloat(total);
+  const parsedPromo = parseFloat(props.promoValue)
+
 
   let movieDetails = {
     "name": params.movie,
@@ -174,7 +178,7 @@ function CheckoutPage(props) {
     seatTotal++
   }
   async function handleSubmit() {
-    let order = await completeOrderUtility(total, movieDetails, seatsDetails, props.promo.promoName, props.promoValue, props.user.email)
+    let order = await completeOrderUtility(parsedTotal, movieDetails, seatsDetails, props.promo.promoName, parsedPromo, props.user.email)
     if (!order) {
       console.log("There was an error completing your order. Please try again later.")
       nav("/")
