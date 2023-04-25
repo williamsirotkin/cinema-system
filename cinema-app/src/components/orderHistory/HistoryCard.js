@@ -44,7 +44,6 @@ export default function HistoryCard(props) {
         <p class="fs-5">Total after discount(if applied):</p>
         <p class="fs-5"> ${props.total.toFixed(2)}</p>
         </div>
-        <hr/>
 
     </Card.Body>
   </Card>

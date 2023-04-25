@@ -80,10 +80,14 @@ const SelectedSeats = (props) => {
   useEffect(()=> {
     getTaken()
   },[])
-
   async function getTaken() {
-    setTakenSeats(await getTakenSeatsUtility(props.room, props.showtime))
+    const takenSeats = await getTakenSeatsUtility(props.room, props.showtime);
+    const incrementedSeats = takenSeats.map(seat => seat + 1);
+    setTakenSeats(incrementedSeats);
   }
+  // async function getTaken() {
+  //   setTakenSeats(await getTakenSeatsUtility(props.room, props.showtime))
+  // }
 
   const renderSeat =  (seatNumber) => {
     const isSelected = selectedSeats.includes(seatNumber);
