@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './orderHistory.css'
 import HistoryCard from './HistoryCard';
+import { getOrderHistory } from '../../utility/orderHistoryUtility';
 
 
 export default function OrderHistory(props) {
-const [orders, setOrders] = useState([])
+const [orders2, setOrders] = useState([])
+const orders = []
+
 console.log(props.user)
-// useEffect(()=>{
-//   (async()=>{
-//     const result = await getMovieByTitle(movieTitle)
-//     setMovieImg(result[0].photo_link)
-//   })();
-// },[])
+useEffect(()=>{
+  (async()=>{
+    const result = await getOrderHistory(props.user.email)
+    console.log(result)
+    setOrders(result)
+
+  })();
+},[])
 
 if (props.user) {
     return (

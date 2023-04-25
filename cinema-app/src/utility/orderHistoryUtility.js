@@ -1,12 +1,12 @@
 import axios from 'axios'
 
- function getOrderHistory(email) {
-     axios({
+ async function getOrderHistory(email) {
+     return await axios({
         url: process.env.REACT_APP_BACKEND_URL + `/order/getInvoice/${email}`,
         data: {
            "email": email
         },
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json"
         }
