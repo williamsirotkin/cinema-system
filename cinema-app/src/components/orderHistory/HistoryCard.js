@@ -10,6 +10,10 @@ export default function HistoryCard(props) {
       <Card.Subtitle className="mb-2 text-muted">Order id: {props.id}</Card.Subtitle>
       <hr/>
       <div class="d-flex gap-2">
+        <p class="fs-5">showtime:</p>
+        <p class="fs-5">{new Date(props.showtime.$date).toLocaleString()}</p>
+        </div>
+      <div class="d-flex gap-2">
       <p class="fs-5">Seat numbers:</p>
       {props.tickets.map((tickets) => (
           <p class="fs-5">{tickets.seatNumber}</p>
@@ -33,13 +37,15 @@ export default function HistoryCard(props) {
         <p class="fs-5">No promo applied</p>
       )}
       <div class="d-flex justify-content-between">
-        <p class="fs-5">Subtotal</p>
+        <p class="fs-5">Subtotal:</p>
         <p class="fs-5"> ${props.subtotal}</p>
         </div>
         <div class="d-flex justify-content-between">
-        <p class="fs-5">Total after discount(if applied)</p>
+        <p class="fs-5">Total after discount(if applied):</p>
         <p class="fs-5"> ${props.total.toFixed(2)}</p>
         </div>
+        <hr/>
+
     </Card.Body>
   </Card>
   )
