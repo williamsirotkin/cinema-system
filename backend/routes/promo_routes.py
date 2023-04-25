@@ -33,6 +33,7 @@ def get_promo_value():
     print(promo)
     print(promo[0])
     return jsonify({
+        'promoName': data['promoName'],
         'discountAmnt': promo[0]['discountAmnt'],
         'discountType': promo[0]['discountType']
     })

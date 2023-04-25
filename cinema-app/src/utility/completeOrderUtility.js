@@ -1,14 +1,15 @@
 import axios from 'axios'
 
- function completeOrderUtility(total, movie, seats, tickets, promos) {
+ function completeOrderUtility(total, movie, seats, promo, promoValue, email) {
      axios({
-        url: process.env.REACT_APP_BACKEND_URL + "/orders/setOrder",
+        url: process.env.REACT_APP_BACKEND_URL + "/order/reserveTickets",
         data: {
             "total": total, 
             "movie": movie,
             "seats": seats,
-            "tickets": tickets,
-            "promos": promos
+            "promoApplied": promo,
+            "promoValue": promoValue,
+            "email": email
         },
         method: "POST",
         headers: {
@@ -16,6 +17,7 @@ import axios from 'axios'
         }
     })
         .then((response => {
+            console.log(response.data)
             return true
         }))
         .catch((error) => {

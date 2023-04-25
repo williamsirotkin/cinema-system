@@ -42,6 +42,8 @@ def order_submit():
     order_booking = db['order_Booking']
     data = request.get_json()
 
+    print(data)
+
     # calculate final total amount
     promo_value = float(data['promoValue'])
     total_amount = float(data['total']) - promo_value

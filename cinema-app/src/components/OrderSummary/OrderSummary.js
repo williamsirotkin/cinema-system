@@ -119,17 +119,17 @@ function OrderSummary(props) {
     }
     let promoValue = await getPromoValueUtility(inputValue)
     await setPromo(promoValue)
-    console.log(promo)
+    console.log(promoValue)
     if (promoValue.discountType == '$') {
       if (promoValue.discountAmnt <= total) {
-        await setPromoValue(promoValue.discountAmnt)
+        await setPromoValue(parseFloat(promoValue.discountAmnt).toFixed(2))
       } else {
           
       }
     }
     if (promoValue.discountType == '%') {
       if (promoValue.discountAmnt <= 100) {
-        await setPromoValue(total * promoValue.discountAmnt / 100)
+        await setPromoValue(parseFloat(total * promoValue.discountAmnt / 100).toFixed(2))
       }
     }
     console.log(total)

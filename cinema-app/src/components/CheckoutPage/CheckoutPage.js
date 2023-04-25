@@ -13,6 +13,7 @@ import CreditCard from './CreditCard';
 import emailjs from '@emailjs/browser';
 import { editUserProfile } from '../../utility/editUserProfileUtility';
 import { BsArrowLeftRight } from 'react-icons/bs';
+import { completeOrderUtility } from '../../utility/completeOrderUtility';
 
 function CheckoutPage(props) {
   const [type, setType] = useState([""]);
@@ -132,7 +133,7 @@ function CheckoutPage(props) {
   if (props.promoValue > 0) {
     promotionComponent = <div class="d-flex justify-content-between">
     <p class="fs-6"> Promotion </p>
-    <p class="fs-5"> -${(props.promoValue).toFixed(2)} </p>
+    <p class="fs-5"> -${(props.promoValue)} </p>
     </div>
   }
 
@@ -142,7 +143,42 @@ function CheckoutPage(props) {
   let total = subTotal + subTotal * BOOKING_FEE_PERCENTAGE
   total = total.toFixed(2)
 
-  function handleSubmit() {
+  let movieDetails = {
+    "name": params.movie,
+    "room": props.room,
+    "showtime": convertTimeFormat(props.showtime)
+  }
+  let numSeats = props.tickets[0] + props.tickets[1] + props.tickets[2]
+  let seatsDetails = []
+  let seatTotal = 0
+  for (let i = 0; i < props.tickets[0]; i++) {
+    console.log(props.seats)
+    seatsDetails.push({
+      "seatNumber": props.seats[0][seatTotal],
+      "seatType": "Adult"
+    })
+    seatTotal++
+  }
+  for (let i = 0; i < props.tickets[1]; i++) {
+    seatsDetails.push({
+      "seatNumber": props.seats[0][seatTotal],
+      "seatType": "Child"
+    })
+    seatTotal++
+  }
+  for (let i = 0; i < props.tickets[2]; i++) {
+    seatsDetails.push({
+      "seatNumber": props.seats[0][seatTotal],
+      "seatType": "Senior"
+    })
+    seatTotal++
+  }
+  async function handleSubmit() {
+    let order = await completeOrderUtility(total, movieDetails, seatsDetails, props.promo.promoName, props.promoValue, props.user.email)
+    if (!order) {
+      alert("There was an error completing your order. Please try again later.")
+      nav("/")
+    }
     console.log(chosenCard.type)
     if (chosenCard.type) {
       props.setTotal(total)
@@ -324,5 +360,29 @@ function generateRandomLastFour() {
   } while (random < 0.1)
   return random
 }
+
+function convertTimeFormat(inputDateStr) {
+  const inputDate = new Date(inputDateStr);
+
+  function padNumber(num, minLength = 2) {
+    const str = num.toString();
+    return str.length < minLength ? '0'.repeat(minLength - str.length) + str : str;
+  }
+
+  const year = inputDate.getUTCFullYear();
+  const month = padNumber(inputDate.getUTCMonth() + 1);
+  const day = padNumber(inputDate.getUTCDate());
+  const hours = padNumber(inputDate.getUTCHours());
+  const minutes = padNumber(inputDate.getUTCMinutes());
+  const seconds = padNumber(inputDate.getUTCSeconds());
+  const milliseconds = padNumber(inputDate.getUTCMilliseconds(), 3);
+
+  const outputDateStr = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}+00:00`;
+
+  return outputDateStr;
+}
+
+
+
 
 export {CheckoutPage, formatShowtime}
