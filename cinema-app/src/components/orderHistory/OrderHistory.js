@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './orderHistory.css'
@@ -6,7 +6,14 @@ import HistoryCard from './HistoryCard';
 
 
 export default function OrderHistory(props) {
-const orders = []
+const [orders, setOrders] = useState([])
+console.log(props.user)
+// useEffect(()=>{
+//   (async()=>{
+//     const result = await getMovieByTitle(movieTitle)
+//     setMovieImg(result[0].photo_link)
+//   })();
+// },[])
 
 if (props.user) {
     return (

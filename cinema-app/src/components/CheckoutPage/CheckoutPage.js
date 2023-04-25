@@ -176,7 +176,7 @@ function CheckoutPage(props) {
   async function handleSubmit() {
     let order = await completeOrderUtility(total, movieDetails, seatsDetails, props.promo.promoName, props.promoValue, props.user.email)
     if (!order) {
-      alert("There was an error completing your order. Please try again later.")
+      console.log("There was an error completing your order. Please try again later.")
       nav("/")
     }
     console.log(chosenCard.type)
