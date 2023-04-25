@@ -15,6 +15,9 @@ function OrderSummary(props) {
   const [inputValue, setInputValue] = useState('');
   const [promo, setPromo] = useState('')
   const [promoValue, setPromoValue] = useState(0)
+  const [subtractedAdultTickets, setSubtractedAdultTickets] = useState(0)
+  const [subtractedChildTickets, setSubtractedChildTickets] = useState(0)
+  const [subtractedSeniorTickets, setSubtractedSeniorTickets] = useState(0)
 
   let priceMap = {
     adult: 13.99,
@@ -119,17 +122,17 @@ function OrderSummary(props) {
     }
     let promoValue = await getPromoValueUtility(inputValue)
     await setPromo(promoValue)
-    console.log(promo)
+    console.log(promoValue)
     if (promoValue.discountType == '$') {
       if (promoValue.discountAmnt <= total) {
-        await setPromoValue(promoValue.discountAmnt)
+        await setPromoValue(parseFloat(promoValue.discountAmnt).toFixed(2))
       } else {
           
       }
     }
     if (promoValue.discountType == '%') {
       if (promoValue.discountAmnt <= 100) {
-        await setPromoValue(total * promoValue.discountAmnt / 100)
+        await setPromoValue(parseFloat(total * promoValue.discountAmnt / 100).toFixed(2))
       }
     }
     console.log(total)
@@ -169,13 +172,16 @@ function OrderSummary(props) {
       console.log(props.adult, props.child, props.senior)
       console.log(props.seats)
       console.log(props.tickets)
-      props.setTickets(props.adult - 1, props.child, props.senior)
+      props.setTickets(props.adult - 1 - subtractedAdultTickets, props.child -subtractedChildTickets, props.senior -subtractedSeniorTickets)
+      setSubtractedAdultTickets(subtractedAdultTickets+1)
     }
     if (deletedType == "Child") {
-      props.setTickets(props.adult, props.child - 1, props.senior)
+      props.setTickets(props.adult - subtractedAdultTickets, props.child - 1 - subtractedChildTickets, props.senior -subtractedSeniorTickets)
+      setSubtractedChildTickets(subtractedChildTickets+1)
     }
     if (deletedType == "Senior") {
-      props.setTickets(props.adult, props.child, props.senior - 1)
+      props.setTickets(props.adult - subtractedAdultTickets, props.child -subtractedChildTickets, props.senior -1 - subtractedSeniorTickets)
+      setSubtractedSeniorTickets(subtractedSeniorTickets+1)
     }
     console.log(newArray)
   };
