@@ -41,7 +41,14 @@ def order_submit():
     order_data = request.json
 
     # calculate final total amount
-    promo_value = float(order_data["promoValue"])
+    if "promoValue" in order_data:
+        if order_data["promoValue"]:
+            promo_value = float(order_data["promoValue"])
+        else:
+            promo_value = 0.0
+    else:
+        promo_value = 0.0
+
     total_amount = order_data["total"] - promo_value
 
     # get movie information
@@ -69,16 +76,28 @@ def order_submit():
         })
 
     # create order booking document
-    order_booking = {
-        "subtotal": order_data["total"],
-        "total": total_amount,
-        "promoApplied": order_data["promoApplied"],
-        "email": order_data["email"],
-        "movieName": movie_name,
-        "roomName": room_name,
-        "showtime": showtime,
-        "orderTickets": order_tickets
-    }
+    if "promoApplied" in order_data and order_data["promoApplied"] and order_data["promoApplied"] != "NONE":
+        order_booking = {
+            "subtotal": order_data["total"],
+            "total": total_amount,
+            "promoApplied": order_data["promoApplied"],
+            "email": order_data["email"],
+            "movieName": movie_name,
+            "roomName": room_name,
+            "showtime": showtime,
+            "orderTickets": order_tickets
+        }
+    else:
+        order_booking = {
+            "subtotal": order_data["total"],
+            "total": total_amount,
+            "email": order_data["email"],
+            "movieName": movie_name,
+            "roomName": room_name,
+            "showtime": showtime,
+            "orderTickets": order_tickets
+        }
+
     order_booking_id = db.order_Booking.insert_one(order_booking).inserted_id
 
     # update order tickets documents with order booking id
