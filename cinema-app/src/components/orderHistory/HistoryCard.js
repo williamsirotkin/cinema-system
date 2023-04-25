@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card } from 'react-bootstrap';
+import { formatShowtime } from '../CheckoutPage/CheckoutPage';
 
 export default function HistoryCard(props) {
   console.log(props.tickets)
@@ -11,7 +12,8 @@ export default function HistoryCard(props) {
       <hr/>
       <div class="d-flex gap-2">
         <p class="fs-5">showtime:</p>
-        <p class="fs-5">{new Date(props.showtime.$date).toLocaleString()}</p>
+        {/* <p class="fs-5">{new Date(props.showtime.$date).toLocaleString()}</p> */}
+        <p class="fs-5">{formatShowtime(props.showtime.$date.toLocaleString())}</p>
         </div>
       <div class="d-flex gap-2">
       <p class="fs-5">Seat numbers:</p>
