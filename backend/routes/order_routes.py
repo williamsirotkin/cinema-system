@@ -38,53 +38,61 @@ def order_submit():
     #     "promoValue": "10.99",
     #     "email": "williamsirotkin@gmail.com"
     # }
-    order_tickets = db['order_Tickets']
-    order_booking = db['order_Booking']
-    data = request.get_json()
-
-    print(data)
+    # parse request body as JSON
+    order_data = request.json
 
     # calculate final total amount
-    promo_value = float(data['promoValue'])
-    total_amount = float(data['total']) - promo_value
+    promo_value = float(order_data["promoValue"])
+    total_amount = order_data["total"] - promo_value
 
-    # find the document in the room collection
-    room_name = data['movie']['room']
-    showtime = datetime.fromisoformat(data['movie']['showtime'])
-    room = db[room_name].find_one({'showtime': showtime})
+    # get movie information
+    movie_name = order_data["movie"]["name"]
+    room_name = order_data["movie"]["room"]
+    showtime = datetime.fromisoformat(order_data["movie"]["showtime"])
 
-    # update seats_available array
-    seats = data['seats']
-    for seat in seats:
-        seat_number = seat['seatNumber']
-        room['seats_available'][seat_number] = False
-    db[room_name].update_one({'_id': room['_id']}, {'$set': {'seats_available': room['seats_available']}})
+    # update seats availability in MongoDB
+    seats_collection = db[room_name]
+    for seat in order_data["seats"]:
+        seat_number = seat["seatNumber"] - 1
+        seat_type = seat["seatType"]
+        seats_collection.update_one({"showtime": showtime}, {"$set": {f"seats_available.{seat_number}": False}})
 
-    # create documents in order_tickets collection
-    tickets = []
-    for seat in seats:
-        ticket = {
-            'seatNumber': seat['seatNumber'],
-            'seatType': seat['seatType'],
-            'movie': data['movie']['name'],
-            'room': room_name,
-            'showtime': showtime
-        }
-        ticket_id = order_tickets.insert_one(ticket).inserted_id
-        tickets.append(ticket_id)
+    # create order tickets documents
+    order_tickets = []
+    for seat in order_data["seats"]:
+        order_tickets.append({
+            "seatNumber": seat["seatNumber"],
+            "seatType": seat["seatType"],
+            "movieName": movie_name,
+            "roomName": room_name,
+            "showtime": showtime,
+            "orderBookingId": None
+        })
 
-    # create document in order_booking collection
-    booking = {
-        'total_amount': total_amount,
-        'movie': data['movie'],
-        'seats': seats,
-        'promo_applied': data['promoApplied'],
-        'email': data['email'],
-        'tickets': tickets
+    # create order booking document
+    order_booking = {
+        "subtotal": order_data["total"],
+        "total": total_amount,
+        "promoApplied": order_data["promoApplied"],
+        "email": order_data["email"],
+        "movieName": movie_name,
+        "roomName": room_name,
+        "showtime": showtime,
+        "orderTickets": order_tickets
     }
-    order_booking.insert_one(booking)
+    order_booking_id = db.order_Booking.insert_one(order_booking).inserted_id
 
-    return 'Order successfully created!'
+    # update order tickets documents with order booking id
+    for order_ticket in order_tickets:
+        order_ticket["orderBookingId"] = order_booking_id
+        db.order_Tickets.insert_one(order_ticket)
+
+    # return success response
+    response_data = {
+        "message": "Order created successfully",
+        "orderId": str(order_booking_id)
+    }
+    return jsonify(response_data), 201
 
 @order.route("/getInvoice/<string:email>")
 # [
@@ -136,21 +144,17 @@ def get_order_ticket(id):
         return jsonify({"message": "Order ticket not found"})
 
 
-
-@order.route("/getTickets", methods=["POST"])
-# {
-#     "tickets": [
-#         "61f0b7c2670fc2b71223a39f",
-#         "61f0b7c2670fc2b71223a3a0",
-#         "61f0b7c2670fc2b71223a3a1"
-#     ]
-# }
-def get_order_tickets():
-    request_data = request.get_json()
-    ticket_ids = request_data.get("tickets")
+@order.route('/getTickets/<orderBookingId>', methods=['GET'])
+def get_order_tickets(orderBookingId):
     order_tickets = []
-    for ticket_id in ticket_ids:
-        order_ticket = db.order_Tickets.find_one({"_id": ObjectId(ticket_id)})
-        if order_ticket:
-            order_tickets.append(order_ticket)
-    return json.loads(json_util.dumps(order_tickets))
+    for ticket in db.order_Tickets.find({"orderBookingId": ObjectId(orderBookingId)}):
+        ticket_dict = {
+            "seatNumber": int(ticket["seatNumber"]),
+            "seatType": ticket["seatType"],
+            "movieName": ticket["movieName"],
+            "roomName": ticket["roomName"],
+            "showtime": str(ticket["showtime"]),
+            "orderBookingId": str(ticket["orderBookingId"])
+        }
+        order_tickets.append(ticket_dict)
+    return jsonify(order_tickets)
