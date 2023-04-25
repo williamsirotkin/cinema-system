@@ -85,6 +85,37 @@ def order_submit():
     return 'Order successfully created!'
 
 @order.route("/getInvoice/<string:email>")
+# [
+#     {
+#         "_id": "6447460a44cc31f75e2261af",
+#         "email": "williamsirotkin@gmail.com",
+#         "movie": {
+#             "name": "Superbad",
+#             "room": "room_one",
+#             "showtime": "2023-04-10T18:00:00.000+00:00"
+#         },
+#         "promo_applied": "PercentTest",
+#         "seats": [
+#             {
+#                 "seatNumber": 14,
+#                 "seatType": "Child"
+#             },
+#             {
+#                 "seatNumber": 15,
+#                 "seatType": "Adult"
+#             }
+#         ],
+#         "tickets": [
+#             {
+#                 "$oid": "6447460a44cc31f75e2261ad"
+#             },
+#             {
+#                 "$oid": "6447460a44cc31f75e2261ae"
+#             }
+#         ],
+#         "total_amount": 23.46
+#     }
+# ]
 def get_orders_by_email(email):
     orders = db.order_Booking.find({"email": email})
     order_list = []
@@ -102,15 +133,16 @@ def get_order_ticket(id):
     else:
         return jsonify({"message": "Order ticket not found"})
 
-{
-    "tickets": [
-        "61f0b7c2670fc2b71223a39f",
-        "61f0b7c2670fc2b71223a3a0",
-        "61f0b7c2670fc2b71223a3a1"
-    ]
-}
+
 
 @order.route("/getTickets", methods=["POST"])
+# {
+#     "tickets": [
+#         "61f0b7c2670fc2b71223a39f",
+#         "61f0b7c2670fc2b71223a3a0",
+#         "61f0b7c2670fc2b71223a3a1"
+#     ]
+# }
 def get_order_tickets():
     request_data = request.get_json()
     ticket_ids = request_data.get("tickets")
