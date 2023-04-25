@@ -225,6 +225,7 @@ function getAvailableShowTimes(takenShowTimes) {
   console.log(takenShowTimes)
   let today = new Date()
   console.log(today)
+  console.log(today)
   let hours = today.getHours()
   let dayOfWeek = today.getDay()
   let calendarDay = today.getUTCDay() + 2
