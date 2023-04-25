@@ -12,8 +12,7 @@ import axios from 'axios'
         }
     })
         .then((response => {
-            console.log(response.data)
-            return true
+            return response.data
         }))
         .catch((error) => {
             return false
