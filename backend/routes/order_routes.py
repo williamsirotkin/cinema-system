@@ -38,7 +38,6 @@ def order_submit():
     #     "promoValue": "10.99",
     #     "email": "williamsirotkin@gmail.com"
     # }
-    # parse request body as JSON
     order_data = request.json
 
     # calculate final total amount
@@ -95,6 +94,7 @@ def order_submit():
     return jsonify(response_data), 201
 
 @order.route("/getInvoice/<string:email>")
+# /getInvoice/williamsirotkin@gmail.com
 # [
 #     {
 #         "_id": "6447460a44cc31f75e2261af",
@@ -145,6 +145,26 @@ def get_order_ticket(id):
 
 
 @order.route('/getTickets/<orderBookingId>', methods=['GET'])
+# /getTickets/<64482e9ef9da294df84487ed>
+#[
+#     {
+#         "movieName": "Superbad",
+#         "orderBookingId": "64482e9ef9da294df84487ed",
+#         "roomName": "room_one",
+#         "seatNumber": 14,
+#         "seatType": "Child",
+#         "showtime": "2023-04-10 18:00:00"
+#     },
+#     {
+#         "movieName": "Superbad",
+#         "orderBookingId": "64482e9ef9da294df84487ed",
+#         "roomName": "room_one",
+#         "seatNumber": 15,
+#         "seatType": "Adult",
+#         "showtime": "2023-04-10 18:00:00"
+#     }
+# ]
+#
 def get_order_tickets(orderBookingId):
     order_tickets = []
     for ticket in db.order_Tickets.find({"orderBookingId": ObjectId(orderBookingId)}):
