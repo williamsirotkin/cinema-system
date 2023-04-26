@@ -13,6 +13,7 @@ export default function Cards(data) {
   //   data.handleSetMovie(data.title,data.image)
   // }
 
+
     if (data.loggedIn) {
         loggedInComponent = <div>
            <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Book now </Button></Link>
@@ -22,6 +23,13 @@ export default function Cards(data) {
           <Link to  = {"/login/" + data.title}><Button variant="btn btn-dark"> Book now </Button></Link>
         </div>
     }
+
+    if (data.comingSoon) {
+      loggedInComponent = <div>
+          
+        </div>
+    }
+
   function embedLink(link) {
    let beginLink = "https://www.youtube.com";
    let middleLink = "/embed/"

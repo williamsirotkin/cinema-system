@@ -53,7 +53,6 @@ export default function HistoryCard(props) {
 }
 
 function formatShowtimeHere(timestamp) {
-
   const date = new Date(timestamp);
   date.setMinutes(date.getMinutes() + 240);
 
