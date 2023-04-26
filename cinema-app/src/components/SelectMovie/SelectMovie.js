@@ -16,7 +16,6 @@ export default function SelectMovie(props) {
     }
     handleGetAllMovies(props.setMovies, "true")
   },[])
-
   let movieType = "Coming Soon"
   if (params.filter) {
     movieType = params.filter
@@ -31,7 +30,7 @@ export default function SelectMovie(props) {
     <div className='selectMovieTitles'> <h1> {movieType} </h1></div>
     <div className= "movie-row"> 
       {props.movies.map((movie, index) => (
-        <MovieCard admin = {props.admin} title={movie.title} image={movie.photo_link} loggedIn = {props.loggedIn}
+        <MovieCard comingSoon = {movieType == "Coming Soon" || comingSoonContains(props.comingSoon, movie.title)} admin = {props.admin} title={movie.title} image={movie.photo_link} loggedIn = {props.loggedIn}
         description={movie.details.synopsis} director={movie.details.director}  
         producers={movie.details.producer} rating={movie.MPAA_rating} trailer = {movie.trailer_link} cast={movie.details.cast} genre={movie.category} reviews={movie.details.reviews}/>
       ))}
@@ -51,4 +50,16 @@ export default function SelectMovie(props) {
     userDisplay
   )
 
+}
+
+function comingSoonContains(comingSoon, title) {
+  if (!comingSoon) {
+    return false
+  }
+  for (let i = 0; i < comingSoon.length; i++) {
+    if (title === comingSoon[i].title) {
+      return true
+    }
+  }
+  return false
 }
