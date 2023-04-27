@@ -29,7 +29,7 @@ export default function MovieCard(data) {
    console.log(data.loggedIn)
    if (!data.admin && data.loggedIn&& !data.comingSoon) {
     selectShowtime = <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Select showtime</Button></Link>
-   } else if (!data.user && !data.comingSoon) {
+   } else if (!data.user && !data.comingSoon && !data.admin) {
     console.log(data.loggedIn)
     selectShowtime = <Link to  = {"/login/" + data.title}><Button variant="btn btn-dark"> Select showtime</Button></Link>
    }
