@@ -32,8 +32,8 @@ export default function HistoryCard(props) {
         <hr/>
       {props.promo ? (
         <div class="d-flex justify-content-between">
-        <p class="fs-5">Promo:</p>
-        <p class="fs-5"> ${props.promo}</p>
+        <p class="fs-5">Promo Code Applied:</p>
+        <p class="fs-5"> {props.promo}</p>
         </div>
       ) : (
         <p class="fs-5">No promo applied</p>
