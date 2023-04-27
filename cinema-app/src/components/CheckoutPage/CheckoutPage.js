@@ -16,6 +16,7 @@ import { BsArrowLeftRight } from 'react-icons/bs';
 import { completeOrderUtility } from '../../utility/completeOrderUtility';
 
 function CheckoutPage(props) {
+  console.log(props)
   const [type, setType] = useState([""]);
   const [number, setNumber] = useState([0]);
   const [CreditCards, setCreditCards] = useState([{}])

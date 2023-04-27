@@ -189,13 +189,13 @@ function App() {
 
       <Route path = "/login/:title" element={
         <React.Fragment>
-          <Login/>
+          <Login setUser = {setUserData}/>
         </React.Fragment>
       }></Route>
 
       <Route path = "/orderSummary/:movie" element={
           <React.Fragment>
-            <OrderSummary setPromoFunc = {setPromoFunc} setPromoValueFunc = {setPromoValueFunc} adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
+            <OrderSummary user ={user} setPromoFunc = {setPromoFunc} setPromoValueFunc = {setPromoValueFunc} adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} setSeats = {setSeatsFunc} setTickets = {setTicketsFunc}/>
           </React.Fragment>
       }></Route>
 
@@ -282,7 +282,7 @@ function App() {
 
         <Route path = "/selectSeats/:movie" element={
           <React.Fragment>
-            <SelectSeats child={seats[0]} adult ={seats[1]} senior={seats[2]} room = {movieRoom} showtime = {movieShowtime} handleSeatsSelected={handleSeatsSelected}/>
+            <SelectSeats user = {user} child={seats[0]} adult ={seats[1]} senior={seats[2]} room = {movieRoom} showtime = {movieShowtime} handleSeatsSelected={handleSeatsSelected}/>
 
           </React.Fragment>
       }></Route>

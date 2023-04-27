@@ -142,7 +142,7 @@ console.log(finalSchedule)
     nav('/selectAges/' + movieTitle, {replace: true})
   }
  
-  if (props.user) {
+  if (true) {
   return (
     <div className='box'>
 

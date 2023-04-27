@@ -40,7 +40,7 @@ function MainNavbar(props) {
   }
   
   let profileComponent;
-  if (props.loggedIn) {
+  if (props.loggedIn || props.user) {
     profileComponent = <NavDropdown title= {props.user.firstName} id="basic-nav-dropdown">
     <NavDropdown.Item href="/editProfile">
       Edit Profile

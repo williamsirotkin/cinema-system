@@ -14,7 +14,7 @@ export default function Cards(data) {
   // }
 
 
-    if (data.loggedIn) {
+    if (true) {
         loggedInComponent = <div>
            <Link to  = {`/selectShowtime/${data.title}`}><Button variant="btn btn-dark"> Book now </Button></Link>
         </div>

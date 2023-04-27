@@ -51,7 +51,11 @@ const SelectedSeats = (props) => {
       setErrorMsg("Please select the appropiate number of tickets you chose")
     }else{
       props.handleSeatsSelected(selectedSeats)
+      if (props.user) {
       nav('/orderSummary/' + params.movie,{replace:"true"})
+      } else  {
+        nav('/login/' + params.movie,{replace:"true"})
+      }
       
     }
   }

@@ -11,6 +11,7 @@ import CloseButton from 'react-bootstrap/CloseButton';
 
 
 function OrderSummary(props) {
+  console.log(props)
   let nav = useNavigate()
   let params = useParams()
   const [inputValue, setInputValue] = useState('');
@@ -176,7 +177,7 @@ function OrderSummary(props) {
         return -1
       }
     });
-
+    
     props.setTickets(newArray)
     if (deletedType == "Adult") {
       console.log(props.adult, props.child, props.senior)

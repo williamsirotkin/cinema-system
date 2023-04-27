@@ -8,11 +8,10 @@ import Collapse from 'react-bootstrap/Collapse';
 import Nav from 'react-bootstrap/Nav';
 import Modal from 'react-bootstrap/Modal';
 import emailjs from '@emailjs/browser';
+import {jwtLoginUtility} from '../../utility/jwtLoginUtility.js'
 
 
-
-
-const Login = () => {
+const Login = (props) => {
   const location = useLocation()
   let nav = useNavigate()
   const [email, setEmail] = useState('');
@@ -82,15 +81,15 @@ const Login = () => {
         } else {      //clicked login before being logged in
           console.log("hi")
           // console.log("nav", nav)
-          const newUrl = location.pathname.replace('login', 'selectShowtime')
+          const newUrl = location.pathname.replace('login', 'orderSummary')
           console.log(newUrl)
-
+          let profile = await jwtLoginUtility()
+          props.setUser(profile.firstName, profile.lastName, profile.email, profile.admin, profile.birthday, profile.card_info, profile.active, profile.billing_address, profile.promos)
           console.log("bye")
           nav(newUrl, {replace:true})
           //nav("/", {replace:true})
         }
       }
-      window.location.reload()
     }} else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
