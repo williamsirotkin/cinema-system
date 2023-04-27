@@ -59,7 +59,7 @@ function MainNavbar(props) {
 
   let userSpecificComponent = <div className = "the-row">
     <Nav.Link href="/">Home</Nav.Link>
-    <Nav.Link href="/selectMovie/filter/Movies"> Booking </Nav.Link>
+    <Nav.Link href="/selectMovie/showingNow"> Booking </Nav.Link>
   <Nav.Link href="/orderHistory"> Order History </Nav.Link></div>
 
   if (props.user.admin) {
