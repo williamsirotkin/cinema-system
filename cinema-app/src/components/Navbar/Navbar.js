@@ -73,7 +73,7 @@ function MainNavbar(props) {
 
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar variant= "light" className="marc2" expand="lg">
       <Container className = "navbar">
         <img src = {require("../../assets/cinema-logo.png")} alt = "image" height = "60"></img>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

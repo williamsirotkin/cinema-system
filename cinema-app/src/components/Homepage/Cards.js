@@ -45,7 +45,7 @@ export default function Cards(data) {
   }
 
   return (
-    <div>
+    <div className = "marc">
         <Card className="text-center" style={{ width: '20.5rem'}}>
             {movieDisplay}
             <Card.Body>
