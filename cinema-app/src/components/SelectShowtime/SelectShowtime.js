@@ -199,7 +199,7 @@ function removePassedTimes(times) {
   let today = new Date()
     let hours = today.getHours()
     let month = today.getMonth() + 1
-    let calendarDay = today.getDate() 
+    let calendarDay = today.getDate()
     let year = today.getFullYear()
 
   for (let i = 0; i < times.schedule.length; i++) {
@@ -208,7 +208,7 @@ function removePassedTimes(times) {
     var time = parts[4].split(":");
     var showtimeHours = time[0];
     var date = parts[1];
-    var showtimeDay = date.slice(0, -1);
+    var showtimeDay = parts[1];
     var showtimeMonth = monthMap[parts[2]];
     var showtimeYear = parts[3];
     showtimeHours = parseInt(showtimeHours)
