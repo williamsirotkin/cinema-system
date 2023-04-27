@@ -81,11 +81,12 @@ async function editStuff(){
         //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
+            window.location.reload()
           },2000)
           
       }
       else if(newPassword.length < 4 || newPassword.length > 16){
-        setPasswordError("Password must be more than 4 characters and less than 16 characters")
+        setPasswordError("Password must be between 4 to 16 characters")
       }
       else{
         const login = await loginUtility(email,password, false)
@@ -95,6 +96,7 @@ async function editStuff(){
           //setErrorMessage("Information was successfully changed")
           setTimeout(()=>{
             nav('/', {replace: true})
+            window.location.reload()
           },2000)
           
         }
@@ -120,6 +122,7 @@ const sendData = (cardInfo) =>{
   const handleClose = () => {
     setShow(false);
     nav('/')
+    window.location.reload()
   }
 
   const handleShow = () => {
