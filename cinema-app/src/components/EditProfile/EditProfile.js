@@ -9,6 +9,9 @@ import {useNavigate} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 
 
+// if (!user) {
+//   return <p>No access</p>;
+// }
 
 const EditProfile = ({ user }) => {
   let nav = useNavigate()
@@ -30,6 +33,8 @@ const EditProfile = ({ user }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [useCard, setUseCard] = useState(false)
   const email = user.email;
+
+
 
 function compileEditedUserJSON() {
      const userJSON = {
@@ -132,135 +137,141 @@ const sendData = (cardInfo) =>{
     return errors;
   };
 
-  return (
-    <div className="container">
-      <h1 className='register'>Edit Profile</h1>
-      <p className="error">{errorMessage}</p>
+  if(user){
+    return (
+      <div className="container">
+        <h1 className='register'>Edit Profile</h1>
+        <p className="error">{errorMessage}</p>
 
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicFirstName">
-          <Form.Label>Edit First Name</Form.Label>
-          <Form.Control 
-            type="text"
-            placeholder= {firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </Form.Group>
-        <p className='error'>{formErrors.firstName}</p>
-
-        <Form.Group controlId="formBasicLastName">
-          <Form.Label>Edit Last Name</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder= {lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </Form.Group>
-        <p className='error'>{formErrors.lastName}</p>
-
-        <Button variant="btn btn-secondary mt-3 " size="md"
-        onClick={() => setOpen2(!open2)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open2}>
-
-          Edit password
-        </Button>
-        <Collapse in={open2}>
-        <div id="example-collapse-text">
-        <Form.Group controlId="formBasicFirstName">
-          <Form.Label>Current password</Form.Label>
-          <Form.Control 
-            type="password" 
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          </Form.Group>
-
+        <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicFirstName">
-          <Form.Label>Enter New Password</Form.Label>
-          <Form.Control 
-            type="password" 
-            placeholder="Enter new password"
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
+            <Form.Label>Edit First Name</Form.Label>
+            <Form.Control 
+              type="text"
+              placeholder= {firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
           </Form.Group>
-          <p className='error'>{passwordErrorMsg}</p>
-        </div>
-        </Collapse>
-          <Form.Group controlId="formBasicBillingAddress">
-              <Form.Label>Billing Address</Form.Label>
-              <Form.Control
-                  type="text"
-                  placeholder= {billingAddress}
-                  onChange={(e) => setBillingAddress(e.target.value)}
-              />
+          <p className='error'>{formErrors.firstName}</p>
+
+          <Form.Group controlId="formBasicLastName">
+            <Form.Label>Edit Last Name</Form.Label>
+            <Form.Control 
+              type="text" 
+              placeholder= {lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
           </Form.Group>
+          <p className='error'>{formErrors.lastName}</p>
+
+          <Button variant="btn btn-secondary mt-3 " size="md"
+          onClick={() => setOpen2(!open2)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open2}>
+
+            Edit password
+          </Button>
+          <Collapse in={open2}>
+          <div id="example-collapse-text">
+          <Form.Group controlId="formBasicFirstName">
+            <Form.Label>Current password</Form.Label>
+            <Form.Control 
+              type="password" 
+              placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicFirstName">
+            <Form.Label>Enter New Password</Form.Label>
+            <Form.Control 
+              type="password" 
+              placeholder="Enter new password"
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            </Form.Group>
+            <p className='error'>{passwordErrorMsg}</p>
+          </div>
+          </Collapse>
+            <Form.Group controlId="formBasicBillingAddress">
+                <Form.Label>Billing Address</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder= {billingAddress}
+                    onChange={(e) => setBillingAddress(e.target.value)}
+                />
+            </Form.Group>
 
 
 
-          <Form.Group controlId="formBirthday">
-              <Form.Label>Birthday</Form.Label>
-              <Form.Control
-                  type="text"
-                  placeholder= {birthday}
-                 // value={birthday}
-                  onChange={(e) => setBirthday(e.target.value)}
-              />
-          </Form.Group>
-      <br></br>
-      <hr></hr>
-        
+            <Form.Group controlId="formBirthday">
+                <Form.Label>Birthday</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder= {birthday}
+                  // value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
+                />
+            </Form.Group>
         <br></br>
-        <Form.Check
-          type="switch"
-          id="custom-switch"
-          label="Register for Promotions"
-          defaultChecked={switchState}
-          onChange={handleChange}/>
+        <hr></hr>
+          
+          <br></br>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            label="Register for Promotions"
+            defaultChecked={switchState}
+            onChange={handleChange}/>
 
-        <Button variant="dark mt-3 " size="lg"
-        onClick={() => setOpen(!open)} 
-        aria-controls="example-collapse-text"
-        aria-expanded={open}>
-          Edit Credit Card
-        </Button>
-        <Collapse in={open}>
-        <div id="example-collapse-text">
-          <CardForm sendData = {sendData} isClicked={setUseCard}></CardForm>
-        </div>
-        </Collapse>
+          <Button variant="dark mt-3 " size="lg"
+          onClick={() => setOpen(!open)} 
+          aria-controls="example-collapse-text"
+          aria-expanded={open}>
+            Edit Credit Card
+          </Button>
+          <Collapse in={open}>
+          <div id="example-collapse-text">
+            <CardForm sendData = {sendData} isClicked={setUseCard}></CardForm>
+          </div>
+          </Collapse>
 
-        <br></br>
-        <br></br>
+          <br></br>
+          <br></br>
 
-        <Modal
-              show={show}
-              onHide={handleClose}
-              backdrop="static"
-              keyboard={false}
-            >
-            <Modal.Header closeButton>
-            <Modal.Title>Hooray!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Your information has been successfully changed
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        
-        <div className='text-center'>
-          <hr></hr>
-        <Button variant="btn btn-danger" type="submit">
-          Confirm changes
-        </Button>
-        </div>
-      </Form>
-    </div>
-  );
+          <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+              >
+              <Modal.Header closeButton>
+              <Modal.Title>Hooray!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Your information has been successfully changed
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          
+          <div className='text-center'>
+            <hr></hr>
+          <Button variant="btn btn-danger" type="submit">
+            Confirm changes
+          </Button>
+          </div>
+        </Form>
+      </div>
+    );
+  } else { 
+    return (
+      <h1> You are not authorized to view this page </h1>
+    )
+  } 
 }
 
 export default  EditProfile;
