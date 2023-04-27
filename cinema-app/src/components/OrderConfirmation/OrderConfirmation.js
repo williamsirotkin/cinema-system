@@ -4,6 +4,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { formatShowtime } from '../CheckoutPage/CheckoutPage';
 export default function OrderConfirmation(props) {
+  console.log(props.seats)
   let params = useParams()
   let nav = useNavigate()
 

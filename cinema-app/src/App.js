@@ -233,7 +233,7 @@ function App() {
 
       <Route path = "/orderConfirmation/:movie" element={
           <React.Fragment>
-            <OrderConfirmation total = {total} creditCard = {creditCard} adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seatsSelected} tickets = {tickets} showtime = {movieShowtime} room = {movieRoom}/>
+            <OrderConfirmation total = {total} creditCard = {creditCard} adult ={seats[0]} child={seats[1]} senior={seats[2]} seats = {seats} tickets = {tickets} showtime = {movieShowtime} room = {movieRoom}/>
           </React.Fragment>
       }></Route>
 
