@@ -107,7 +107,7 @@ def schedule_movie():
             'showtime': datetime.fromisoformat(showtime),
             'movie_id': ObjectId(data.get('movie_id')),
             'movie_title': data.get('movie_title'),
-            'seats_available': [True] * 25,
+            'seats_available': [True] * 38,
         } for showtime in showtimes]
     except KeyError as e:
         missing_key = str(e).strip("'")
