@@ -45,8 +45,11 @@ useEffect(()=>{
 useEffect(()=>{
   (async()=>{
     let result = await getDatesByTitle(movieTitle)
-    console.log(result.schedule)
+    console.log(result)
     result = removePassedTimes(result)
+    if (result.length == 0) {
+      result = null
+    }
     setSchedule(result.schedule)
     let tempMap = {}
     let seen = new Set()
@@ -54,6 +57,7 @@ useEffect(()=>{
     result = {
       schedule: result
     }
+    console.log(result)
     for (let i = 0; i < result.schedule.length; i++) {
       if (!seen.has(result.schedule[i].showtime)) {
         if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
