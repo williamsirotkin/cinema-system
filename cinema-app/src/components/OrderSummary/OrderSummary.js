@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { round } from 'lodash';
 import SelectedSeats from '../SelectSeats/SelectSeats';
 import { getPromoValueUtility } from '../../utility/getPromoValueUtility';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 
 function OrderSummary(props) {
@@ -14,6 +15,7 @@ function OrderSummary(props) {
   let params = useParams()
   const [inputValue, setInputValue] = useState('');
   const [promo, setPromo] = useState('')
+  const [promoName, setPromoName] = useState('')
   const [promoValue, setPromoValue] = useState(0)
   const [subtractedAdultTickets, setSubtractedAdultTickets] = useState(0)
   const [subtractedChildTickets, setSubtractedChildTickets] = useState(0)
@@ -44,8 +46,9 @@ function OrderSummary(props) {
 
   let promotionComponent;
   if (promoValue > 0) {
-    promotionComponent = <div class="d-flex justify-content-between">
-  <p class="fs-6">Promotion</p>
+    promotionComponent = <div class="d-flex justify-content-between"> 
+  <p class="fs-6">Promotion ({promoName}) <CloseButton onClick={() => handleremovePromo()}  size="sm" /></p>
+  {/* <CloseButton onClick={() => handleremovePromo()}  size="sm" /> */}
   <p class="fs-5">-${parseFloat(promoValue, 2).toFixed(2)}</p>
   </div>
   }
@@ -123,6 +126,7 @@ function OrderSummary(props) {
     let promoValue = await getPromoValueUtility(inputValue)
     await setPromo(promoValue)
     console.log(promoValue)
+    setPromoName(inputValue)
     if (promoValue.discountType == '$') {
       if (promoValue.discountAmnt <= total) {
         await setPromoValue(parseFloat(promoValue.discountAmnt).toFixed(2))
@@ -137,6 +141,13 @@ function OrderSummary(props) {
     }
     console.log(total)
   }
+
+  const handleremovePromo = () => {
+    setPromoValue(0)
+    setPromo('')
+    promotionComponent = <div class="d-flex justify-content-between"></div>
+    console.log("done")
+  };
 
   const handleDelete = (id) => {
     setPromoValue(0)
@@ -215,7 +226,7 @@ function OrderSummary(props) {
         <p class="fs-5">${parseFloat(total * BOOKING_FEE_PERCENTAGE, 2).toFixed(2)}</p>
         </div>
 
-        {promotionComponent}
+        {promotionComponent} 
         <div class="d-flex justify-content-between">
         <p class="fs-4">TOTAL</p>
         <p class="fs-4">${parseFloat(total - promoValue + total * BOOKING_FEE_PERCENTAGE, 2).toFixed(2)}</p>
