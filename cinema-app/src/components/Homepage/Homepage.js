@@ -74,6 +74,7 @@ export default function Homepage(props) {
 
   return (
     <div className = "homepage">
+
     <div className='homepageTitles'> 
     &nbsp; &nbsp; &nbsp; 
     <h1> Showing Now </h1> 

@@ -77,12 +77,12 @@ function MainNavbar(props) {
       <Container className = "navbar">
         <img src = {require("../../assets/cinema-logo.png")} alt = "image" height = "60"></img>
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <Navbar.Brand href="/"> E-Booking Cinema System </Navbar.Brand>
+        <Navbar.Brand href="/"> Cinema 130s E-booking System </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           <Dropdown>
-          <Dropdown.Toggle>
+          <Dropdown.Toggle variant='danger'>
             Category
           </Dropdown.Toggle>
           &nbsp;
@@ -103,7 +103,7 @@ function MainNavbar(props) {
           <div className="search-bar" >
             <div className="input-group" >
             <input type="search" className="form-control rounded" value = {searchBarInput} onChange = {handleInputChange} placeholder="Search"  />
-            <Link to ={"/selectMovie/filter/" + "Results for " + "'" + searchBarInput + "'"}><button type="button"  onClick = {() => handleSearch(props.setMovies, searchBarInput)} className="btn btn-primary">
+            <Link to ={"/selectMovie/filter/" + "Results for " + "'" + searchBarInput + "'"}><button type="button"  onClick = {() => handleSearch(props.setMovies, searchBarInput)} className="btn btn-danger">
             <BsSearch/>
             </button>
             </Link>

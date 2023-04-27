@@ -171,7 +171,8 @@ function App() {
     return <div><h1>Loading Page</h1> </div>
   } else {
   return (
-    <Router>
+    <div className = "homepage3">
+    <Router >
        <MainNavbar user={user} loggedIn={loggedIn} setMovies={setMoviesFunc}/>
     <Routes>
 
@@ -337,6 +338,7 @@ function App() {
     
 
     </Router>
+    </div>
   );
     }
 }

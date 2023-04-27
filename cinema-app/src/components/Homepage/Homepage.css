@@ -6,6 +6,21 @@
     text-align: center;
 }
 
+.home-img {
+    width: 100;
+    height:100
+}
+
+.col1 {
+    width: 700px
+}
+
+.row1 {
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .showtimes {
     gap: 10px;
     margin-bottom: 10px;
