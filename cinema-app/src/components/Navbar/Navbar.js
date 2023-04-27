@@ -13,6 +13,7 @@ import { searchMoviesByCategoryUtility } from '../../utility/searchMoviesByCateg
 import { getAllMovies } from '../../utility/getAllMoviesUtility';
 import styled from "styled-components";
 import {BsArrowLeftRight, BsSearch} from "react-icons/bs";
+import OrderHistory from '../orderHistory/OrderHistory';
 
 
 
@@ -39,6 +40,10 @@ function MainNavbar(props) {
     setSearchBarInput(event.target.value);
   }
   
+  let orderHistoryComponent;
+  if (props.user) {
+    orderHistoryComponent = <Nav.Link href="/orderHistory"> Order History </Nav.Link>
+  } 
   let profileComponent;
   if (props.loggedIn || props.user) {
     profileComponent = <NavDropdown title= {props.user.firstName} id="basic-nav-dropdown">
@@ -60,7 +65,7 @@ function MainNavbar(props) {
   let userSpecificComponent = <div className = "the-row">
     <Nav.Link href="/">Home</Nav.Link>
     <Nav.Link href="/selectMovie/showingNow"> Booking </Nav.Link>
-  <Nav.Link href="/orderHistory"> Order History </Nav.Link></div>
+  {orderHistoryComponent}</div>
 
   if (props.user.admin) {
     userSpecificComponent = <div className = "the-row">

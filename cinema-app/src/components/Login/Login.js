@@ -90,6 +90,9 @@ const Login = (props) => {
           //nav("/", {replace:true})
         }
       }
+      if (location.pathname === '/login') {
+        window.location.reload()
+      }
     }} else {
       setErrorMessage('Wrong Email/Password Please Try Again')
     }
