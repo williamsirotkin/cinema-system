@@ -228,7 +228,8 @@ function getAvailableShowTimes(takenShowTimes) {
   console.log(today)
   let hours = today.getHours()
   let dayOfWeek = today.getDay()
-  let calendarDay = today.getUTCDay() + 2
+  let calendarDay = today.getDate() 
+  console.log(calendarDay)
   let month = today.getMonth()
   let year = today.getFullYear()
   let numHoursRemoved = Math.max(0, Math.ceil((hours - 12) / 3))
@@ -244,6 +245,7 @@ function getAvailableShowTimes(takenShowTimes) {
       month: month + Math.floor((calendarDay + Math.floor(i / 4 + numHoursRemoved) - 1) / (new Date(year, month+1, 0).getDate())),
       year: year + Math.floor((month + Math.min(calendarDay, 32)) / 31)
     }
+    console.log(calendarDay, month)
     let tempBool = true
     if (takenShowTimes) {
     for (let i = 0; i < takenShowTimes.length; i++) {
