@@ -185,7 +185,7 @@ function CheckoutPage(props) {
     }
     console.log(chosenCard.type)
     if (chosenCard.type) {
-      props.setTotal(total)
+      props.setTotal(total - props.promoValue)
       props.setCreditCard(chosenCard.type, chosenCard.number)
       sendEmailConfirmation();
       nav("/OrderConfirmation/" + params.movie)
