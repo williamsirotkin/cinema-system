@@ -44,11 +44,16 @@ useEffect(()=>{
 
 useEffect(()=>{
   (async()=>{
-    const result = await getDatesByTitle(movieTitle)
+    let result = await getDatesByTitle(movieTitle)
     console.log(result.schedule)
+    result = removePassedTimes(result)
     setSchedule(result.schedule)
     let tempMap = {}
     let seen = new Set()
+    console.log(result)
+    result = {
+      schedule: result
+    }
     for (let i = 0; i < result.schedule.length; i++) {
       if (!seen.has(result.schedule[i].showtime)) {
         if (!tempMap[result.schedule[i].showtime.substring(0, 11)]) {
@@ -171,6 +176,61 @@ function formatTime(time) {
     temp -= 12
   }
   return temp + ":00 PM"
+}
+
+function removePassedTimes(times) {
+  console.log(times)
+  var monthMap = {
+    Jan: 1,
+    Feb: 2,
+    Mar: 3,
+    Apr: 4,
+    May: 5,
+    Jun: 6,
+    Jul: 7,
+    Aug: 8,
+    Sep: 9,
+    Oct: 10,
+    Nov: 11,
+    Dec: 12
+  };
+  
+  let temp = []
+  let today = new Date()
+    let hours = today.getHours()
+    let month = today.getMonth() + 1
+    let calendarDay = today.getDate() 
+    let year = today.getFullYear()
+
+  for (let i = 0; i < times.schedule.length; i++) {
+    let showtime = times.schedule[i].showtime
+    var parts = showtime.split(" ");
+    var time = parts[4].split(":");
+    var showtimeHours = time[0];
+    var date = parts[1];
+    var showtimeDay = date.slice(0, -1);
+    var showtimeMonth = monthMap[parts[2]];
+    var showtimeYear = parts[3];
+    showtimeHours = parseInt(showtimeHours)
+    showtimeDay = parseInt(showtimeDay)
+    showtimeYear = parseInt(showtimeYear)
+    console.log(showtimeHours, showtimeDay, showtimeMonth, showtimeYear, hours, calendarDay, month, year)
+    let val1 = silvermanAlgorithm(showtimeHours, showtimeDay, showtimeMonth, showtimeYear)
+    let val2 = silvermanAlgorithm(hours, calendarDay, month, year)
+    console.log(val1, val2)
+    if (val1 > val2) {
+      console.log(times.schedule[i])
+      temp.push(times.schedule[i])
+    }
+
+    
+  }
+  console.log(temp)
+  return temp
+}
+
+function silvermanAlgorithm(hours, days, months, years) {
+  return hours + days * 24 + months * 24 * 100 + years * 24 * 30 * 1000
 }
 
 export default SelectShowtimes;
