@@ -47,8 +47,7 @@ function OrderSummary(props) {
   let promotionComponent;
   if (promoValue > 0) {
     promotionComponent = <div class="d-flex justify-content-between"> 
-  <p class="fs-6">Promotion ({promoName}) <CloseButton onClick={() => handleremovePromo()}  size="sm" /></p>
-  {/* <CloseButton onClick={() => handleremovePromo()}  size="sm" /> */}
+  <p class="fs-6">Promotion ({promoName}) <CloseButton className="removeButton" onClick={() => handleremovePromo()}  size="sm" /></p>
   <p class="fs-5">-${parseFloat(promoValue, 2).toFixed(2)}</p>
   </div>
   }

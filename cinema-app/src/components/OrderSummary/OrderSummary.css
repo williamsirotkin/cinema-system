@@ -30,6 +30,11 @@
     margin-top: 20px;
     justify-content: center;
 }
+.removeButton{
+    scale: 0.75;
+    position:relative;
+    top: 3.5px;
+}
 .fs-5:nth-child(1),.fs-6,.fs-4{
     font-weight: bold;
 
